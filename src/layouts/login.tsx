@@ -1,11 +1,11 @@
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { useUser } from "../context/UserContext";
-import { Navigate, redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 const Login = () => {
   const { user, setUser }: any = useUser();
-  if (user != "none") {
+  if (user !== "none") {
     console.log(user);
     return <Navigate to="/" />;
   }
