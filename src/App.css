@@ -36,3 +36,22 @@
     transform: rotate(360deg);
   }
 }
+
+.bg-dark-elements {
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 31 31 / var(--tw-bg-opacity));
+}
+.text-prompt {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: -0.02rem;
+  font-weight: 300;
+}
+
+.font-Poppins {
+  font-family: Poppins, sans-serif;
+}
+
+.font-Overpass {
+  font-family: "Overpass", sans-serif;
+}
