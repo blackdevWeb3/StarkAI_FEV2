@@ -10,16 +10,20 @@ const Login = () => {
     return <Navigate to="/" />;
   }
   return (
-    <GoogleLogin
-      onSuccess={(credentialResponse) => {
-        if (!credentialResponse.credential) return;
-        let data: { email: string } = jwtDecode(credentialResponse.credential);
-        setUser(JSON.stringify(data));
-      }}
-      onError={() => {
-        console.log("Login Failed");
-      }}
-    />
+    <>
+      <GoogleLogin
+        onSuccess={(credentialResponse) => {
+          if (!credentialResponse.credential) return;
+          let data: { email: string } = jwtDecode(
+            credentialResponse.credential
+          );
+          setUser(JSON.stringify(data));
+        }}
+        onError={() => {
+          console.log("Login Failed");
+        }}
+      />
+    </>
   );
 };
 
