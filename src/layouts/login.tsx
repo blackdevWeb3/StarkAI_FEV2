@@ -6,7 +6,7 @@ import { Icon } from "@iconify/react";
 
 const Login = () => {
   const { user, setUser }: any = useUser();
-  if (user && user != "none") {
+  if (user && user !== "none") {
     console.log(user);
     return <Navigate to="/" />;
   }
