@@ -1,6 +1,12 @@
 import { Icon } from "@iconify/react";
+import { useState } from "react";
 
 const Header = () => {
+  const [dropState, SetDropState] = useState(false);
+  const dropDownHandler = () => {
+    SetDropState(!dropState);
+  };
+
   return (
     <div className="px-4 md:px-6 lg:px-14 xl:px-[calc((100vw-var(--max-width))/2)] fixed top-0 bg-darkBackground z-20 w-full">
       <div className="w-full max-w-[1176px] mx-auto flex justify-between items-center border-b border-white border-opacity-10 h-12 gap-5">
@@ -25,7 +31,10 @@ const Header = () => {
             />
           </a>
           <span className="relative px-2">
-            <button className="group flex h-full items-center gap-2 peer/anchor flex-row">
+            <button
+              className="group flex h-full items-center gap-2 peer/anchor flex-row"
+              onClick={dropDownHandler}
+            >
               <div className="w-5 h-5 bg-white bg-opacity-25 rounded-full">
                 <Icon
                   icon="lets-icons:user-fill"
@@ -34,40 +43,53 @@ const Header = () => {
               </div>
               <span className="text-white">Sven</span>
               <Icon
-                icon="carbon:chevron-up"
+                icon={`carbon:chevron-${dropState ? "up" : "down"}`}
                 className="text-white opacity-60 group-hover:opacity-100 duration-200"
               />
             </button>
-            <ul className="flex-col gap-2.5 absolute top-[calc(100%_+_4px)] right-0 p-4 rounded-[10px] bg-dark-elements shadow-popup min-w-[180px] z-20 flex">
-              <li>
-                <a href="/profile" className="text-[14px]">
-                  Profile
-                </a>
-              </li>
-              <li>
-                <a
-                  target="_blank"
-                  className="text-[14px]"
-                  rel="noopener noreferrer"
-                  href="https://discord.gg/pika"
-                >
-                  Help
-                </a>
-              </li>
-              <li>
-                <a href="/profile" className="text-[14px]">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="/profile" className="text-[14px]">
-                  Careers
-                </a>
-              </li>
-              <li className="h-px w-full bg-white opacity-20"></li>
-
-              <li className="h-px w-full bg-white opacity-20"></li>
-            </ul>
+            {dropState && (
+              <ul className="flex-col gap-2.5 absolute top-[40px] right-0 p-4 rounded-[10px] bg-dark-elements shadow-popup min-w-[180px] z-20 flex">
+                <li>
+                  <a href="/profile" className="text-[14px]">
+                    Profile
+                  </a>
+                </li>
+                <li>
+                  <a
+                    target="_blank"
+                    className="text-[14px]"
+                    rel="noopener noreferrer"
+                    href="https://discord.gg/pika"
+                  >
+                    Help
+                  </a>
+                </li>
+                <li>
+                  <a href="/profile" className="text-[14px]">
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a href="/profile" className="text-[14px]">
+                    Careers
+                  </a>
+                </li>
+                <li className="h-px w-full bg-white opacity-20"></li>
+                <li>
+                  <a
+                    href="/"
+                    className="flex flex-row gap-2 text-[14px] items-center"
+                  >
+                    <Icon
+                      icon="material-symbols-light:logout-rounded"
+                      className="w-6 h-6"
+                    />
+                    Log out
+                  </a>
+                </li>
+                <li className="h-px w-full bg-white opacity-20"></li>
+              </ul>
+            )}
           </span>
         </div>
       </div>

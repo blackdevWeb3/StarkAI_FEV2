@@ -1,7 +1,7 @@
 import { useUser } from "../context/UserContext";
 import { Navigate } from "react-router-dom";
 import Header from "./Header";
-import Footer from "./Foooter";
+import Footer from "./Footer";
 import MainBoard from "./MainBoard";
 
 const Dashboard = () => {
