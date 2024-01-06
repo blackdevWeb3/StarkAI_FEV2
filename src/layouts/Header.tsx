@@ -24,7 +24,51 @@ const Header = () => {
               height="22"
             />
           </a>
-          <span></span>
+          <span className="relative px-2">
+            <button className="group flex h-full items-center gap-2 peer/anchor flex-row">
+              <div className="w-5 h-5 bg-white bg-opacity-25 rounded-full">
+                <Icon
+                  icon="lets-icons:user-fill"
+                  className="w-5 h-5 rounded-full relative top-0.5 overflow-hidden"
+                />
+              </div>
+              <span className="text-white">Sven</span>
+              <Icon
+                icon="carbon:chevron-up"
+                className="text-white opacity-60 group-hover:opacity-100 duration-200"
+              />
+            </button>
+            <ul className="flex-col gap-2.5 absolute top-[calc(100%_+_4px)] right-0 p-4 rounded-[10px] bg-dark-elements shadow-popup min-w-[180px] z-20 flex">
+              <li>
+                <a href="/profile" className="text-[14px]">
+                  Profile
+                </a>
+              </li>
+              <li>
+                <a
+                  target="_blank"
+                  className="text-[14px]"
+                  rel="noopener noreferrer"
+                  href="https://discord.gg/pika"
+                >
+                  Help
+                </a>
+              </li>
+              <li>
+                <a href="/profile" className="text-[14px]">
+                  About
+                </a>
+              </li>
+              <li>
+                <a href="/profile" className="text-[14px]">
+                  Careers
+                </a>
+              </li>
+              <li className="h-px w-full bg-white opacity-20"></li>
+
+              <li className="h-px w-full bg-white opacity-20"></li>
+            </ul>
+          </span>
         </div>
       </div>
     </div>
