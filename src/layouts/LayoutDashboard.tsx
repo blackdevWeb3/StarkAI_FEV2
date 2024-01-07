@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Dashboard = () => {
+const LayoutDashboard = () => {
   return (
     <div className="h-screen w-full bg-darkPrimary">
       <div className="w-full max-w-[1400px] mx-auto flex flex-row h-full">
@@ -25,4 +25,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default LayoutDashboard;

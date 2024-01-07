@@ -6,10 +6,10 @@ import { Icon } from "@iconify/react";
 
 const Login = () => {
   const { user, setUser }: any = useUser();
-  if (user && user !== "none") {
-    console.log(user);
-    return <Navigate to="/app/dashboard" />;
-  }
+  // if (user && user !== "none") {
+  //   console.log(user);
+  //   return <Navigate to="/app/dashboard" />;
+  // }
   return (
     <div className="p-10 w-full h-screen bg-black">
       <div className="w-full h-full flex flex-row justify-between items-center">
