@@ -68,7 +68,7 @@ const AppHeader = () => {
                 id="dropdown"
               >
                 <li>
-                  <a href="/profile" className="text-[14px]">
+                  <a href="/app/profile" className="text-[14px]">
                     Profile
                   </a>
                 </li>

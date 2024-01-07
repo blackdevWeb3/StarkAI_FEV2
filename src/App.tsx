@@ -30,6 +30,15 @@ function App() {
             </>
           }
         />
+        <Route
+          path="/app/profile"
+          element={
+            <>
+              <AppHeader />
+              <Profile />
+            </>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
