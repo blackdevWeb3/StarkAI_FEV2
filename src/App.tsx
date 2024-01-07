@@ -4,7 +4,7 @@ import AppDashboard from "./layouts/App/AppDashboard";
 import Login from "./layouts/login";
 import Profile from "./components/Profile";
 import AppHeader from "./layouts/App/AppHeader";
-import Dashboard from "./layouts/Dashboard";
+import LayoutDashboard from "./layouts/LayoutDashboard";
 import Navbar from "./layouts/Navbar";
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
           element={
             <>
               <Navbar />
-              <Dashboard />
+              <LayoutDashboard />
             </>
           }
         />
