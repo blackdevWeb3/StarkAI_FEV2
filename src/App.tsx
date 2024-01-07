@@ -1,32 +1,26 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route, redirect } from "react-router-dom";
-import Dashboard from "./layouts/dashboard";
+import AppDashboard from "./layouts/App/AppDashboard";
 import Login from "./layouts/login";
 import Profile from "./components/Profile";
-import Header from "./layouts/Header";
+import AppHeader from "./layouts/App/AppHeader";
+import LayoutDashboard from "./layouts/LayoutDashboard";
+import Navbar from "./layouts/Navbar";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
         <Route
           path="/"
           element={
             <>
-              <Header /> <Dashboard />
+              <Navbar />
+              <LayoutDashboard />
             </>
           }
         />
-        <Route
-          path="/profile"
-          element={
-            <>
-              <Header />
-              <Profile />
-            </>
-          }
-        />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </BrowserRouter>
   );

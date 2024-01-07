@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 import React, { useState, useEffect } from "react";
 
-const Header = () => {
+const AppHeader = () => {
   const [dropState, SetDropState] = useState(false);
   const dropDownHandler = () => {
     SetDropState(!dropState);
@@ -115,4 +115,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default AppHeader;

@@ -6,6 +6,13 @@ module.exports = {
     extend: {
       colors: {
         darkBackground: "#0D0D0D",
+        darkPrimary: "#202125",
+        primaryColor: "#f2f3f5",
+      },
+      fontFamily: {
+        chakra: ["Chakra Petch", "sans-serif"],
+        Poppins: ["Poppins", "sans-serif"],
+        Overpass: ["Overpass", "sans-serif"],
       },
     },
   },

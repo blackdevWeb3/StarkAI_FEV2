@@ -1,8 +1,8 @@
-import { useUser } from "../context/UserContext";
+import { useUser } from "../../context/UserContext";
 import { Navigate } from "react-router-dom";
 import MainBoard from "./MainBoard";
 
-const Dashboard = () => {
+const AppDashboard = () => {
   const { user }: any = useUser();
 
   console.log(user);
@@ -16,4 +16,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default AppDashboard;
