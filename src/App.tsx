@@ -21,25 +21,6 @@ function App() {
           }
         />
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/app/dashboard" element={<></>} />
-        <Route path="/login" element={<Login />} />
-        <Route
-          path="/"
-          element={
-            <>
-              <AppHeader /> <AppDashboard />
-            </>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <>
-              <AppHeader />
-              <Profile />
-            </>
-          }
-        /> */}
       </Routes>
     </BrowserRouter>
   );
