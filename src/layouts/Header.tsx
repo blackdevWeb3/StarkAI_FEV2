@@ -1,11 +1,26 @@
 import { Icon } from "@iconify/react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Header = () => {
   const [dropState, SetDropState] = useState(false);
   const dropDownHandler = () => {
     SetDropState(!dropState);
   };
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      const dropDownElement = document.getElementById("dropdown");
+
+      if (dropDownElement && !dropDownElement.contains(event.target as Node)) {
+        SetDropState(false);
+      }
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
 
   return (
     <div className="px-4 md:px-6 lg:px-14 xl:px-[calc((100vw-var(--max-width))/2)] fixed top-0 bg-darkBackground z-20 w-full">
@@ -14,7 +29,7 @@ const Header = () => {
           STARK AI
         </h2>
         <div className="flex flex-row gap-8">
-          <a href="/">
+          <a href="https://twitter.com/Starkmetagame">
             <Icon
               icon="ri:twitter-x-fill"
               className="text-white opacity-60 hover:opacity-100 transition-opacity duration-300"
@@ -22,7 +37,7 @@ const Header = () => {
               height="22"
             />
           </a>
-          <a href="/">
+          <a href="https://discord.com/invite/starkmeta">
             <Icon
               icon="ic:round-discord"
               className="text-white opacity-60 hover:opacity-100 transition-opacity duration-300"
@@ -48,7 +63,10 @@ const Header = () => {
               />
             </button>
             {dropState && (
-              <ul className="flex-col gap-2.5 absolute top-[40px] right-0 p-4 rounded-[10px] bg-dark-elements shadow-popup min-w-[180px] z-20 flex">
+              <ul
+                className="flex-col gap-2.5 absolute top-[40px] right-0 p-4 rounded-[10px] bg-dark-elements shadow-popup min-w-[180px] z-20 flex"
+                id="dropdown"
+              >
                 <li>
                   <a href="/profile" className="text-[14px]">
                     Profile
