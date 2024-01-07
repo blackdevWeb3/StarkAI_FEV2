@@ -48,10 +48,63 @@
   font-weight: 300;
 }
 
-.font-Poppins {
-  font-family: Poppins, sans-serif;
+.primary-button {
+  background-color: #ff31f8;
+  background-image: linear-gradient(150deg, rgba(0, 0, 0, 0), #0751bf);
+  transition: background-color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-size: medium;
+  font-weight: 550;
+  color: white;
+  transition: all 0.3s ease-in-out;
+  border-radius: 15px;
+  height: 40px;
+  width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.font-Overpass {
-  font-family: "Overpass", sans-serif;
+.button-color {
+  background-color: #ff31f8;
+  background-image: linear-gradient(150deg, rgba(0, 0, 0, 0), #0751bf);
+  transition: background-color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.button-color:hover {
+  background-color: #a0339c;
+  transform: scale(0.97);
+}
+.primary-button:hover {
+  background-color: #a0339c;
+  transform: scale(0.97);
+}
+
+.dashboard-bg {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dashboard-bg::before {
+  content: "";
+  position: absolute;
+  background-image: url("../public/assets/characters/01.jpg");
+  height: 100vh;
+  opacity: 0.3;
+  width: 80%;
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
+}
+
+.background-board {
+  background-image: url("../public/assets/characters/background.jpg");
+  height: 100%;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: cover;
 }
