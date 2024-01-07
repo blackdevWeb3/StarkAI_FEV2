@@ -21,6 +21,15 @@ function App() {
           }
         />
         <Route path="/login" element={<Login />} />
+        <Route
+          path="/app/dashboard"
+          element={
+            <>
+              <AppHeader />
+              <AppDashboard />
+            </>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );
