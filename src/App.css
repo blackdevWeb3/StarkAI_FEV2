@@ -91,7 +91,7 @@
 .dashboard-bg::before {
   content: "";
   position: absolute;
-  background-image: url("../public/assets/characters/01.jpg");
+  /* background-image: url("../public/assets/characters/01.jpg"); */
   height: 100vh;
   opacity: 0.3;
   width: 80%;
@@ -107,8 +107,4 @@
   background-repeat: no-repeat;
   background-position: top center;
   background-size: cover;
-}
-
-.nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-MJoBVe {
-  background-color: #374151 !important;
 }
