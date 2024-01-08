@@ -20,7 +20,6 @@ const Login = () => {
       username: googleData.name,
       email: googleData.email,
     };
-    console.log(process.env.REACT_APP_BACKEND_API);
     const res = await axios.post(
       `${process.env.REACT_APP_BACKEND_API}/login`,
       data

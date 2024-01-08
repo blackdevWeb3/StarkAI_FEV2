@@ -1,10 +1,12 @@
 import { Icon } from "@iconify/react";
 import React, { useState, useEffect } from "react";
 import { useUser } from "../../context/UserContext";
+import { Navigate } from "react-router-dom";
 
 const AppHeader = () => {
-  const { user }: any = useUser();
+  const { user, setUser }: any = useUser();
   const [dropState, SetDropState] = useState(false);
+
   const dropDownHandler = () => {
     SetDropState(!dropState);
   };
@@ -24,6 +26,13 @@ const AppHeader = () => {
     };
   }, []);
 
+  if (user === undefined || user === "none") {
+    return <Navigate to="/login" />;
+  }
+
+  const handleLogout = () => {
+    setUser("none");
+  };
   return (
     <div className="px-4 md:px-6 lg:px-14 xl:px-[calc((100vw-var(--max-width))/2)] fixed top-0 bg-darkBackground z-20 w-full">
       <div className="w-full max-w-[1176px] mx-auto flex justify-between items-center border-b border-white border-opacity-10 h-12 gap-5">
@@ -97,8 +106,8 @@ const AppHeader = () => {
                 <li className="h-px w-full bg-white opacity-20"></li>
                 <li>
                   <a
-                    href="/"
                     className="flex flex-row gap-2 text-[14px] items-center"
+                    onClick={handleLogout}
                   >
                     <Icon
                       icon="material-symbols-light:logout-rounded"

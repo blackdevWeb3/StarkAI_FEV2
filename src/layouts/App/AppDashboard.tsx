@@ -5,7 +5,6 @@ import MainBoard from "./MainBoard";
 const AppDashboard = () => {
   const { user }: any = useUser();
 
-  console.log(user);
   if (user === undefined || user === "none") {
     return <Navigate to="/login" />;
   }
