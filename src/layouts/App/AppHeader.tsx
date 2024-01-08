@@ -1,7 +1,9 @@
 import { Icon } from "@iconify/react";
 import React, { useState, useEffect } from "react";
+import { useUser } from "../../context/UserContext";
 
 const AppHeader = () => {
+  const { user }: any = useUser();
   const [dropState, SetDropState] = useState(false);
   const dropDownHandler = () => {
     SetDropState(!dropState);
@@ -56,7 +58,7 @@ const AppHeader = () => {
                   className="w-5 h-5 rounded-full relative top-0.5 overflow-hidden"
                 />
               </div>
-              <span className="text-white">Sven</span>
+              <span className="text-white">{JSON.parse(user).username}</span>
               <Icon
                 icon={`carbon:chevron-${dropState ? "up" : "down"}`}
                 className="text-white opacity-60 group-hover:opacity-100 duration-200"
