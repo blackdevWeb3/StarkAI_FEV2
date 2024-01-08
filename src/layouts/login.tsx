@@ -3,13 +3,36 @@ import { jwtDecode } from "jwt-decode";
 import { useUser } from "../context/UserContext";
 import { Navigate, Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import axios from "axios";
 
 const Login = () => {
   const { user, setUser }: any = useUser();
   if (user && user !== "none") {
-    console.log(user);
     return <Navigate to="/app/dashboard" />;
   }
+
+  const onLogin = async (credentialResponse: any) => {
+    if (!credentialResponse.credential) return;
+    let googleData: { name: string; email: string } = jwtDecode(
+      credentialResponse.credential
+    );
+    const data = {
+      username: googleData.name,
+      email: googleData.email,
+    };
+    console.log(process.env.REACT_APP_BACKEND_API);
+    const res = await axios.post(
+      `${process.env.REACT_APP_BACKEND_API}/login`,
+      data
+    );
+    if (res.data.message === "Success") {
+      console.log("Success");
+    } else {
+      console.log("Fail");
+    }
+    setUser(JSON.stringify(data));
+  };
+
   return (
     <div className="p-10 w-full h-screen bg-black">
       <div className="w-full h-full flex flex-row justify-between items-center">
@@ -19,13 +42,7 @@ const Login = () => {
               <img src="./favicon.ico" className="w-[64px]" alt="logo" />
               <div className="text-md font-bold">Sign up or Login with</div>
               <GoogleLogin
-                onSuccess={(credentialResponse) => {
-                  if (!credentialResponse.credential) return;
-                  let data: { email: string } = jwtDecode(
-                    credentialResponse.credential
-                  );
-                  setUser(JSON.stringify(data));
-                }}
+                onSuccess={(credentialResponse) => onLogin(credentialResponse)}
                 onError={() => {
                   console.log("Login Failed");
                 }}
