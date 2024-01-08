@@ -49,15 +49,19 @@
 }
 
 .primary-button {
-  background-color: #ff31f8;
-  background-image: linear-gradient(150deg, rgba(0, 0, 0, 0), #0751bf);
-  transition: background-color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  background-size: 200% auto !important;
+  background-image: linear-gradient(
+    81.02deg,
+    #fa5560 -53.47%,
+    #b14bf4 25.52%,
+    #4d91ff 64.8%
+  ) !important;
+  transition: all 0.3s ease-in-out !important;
   font-size: medium;
   font-weight: 550;
   color: white;
   transition: all 0.3s ease-in-out;
-  border-radius: 15px;
+  border-radius: 10px;
   height: 40px;
   width: 160px;
   display: flex;
@@ -66,18 +70,22 @@
 }
 
 .button-color {
-  background-color: #ff31f8;
-  background-image: linear-gradient(150deg, rgba(0, 0, 0, 0), #0751bf);
-  transition: background-color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-    transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  background-size: 200% auto !important;
+  background-image: linear-gradient(
+    81.02deg,
+    #fa5560 -53.47%,
+    #b14bf4 25.52%,
+    #4d91ff 64.8%
+  ) !important;
+  transition: all 0.3s ease-in-out !important;
 }
 .button-color:hover {
-  background-color: #a0339c;
-  transform: scale(0.97);
+  background-position: 60% center !important;
+  cursor: pointer;
 }
 .primary-button:hover {
-  background-color: #a0339c;
-  transform: scale(0.97);
+  background-position: 60% center !important;
+  cursor: pointer;
 }
 
 .dashboard-bg {
