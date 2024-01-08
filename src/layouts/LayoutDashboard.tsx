@@ -4,9 +4,9 @@ const LayoutDashboard = () => {
   return (
     <div className="h-screen w-full bg-darkPrimary">
       <div className="w-full max-w-[1400px] mx-auto flex flex-row h-full">
-        <div className="w-1/2 h-full pr-5">
-          <div className="items-center justify-center flex flex-col dashboard-bg gap-2">
-            <span className="px-5 w-full h-[200px] text-white text-center font-semibold text-[24px] z-10 flex items-center">
+        <div className="w-1/2 h-full bg-black">
+          <div className="items-center justify-center flex flex-col w-full h-full gap-2">
+            <span className="w-full h-[200px] text-white text-center font-semibold text-[24px] z-10 flex items-center justify-center">
               A canvas of Infinite creativity for unique creators
             </span>
             <span className="z-[5] mt-[-30px] p-10 flex flex-col justify-center items-center gap-3 rounded-md">
