@@ -1,20 +1,23 @@
 import { Icon } from "@iconify/react";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const AppHeader = () => {
-  const [dropState, SetDropState] = useState(false);
-  const dropDownHandler = () => {
-    SetDropState(!dropState);
-  };
+  const [dropState, SetDropState] = useState<boolean>(false);
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
-      const dropDownElement = document.getElementById("dropdown");
-
-      if (dropDownElement && !dropDownElement.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        !dropdownButtonRef.current?.contains(event.target as Node)
+      ) {
         SetDropState(false);
       }
     };
+
     document.addEventListener("mousedown", handleOutsideClick);
 
     return () => {
@@ -22,12 +25,23 @@ const AppHeader = () => {
     };
   }, []);
 
+  useEffect(() => {
+    console.log("State:", dropState);
+  }, [dropState]);
+
   return (
     <div className="px-4 md:px-6 lg:px-14 xl:px-[calc((100vw-var(--max-width))/2)] fixed top-0 bg-darkBackground z-20 w-full">
       <div className="w-full max-w-[1176px] mx-auto flex justify-between items-center border-b border-white border-opacity-10 h-12 gap-5">
-        <h2 className="text-white font-semibold font-Overpass text-[32px] select-none">
-          STARK AI
-        </h2>
+        <div className="flex flex-row items-center gap-2">
+          <div className="flex flex-row">
+            <h1 className="text-[28px] font-semibold font-chakra text-primaryColor">
+              STARK.
+            </h1>
+            <h1 className="text-[28px] font-semibold font-chakra text-red-500">
+              AI
+            </h1>
+          </div>
+        </div>
         <div className="flex flex-row gap-8">
           <a href="https://twitter.com/Starkmetagame">
             <Icon
@@ -47,8 +61,10 @@ const AppHeader = () => {
           </a>
           <span className="relative px-2">
             <button
+              id="dropDownButton"
               className="group flex h-full items-center gap-2 peer/anchor flex-row"
-              onClick={dropDownHandler}
+              ref={dropdownButtonRef}
+              onClick={() => SetDropState(!dropState)}
             >
               <div className="w-5 h-5 bg-white bg-opacity-25 rounded-full">
                 <Icon
@@ -63,16 +79,17 @@ const AppHeader = () => {
               />
             </button>
             {dropState && (
-              <ul
+              <div
                 className="flex-col gap-2.5 absolute top-[40px] right-0 p-4 rounded-[10px] bg-dark-elements shadow-popup min-w-[180px] z-20 flex"
-                id="dropdown"
+                id="dropMenu"
+                ref={dropdownRef}
               >
-                <li>
+                <span>
                   <a href="/app/profile" className="text-[14px]">
                     Profile
                   </a>
-                </li>
-                <li>
+                </span>
+                <span>
                   <a
                     target="_blank"
                     className="text-[14px]"
@@ -81,32 +98,32 @@ const AppHeader = () => {
                   >
                     Help
                   </a>
-                </li>
-                <li>
+                </span>
+                <span>
                   <a href="/profile" className="text-[14px]">
                     About
                   </a>
-                </li>
-                <li>
+                </span>
+                <span>
                   <a href="/profile" className="text-[14px]">
                     Careers
                   </a>
-                </li>
-                <li className="h-px w-full bg-white opacity-20"></li>
-                <li>
+                </span>
+                <span className="h-px w-full bg-white opacity-20"></span>
+                <span>
                   <a
                     href="/"
                     className="flex flex-row gap-2 text-[14px] items-center"
                   >
                     <Icon
-                      icon="material-symbols-light:logout-rounded"
+                      icon="material-symbols-spanght:logout-rounded"
                       className="w-6 h-6"
                     />
                     Log out
                   </a>
-                </li>
-                <li className="h-px w-full bg-white opacity-20"></li>
-              </ul>
+                </span>
+                <span className="h-px w-full bg-white opacity-20"></span>
+              </div>
             )}
           </span>
         </div>
