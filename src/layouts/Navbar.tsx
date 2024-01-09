@@ -5,13 +5,13 @@ const Navbar = () => {
     <div className="w-full bg-darkBackground fixed top-0 h-16 z-10">
       <div className="w-full max-w-[1176px] mx-auto flex flex-row justify-between items-center h-full px-10">
         <div className="flex flex-row items-center gap-2">
-          <img src="./favicon.ico" alt="logo" className="w-[30px]" />
+          {/* <img src="./favicon.ico" alt="logo" className="w-[30px]" /> */}
           <div className="flex flex-row">
             <h1 className="text-[26px] font-semibold font-chakra text-primaryColor">
-              STARK.
+              STARK
             </h1>
-            <h1 className="text-[26px] font-semibold font-chakra text-red-500">
-              AI
+            <h1 className="text-[26px] font-semibold font-chakra text-deepPink">
+              .AI
             </h1>
           </div>
         </div>
