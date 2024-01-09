@@ -8,9 +8,12 @@ const AppDashboard = () => {
   if (user === undefined || user === "none") {
     return <Navigate to="/login" />;
   }
+
   return (
     <>
       <MainBoard />
+      {/* <img src={`data:image/png;base64, ${}`}/> */}
+      {/* <img src/> */}
     </>
   );
 };
