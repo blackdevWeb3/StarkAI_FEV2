@@ -38,7 +38,7 @@ const AppHeader = () => {
             <h1 className="text-[28px] font-semibold font-chakra text-primaryColor">
               STARK.
             </h1>
-            <h1 className="text-[28px] font-semibold font-chakra text-red-500">
+            <h1 className="text-[28px] font-semibold font-chakra text-deepPink">
               AI
             </h1>
           </div>
