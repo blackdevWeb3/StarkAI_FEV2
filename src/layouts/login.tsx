@@ -20,35 +20,35 @@ const Login = () => {
       username: googleData.name,
       email: googleData.email,
     };
-    // const res = await axios.post(
-    //   `${process.env.REACT_APP_BACKEND_API}/login`,
-    //   data
-    // );
-    // if (res.data.message === "Success") {
-    //   console.log("Success");
-    // } else {
-    //   console.log("Fail");
-    // }
-    // setUser(JSON.stringify(data));
-    const res = await fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    if (res.ok) {
-      const responseData = await res.json();
-      if (responseData.message === "Success") {
-        console.log("Success");
-      } else {
-        console.log("Fail");
-      }
-      setUser(JSON.stringify(data));
+    const res = await axios.post(
+      `${process.env.REACT_APP_BACKEND_API}/login`,
+      data
+    );
+    if (res.data.message === "Success") {
+      console.log("Success");
     } else {
-      console.log("Request failed with status:", res.status);
+      console.log("Fail");
     }
+    setUser(JSON.stringify(data));
+    // const res = await fetch("/api/login", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(data),
+    // });
+
+    // if (res.ok) {
+    //   const responseData = await res.json();
+    //   if (responseData.message === "Success") {
+    //     console.log("Success");
+    //   } else {
+    //     console.log("Fail");
+    //   }
+    //   setUser(JSON.stringify(data));
+    // } else {
+    //   console.log("Request failed with status:", res.status);
+    // }
   };
 
   return (
