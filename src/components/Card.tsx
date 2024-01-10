@@ -23,7 +23,6 @@ const Card = (props: any) => {
           style={{ borderRadius: "10px" }}
         />
       }
-      {/* <img width={240} height={240} /> */}
     </div>
   );
 };
