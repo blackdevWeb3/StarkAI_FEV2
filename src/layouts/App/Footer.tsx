@@ -11,17 +11,42 @@ const Footer = ({ onUpdate }: any) => {
   const handleSubmitButton = async () => {
     setGenerating(true);
     const data = { user: JSON.parse(user).email, text: generateText };
-    const res = await axios.post(
-      `${process.env.REACT_APP_BACKEND_API}/generate/text-to-image`,
-      data
-    );
-    if (res.data.message === "Success") {
-      console.log("Success");
-    } else {
-      console.log("Failed");
+    // const res = await axios.post(
+    //   `${process.env.REACT_APP_BACKEND_API}/generate/text-to-image`,
+    //   data
+    // );
+    // if (res.data.message === "Success") {
+    //   console.log("Success");
+    // } else {
+    //   console.log("Failed");
+    // }
+    // setGenerating(false);
+    // onUpdate();
+    try {
+      const res = await fetch(`/api/generate/text-to-image`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        const resData = await res.json();
+        if (resData.message === "Success") {
+          console.log("Success");
+        } else {
+          console.log("Failed");
+        }
+      } else {
+        console.log("Request failed with status:", res.status);
+      }
+    } catch (error) {
+      console.error("Error during fetch:", error);
+    } finally {
+      setGenerating(false);
+      onUpdate();
     }
-    setGenerating(false);
-    onUpdate();
   };
   return (
     <div className="fixed bottom-0 w-full z-10 bg-dark-background max-md:border-t border-t-white border-opacity-[.15] mt-10">
