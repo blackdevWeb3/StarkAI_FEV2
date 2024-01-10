@@ -1,10 +1,16 @@
 import { Icon } from "@iconify/react";
 import React, { useState, useEffect, useRef } from "react";
 import { useUser } from "../../context/UserContext";
+import { Navigate } from "react-router-dom";
 
 const AppHeader = () => {
-  const [dropState, SetDropState] = useState<boolean>(false);
-  const { user }: any = useUser();
+  const { user, setUser }: any = useUser();
+  const [dropState, SetDropState] = useState(false);
+
+  const dropDownHandler = () => {
+    SetDropState(!dropState);
+  };
+
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dropdownButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -29,6 +35,14 @@ const AppHeader = () => {
   useEffect(() => {
     console.log("State:", dropState);
   }, [dropState]);
+
+  if (user === undefined || user === "none") {
+    return <Navigate to="/login" />;
+  }
+
+  const handleLogout = () => {
+    setUser("none");
+  };
 
   return (
     <div className="px-4 md:px-6 lg:px-14 xl:px-[calc((100vw-var(--max-width))/2)] fixed top-0 bg-darkBackground z-20 w-full">
@@ -113,8 +127,8 @@ const AppHeader = () => {
                 <span className="h-px w-full bg-white opacity-20"></span>
                 <span>
                   <a
-                    href="/"
-                    className="flex flex-row gap-2 text-[14px] items-center"
+                    className="flex flex-row gap-2 text-[14px] items-center cursor-pointer"
+                    onClick={handleLogout}
                   >
                     <Icon
                       icon="material-symbols-spanght:logout-rounded"
