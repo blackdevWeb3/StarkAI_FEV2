@@ -11,6 +11,14 @@ const AppHeader = () => {
     SetDropState(!dropState);
   };
 
+  const CommunityFeedHandler = () => {
+    alert("Community Feed Button Clicked");
+  };
+
+  const PersonalFeedHandler = () => {
+    alert("Personal Feed Button Clicked");
+  };
+
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dropdownButtonRef = useRef<HTMLButtonElement>(null);
 
@@ -45,8 +53,8 @@ const AppHeader = () => {
   };
 
   return (
-    <div className="px-4 md:px-6 lg:px-14 xl:px-[calc((100vw-var(--max-width))/2)] fixed top-0 bg-darkBackground z-20 w-full">
-      <div className="w-full max-w-[1176px] mx-auto flex justify-between items-center border-b border-white border-opacity-10 h-12 gap-5">
+    <div className="px-4 md:px-6 lg:px-14 xl:px-[calc((100vw-var(--max-width))/2)] fixed top-0 bg-darkBackground z-20 w-full border-b border-white border-opacity-10">
+      <div className="w-full max-w-[1176px] mx-auto flex justify-between items-center h-12 gap-5">
         <div className="flex flex-row items-center gap-2">
           <div className="flex flex-row">
             <h1 className="text-[28px] font-semibold font-chakra text-primaryColor">
@@ -57,7 +65,22 @@ const AppHeader = () => {
             </h1>
           </div>
         </div>
-        <div className="flex flex-row gap-8">
+
+        <div className="flex flex-row gap-8 justify-center items-center">
+          <button
+            className="flex flex-row gap-1 items-center opacity-60 hover:opacity-100 transition-opacity duration-300"
+            onClick={CommunityFeedHandler}
+          >
+            <Icon icon="mdi:users-group-outline" className="w-6 h-6" />
+            <span className="text-[14px]">Community Feed</span>
+          </button>
+          <button
+            onClick={PersonalFeedHandler}
+            className="flex flex-row gap-1 items-center opacity-60 hover:opacity-100 transition-opacity duration-300"
+          >
+            <Icon icon="ic:outline-dashboard" className="w-6 h-6" />
+            <span className="text-[14px]">Personal Feed</span>
+          </button>
           <a href="https://twitter.com/Starkmetagame">
             <Icon
               icon="ri:twitter-x-fill"
@@ -130,10 +153,7 @@ const AppHeader = () => {
                     className="flex flex-row gap-2 text-[14px] items-center cursor-pointer"
                     onClick={handleLogout}
                   >
-                    <Icon
-                      icon="material-symbols-spanght:logout-rounded"
-                      className="w-6 h-6"
-                    />
+                    <Icon icon="mynaui:logout" className="w-6 h-6" />
                     Log out
                   </a>
                 </span>
