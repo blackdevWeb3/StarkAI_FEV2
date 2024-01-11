@@ -69,7 +69,7 @@ const Footer = ({ onUpdate }: any) => {
               className="rounded-md bg-[#d93f3f] font-extra-thick flex items-center justify-center transition-colors disabled:cursor-not-allowed px-1.5 gap-1.5 py-1.5 !text-light-tertiary hover:bg-accent-hover text-dark-background bg-accent-primary"
             >
               {generating ? (
-                <div className="absolute flex w-[24px] h-[24px] justify-center items-center">
+                <div className="flex w-[24px] h-[24px] justify-center items-center">
                   <ClipLoader color="white" size={24} />
                 </div>
               ) : (
