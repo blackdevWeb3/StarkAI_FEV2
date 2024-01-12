@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useUser } from "../../context/UserContext";
 import { ClipLoader } from "react-spinners";
 
-const Footer = ({ onUpdate }: any) => {
+const AppFooter = ({ onUpdate }: any) => {
   const { user }: any = useUser();
   const [generateText, setGenerateText] = useState("");
   const [generating, setGenerating] = useState(false);
@@ -88,4 +88,4 @@ const Footer = ({ onUpdate }: any) => {
   );
 };
 
-export default Footer;
+export default AppFooter;

@@ -1,7 +1,7 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route, redirect } from "react-router-dom";
-import AppDashboard from "./layouts/App/AppDashboard";
-import Login from "./layouts/login";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AppMainBoard from "./layouts/App/AppMainBoard";
+import Login from "./layouts/LayoutLogin";
 import Profile from "./components/Profile";
 import AppHeader from "./layouts/App/AppHeader";
 import LayoutDashboard from "./layouts/LayoutDashboard";
@@ -26,7 +26,7 @@ function App() {
           element={
             <>
               <AppHeader />
-              <AppDashboard />
+              <AppMainBoard />
             </>
           }
         />

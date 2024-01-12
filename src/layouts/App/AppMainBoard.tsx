@@ -1,8 +1,8 @@
-import Footer from "./Footer";
 import AWS from "aws-sdk";
 import { useEffect, useState } from "react";
 import { useUser } from "../../context/UserContext";
 import Card from "../../components/Card";
+import AppFooter from "./AppFooter";
 
 AWS.config.update({
   accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
@@ -10,7 +10,7 @@ AWS.config.update({
   region: process.env.REACT_APP_BUCKET_REGION,
 });
 
-const MainBoard = () => {
+const AppMainBoard = () => {
   const s3 = new AWS.S3();
   const { user }: any = useUser();
   const [imageData, setImageData] = useState<string[]>([]);
@@ -63,9 +63,9 @@ const MainBoard = () => {
           ))}
         </div>
       )}
-      <Footer onUpdate={updateLibrary} />
+      <AppFooter onUpdate={updateLibrary} />
     </div>
   );
 };
 
-export default MainBoard;
+export default AppMainBoard;
