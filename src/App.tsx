@@ -19,15 +19,7 @@ function App() {
           }
         />
         <Route path="/login" element={<Login />} />
-        <Route path="/app" element={<AppLayout />} />
-        {/* <Route
-          path="/app/profile"
-          element={
-            <>
-              <Profile />
-            </>
-          }
-        /> */}
+        <Route path="/app/*" element={<AppLayout />} />
       </Routes>
     </BrowserRouter>
   );
