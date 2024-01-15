@@ -1,7 +1,14 @@
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import { useState } from "react";
+import NavLink from "../../components/Others/NavLink";
 
 const AppSlider = () => {
+  const [activeLink, setActiveLink] = useState("/app/");
+  const handleSetActiveLink = (path: string) => {
+    setActiveLink(path);
+  };
+
   return (
     <>
       <div className="flex flex-col border-r border-primary bg-black w-[270px] min-w-[270px] h-screen pt-[10px]">
@@ -15,36 +22,27 @@ const AppSlider = () => {
           </h1>
         </div>
         <div className="flex flex-col pt-10">
-          <Link
+          <NavLink
             to="/app/"
-            className="text-fontPrimary hover:text-white hover:bg-[#1b1c20]"
-          >
-            <span className="flex flex-row gap-2 items-center py-2 px-4">
-              <Icon icon="mdi:home-outline" className="w-6 h-6" />
-              <span className="text-[15px] font-chakra">Home</span>
-            </span>
-          </Link>
-          <Link
+            handleSetActiveLink={handleSetActiveLink}
+            activeLink={activeLink}
+            icon="mdi:home-outline"
+            text="Home"
+          />
+          <NavLink
             to="/app/community-feed/"
-            className="text-fontPrimary hover:text-white hover:bg-[#1b1c20]"
-          >
-            <span className="flex flex-row gap-[10px] items-center py-2 px-4">
-              <Icon icon="heroicons:user-group-solid" className="w-6 h-6" />
-              <span className="text-[15px] font-chakra">Community Feed</span>
-            </span>
-          </Link>
-          <Link
+            handleSetActiveLink={handleSetActiveLink}
+            activeLink={activeLink}
+            icon="heroicons:user-group-solid"
+            text="Community Feed"
+          />
+          <NavLink
             to="/app/personal-feed/"
-            className="text-fontPrimary hover:text-white hover:bg-[#1b1c20]"
-          >
-            <span className="flex flex-row gap-[10px] items-center py-[10px] px-4">
-              <Icon
-                icon="material-symbols:dashboard-outline"
-                className="w-6 h-6"
-              />
-              <span className="text-[15px] font-chakra">Personal Feed</span>
-            </span>
-          </Link>
+            handleSetActiveLink={handleSetActiveLink}
+            activeLink={activeLink}
+            icon="material-symbols:dashboard-outline"
+            text="Personal Feed"
+          />
           <Link to=""></Link>
           <Link to=""></Link>
         </div>
@@ -52,37 +50,29 @@ const AppSlider = () => {
           <span className="px-[14px] pb-2 text-[15px] font-chakra font-semibold text-fontPrimary">
             User Tools
           </span>
-          <Link
+          <NavLink
             to="/app/image-generator/"
-            className="text-fontPrimary hover:text-white hover:bg-[#1b1c20]"
-          >
-            <span className="flex flex-row gap-[10px] items-center py-[10px] px-4">
-              <Icon icon="prime:images" className="w-6 h-6" />
-              <span className="text-[15px] font-chakra">Image Generation</span>
-            </span>
-          </Link>
-          <Link
+            handleSetActiveLink={handleSetActiveLink}
+            activeLink={activeLink}
+            icon="prime:images"
+            text="Image Generation"
+          />
+          <NavLink
             to="/app/text-generator/"
-            className="text-fontPrimary hover:text-white hover:bg-[#1b1c20]"
-          >
-            <span className="flex flex-row gap-[10px] items-center py-[10px] px-4">
-              <Icon icon="f7:pencil-outline" className="w-6 h-6" />
-              <span className="text-[15px] font-chakra">
-                Texture Generation
-              </span>
-            </span>
-          </Link>
+            handleSetActiveLink={handleSetActiveLink}
+            activeLink={activeLink}
+            icon="f7:pencil-outline"
+            text="Texture Generation"
+          />
         </div>
         <div className="flex flex-col pt-10">
-          <Link
+          <NavLink
             to="/app/settings/"
-            className="text-fontPrimary hover:text-white hover:bg-[#1b1c20]"
-          >
-            <span className="flex flex-row gap-[10px] items-center py-[10px] px-4">
-              <Icon icon="mingcute:user-setting-line" className="w-6 h-6" />
-              <span className="text-[15px] font-chakra">Settings</span>
-            </span>
-          </Link>
+            handleSetActiveLink={handleSetActiveLink}
+            activeLink={activeLink}
+            icon="mingcute:user-setting-line"
+            text="Settings"
+          />
           <button className="text-fontPrimary hover:text-white hover:bg-[#1b1c20]">
             <span className="flex flex-row gap-[10px] items-center py-[10px] px-4">
               <Icon icon="mynaui:logout" className="w-6 h-6" />

@@ -1,7 +1,14 @@
 import { useState } from "react";
+import TabButton from "./TabButton";
+
+const tabs = [
+  { id: "commonTab", text: "Your Generations" },
+  { id: "followerTab", text: "Followers Feed" },
+  { id: "likedTab", text: "Liked Feed" },
+];
 
 const PersonalFeed = () => {
-  const [activeTab, setActiveTab] = useState("tab1");
+  const [activeTab, setActiveTab] = useState("commonTab");
   return (
     <>
       <div className="w-full bg-black h-screen pt-[29px] flex flex-col">
@@ -11,44 +18,23 @@ const PersonalFeed = () => {
         <div className="border-b border-gray-800 pl-8 pt-3">
           {/* Tab navigation */}
           <nav className="flex space-x-6">
-            <button
-              onClick={() => setActiveTab("tab1")}
-              className={`py-2 ${
-                activeTab === "tab1"
-                  ? "text-white border-b-2 border-blue-500"
-                  : "text-gray-400"
-              }`}
-            >
-              Your Generations
-            </button>
-            <button
-              onClick={() => setActiveTab("tab2")}
-              className={`py-2 ${
-                activeTab === "tab2"
-                  ? "text-white border-b-2 border-blue-500"
-                  : "text-gray-400"
-              }`}
-            >
-              Followers Feed
-            </button>
-            <button
-              onClick={() => setActiveTab("tab3")}
-              className={`py-2 ${
-                activeTab === "tab3"
-                  ? "text-white border-b-2 border-blue-500"
-                  : "text-gray-400"
-              }`}
-            >
-              Liked Feed
-            </button>
+            {tabs.map((tab) => (
+              <TabButton
+                key={tab.id}
+                tabId={tab.id}
+                text={tab.text}
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+              />
+            ))}
           </nav>
         </div>
 
         {/* Tab content */}
         <div className="flex-1">
-          {activeTab === "tab1" && <div>Content for Tab 1</div>}
-          {activeTab === "tab2" && <div>Content for Tab 2</div>}
-          {activeTab === "tab3" && <div>Content for Tab 3</div>}
+          {activeTab === "commonTab" && <div>Content for Tab 1</div>}
+          {activeTab === "followerTab" && <div>Content for Tab 2</div>}
+          {activeTab === "likedTab" && <div>Content for Tab 3</div>}
         </div>
       </div>
     </>
