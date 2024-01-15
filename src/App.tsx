@@ -1,11 +1,9 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AppMainBoard from "./layouts/App/AppMainBoard";
 import Login from "./layouts/LayoutLogin";
-import Profile from "./components/Profile";
-import AppHeader from "./layouts/App/AppHeader";
 import LayoutDashboard from "./layouts/LayoutDashboard";
 import Navbar from "./layouts/Navbar";
+import AppLayout from "./layouts/App/AppLayout";
 
 function App() {
   return (
@@ -21,24 +19,15 @@ function App() {
           }
         />
         <Route path="/login" element={<Login />} />
-        <Route
-          path="/app/dashboard"
-          element={
-            <>
-              <AppHeader />
-              <AppMainBoard />
-            </>
-          }
-        />
-        <Route
+        <Route path="/app" element={<AppLayout />} />
+        {/* <Route
           path="/app/profile"
           element={
             <>
-              <AppHeader />
               <Profile />
             </>
           }
-        />
+        /> */}
       </Routes>
     </BrowserRouter>
   );

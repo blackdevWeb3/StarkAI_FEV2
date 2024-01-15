@@ -8,7 +8,7 @@ import axios from "axios";
 const Login = () => {
   const { user, setUser }: any = useUser();
   if (user && user !== "none") {
-    return <Navigate to="/app/dashboard" />;
+    return <Navigate to="/app" />;
   }
 
   const onLogin = async (credentialResponse: any) => {
