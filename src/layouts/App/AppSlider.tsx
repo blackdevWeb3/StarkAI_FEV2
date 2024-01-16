@@ -30,21 +30,33 @@ const AppSlider = () => {
             text="Home"
           />
           <NavLink
-            to="/app/community-feed/"
+            to="/app/explore"
             handleSetActiveLink={handleSetActiveLink}
             activeLink={activeLink}
-            icon="heroicons:user-group-solid"
-            text="Community Feed"
+            icon="ic:outline-wifi-find"
+            text="Explore"
           />
           <NavLink
             to="/app/personal-feed/"
             handleSetActiveLink={handleSetActiveLink}
             activeLink={activeLink}
             icon="material-symbols:dashboard-outline"
-            text="Personal Feed"
+            text="My Collections"
           />
-          <Link to=""></Link>
-          <Link to=""></Link>
+          <NavLink
+            to="/app/community-feed/"
+            handleSetActiveLink={handleSetActiveLink}
+            activeLink={activeLink}
+            icon="heroicons:user-group-solid"
+            text="Community Collections"
+          />
+          <NavLink
+            to="/app/marketplace/"
+            handleSetActiveLink={handleSetActiveLink}
+            activeLink={activeLink}
+            icon="simple-icons:shopify"
+            text="Marketplace"
+          />
         </div>
         <div className="flex flex-col pt-10">
           <span className="px-[14px] pb-2 text-[15px] font-chakra font-semibold text-fontPrimary">
@@ -55,7 +67,7 @@ const AppSlider = () => {
             handleSetActiveLink={handleSetActiveLink}
             activeLink={activeLink}
             icon="prime:images"
-            text="Image Generation"
+            text="Create Art"
           />
           <NavLink
             to="/app/text-generator/"
