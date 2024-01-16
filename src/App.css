@@ -399,3 +399,75 @@
 .button-font {
   color: #a7b2c1;
 }
+
+.textarea-prompt {
+  width: 100%;
+  min-width: 0px;
+  position: relative;
+  appearance: none;
+  transition-duration: 0.2s;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  min-height: unset;
+  vertical-align: top;
+  overflow: hidden;
+  resize: none;
+  height: 56px !important;
+  color: rgb(151, 151, 151);
+  outline: transparent solid;
+  font-size: 20px;
+  border-style: solid;
+  border-image: initial;
+  border-color: transparent;
+  border-width: 2px;
+  background: rgb(16, 22, 34);
+  border-radius: 8px;
+  line-height: 120%;
+  padding-inline-start: 20px;
+  padding-inline-end: 20px;
+  margin-left: 0px;
+  flex: 1 1 0%;
+}
+
+.textarea-prompt:focus-visible {
+  background: transparent;
+  border-color: rgb(114, 88, 242);
+}
+.textarea-prompt:hover {
+  background: rgb(11, 15, 23);
+}
+.button-prompt {
+  display: inline-flex;
+  appearance: none;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  user-select: none;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  line-height: calc(1.5rem);
+  border-radius: 12px;
+  font-weight: 500;
+  transition-property: var(--leonardo-ai-transition-property-common);
+  transition-duration: 0.2s;
+  min-width: 40px;
+  font-size: calc(0.875rem);
+  padding-inline-start: 48px;
+  padding-inline-end: 48px;
+  padding: 0px;
+  width: 56px;
+  height: 56px;
+  background: rgb(16, 22, 34);
+}
+
+.button-prompt:hover {
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+.button-prompt:focus-visible {
+  box-shadow: 0 0 0 calc(1rem * 0.0625) #9a5cf7;
+}

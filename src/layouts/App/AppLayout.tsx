@@ -3,6 +3,7 @@ import AppSlider from "./AppSlider";
 import CommunityFeed from "../../components/CommunityFeed";
 import PersonalFeed from "../../components/PersonalFeed";
 import AppHome from "../../components/AppHome";
+import ImageGeneration from "../../components/ImageGeneration";
 
 const AppLayout = () => {
   return (
@@ -12,7 +13,7 @@ const AppLayout = () => {
         <Route path="/" element={<AppHome />} />
         <Route path="community-feed" element={<CommunityFeed />} />
         <Route path="personal-feed" element={<PersonalFeed />} />
-        <Route path="image-generator" element={<CommunityFeed />} />
+        <Route path="image-generator" element={<ImageGeneration />} />
         <Route path="text-generator" element={<CommunityFeed />} />
         <Route path="settings" element={<CommunityFeed />} />
       </Routes>
