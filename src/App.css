@@ -140,3 +140,262 @@
   color: transparent;
   -webkit-text-fill-color: transparent;
 }
+
+.separator {
+  opacity: 0.6;
+  border-width: 0px 0px 1px;
+  border-image: initial;
+  border-color: var(--leonardo-ai-colors-old-greyblue);
+  border-style: solid;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.search-panel {
+  display: flex;
+  position: relative;
+  isolation: isolate;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.search-icon {
+  left: 0px;
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.search-input {
+  min-width: 0px;
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  position: relative;
+  appearance: none;
+  transition-property: var(--leonardo-ai-transition-property-common);
+  transition-duration: 0.2s;
+  font-size: 14px;
+  padding-inline-start: 32px;
+  padding-inline-end: 12px;
+  height: 32px;
+  border-radius: 6px;
+  border-width: calc(0.125rem);
+  border-style: solid;
+  border-image: initial;
+  border-color: transparent;
+  padding-bottom: 2px;
+  width: 100%;
+  color: rgb(255, 255, 255);
+  background: rgb(26, 26, 26);
+}
+
+.search-input:focus-visible {
+  background: transparent;
+  border-color: rgb(114, 88, 242);
+}
+
+.search-button {
+  display: inline-flex;
+  appearance: none;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  user-select: none;
+  position: relative;
+  vertical-align: middle;
+  outline-offset: 2px;
+  line-height: calc(1.25rem);
+  font-weight: 400;
+  font-size: calc(0.75rem);
+  padding-inline-start: var(--leonardo-ai-space-8);
+  padding-inline-end: var(--leonardo-ai-space-8);
+  box-sizing: border-box;
+  box-shadow: rgba(143, 0, 255, 0) 0px 0px calc(0.9375rem);
+  margin-left: 1rem;
+  height: var(--leonardo-ai-sizes-full);
+  width: 100px;
+  white-space: nowrap;
+  outline: transparent solid 2px;
+  border-radius: calc(0.5rem);
+  border-width: calc(0.3125rem);
+  border-style: solid;
+  border-color: transparent;
+  border-image: initial;
+  background: linear-gradient(rgb(32, 33, 37), rgb(32, 33, 37)) no-repeat
+      padding-box,
+    linear-gradient(
+        81.02deg,
+        rgb(250, 85, 96) -23.47%,
+        rgb(177, 75, 244) 45.52%,
+        rgb(77, 145, 255) 114.8%
+      )
+      border-box;
+  transition: all 0.1s ease 0s;
+}
+
+.search-button::before {
+  content: "";
+  position: absolute;
+  top: calc(-0.1875rem);
+  right: calc(-0.1875rem);
+  bottom: calc(-0.1875rem);
+  left: calc(-0.1875rem);
+  margin: calc(-0.0625rem);
+  border-width: calc(0.3125rem);
+  border-style: solid;
+  border-color: rgb(32, 33, 37);
+  border-image: initial;
+  border-radius: calc(0.5rem);
+}
+
+.search-button:hover {
+  box-shadow: rgba(143, 0, 255, 0.6) 0px 0px calc(0.9375rem);
+  background: linear-gradient(rgb(38, 39, 44), rgb(38, 39, 44)) no-repeat
+      padding-box,
+    linear-gradient(
+        81.02deg,
+        rgb(250, 85, 96) -23.47%,
+        rgb(177, 75, 244) 45.52%,
+        rgb(77, 145, 255) 114.8%
+      )
+      border-box;
+  border-width: calc(0.3125rem);
+  border-style: solid;
+  border-color: transparent;
+  border-image: initial;
+}
+
+.button-group {
+  background-color: rgb(12, 15, 22);
+  border-radius: calc(0.5rem);
+  overflow: hidden;
+  display: flex;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+}
+
+.button-element {
+  display: inline-flex;
+  appearance: none;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  user-select: none;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  line-height: calc(1.25rem);
+  border-radius: calc(0.3125rem);
+  font-weight: 400;
+  transition-property: var(--leonardo-ai-transition-property-common);
+  transition-duration: 0.2s;
+  height: calc(1.875rem);
+  padding-inline-start: 2rem;
+  padding-inline-end: calc(0.25rem);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: calc(0.188rem);
+  min-width: calc(4.5rem);
+  width: 100%;
+  font-size: calc(0.688rem);
+  color: #a0aec0;
+}
+
+.button-icon {
+  display: inline-flex;
+  align-self: center;
+  flex-shrink: 0;
+  margin-inline-end: calc(0.25rem);
+}
+
+.button-title {
+  position: relative;
+  z-index: 2;
+}
+
+.button-selected {
+  transform: none;
+  transform-origin: 50% 50% 0px;
+  opacity: 1;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: linear-gradient(
+    81.02deg,
+    rgb(250, 85, 96) -23.47%,
+    rgb(177, 75, 244) 45.52%,
+    rgb(77, 145, 255) 114.8%
+  );
+  top: 0px;
+  left: 0px;
+  border-radius: calc(0.5rem);
+}
+
+.button-item {
+  display: inline-flex;
+  appearance: none;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  user-select: none;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  line-height: calc(1.25rem);
+  border-radius: calc(0.3125rem);
+  font-weight: 400;
+  transition-property: transform;
+  transition-duration: 0.2s;
+  height: 2rem;
+  padding-inline-start: 2rem;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  width: 100%;
+  color: #fff;
+  padding-left: calc(1rem);
+  padding-inline-end: calc(1rem);
+  min-width: calc(7.25rem);
+  font-size: calc(0.75rem);
+}
+
+.button-item.active .button-cover {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: linear-gradient(
+    81.02deg,
+    rgb(250, 85, 96) -23.47%,
+    rgb(177, 75, 244) 45.52%,
+    rgb(77, 145, 255) 114.8%
+  );
+  top: 0px;
+  left: 0px;
+  border-radius: calc(0.5rem);
+  transform: none;
+  transform-origin: 50% 50% 0px;
+  opacity: 1;
+  right: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.button-item.active .button-font {
+  color: white;
+}
+.button-font {
+  color: #a7b2c1;
+}
