@@ -1,4 +1,5 @@
 import { useState } from "react";
+import CommonTab from "./CommonTab";
 import TabButton from "./TabButton";
 
 const tabs = [
@@ -32,7 +33,7 @@ const PersonalFeed = () => {
 
         {/* Tab content */}
         <div className="flex-1">
-          {activeTab === "commonTab" && <div>Content for Tab 1</div>}
+          {activeTab === "commonTab" && <CommonTab />}
           {activeTab === "followerTab" && <div>Content for Tab 2</div>}
           {activeTab === "likedTab" && <div>Content for Tab 3</div>}
         </div>
