@@ -9,7 +9,7 @@ const ImageGeneration = () => {
             AI Image Generation
           </span>
           <div className="flex items-start w-full pt-8 mb-4">
-            <div className="relative block">
+            <div className="relative block mr-2">
               <button className="button-prompt">
                 <Icon
                   icon="game-icons:rolling-dices"
