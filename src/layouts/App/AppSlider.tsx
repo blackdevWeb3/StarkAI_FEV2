@@ -11,7 +11,7 @@ const AppSlider = () => {
 
   return (
     <>
-      <div className="flex flex-col border-r border-primary bg-black w-[270px] min-w-[270px] h-screen pt-[10px]">
+      <div className="flex flex-col border-r border-primary bg-black w-[270px] min-w-[270px] pt-[10px] min-h-[100vh]">
         <div className="pt-[19px] flex flex-row justify-center items-center">
           {/* <img src="./favicon.ico" className="w-6 h-6 mr-1" alt="logo" /> */}
           <h1 className="text-[24px] font-semibold font-chakra text-white">

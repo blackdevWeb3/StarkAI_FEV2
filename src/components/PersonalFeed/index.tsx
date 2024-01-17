@@ -12,7 +12,7 @@ const PersonalFeed = () => {
   const [activeTab, setActiveTab] = useState("commonTab");
   return (
     <>
-      <div className="w-full bg-black h-screen pt-[29px] flex flex-col">
+      <div className="w-full bg-black pt-[29px] flex flex-col">
         <div className="pl-8">
           <span className="font-chakra text-[26px]">Personal Feed</span>
         </div>
