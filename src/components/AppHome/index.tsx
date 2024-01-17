@@ -1,7 +1,7 @@
 const AppHome = () => {
   return (
     <>
-      <div className="w-full bg-black h-screen pt-[29px] flex flex-col px-8">
+      <div className="w-full bg-black pt-[29px] flex flex-col px-8">
         <div className="">
           <span className="text-[28px] font-chakra font-medium">
             <span className="color-text text-[28px] font-chakra">
