@@ -134,7 +134,7 @@ const ImageGeneration = () => {
 
   return (
     <div className="relative w-full">
-      <div className="w-full bg-black h-auto pt-[29px] flex flex-col">
+      <div className="w-full bg-black min-h-[100vh] pt-[29px] flex flex-col">
         <div className="w-full flex flex-col px-8">
           <span className="text-white font-chakra text-[20px] font-medium">
             AI Image Generation
