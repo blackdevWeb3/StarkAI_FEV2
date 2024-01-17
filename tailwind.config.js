@@ -10,6 +10,7 @@ module.exports = {
         primaryColor: "#f2f3f5",
         deepPink: "#FF1493",
         fontPrimary: "#a7b2c1",
+        fontSecondary: "#9094a6",
       },
       borderColor: (theme) => ({
         ...theme("colors"),
