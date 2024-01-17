@@ -1,16 +1,28 @@
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import CollapsibleSection from "./CollapsibleSection";
+import { ReactComponent as DocumentSVG } from "../../assets/document.svg";
 
 import {
   ImageNumberGroup,
   InputDimensionsGroup,
   ImageDimensionsGroup,
+  ModelItems,
+  ModelItem,
+  defaultStyle,
+  AlchemyStyle,
+  photoRealStyle,
 } from "../../utils/constants";
 
-import CollapsibleSection from "./CollapsibleSection";
-
-import { ReactComponent as DocumentSVG } from "../../assets/document.svg";
+const userSelectedModelItem: ModelItem = {
+  id: "Leonardo Diffusion XL",
+  modelType: "Finetuned Model",
+  label: "Leonardo Diffusion XL",
+  subLabel: "Alchemy V2",
+  imgURI:
+    "https://cdn.leonardo.ai/users/384ab5c8-55d8-47a1-be22-6a274913c324/generations/9ea08719-5fd1-4df7-9adc-5218637cba17/Leonardo_Diffusion_XL_a_brain_suspended_in_midair_bathed_in_a_1.jpg",
+};
 
 const ImageGeneration = () => {
   const [isImageOpened, SetIsImageOpened] = useState<boolean>(false);
@@ -20,8 +32,21 @@ const ImageGeneration = () => {
   const [promptMagic, setPromptMagic] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState("");
   const [selectedNumber, setSelectedNumber] = useState<number>(1);
+  const [generationModel, setGenerationModel] = useState<ModelItem | null>(
+    userSelectedModelItem
+  );
+  const [generationStyle, setGenerationStyle] = useState<string>("None");
+  const [isModelVisible, setIsModelVisible] = useState(false);
+  const [isStyleVisible, setIsStyleVisible] = useState(false);
+  const [propmtText, setPromptText] = useState<string>("");
+
   const dimensionsGroup = alchemy ? InputDimensionsGroup : ImageDimensionsGroup;
   const title = alchemy ? "Input Dimensions" : "Image Dimensions";
+  const styleItems = photoReal
+    ? photoRealStyle
+    : alchemy
+    ? AlchemyStyle
+    : defaultStyle;
 
   const handleRealPhotoChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -42,6 +67,22 @@ const ImageGeneration = () => {
   ) => {
     const numberValue = parseInt(event.target.value, 10); // Convert the string to a number
     setSelectedNumber(numberValue);
+  };
+
+  const handleSelectModelClick = (item: ModelItem) => {
+    setGenerationModel(item);
+    setIsModelVisible(false);
+  };
+
+  const handleSelectStyleClick = (item: any) => {
+    setGenerationStyle(item.id);
+    setIsStyleVisible(false);
+  };
+
+  const handlePromptTextChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setPromptText(event.target.value);
   };
 
   return (
@@ -66,9 +107,11 @@ const ImageGeneration = () => {
               placeholder="Type a prompt ..."
               maxLength={1000}
               className="textarea-prompt font-chakra"
+              value={propmtText}
+              onChange={handlePromptTextChange}
             />
             <span className="inline-block">
-              <button className="button-generate">
+              <button className="button-generate" disabled={!propmtText}>
                 <span className="flex flex-row items-center gap-[10px] justify-center">
                   <span className="font-chakra text-[18px] font-medium">
                     Generate
@@ -82,10 +125,16 @@ const ImageGeneration = () => {
             </span>
           </div>
           <div className="flex items-stretch gap-4 flex-wrap relative">
-            <button className="button-model py-2">
+            {/* Model Selector Button */}
+            <button
+              className={`button-model min-w-80 py-2 ${
+                isModelVisible ? "border-[#9a5cf7]" : "border-[#101622]"
+              }`}
+              onClick={() => setIsModelVisible(!isModelVisible)}
+            >
               <div className="w-9 h-9 mr-2 flex items-center justify-center">
                 <img
-                  src="https://cdn.leonardo.ai/users/384ab5c8-55d8-47a1-be22-6a274913c324/generations/9ea08719-5fd1-4df7-9adc-5218637cba17/Leonardo_Diffusion_XL_a_brain_suspended_in_midair_bathed_in_a_1.jpg"
+                  src={generationModel?.imgURI}
                   alt="model"
                   className="w-9 h-9 rounded-md"
                 />
@@ -93,7 +142,7 @@ const ImageGeneration = () => {
               <div className="flex flex-col justify-center">
                 <div className="flex flex-row items-center">
                   <span className="font-medium text-[12px] leading-[100%] text-[#dbdbdb80]">
-                    Fineturned Model
+                    {generationModel?.modelType}
                   </span>
                   <span className="flex items-center ms-6 text-[#dbdbdb80]">
                     <Icon icon="icon-park-outline:direction-adjustment-two" />
@@ -101,7 +150,7 @@ const ImageGeneration = () => {
                   </span>
                 </div>
                 <div className="flex items-center">
-                  <span className="text-white">3D Animation Style</span>
+                  <span className="text-white">{generationModel?.label}</span>
                 </div>
               </div>
               <div className="pl-4 flex items-center flex-row ml-auto">
@@ -111,26 +160,64 @@ const ImageGeneration = () => {
                 <Icon icon="bxs:down-arrow" className="w-3 h-3 ml-4" />
               </div>
             </button>
+
+            {/* Model Selection Dropdown Menu */}
             <div className="model-dropdownmenu">
-              <div className="model-menu-board model-visible">
-                <button className="model-item">
-                  <div className="flex items-center justify-between flex-1">
-                    <span>Leonardo Diffusion XL</span>
-                    <span className="color-text ml-5">Alchemy V2</span>
-                  </div>
-                </button>
-                <button className="model-item">
-                  <div className="flex items-center justify-between flex-1">
-                    <span>Leonardo Vision XL</span>
-                    <span className="color-text ml-5">Alchemy V2</span>
-                  </div>
-                </button>
-                <button className="model-item">
-                  <div className="flex items-center justify-between flex-1">
-                    <span>AlbedoBase XL</span>
-                    <span className="color-text ml-5">Alchemy V2</span>
-                  </div>
-                </button>
+              <div
+                className={`model-menu-board transition-all duration-200 ease-in-out ${
+                  isModelVisible ? "model-visible" : "model-invisible"
+                }`}
+              >
+                {ModelItems.map((item, index) => (
+                  <button
+                    key={index}
+                    className="model-item"
+                    onClick={() => handleSelectModelClick(item)}
+                  >
+                    <div className="flex items-center justify-between flex-1">
+                      <span>{item.label}</span>
+                      {item.subLabel && (
+                        <div className="rounded-text-panel">
+                          <span className="color-text">{item.subLabel}</span>
+                        </div>
+                      )}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Style Selector Button */}
+            <div className="relative">
+              <button
+                className={`button-model min-w-40 py-2 ${
+                  isStyleVisible ? "border-[#9a5cf7]" : "border-[#101622]"
+                }`}
+                onClick={() => setIsStyleVisible(!isStyleVisible)}
+              >
+                <div className="flex flex-row w-full items-center justify-between pl-1">
+                  <span className="">{generationStyle}</span>
+                  <Icon icon="bxs:down-arrow" className="w-3 h-3 ml-4" />
+                </div>
+              </button>
+
+              {/* Style Selection Dropdown Menu */}
+              <div className="model-dropdownmenu">
+                <div
+                  className={`style-menu-board transition-all duration-200 ease-in-out ${
+                    isStyleVisible ? "model-visible" : "model-invisible"
+                  }`}
+                >
+                  {styleItems.map((item, index) => (
+                    <button
+                      className="style-item"
+                      key={index}
+                      onClick={() => handleSelectStyleClick(item)}
+                    >
+                      {item.id}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -181,7 +268,7 @@ const ImageGeneration = () => {
                   <label key={option}>
                     <input
                       type="radio"
-                      name="image-radio-group"
+                      name="image-number-group"
                       value={option}
                       onChange={handleImageNumberChange}
                       className="image-radio"
