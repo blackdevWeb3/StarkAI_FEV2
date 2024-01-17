@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CollapsibleSection from "./CollapsibleSection";
 import { ReactComponent as DocumentSVG } from "../../assets/document.svg";
 
@@ -14,9 +14,12 @@ import {
   AlchemyStyle,
   photoRealStyle,
 } from "../../utils/constants";
+import { useUser } from "../../context/UserContext";
+import axios from "axios";
+import Card from "../Card";
 
 const userSelectedModelItem: ModelItem = {
-  id: "Leonardo Diffusion XL",
+  id: "1e60896f-3c26-4296-8ecc-53e2afecc132",
   modelType: "Finetuned Model",
   label: "Leonardo Diffusion XL",
   subLabel: "Alchemy V2",
@@ -25,6 +28,7 @@ const userSelectedModelItem: ModelItem = {
 };
 
 const ImageGeneration = () => {
+  const { user }: any = useUser();
   const [isImageOpened, SetIsImageOpened] = useState<boolean>(false);
   const [isDimensionOpened, SetIsDimensionOpened] = useState<boolean>(false);
   const [photoReal, setPhotoReal] = useState<boolean>(false);
@@ -38,7 +42,9 @@ const ImageGeneration = () => {
   const [generationStyle, setGenerationStyle] = useState<string>("None");
   const [isModelVisible, setIsModelVisible] = useState(false);
   const [isStyleVisible, setIsStyleVisible] = useState(false);
-  const [propmtText, setPromptText] = useState<string>("");
+  const [promptText, setPromptText] = useState<string>("");
+  const [generating, setGenerating] = useState(false);
+  const [imageData, setImageData] = useState<string[]>([]);
 
   const dimensionsGroup = alchemy ? InputDimensionsGroup : ImageDimensionsGroup;
   const title = alchemy ? "Input Dimensions" : "Image Dimensions";
@@ -62,10 +68,8 @@ const ImageGeneration = () => {
     setPromptMagic(event.target.checked);
   };
 
-  const handleImageNumberChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const numberValue = parseInt(event.target.value, 10); // Convert the string to a number
+  const handleImageNumberChange = (option: number) => {
+    const numberValue = option;
     setSelectedNumber(numberValue);
   };
 
@@ -85,9 +89,52 @@ const ImageGeneration = () => {
     setPromptText(event.target.value);
   };
 
+  const handleGenerate = async () => {
+    setGenerating(true);
+    const data = {
+      user: JSON.parse(user).email,
+      text: promptText,
+      model: generationModel?.id,
+      alchemy: alchemy,
+      presetStyle: generationStyle,
+      numberOfImages: selectedNumber,
+    };
+    console.log(data);
+    const res = await axios.post(
+      `${process.env.REACT_APP_BACKEND_API}/generate/text-to-image`,
+      data
+    );
+    if (res.data.message === "Success") {
+      console.log("Success");
+    } else {
+      console.log("Failed");
+    }
+    setGenerating(false);
+    updateLibrary();
+  };
+
+  const updateLibrary = () => {
+    const func = async () => {
+      const res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_API}/getImages`,
+        { email: JSON.parse(user).email }
+      );
+      if (res.status === 200) {
+        setImageData(res.data.map((item: any) => item.image));
+      } else {
+        console.log("Error occurred");
+      }
+    };
+    func();
+  };
+  useEffect(() => {
+    if (imageData.length > 0) return;
+    updateLibrary();
+  });
+
   return (
     <div className="relative w-full">
-      <div className="w-full bg-black h-screen pt-[29px] flex flex-col">
+      <div className="w-full bg-black h-auto pt-[29px] flex flex-col">
         <div className="w-full flex flex-col px-8">
           <span className="text-white font-chakra text-[20px] font-medium">
             AI Image Generation
@@ -107,19 +154,25 @@ const ImageGeneration = () => {
               placeholder="Type a prompt ..."
               maxLength={1000}
               className="textarea-prompt font-chakra"
-              value={propmtText}
+              value={promptText}
               onChange={handlePromptTextChange}
             />
             <span className="inline-block">
-              <button className="button-generate" disabled={!propmtText}>
+              <button
+                className="button-generate"
+                disabled={!promptText || generating}
+                onClick={handleGenerate}
+              >
                 <span className="flex flex-row items-center gap-[10px] justify-center">
                   <span className="font-chakra text-[18px] font-medium">
-                    Generate
+                    {generating ? "Generating..." : "Generate"}
                   </span>
-                  <span className="flex flex-row items-center justify-center gap-1">
-                    <Icon icon="game-icons:cash" className="w-5 h-5" />
-                    <span className="text-[16px] font-medium">2</span>
-                  </span>
+                  {!generating && (
+                    <span className="flex flex-row items-center justify-center gap-1">
+                      <Icon icon="game-icons:cash" className="w-5 h-5" />
+                      <span className="text-[16px] font-medium">2</span>
+                    </span>
+                  )}
                 </span>
               </button>
             </span>
@@ -222,7 +275,15 @@ const ImageGeneration = () => {
             </div>
           </div>
         </div>
-        <div className=""></div>
+        <div className="">
+          {imageData.length > 0 && (
+            <div className="flex flex-wrap gap-8 p-4 justify-center">
+              {imageData.map((image, index) => (
+                <Card key={index} image={image} />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
       <div className="absolute top-0 left-[-270px] z-10 w-[270px] h-full bg-black pt-[10px] flex flex-col px-4 border-r border-primary">
         <div className="pt-[19px] flex flex-row justify-between items-center">
@@ -265,16 +326,15 @@ const ImageGeneration = () => {
             <div className="pe-0 p-0 overflow-visible">
               <div className="image-board grid-4">
                 {ImageNumberGroup.map((option) => (
-                  <label key={option}>
-                    <input
-                      type="radio"
-                      name="image-number-group"
-                      value={option}
-                      onChange={handleImageNumberChange}
-                      className="image-radio"
-                    ></input>
-                    <div className="image-radio-board">{option}</div>
-                  </label>
+                  <div
+                    key={option}
+                    className={`image-radio-board ${
+                      selectedNumber === option ? "image-radio-checked" : ""
+                    }`}
+                    onClick={() => handleImageNumberChange(option)}
+                  >
+                    {option}
+                  </div>
                 ))}
               </div>
             </div>

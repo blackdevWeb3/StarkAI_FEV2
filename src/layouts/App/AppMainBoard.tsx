@@ -36,7 +36,6 @@ const AppMainBoard = () => {
           ))}
         </div>
       )}
-      <AppFooter onUpdate={updateLibrary} />
     </div>
   );
 };
