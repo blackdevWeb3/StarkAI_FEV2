@@ -531,17 +531,7 @@
   border: calc(0.04375rem) solid rgb(36, 44, 62);
 }
 
-.image-radio-board:focus-visible {
-  background: rgba(30, 22, 68, 0.4);
-  border: calc(0.04375rem) solid rgb(114, 88, 242);
-}
-
-.image-radio-board[data-checked] {
-  background: rgba(30, 22, 68, 0.4);
-  border: calc(0.04375rem) solid rgb(114, 88, 242);
-}
-
-.image-radio:checked + .image-radio-board {
+.image-radio-checked {
   background: rgba(30, 22, 68, 0.4);
   border: calc(0.04375rem) solid rgb(114, 88, 242);
 }

@@ -83,7 +83,9 @@ const CommonTab = () => {
           <hr className=" border-gray-800 mt-7" />
         </div>
         {/* TabView Content */}
-        <div className="">{/* <AppMainBoard /> */}</div>
+        <div className="">
+          <AppMainBoard />
+        </div>
       </div>
     </>
   );
