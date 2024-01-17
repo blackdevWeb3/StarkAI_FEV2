@@ -42,8 +42,8 @@ const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
       >
         <div className="pe-0 p-0 overflow-visible">
           <div className="image-board grid-2">
-            {optionsGroup.map((option) => (
-              <label key={option}>
+            {optionsGroup.map((option, index) => (
+              <label key={index}>
                 <input
                   type="radio"
                   name="image-radio-group"
