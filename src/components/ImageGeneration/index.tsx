@@ -67,6 +67,17 @@ const ImageGeneration = () => {
     setPhotoReal(event?.target.checked);
   };
 
+  useEffect(() => {
+    if (photoReal) {
+      setAlchemy(true);
+      setGenerationStyle("Cinematic");
+    } else if (!photoReal && alchemy) {
+      setGenerationStyle("Dynamic");
+    } else if (!photoReal && !alchemy) {
+      setGenerationStyle("Leonardo");
+    }
+  }, [photoReal, alchemy]);
+
   const handleAlchemyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAlchemy(event?.target.checked);
   };
