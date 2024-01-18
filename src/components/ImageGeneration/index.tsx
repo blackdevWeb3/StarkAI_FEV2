@@ -23,7 +23,7 @@ import useOutsideClick from "../../utils/useOutsideClick";
 const userSelectedModelItem: ModelItem = {
   id: "1e60896f-3c26-4296-8ecc-53e2afecc132",
   modelType: "Finetuned Model",
-  label: "Leonardo Diffusion XL",
+  label: "StarkAI Diffusion XL",
   subLabel: "Alchemy V2",
   imgURI:
     "https://cdn.leonardo.ai/users/384ab5c8-55d8-47a1-be22-6a274913c324/generations/9ea08719-5fd1-4df7-9adc-5218637cba17/Leonardo_Diffusion_XL_a_brain_suspended_in_midair_bathed_in_a_1.jpg",
@@ -74,7 +74,7 @@ const ImageGeneration = () => {
     } else if (!photoReal && alchemy) {
       setGenerationStyle("Dynamic");
     } else if (!photoReal && !alchemy) {
-      setGenerationStyle("Leonardo");
+      setGenerationStyle("StarkAI");
     }
   }, [photoReal, alchemy]);
 
@@ -479,8 +479,6 @@ const ImageGeneration = () => {
           selectedOption={selectedOption} // Pass this as a prop
           setSelectedOption={setSelectedOption} // Pass this as a prop
         />
-
-        <h2 className="">{selectedOption}</h2>
       </div>
     </div>
   );
