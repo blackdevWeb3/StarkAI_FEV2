@@ -28,7 +28,7 @@ const ModelItems: ModelItem[] = [
   {
     id: "1e60896f-3c26-4296-8ecc-53e2afecc132",
     modelType: "Finetuned Model",
-    label: "Leonardo Diffusion XL",
+    label: "StarkAI Diffusion XL",
     subLabel: "Alchemy V2",
     imgURI:
       "https://cdn.leonardo.ai/users/384ab5c8-55d8-47a1-be22-6a274913c324/generations/9ea08719-5fd1-4df7-9adc-5218637cba17/Leonardo_Diffusion_XL_a_brain_suspended_in_midair_bathed_in_a_1.jpg",
@@ -36,7 +36,7 @@ const ModelItems: ModelItem[] = [
   {
     id: "5c232a9e-9061-4777-980a-ddc8e65647c6",
     modelType: "Finetuned Model",
-    label: "Leonardo Vision XL",
+    label: "StarkAI Vision XL",
     subLabel: "Alchemy V2",
     imgURI:
       "https://cdn.leonardo.ai/users/384ab5c8-55d8-47a1-be22-6a274913c324/generations/bc0a7117-ad5e-4754-8648-6412cc554478/Leonardo_Vision_XL_A_gritty_unedited_photograph_perfectly_capt_2.jpg",
@@ -87,7 +87,7 @@ const ModelItems: ModelItem[] = [
   },
 ];
 
-const defaultStyle = [{ id: "Leonardo" }, { id: "None" }];
+const defaultStyle = [{ id: "StarkAI" }, { id: "None" }];
 
 const photoRealStyle = [
   { id: "Cinematic" },
@@ -113,7 +113,7 @@ const AlchemyStyle = [
   { id: "None" },
 ];
 
-const PhotoReal = "b9d4a72d-2dea-4473-9be5-caf645a3b67e";
+// const PhotoReal = "b9d4a72d-2dea-4473-9be5-caf645a3b67e";
 
 export {
   ImageDimensionsGroup,

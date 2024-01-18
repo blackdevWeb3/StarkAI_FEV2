@@ -216,12 +216,12 @@
   line-height: calc(1.25rem);
   font-weight: 400;
   font-size: calc(0.75rem);
-  padding-inline-start: var(--leonardo-ai-space-8);
-  padding-inline-end: var(--leonardo-ai-space-8);
+  padding-inline-start: 32px;
+  padding-inline-end: 32px;
   box-sizing: border-box;
   box-shadow: rgba(143, 0, 255, 0) 0px 0px calc(0.9375rem);
   margin-left: 1rem;
-  height: var(--leonardo-ai-sizes-full);
+  height: 100%;
   width: 100px;
   white-space: nowrap;
   outline: transparent solid 2px;
@@ -540,7 +540,7 @@
   border-radius: calc(0.5rem);
   background-color: rgb(16, 22, 34);
   padding: calc(0.5rem) calc(0.5rem) calc(0.5rem) calc(0.625rem);
-  margin-bottom: var(--leonardo-ai-space-3);
+  margin-bottom: 12px;
   cursor: pointer;
   border: calc(0.05rem) solid rgb(36, 44, 62);
 }
