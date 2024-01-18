@@ -46,13 +46,19 @@ const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
               <label key={index}>
                 <input
                   type="radio"
-                  name="image-radio-group"
+                  name="image-dimension-group"
                   value={option}
                   checked={selectedOption === option}
                   onChange={() => setSelectedOption(option)}
                   className="image-radio"
                 ></input>
-                <div className="image-radio-board">{option}</div>
+                <div
+                  className={`image-radio-board ${
+                    selectedOption === option ? "image-radio-checked" : ""
+                  }`}
+                >
+                  {option}
+                </div>
               </label>
             ))}
           </div>
