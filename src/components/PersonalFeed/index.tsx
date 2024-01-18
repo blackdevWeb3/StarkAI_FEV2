@@ -1,15 +1,17 @@
 import { useState } from "react";
-import CommonTab from "./CommonTab";
-import TabButton from "./TabButton";
+import CommonFeed from "./CommonFeed";
+import LikedFeed from "./LikedFeed";
+import FollowerFeed from "./FollowerFeed";
+import TabButton from "../Others/TabButton";
 
 const tabs = [
-  { id: "commonTab", text: "Your Generations" },
+  { id: "CommonFeed", text: "Your Generations" },
   { id: "followerTab", text: "Followers Feed" },
   { id: "likedTab", text: "Liked Feed" },
 ];
 
 const PersonalFeed = () => {
-  const [activeTab, setActiveTab] = useState("commonTab");
+  const [activeTab, setActiveTab] = useState("CommonFeed");
   return (
     <>
       <div className="w-full bg-black pt-[29px] flex flex-col">
@@ -33,9 +35,9 @@ const PersonalFeed = () => {
 
         {/* Tab content */}
         <div className="flex-1">
-          {activeTab === "commonTab" && <CommonTab />}
-          {activeTab === "followerTab" && <div>Content for Tab 2</div>}
-          {activeTab === "likedTab" && <div>Content for Tab 3</div>}
+          {activeTab === "CommonFeed" && <CommonFeed />}
+          {activeTab === "followerTab" && <FollowerFeed />}
+          {activeTab === "likedTab" && <LikedFeed />}
         </div>
       </div>
     </>

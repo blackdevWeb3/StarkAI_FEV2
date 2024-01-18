@@ -16,7 +16,7 @@ import {
 } from "../../utils/constants";
 import { useUser } from "../../context/UserContext";
 import axios from "axios";
-import Card from "../Card";
+import Card from "../Others/Card";
 
 import useOutsideClick from "../../utils/useOutsideClick";
 

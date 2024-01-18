@@ -1,13 +1,25 @@
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { useState } from "react";
+import { useUser } from "../../context/UserContext";
 import NavLink from "../../components/Others/NavLink";
+import { Navigate } from "react-router-dom";
 
 const AppSlider = () => {
   const [activeLink, setActiveLink] = useState("/app/");
+  const { user, setUser }: any = useUser();
   const handleSetActiveLink = (path: string) => {
     setActiveLink(path);
   };
+
+  const handleLogout = () => {
+    console.log("Hello", user);
+    setUser("none");
+  };
+
+  if (user === undefined || user === "none") {
+    return <Navigate to="/login" />;
+  }
 
   return (
     <>
@@ -85,7 +97,10 @@ const AppSlider = () => {
             icon="mingcute:user-setting-line"
             text="Settings"
           />
-          <button className="text-fontPrimary hover:text-white hover:bg-[#1b1c20]">
+          <button
+            className="text-fontPrimary hover:text-white hover:bg-[#1b1c20]"
+            onClick={handleLogout}
+          >
             <span className="flex flex-row gap-[10px] items-center py-[10px] px-4">
               <Icon icon="mynaui:logout" className="w-6 h-6" />
               <span className="text-[15px] font-chakra">Logout</span>

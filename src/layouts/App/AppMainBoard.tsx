@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useUser } from "../../context/UserContext";
-import Card from "../../components/Card";
-import AppFooter from "./AppFooter";
+import Card from "../../components/Others/Card";
 import axios from "axios";
 
 const AppMainBoard = () => {

@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react";
 import { useState } from "react";
 import AppMainBoard from "../../layouts/App/AppMainBoard";
 
-const CommonTab = () => {
+const CommonFeed = () => {
   const [activeButton, setActiveButton] = useState(true);
   return (
     <>
@@ -91,4 +91,4 @@ const CommonTab = () => {
   );
 };
 
-export default CommonTab;
+export default CommonFeed;
