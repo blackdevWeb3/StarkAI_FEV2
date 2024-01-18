@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CollapsibleSection from "./CollapsibleSection";
 import { ReactComponent as DocumentSVG } from "../../assets/document.svg";
 
@@ -17,6 +17,8 @@ import {
 import { useUser } from "../../context/UserContext";
 import axios from "axios";
 import Card from "../Card";
+
+import useOutsideClick from "../../utils/useOutsideClick";
 
 const userSelectedModelItem: ModelItem = {
   id: "1e60896f-3c26-4296-8ecc-53e2afecc132",
@@ -42,9 +44,14 @@ const ImageGeneration = () => {
   const [generationStyle, setGenerationStyle] = useState<string>("None");
   const [isModelVisible, setIsModelVisible] = useState(false);
   const [isStyleVisible, setIsStyleVisible] = useState(false);
+  const ModelMenuRef = useRef<HTMLDivElement>(null);
+  const StyleMenuRef = useRef<HTMLDivElement>(null);
   const [promptText, setPromptText] = useState<string>("");
   const [generating, setGenerating] = useState(false);
   const [imageData, setImageData] = useState<string[]>([]);
+
+  useOutsideClick(ModelMenuRef, setIsModelVisible);
+  useOutsideClick(StyleMenuRef, setIsStyleVisible);
 
   const dimensionsGroup = alchemy ? InputDimensionsGroup : ImageDimensionsGroup;
   const title = alchemy ? "Input Dimensions" : "Image Dimensions";
@@ -178,70 +185,71 @@ const ImageGeneration = () => {
             </span>
           </div>
           <div className="flex items-stretch gap-4 flex-wrap relative">
-            {/* Model Selector Button */}
-            <button
-              className={`button-model min-w-80 py-2 ${
-                isModelVisible ? "border-[#9a5cf7]" : "border-[#101622]"
-              }`}
-              onClick={() => setIsModelVisible(!isModelVisible)}
-            >
-              <div className="w-9 h-9 mr-2 flex items-center justify-center">
-                <img
-                  src={generationModel?.imgURI}
-                  alt="model"
-                  className="w-9 h-9 rounded-md"
-                />
-              </div>
-              <div className="flex flex-col justify-center">
-                <div className="flex flex-row items-center">
-                  <span className="font-medium text-[12px] leading-[100%] text-[#dbdbdb80]">
-                    {generationModel?.modelType}
-                  </span>
-                  <span className="flex items-center ms-6 text-[#dbdbdb80]">
-                    <Icon icon="icon-park-outline:direction-adjustment-two" />
-                    <span className="text-[12px]">640 * 832</span>
-                  </span>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-white">{generationModel?.label}</span>
-                </div>
-              </div>
-              <div className="pl-4 flex items-center flex-row ml-auto">
-                <span className="">
-                  <DocumentSVG />
-                </span>
-                <Icon icon="bxs:down-arrow" className="w-3 h-3 ml-4" />
-              </div>
-            </button>
-
-            {/* Model Selection Dropdown Menu */}
-            <div className="model-dropdownmenu">
-              <div
-                className={`model-menu-board transition-all duration-200 ease-in-out ${
-                  isModelVisible ? "model-visible" : "model-invisible"
+            <div className="relative" id="modelSelector" ref={ModelMenuRef}>
+              {/* Model Selector Button */}
+              <button
+                className={`button-model min-w-80 py-2 ${
+                  isModelVisible ? "border-[#9a5cf7]" : "border-[#101622]"
                 }`}
+                onClick={() => setIsModelVisible(!isModelVisible)}
               >
-                {ModelItems.map((item, index) => (
-                  <button
-                    key={index}
-                    className="model-item"
-                    onClick={() => handleSelectModelClick(item)}
-                  >
-                    <div className="flex items-center justify-between flex-1">
-                      <span>{item.label}</span>
-                      {item.subLabel && (
-                        <div className="rounded-text-panel">
-                          <span className="color-text">{item.subLabel}</span>
-                        </div>
-                      )}
-                    </div>
-                  </button>
-                ))}
+                <div className="w-9 h-9 mr-2 flex items-center justify-center">
+                  <img
+                    src={generationModel?.imgURI}
+                    alt="model"
+                    className="w-9 h-9 rounded-md"
+                  />
+                </div>
+                <div className="flex flex-col justify-center">
+                  <div className="flex flex-row items-center">
+                    <span className="font-medium text-[12px] leading-[100%] text-[#dbdbdb80]">
+                      {generationModel?.modelType}
+                    </span>
+                    <span className="flex items-center ms-6 text-[#dbdbdb80]">
+                      <Icon icon="icon-park-outline:direction-adjustment-two" />
+                      <span className="text-[12px]">640 * 832</span>
+                    </span>
+                  </div>
+                  <div className="flex items-center">
+                    <span className="text-white">{generationModel?.label}</span>
+                  </div>
+                </div>
+                <div className="pl-4 flex items-center flex-row ml-auto">
+                  <span className="">
+                    <DocumentSVG />
+                  </span>
+                  <Icon icon="bxs:down-arrow" className="w-3 h-3 ml-4" />
+                </div>
+              </button>
+
+              {/* Model Selection Dropdown Menu */}
+              <div className="model-dropdownmenu">
+                <div
+                  className={`model-menu-board transition-all duration-200 ease-in-out ${
+                    isModelVisible ? "model-visible" : "model-invisible"
+                  }`}
+                >
+                  {ModelItems.map((item, index) => (
+                    <button
+                      key={index}
+                      className="model-item"
+                      onClick={() => handleSelectModelClick(item)}
+                    >
+                      <div className="flex items-center justify-between flex-1">
+                        <span>{item.label}</span>
+                        {item.subLabel && (
+                          <div className="rounded-text-panel">
+                            <span className="color-text">{item.subLabel}</span>
+                          </div>
+                        )}
+                      </div>
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
-
             {/* Style Selector Button */}
-            <div className="relative">
+            <div className="relative" id="styleSelector" ref={StyleMenuRef}>
               <button
                 className={`button-model min-w-40 py-2 ${
                   isStyleVisible ? "border-[#9a5cf7]" : "border-[#101622]"
@@ -460,6 +468,8 @@ const ImageGeneration = () => {
           selectedOption={selectedOption} // Pass this as a prop
           setSelectedOption={setSelectedOption} // Pass this as a prop
         />
+
+        <h2 className="">{selectedOption}</h2>
       </div>
     </div>
   );
