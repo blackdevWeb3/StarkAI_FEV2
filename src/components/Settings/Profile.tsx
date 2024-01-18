@@ -31,6 +31,11 @@ const Profile: React.FC = () => {
     }
   };
 
+  const handleAvatarSrcRemove = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+    setAvatarSrc(null);
+  };
+
   return (
     <div className="w-full bg-darkBackground">
       <div className=" w-full max-w-[1176px] mx-auto pt-8 font-chakra">
@@ -65,7 +70,7 @@ const Profile: React.FC = () => {
                 {avatarSrc && (
                   <div
                     className="absolute top-[-15px] right-[-18px]"
-                    onClick={() => setAvatarSrc(null)}
+                    onClick={handleAvatarSrcRemove}
                   >
                     <Icon icon="streamline:recycle-bin-2" className="w-5 h-5" />
                   </div>
