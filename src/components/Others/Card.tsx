@@ -8,7 +8,7 @@ const Card = (props: any) => {
   return (
     <div className="relative">
       {loading && (
-        <div className="absolute flex w-[240px] h-[240px] justify-center items-center">
+        <div className="absolute flex w-full h-full justify-center items-center">
           <ClipLoader color="white" size={24} />
         </div>
       )}
@@ -19,8 +19,6 @@ const Card = (props: any) => {
           onLoad={() => setLoading(false)}
           alt="Image"
           effect="blur"
-          width={240}
-          height={240}
           style={{ borderRadius: "10px" }}
         />
       }

@@ -157,7 +157,7 @@ const ImageGeneration = () => {
           <span className="text-white font-chakra text-[20px] font-medium">
             AI Image Generation
           </span>
-          <div className="flex items-start w-full pt-8 mb-4">
+          <div className="flex items-start w-full pt-12 mb-4">
             <div className="relative block mr-2">
               <button className="button-prompt">
                 <Icon
@@ -294,9 +294,9 @@ const ImageGeneration = () => {
             </div>
           </div>
         </div>
-        <div className="">
+        <div className="mt-8 border-t border-primary">
           {imageData.length > 0 && (
-            <div className="flex flex-wrap gap-8 p-4 justify-center">
+            <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 grid-cols-1 gap-4 py-6 px-4 md:px-8 sm:px-4 justify-start">
               {imageData.map((image, index) => (
                 <Card key={index} image={image} />
               ))}
