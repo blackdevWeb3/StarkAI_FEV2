@@ -743,3 +743,26 @@
   -webkit-box-pack: justify;
   justify-content: space-between;
 }
+
+#walletConnect button {
+  background-color: #ff31f8;
+  background-image: linear-gradient(150deg, rgba(0, 0, 0, 0), #0751bf);
+  transition: background-color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  font-family: "Chakra Petch", sans-serif;
+  font-size: medium;
+  font-weight: 550;
+  color: white;
+  transition: all 0.3s ease-in-out;
+  border-radius: 10px;
+  height: 40px;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#walletConnect button:hover {
+  background-position: 60% center !important;
+  cursor: pointer;
+}

@@ -27,15 +27,15 @@ const AppMainBoard = () => {
   });
 
   return (
-    <div className="w-full bg-black pt-12">
+    <>
       {imageData.length > 0 && (
-        <div className="flex flex-wrap gap-8 p-4 justify-center">
+        <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 grid-cols-1 gap-4 py-6 px-4 md:px-8 sm:px-4 justify-start">
           {imageData.map((image, index) => (
             <Card key={index} image={image} />
           ))}
         </div>
       )}
-    </div>
+    </>
   );
 };
 

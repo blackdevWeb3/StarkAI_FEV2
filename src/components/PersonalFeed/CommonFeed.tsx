@@ -11,7 +11,7 @@ const CommonFeed = () => {
         <div className="sticky z-10 w-full bg-black pt-4">
           <div className="px-8">
             <div className="flex flex-col w-full gap-5">
-              <div className="flex flex-row justify-between gap-4">
+              <div className="flex flex-wrap justify-between gap-4">
                 <div className="search-panel w-[376px]">
                   <span className="search-icon">
                     <Icon icon="ic:round-search" className="w-5 h-5" />
@@ -82,10 +82,9 @@ const CommonFeed = () => {
           </div>
           <hr className=" border-gray-800 mt-7" />
         </div>
+
         {/* TabView Content */}
-        <div className="">
-          <AppMainBoard />
-        </div>
+        <AppMainBoard />
       </div>
     </>
   );
