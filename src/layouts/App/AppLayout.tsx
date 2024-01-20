@@ -9,6 +9,7 @@ import Marketplace from "../../components/Marketplace";
 import TextGeneration from "../../components/TextGeneration";
 import Settings from "../../components/Settings";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import ModalImgCard from "../../components/Modal/ModalImgCard";
 
 const AppLayout = () => {
   return (
@@ -18,6 +19,7 @@ const AppLayout = () => {
         <div className="fixed top-6 right-10 z-10" id="walletConnect">
           <ConnectButton />
         </div>
+
         <Routes>
           <Route path="/" element={<AppHome />} />
           <Route path="community-feed" element={<CommunityFeed />} />
@@ -28,6 +30,7 @@ const AppLayout = () => {
           <Route path="explore" element={<Explore />} />
           <Route path="marketplace" element={<Marketplace />} />
         </Routes>
+        <ModalImgCard />
       </>
     </div>
   );
