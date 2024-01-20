@@ -13,7 +13,6 @@ const AppSlider = () => {
   };
 
   const handleLogout = () => {
-    console.log("Hello", user);
     setUser("none");
   };
 
