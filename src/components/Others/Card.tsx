@@ -17,7 +17,7 @@ const Card = (props: any) => {
   };
 
   return (
-    <div className="relative" onClick={handleImgModalOpen}>
+    <div className="relative cursor-pointer" onClick={handleImgModalOpen}>
       {loading && (
         <div className="absolute flex w-full h-full justify-center items-center">
           <ClipLoader color="white" size={24} />

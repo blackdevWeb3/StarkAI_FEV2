@@ -19,7 +19,6 @@ const AppLayout = () => {
         <div className="fixed top-6 right-10 z-10" id="walletConnect">
           <ConnectButton />
         </div>
-
         <Routes>
           <Route path="/" element={<AppHome />} />
           <Route path="community-feed" element={<CommunityFeed />} />
