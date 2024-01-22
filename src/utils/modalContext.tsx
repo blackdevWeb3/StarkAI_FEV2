@@ -1,20 +1,34 @@
 import { createContext, useState, FC } from "react";
+import { Image, ImageOptions } from "./types";
 
 interface ModalContextType {
-  modal: string;
-  title: string;
-  showImgCard: () => void;
-  giveTitle: (title: string) => void; // Updated to reflect that it accepts a string argument
-  hideModal: () => void;
+  imageData: Image;
+  visible: boolean;
+  setVisible: (flag: boolean) => void;
+  setData: (data: any) => void;
 }
+
+const init: Image = {
+  image: "",
+  owner: "",
+  created: new Date("2023-01-01"),
+  data: {
+    alchemy: false,
+    modelId: "",
+    num_image: 1,
+    presetStyle: "1",
+    prompt: "1",
+    width: 1024,
+    height: 1024,
+  },
+};
 
 const ModalContext = createContext<ModalContextType>({
   // Specify the type for the context
-  modal: "",
-  title: "",
-  showImgCard: () => {},
-  giveTitle: () => {}, // This stays as is because the default value doesn't need arguments
-  hideModal: () => {},
+  imageData: init,
+  visible: false,
+  setVisible: () => {},
+  setData: () => {},
 });
 
 // Define props for ModalContextProvider component
@@ -25,26 +39,22 @@ interface ModalContextProviderProps {
 export const ModalContextProvider: FC<ModalContextProviderProps> = ({
   children,
 }) => {
-  const [modal, setModal] = useState("");
-  const [title, setTitle] = useState("");
+  const [visible, setVisible] = useState(false);
+  const [imageData, setImageData] = useState<Image>(init);
 
-  const giveTitle = (newTitle: string) => {
-    setTitle(newTitle);
-  };
-  const showImgCard = () => {
-    setModal("ImgCard");
-  };
-  const hideModal = () => {
-    setModal("");
+  const handleVisible = (flag: boolean) => {
+    setVisible(flag);
   };
 
+  const handleData = (data: any) => {
+    setImageData(data);
+  };
   // Use the defined functions directly without creating inline ones
   const modalContext: ModalContextType = {
-    modal,
-    title,
-    showImgCard, // Use the defined function directly
-    giveTitle, // Use the defined function directly
-    hideModal, // Use the defined function directly
+    imageData,
+    visible,
+    setVisible: handleVisible, // Use the defined function directly
+    setData: handleData,
   };
 
   return (
