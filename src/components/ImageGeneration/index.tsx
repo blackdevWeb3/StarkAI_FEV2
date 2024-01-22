@@ -17,6 +17,7 @@ import {
 import { useUser } from "../../context/UserContext";
 import axios from "axios";
 import Card from "../Others/Card";
+import { Image } from "../../utils/types";
 
 import useOutsideClick from "../../utils/useOutsideClick";
 
@@ -48,7 +49,7 @@ const ImageGeneration = () => {
   const StyleMenuRef = useRef<HTMLDivElement>(null);
   const [promptText, setPromptText] = useState<string>("");
   const [generating, setGenerating] = useState(false);
-  const [imageData, setImageData] = useState<string[]>([]);
+  const [imageData, setImageData] = useState<Image[]>([]);
 
   useOutsideClick(ModelMenuRef, setIsModelVisible);
   useOutsideClick(StyleMenuRef, setIsStyleVisible);
@@ -60,7 +61,6 @@ const ImageGeneration = () => {
     : alchemy
     ? AlchemyStyle
     : defaultStyle;
-
   const handleRealPhotoChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -116,8 +116,8 @@ const ImageGeneration = () => {
       alchemy: alchemy,
       presetStyle: generationStyle,
       numberOfImages: selectedNumber,
+      dimension: selectedOption,
     };
-    console.log(data);
     const res = await axios.post(
       `${process.env.REACT_APP_BACKEND_API}/generate/text-to-image`,
       data
@@ -138,7 +138,7 @@ const ImageGeneration = () => {
         { email: JSON.parse(user).email }
       );
       if (res.status === 200) {
-        setImageData(res.data.map((item: any) => item.image));
+        setImageData(res.data);
       } else {
         console.log("Error occurred");
       }
@@ -297,8 +297,8 @@ const ImageGeneration = () => {
         <div className="mt-8 border-t border-primary">
           {imageData.length > 0 && (
             <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 grid-cols-1 gap-4 py-6 px-4 md:px-8 sm:px-4 justify-start">
-              {imageData.map((image, index) => (
-                <Card key={index} image={image} />
+              {imageData.map((item, index) => (
+                <Card key={index} data={item} />
               ))}
             </div>
           )}

@@ -11,7 +11,7 @@ export default function ModalImgCard() {
   const ImgModalRef = useRef<HTMLDivElement>(null);
 
   const handleHideImgCard = () => {
-    modalCtx.hideModal();
+    modalCtx.setVisible(false);
   };
 
   useEffect(() => {
@@ -24,19 +24,19 @@ export default function ModalImgCard() {
       }
     };
 
-    if (modalCtx.modal === "ImgCard") {
+    if (modalCtx.visible) {
       document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [modalCtx.modal]);
-
+  }, [modalCtx.visible]);
+  console.log(modalCtx.imageData);
   return (
     <Modal
-      open={modalCtx.modal === "ImgCard"}
-      onClose={modalCtx.modal === "ImgCard" ? handleHideImgCard : () => {}}
+      open={modalCtx.visible}
+      onClose={modalCtx.visible ? handleHideImgCard : () => {}}
     >
       <div
         className="flex-1 p-5 ps-6 pe-6 mt-0 bg-modalBackground border-primary w-[876px] font-Inter"
@@ -50,7 +50,7 @@ export default function ModalImgCard() {
                 <div className="rounded-lg">
                   <img
                     className="h-auto max-w-full rounded-md"
-                    src="https://cdn.leonardo.ai/users/fc1da50b-6def-4d10-9716-906daad43333/generations/ae11900e-8553-432f-bfe8-7dac54b607f5/variations/Default_Silhouette_of_a_Nordic_cat_filled_with_a_forest_doubl_3_ae11900e-8553-432f-bfe8-7dac54b607f5_1.jpg?w=512"
+                    src={modalCtx.imageData.image}
                     alt="imgCard"
                   />
                 </div>
@@ -89,7 +89,7 @@ export default function ModalImgCard() {
                   <Link to="/" className="flex flex-row items-center">
                     <div className="rounded-full"></div>
                     <div className=" min-w-[auto] text-fontSecondary leading-[1] font-medium">
-                      Lekrot
+                      {modalCtx.imageData.owner}
                     </div>
                   </Link>
                   <button className="flex flex-row items-center justify-center font-normal gap-1 border-primary rounded-[16px] border px-4 py-1 transition-all duration-200 ease-in-out hover:bg-[#393b45]">
@@ -101,7 +101,7 @@ export default function ModalImgCard() {
                   </button>
                 </div>
                 <span className="text-white font-semibold text-[18px]">
-                  Flat design
+                  {modalCtx.imageData.data.prompt}
                 </span>
                 <hr className="border-primary border-t mb-2" />
               </div>
@@ -112,13 +112,7 @@ export default function ModalImgCard() {
                 <div className="mb-3 w-full rounded-[5.4px]">
                   <div className="block">
                     <p className="font-light text-[11.34px] font-Inter text-[#fefefe] bg-[#171717] p-2 rounded-[6px]">
-                      Sketchbook Style, Iron Man.Sketch book, hand drawn, dark,
-                      gritty, realistic sketch, Rough sketch, mix of bold dark
-                      lines and loose lines, bold lines, on paper, turnaround
-                      character sheet, a short fat mechanic in steampunk world,
-                      Full body, arcane symbols, runes, dark theme, Perfect
-                      composition golden ratio, masterpiece, best quality, 4k,
-                      sharp focus. Better hand, perfect anatomy. by Sonic
+                      {modalCtx.imageData.data.prompt}
                     </p>
                   </div>
                 </div>
@@ -162,19 +156,20 @@ export default function ModalImgCard() {
                     Input Resolution
                   </span>
                   <div className="w-full flex items-center text-white text-[14px] font-medium">
-                    512 x 984px
+                    {modalCtx.imageData.data.width} x{" "}
+                    {modalCtx.imageData.data.height}px
                   </div>
                 </div>
                 <div className="w-[48%] pr-2 mb-3">
                   <span className="text-[#9094a6] text-[12px]">Created</span>
                   <div className="w-full flex items-center text-white text-[14px]">
-                    512 x 984px
+                    {modalCtx.imageData.created.toString()}
                   </div>
                 </div>
                 <div className="w-[48%] pr-2 mb-3">
                   <span className="text-[#9094a6] text-[12px]">Pipeline</span>
                   <div className="w-full flex items-center text-white text-[14px]">
-                    512 x 984px
+                    Alchemy V2
                   </div>
                 </div>
                 <div className="w-[48%] pr-2 mb-3">
@@ -186,7 +181,7 @@ export default function ModalImgCard() {
                 <div className="w-[48%] pr-2 mb-3">
                   <span className="text-[#9094a6] text-[12px]">Preset</span>
                   <div className="w-full flex items-center text-white text-[14px]">
-                    Dynamic
+                    {modalCtx.imageData.data.presetStyle}
                   </div>
                 </div>
                 <div className="w-[48%] pr-2 mb-3">
