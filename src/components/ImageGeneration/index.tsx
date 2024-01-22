@@ -60,7 +60,6 @@ const ImageGeneration = () => {
     : alchemy
     ? AlchemyStyle
     : defaultStyle;
-
   const handleRealPhotoChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -116,8 +115,8 @@ const ImageGeneration = () => {
       alchemy: alchemy,
       presetStyle: generationStyle,
       numberOfImages: selectedNumber,
+      dimension: selectedOption,
     };
-    console.log(data);
     const res = await axios.post(
       `${process.env.REACT_APP_BACKEND_API}/generate/text-to-image`,
       data
