@@ -42,7 +42,7 @@ export default function ModalImgCard() {
         className="flex-1 p-5 ps-6 pe-6 mt-0 bg-modalBackground border-primary w-[876px] font-Inter"
         ref={ImgModalRef}
       >
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center relative">
           <div className="grid grid-cols-2 gap-x-5">
             {/* left */}
             <div className="">
@@ -247,6 +247,15 @@ export default function ModalImgCard() {
               </div>
             </div>
           </div>
+          <button
+            className="absolute top-0 right-0 rounded-full bg-[#0000005c] h-8 w-8 flex justify-center items-center"
+            onClick={handleHideImgCard}
+          >
+            <Icon
+              icon="iconamoon:close-light"
+              className="w-6 h-6 text-[#CBD5E0] hover:text-white"
+            />
+          </button>
         </div>
       </div>
     </Modal>
