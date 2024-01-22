@@ -233,12 +233,12 @@ const ImageGeneration = () => {
               </button>
 
               {/* Model Selection Dropdown Menu */}
-              <div className="model-dropdownmenu">
-                <div
-                  className={`model-menu-board transition-all duration-200 ease-in-out ${
-                    isModelVisible ? "model-visible" : "model-invisible"
-                  }`}
-                >
+              <div
+                className={`model-dropdownmenu transition-all duration-200 ease-in-out ${
+                  isModelVisible ? "model-visible" : "model-invisible"
+                }`}
+              >
+                <div className="model-menu-board transition-all duration-200 ease-in-out">
                   {ModelItems.map((item, index) => (
                     <button
                       key={index}
