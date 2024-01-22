@@ -626,8 +626,12 @@
   position: absolute;
   inset: 0px auto auto 0px;
   margin: 0px;
-  transform: translate(0px, 58px);
+  transform: translate(0px, 58px) !important;
   z-index: 10;
+}
+
+.dropdown-more-param {
+  transform: translate(-150px, 35px) !important;
 }
 
 .model-menu-board {
@@ -774,6 +778,7 @@
   border: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
   animation: fade-slide-up 0.3s ease-out forwards;
+  border-radius: 8px;
 }
 .modal::backdrop {
   background-color: rgba(0, 0, 0, 0.8);
@@ -836,4 +841,12 @@
   box-shadow: rgba(161, 128, 255, 0.6) 0px 0px calc(1rem) 0px;
   animation-timing-function: ease-out;
   animation-duration: 200ms;
+}
+
+.item-bg {
+  background-color: #1c1c1c;
+}
+
+.item-bg:hover {
+  background-color: #393b45;
 }

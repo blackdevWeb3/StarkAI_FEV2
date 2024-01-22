@@ -11,6 +11,6 @@ export interface ImageOptions {
 export interface Image {
   image: string;
   owner: string;
-  created: Date;
+  created: string;
   data: ImageOptions;
 }

@@ -1,17 +1,27 @@
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Icon } from "@iconify/react";
 import ModalContext from "../../utils/modalContext";
+import { format, parseISO } from "date-fns";
 
 import Modal from ".";
 import { Link } from "react-router-dom";
+import useOutsideClick from "../../utils/useOutsideClick";
 
 export default function ModalImgCard() {
   const modalCtx = useContext(ModalContext);
-
+  const [createdDate, setCreatedDate] = useState("");
   const ImgModalRef = useRef<HTMLDivElement>(null);
+
+  const [IsMoreVisible, setIsMoreVisible] = useState<boolean>(false);
+  const MoreFunctionRef = useRef<HTMLDivElement>(null);
+  useOutsideClick(MoreFunctionRef, setIsMoreVisible);
 
   const handleHideImgCard = () => {
     modalCtx.setVisible(false);
+  };
+
+  const deleteImageHandler = (event: any) => {
+    console.log("Hello");
   };
 
   useEffect(() => {
@@ -24,6 +34,15 @@ export default function ModalImgCard() {
       }
     };
 
+    if (modalCtx.imageData.created) {
+      setCreatedDate(
+        format(
+          parseISO(modalCtx.imageData.created.toString()),
+          "dd/MM/yy 'at' h:mm a"
+        )
+      );
+    }
+
     if (modalCtx.visible) {
       document.addEventListener("mousedown", handleClickOutside);
     }
@@ -32,7 +51,7 @@ export default function ModalImgCard() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [modalCtx.visible]);
-  console.log(modalCtx.imageData);
+
   return (
     <Modal
       open={modalCtx.visible}
@@ -65,20 +84,46 @@ export default function ModalImgCard() {
                     Alchemy Refiner
                   </span>
                 </button>
-                <button className="border-primary border rounded-lg h-[30px] px-4 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45]">
+                <button className="border-primary border rounded-lg h-[30px] px-2 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45]">
                   <Icon
                     icon="bytesize:download"
                     className="w-[14px] h-[14px]"
                   />
                   <span className="text-[14px]">Download</span>
                 </button>
-                <button className="border-primary border rounded-lg h-[30px] px-4 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45]">
+                <button className="border-primary border rounded-lg h-[30px] px-2 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45]">
                   <Icon
                     icon="mdi:share-variant-outline"
                     className="w-[14px] h-[14px]"
                   />
                   <span className="text-[14px]">Share</span>
                 </button>
+                <div
+                  ref={MoreFunctionRef}
+                  className="border-primary border hover:cursor-pointer rounded-lg h-[30px] px-2 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45] relative"
+                  onClick={() => setIsMoreVisible(!IsMoreVisible)}
+                >
+                  <Icon icon="ri:more-fill" className="w-[14px] h-[14px]" />
+                  {IsMoreVisible && (
+                    <div className="model-dropdownmenu dropdown-more-param transition-all duration-200 ease-in-out model-visible">
+                      <div className="model-menu-board transition-all duration-200 ease-in-out">
+                        <button
+                          className="model-item item-bg"
+                          onClick={deleteImageHandler}
+                        >
+                          <span className="">
+                            <Icon icon="fluent:delete-12-filled" />
+                          </span>
+                          <span className="">Delete Original Image</span>
+                        </button>
+                        <button className="model-item item-bg">
+                          <span className=""></span>
+                          <span className="">Delete</span>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -100,7 +145,7 @@ export default function ModalImgCard() {
                     <span className="text-white text-[12px]">Follow</span>
                   </button>
                 </div>
-                <span className="text-white font-semibold text-[18px]">
+                <span className="text-white font-semibold text-[18px] mt-2">
                   {modalCtx.imageData.data.prompt}
                 </span>
                 <hr className="border-primary border-t mb-2" />
@@ -163,7 +208,7 @@ export default function ModalImgCard() {
                 <div className="w-[48%] pr-2 mb-3">
                   <span className="text-[#9094a6] text-[12px]">Created</span>
                   <div className="w-full flex items-center text-white text-[14px]">
-                    {modalCtx.imageData.created.toString()}
+                    {createdDate}
                   </div>
                 </div>
                 <div className="w-[48%] pr-2 mb-3">
@@ -242,6 +287,8 @@ export default function ModalImgCard() {
               </div>
             </div>
           </div>
+
+          {/* Absoulte parmas such as close button, prev, next button */}
           <button
             className="absolute top-0 right-0 rounded-full bg-[#0000005c] h-8 w-8 flex justify-center items-center"
             onClick={handleHideImgCard}
