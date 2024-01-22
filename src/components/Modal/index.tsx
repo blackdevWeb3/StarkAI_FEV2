@@ -32,7 +32,7 @@ const Modal: FunctionComponent<ModalProps> = ({ children, open, onClose }) => {
   return createPortal(
     <dialog
       ref={dialog}
-      className="modal popup-container"
+      className="modal popup-container bg-modalBackground"
       onClose={handleClose}
     >
       {children}
