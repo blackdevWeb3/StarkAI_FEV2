@@ -15,7 +15,7 @@ const AppLayout = () => {
   return (
     <div className="flex flex-col md:flex-row w-full bg-black">
       <AppSlider />
-      <div className="flex flex-col min-h-screen h-full bg-black">
+      <div className="flex flex-col min-h-screen h-full bg-black w-full">
         <ChainHeader />
         <Routes>
           <Route path="/" element={<AppHome />} />
