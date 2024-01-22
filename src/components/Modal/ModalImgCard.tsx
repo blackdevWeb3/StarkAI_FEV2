@@ -133,7 +133,7 @@ export default function ModalImgCard() {
                 <div className="flex flex-row gap-4">
                   <Link to="/" className="flex flex-row items-center">
                     <div className="rounded-full"></div>
-                    <div className=" min-w-[auto] text-fontSecondary leading-[1] font-medium">
+                    <div className=" min-w-[auto] text-fontSecondary leading-[1] font-semibold">
                       {modalCtx.imageData.owner}
                     </div>
                   </Link>
@@ -145,7 +145,7 @@ export default function ModalImgCard() {
                     <span className="text-white text-[12px]">Follow</span>
                   </button>
                 </div>
-                <span className="text-white font-semibold text-[18px] mt-2">
+                <span className="text-white font-semibold text-[18px] mt-2 text-ellipsis overflow-hidden">
                   {modalCtx.imageData.data.prompt}
                 </span>
                 <hr className="border-primary border-t mb-2" />
@@ -281,7 +281,9 @@ export default function ModalImgCard() {
                     <span className="">
                       <Icon icon="raphael:magic" className="w-4 h-4" />
                     </span>
-                    <span className="">Generate with this model</span>
+                    <span className=" select-none">
+                      Generate with this model
+                    </span>
                   </button>
                 </div>
               </div>

@@ -850,3 +850,7 @@
 .item-bg:hover {
   background-color: #393b45;
 }
+
+.hover-ground {
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.51), rgba(0, 0, 0, 0.79));
+}
