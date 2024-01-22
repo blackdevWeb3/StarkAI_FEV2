@@ -16,7 +16,7 @@ const AppLayout = () => {
     <div className="flex flex-col md:flex-row w-full">
       <AppSlider />
       <>
-        <div className="fixed top-6 right-10 z-10" id="walletConnect">
+        <div className="fixed top-6 right-10 z-20" id="walletConnect">
           <ConnectButton />
         </div>
         <Routes>

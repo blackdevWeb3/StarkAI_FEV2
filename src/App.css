@@ -621,7 +621,6 @@
 }
 
 .model-dropdownmenu {
-  visibility: visible;
   min-width: max-content;
   --popper-transform-origin: top left;
   position: absolute;
@@ -772,13 +771,9 @@
 }
 
 .modal {
-  border-radius: 6px;
   border: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
   animation: fade-slide-up 0.3s ease-out forwards;
-  margin: auto;
-  padding: 0;
-  max-width: 100%;
 }
 .modal::backdrop {
   background-color: rgba(0, 0, 0, 0.8);
@@ -826,4 +821,19 @@
     rgb(77, 145, 255) 114.8%
   );
   color: white;
+}
+
+.button-color {
+  background: linear-gradient(
+    122deg,
+    rgb(250, 85, 96) 0.01%,
+    rgb(177, 75, 244) 49.9%,
+    rgb(77, 145, 255) 100%
+  );
+}
+
+.button-color:hover {
+  box-shadow: rgba(161, 128, 255, 0.6) 0px 0px calc(1rem) 0px;
+  animation-timing-function: ease-out;
+  animation-duration: 200ms;
 }
