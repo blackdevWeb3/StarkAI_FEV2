@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Image } from "../../utils/types";
 import axios from "axios";
 import Card from "../Others/Card";
+import { ImageList, ImageListItem } from "@mui/material";
 
 const CommunityFeed = () => {
   const { user }: any = useUser();
@@ -45,14 +46,23 @@ const CommunityFeed = () => {
       </div>
 
       {/* Images shared with community */}
-      <div className="mt-8 border-t border-primary">
-        {imageData.length > 0 && (
+      <div className="mt-8 border-t border-primary p-3">
+        {/* {imageData.length > 0 && (
           <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 grid-cols-1 gap-4 py-6 px-4 md:px-8 sm:px-4 justify-start">
             {imageData.map((item, index) => (
               <Card key={index} data={item} />
             ))}
           </div>
-        )}
+        )} */}
+        <ImageList variant="masonry" cols={4} gap={8}>
+          {imageData.map((item, index) => (
+            <ImageListItem key={index}>
+              {/* Do not use `item` as key if it's an object */}
+              <Card data={item} key={index} />
+              {/* No need for key on Card unless it renders list items internally */}
+            </ImageListItem>
+          ))}
+        </ImageList>
       </div>
     </div>
   );

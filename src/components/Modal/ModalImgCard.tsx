@@ -271,7 +271,7 @@ export default function ModalImgCard() {
                         </span>
                         <div className="flex items-center">
                           <span className="text-white text-[14px] pb-[2px]">
-                            Leonardo Vision XL
+                            StarkAI Vision XL
                           </span>
                         </div>
                       </div>
