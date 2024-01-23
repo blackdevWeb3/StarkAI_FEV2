@@ -3,6 +3,7 @@ import { useUser } from "../../context/UserContext";
 import Card from "../../components/Others/Card";
 import axios from "axios";
 import { Image } from "../../utils/types";
+import ModalImgCard from "../../components/Modal/ModalImgCard";
 
 const AppMainBoard = () => {
   const { user }: any = useUser();
@@ -35,6 +36,7 @@ const AppMainBoard = () => {
           ))}
         </div>
       )}
+      <ModalImgCard onUpdate={updateLibrary} />
     </>
   );
 };
