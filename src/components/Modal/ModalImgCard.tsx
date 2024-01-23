@@ -1,21 +1,43 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { Icon } from "@iconify/react";
-import ModalContext from "../../utils/modalContext";
-import { format, parseISO } from "date-fns";
-
-import Modal from ".";
+import React from "react";
 import { Link } from "react-router-dom";
+import { Icon } from "@iconify/react";
+import { format, parseISO } from "date-fns";
+import ModalContext from "../../utils/modalContext";
+import Modal from ".";
 import useOutsideClick from "../../utils/useOutsideClick";
+import { TransitionProps } from "@mui/material/transitions";
+import Slide from "@mui/material/Slide/Slide";
+import Dialog from "@mui/material/Dialog/Dialog";
 import axios from "axios";
+
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    children: React.ReactElement;
+  },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
 const ModalImgCard = ({ onUpdate }: any) => {
   const modalCtx = useContext(ModalContext);
   const [createdDate, setCreatedDate] = useState("");
   const ImgModalRef = useRef<HTMLDivElement>(null);
+  const [magnifyOpen, setMagnifyOpen] = useState<boolean>(false);
 
   const [IsMoreVisible, setIsMoreVisible] = useState<boolean>(false);
   const MoreFunctionRef = useRef<HTMLDivElement>(null);
   useOutsideClick(MoreFunctionRef, setIsMoreVisible);
+
+  const handleMagnifyImage = () => {
+    setMagnifyOpen(true);
+    handleHideImgCard();
+  };
+
+  const handleClose = () => {
+    setMagnifyOpen(false);
+  };
 
   const handleHideImgCard = () => {
     modalCtx.setVisible(false);
@@ -97,7 +119,10 @@ const ModalImgCard = ({ onUpdate }: any) => {
           <div className="grid grid-cols-2 gap-x-5">
             {/* left */}
             <div className="">
-              <div className="flex relative flex-col min-w-0 rounded-lg p-0 cursor-pointer">
+              <div
+                className="flex relative flex-col min-w-0 rounded-lg p-0 cursor-pointer"
+                onClick={handleMagnifyImage}
+              >
                 <div className="rounded-lg">
                   <img
                     className="h-auto max-w-full rounded-md"
@@ -106,6 +131,32 @@ const ModalImgCard = ({ onUpdate }: any) => {
                   />
                 </div>
               </div>
+
+              {/* Magnify Modal */}
+
+              <Dialog
+                keepMounted
+                open={magnifyOpen}
+                onClose={handleClose}
+                TransitionComponent={Transition}
+                aria-describedby="alert-dialog-slide-description"
+              >
+                <div className="bg-[#2D3748] flex flex-col w-auto rounded-lg z-10 overflow-hidden">
+                  <div className="flex flex-1 p-0 mt-0 rounded-lg min-w-full">
+                    <div className="flex justify-center m-auto max-w-[90vw] relative">
+                      <div className="flex justify-center h-auto max-h-full aspect-auto max-w-fit min-w-fit min-h-fit relative">
+                        <img
+                          className="z-10 relative object-contain"
+                          src="https://cdn.leonardo.ai/users/d5552a4f-db4e-4f6e-b039-332445359df8/generations/c98794c0-f84a-4dbd-bd96-57cb169a0482/variations/alchemyrefiner_alchemymagic_0_c98794c0-f84a-4dbd-bd96-57cb169a0482_0.jpg"
+                          alt="imagelogo"
+                        ></img>
+                      </div>
+                    </div>
+                  </div>
+                  <div className=""></div>
+                </div>
+              </Dialog>
+              {/*  */}
               <div className="flex flex-row justify-between gap-2 w-full pt-5 flex-wrap">
                 <button className="border-primary border rounded-lg h-[30px] px-4 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45]">
                   <Icon
