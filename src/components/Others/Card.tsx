@@ -30,17 +30,18 @@ const Card = (props: any) => {
           <ClipLoader color="white" size={28} />
         </div>
       )}
-      {
-        <LazyLoadImage
-          src={props.data.image}
-          onLoad={() => setLoading(false)}
-          alt="GeneratedImage"
-          effect="blur"
-          style={{ borderRadius: "10px" }}
-        />
-      }
 
-      <div className="absolute w-full h-full top-0 left-0 hover-ground opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4 flex flex-col justify-start gap-10">
+      <LazyLoadImage
+        src={props.data.image}
+        onLoad={() => setLoading(false)}
+        alt="GeneratedImage"
+        effect="blur"
+        style={{ borderRadius: "10px" }}
+      />
+
+      {/* Hovered Image Description */}
+
+      <div className="absolute w-full h-full top-0 left-0 hover-ground opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4 flex flex-col justify-start">
         <div className="flex flex-row justify-between gap-2">
           <div className="flex flex-row items-center gap-1 overflow-hidden">
             <span className="w-8 h-8 p-3 rounded-full bg-[#1cb578] flex text-center justify-center items-center text-black font-semibold">

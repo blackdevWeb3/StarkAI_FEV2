@@ -2,7 +2,7 @@
   "custom_models": [
     {
       "id": "5c232a9e-9061-4777-980a-ddc8e65647c6",
-      "name": "Leonardo Vision XL",
+      "name": "StarkAI Vision XL",
       "description": "A versatile model that excels at realism and photography. Better results with longer prompts.",
       "nsfw": false,
       "featured": true,
@@ -13,8 +13,8 @@
     },
     {
       "id": "1e60896f-3c26-4296-8ecc-53e2afecc132",
-      "name": "Leonardo Diffusion XL",
-      "description": "The next phase of the core Leonardo model. Stunning outputs, even with short prompts.",
+      "name": "StarkAI Diffusion XL",
+      "description": "The next phase of the core StarkAI model. Stunning outputs, even with short prompts.",
       "nsfw": false,
       "featured": true,
       "generated_image": {
@@ -120,7 +120,7 @@
     },
     {
       "id": "b820ea11-02bf-4652-97ae-9ac0cc00593d",
-      "name": "Leonardo Diffusion",
+      "name": "StarkAI Diffusion",
       "description": "A model with incredible shading and contrast, great at both photos and artistic styles, by cac0e.",
       "nsfw": false,
       "featured": true,
@@ -172,7 +172,7 @@
     },
     {
       "id": "cd2b2a15-9760-4174-a5ff-4d2925057376",
-      "name": "Leonardo Select",
+      "name": "StarkAI Select",
       "description": "A powerful finetune of SD2.1 that can achieve a high level of realism.",
       "nsfw": false,
       "featured": false,
@@ -180,7 +180,7 @@
     },
     {
       "id": "6bef9f1b-29cb-40c7-b9df-32b51c1f67d3",
-      "name": "Leonardo Creative",
+      "name": "StarkAI Creative",
       "description": "An alternative finetune of SD 2.1 that brings a little more creative interpretation to the mix.",
       "nsfw": false,
       "featured": false,
@@ -333,8 +333,8 @@
     },
     {
       "id": "291be633-cb24-434f-898f-e662799936ad",
-      "name": "Leonardo Signature",
-      "description": "The core model of the Leonardo platform. An extremely powerful and diverse finetune which is highly effective for a wide range of uses.",
+      "name": "StarkAI Signature",
+      "description": "The core model of the StarkAI platform. An extremely powerful and diverse finetune which is highly effective for a wide range of uses.",
       "nsfw": false,
       "featured": false,
       "generated_image": null
