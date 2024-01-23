@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface ImageOptions {
   alchemy: boolean;
   modelId: string;
@@ -13,4 +15,16 @@ export interface Image {
   owner: string;
   created: string;
   data: ImageOptions;
+}
+
+export type ChainConfig = {
+  name: string;
+  key: string;
+  ColorIcon: React.FC;
+  DefaultIcon: React.FC;
+};
+
+export interface BlockchainButtonProps {
+  selectedChain: string;
+  handleSelectChain: (chainkey: string) => void;
 }

@@ -1,3 +1,17 @@
+import { ChainConfig } from "./types";
+import {
+  AllChainColor,
+  AllChainDefault,
+  BitcoinColor,
+  BitcoinDefault,
+  EthereumColor,
+  EthereumDefault,
+  PolygonColor,
+  PolygonDefault,
+  SolanaColor,
+  SolanaDefault,
+} from "../assets";
+
 const ImageNumberGroup = [1, 2, 3, 4, 5, 6, 7, 8];
 const ImageDimensionsGroup = [
   "512 * 512",
@@ -113,6 +127,39 @@ const AlchemyStyle = [
   { id: "None" },
 ];
 
+const chains: ChainConfig[] = [
+  {
+    name: "All Chains",
+    key: "all",
+    ColorIcon: AllChainColor,
+    DefaultIcon: AllChainDefault,
+  },
+  {
+    name: "Solana",
+    key: "sol",
+    ColorIcon: SolanaColor,
+    DefaultIcon: SolanaDefault,
+  },
+  {
+    name: "Ethereum",
+    key: "eth",
+    ColorIcon: EthereumColor,
+    DefaultIcon: EthereumDefault,
+  },
+  {
+    name: "Bitcoin",
+    key: "bit",
+    ColorIcon: BitcoinColor,
+    DefaultIcon: BitcoinDefault,
+  },
+  {
+    name: "Polygon",
+    key: "poly",
+    ColorIcon: PolygonColor,
+    DefaultIcon: PolygonDefault,
+  },
+  // Add more chains as necessary...
+];
 // const PhotoReal = "b9d4a72d-2dea-4473-9be5-caf645a3b67e";
 
 export {
@@ -123,4 +170,5 @@ export {
   AlchemyStyle,
   photoRealStyle,
   defaultStyle,
+  chains,
 };

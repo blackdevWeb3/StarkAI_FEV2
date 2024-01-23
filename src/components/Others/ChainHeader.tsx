@@ -1,30 +1,62 @@
 import { Icon } from "@iconify/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useState } from "react";
+import { BlockchainButtonProps } from "../../utils/types";
+import { chains } from "../../utils/constants";
+
+const BlockchainButtons: React.FC<BlockchainButtonProps> = ({
+  selectedChain,
+  handleSelectChain,
+}) => {
+  return (
+    <div className="flex flex-row">
+      {chains.map(({ name, key, ColorIcon, DefaultIcon }) => {
+        const isSelected = selectedChain === key;
+        return (
+          <button
+            key={key}
+            className={`px-5 h-10 flex items-center gap-2 ${
+              isSelected ? "text-blue-500 bg-[#40324e]" : ""
+            }`}
+            onClick={() => handleSelectChain(key)}
+          >
+            {isSelected ? (
+              <>
+                <ColorIcon />
+                <span className="text-white/90 font-Inter text-[14px] font-semibold leading-4">
+                  {name}
+                </span>
+              </>
+            ) : (
+              <>
+                <DefaultIcon />
+              </>
+            )}
+          </button>
+        );
+      })}
+    </div>
+  );
+};
 
 const ChainHeader = () => {
+  const [selectedChain, setSelectedChain] = useState<string>("");
+
+  const handleSelectChain = (chain: string) => {
+    setSelectedChain(chain);
+  };
+
   return (
     <>
       <div className="bg-black flex-col relative w-full">
         <div className="items-end right-8 top-2 absolute" id="walletConnect">
           <ConnectButton />
         </div>
-        <div className="border-primary h-10 border-t border-b mt-[55px] flex flex-row items-center gap-5">
-          <button className="px-2 flex flex-row gap-2 items-center">
-            <Icon icon="ri:shapes-fill" className="w-6 h-6" />
-            All Chains
-          </button>
-          <button className="px-2">
-            <Icon icon="simple-icons:solana" className="w-5 h-5" />
-          </button>
-          <button className="px-2">
-            <Icon icon="simple-icons:ethereum" className="w-5 h-5" />
-          </button>
-          <button className="px-2">
-            <Icon icon="simple-icons:bitcoin" className="w-5 h-5" />
-          </button>
-          <button className="px-2">
-            <Icon icon="simple-icons:polygon" className="w-5 h-5" />
-          </button>
+        <div className="border-primary h-10 border-t border-b mt-[55px] flex flex-row items-center gap-3">
+          <BlockchainButtons
+            selectedChain={selectedChain}
+            handleSelectChain={handleSelectChain}
+          />
         </div>
       </div>
     </>
