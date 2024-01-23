@@ -17,7 +17,12 @@ const CommunityFeed = () => {
         `${process.env.REACT_APP_BACKEND_API}/getAllImages`
       );
       if (res.status === 200) {
-        setImageData(res.data);
+        const sorted = res.data.sort((a: Image, b: Image) => {
+          const ad = new Date(a.created),
+            bd = new Date(b.created);
+          return ad.getTime() > bd.getTime();
+        });
+        setImageData(sorted);
       } else {
         console.log("Error occurred");
       }
@@ -57,7 +62,7 @@ const CommunityFeed = () => {
             ))}
           </div>
         )} */}
-          <ImageList variant="masonry" cols={4} gap={8}>
+          <ImageList cols={4} gap={8}>
             {imageData.map((item, index) => (
               <ImageListItem key={index}>
                 {/* Do not use `item` as key if it's an object */}
