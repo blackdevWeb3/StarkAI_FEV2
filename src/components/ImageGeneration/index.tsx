@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CollapsibleSection from "./CollapsibleSection";
 import { ReactComponent as DocumentSVG } from "../../assets/document.svg";
 
@@ -51,6 +51,9 @@ const ImageGeneration = () => {
   const [promptText, setPromptText] = useState<string>("");
   const [generating, setGenerating] = useState(false);
   const [imageData, setImageData] = useState<Image[]>([]);
+  const [mode, setMode] = useState(0);
+  const [imageSrc, setImageSrc] = useState<File | null>(null);
+  const uploadImgRef = useRef<HTMLInputElement>(null);
 
   useOutsideClick(ModelMenuRef, setIsModelVisible);
   useOutsideClick(StyleMenuRef, setIsStyleVisible);
@@ -110,19 +113,37 @@ const ImageGeneration = () => {
 
   const handleGenerate = async () => {
     setGenerating(true);
-    const data = {
-      user: JSON.parse(user).email,
-      text: promptText,
-      model: generationModel?.id,
-      alchemy: alchemy,
-      presetStyle: generationStyle,
-      numberOfImages: selectedNumber,
-      dimension: selectedOption,
-    };
-    const res = await axios.post(
-      `${process.env.REACT_APP_BACKEND_API}/generate/text-to-image`,
-      data
-    );
+    var res;
+    if (mode === 0) {
+      const data = {
+        user: JSON.parse(user).email,
+        text: promptText,
+        model: generationModel?.id,
+        alchemy: alchemy,
+        presetStyle: generationStyle,
+        numberOfImages: selectedNumber,
+        dimension: selectedOption,
+      };
+      res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_API}/generate/text-to-image`,
+        data
+      );
+    } else {
+      const data = new FormData();
+      data.append("user", JSON.parse(user).email);
+      data.append("text", promptText);
+      data.append("model", generationModel?.id || "");
+      data.append("alchemy", alchemy ? "true" : "false");
+      data.append("presetStyle", generationStyle);
+      data.append("numberOfImages", selectedNumber.toString());
+      data.append("dimension", selectedOption);
+      data.append("image", imageSrc || "");
+      console.log(data);
+      res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_API}/generate/image-to-image`,
+        data
+      );
+    }
     if (res.data.message === "Success") {
       console.log("Success");
     } else {
@@ -133,7 +154,6 @@ const ImageGeneration = () => {
   };
 
   const updateLibrary = () => {
-    console.log("123123");
     const func = async () => {
       const res = await axios.post(
         `${process.env.REACT_APP_BACKEND_API}/getImages`,
@@ -151,6 +171,20 @@ const ImageGeneration = () => {
     if (imageData.length > 0) return;
     updateLibrary();
   });
+
+  const handleUpload = () => {
+    uploadImgRef.current?.click();
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0])
+      setImageSrc(event.target.files[0]);
+  };
+
+  const handleRemoveUpload = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation();
+    setImageSrc(null);
+  };
 
   return (
     <>
@@ -301,15 +335,59 @@ const ImageGeneration = () => {
               </div>
             </div>
           </div>
-          <div className="mt-8 border-t border-primary">
-            {imageData.length > 0 && (
-              <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 grid-cols-1 gap-4 py-6 px-4 md:px-8 sm:px-4 justify-start">
-                {imageData.map((item, index) => (
-                  <Card key={index} data={item} />
-                ))}
-              </div>
-            )}
+          <div className="flex gap-4">
+            <button onClick={() => setMode(0)}>Generation History</button>
+            <button onClick={() => setMode(1)}>Image Guidance</button>
           </div>
+          {mode === 0 && (
+            <div className="mt-8 border-t border-primary">
+              {imageData.length > 0 && (
+                <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 grid-cols-1 gap-4 py-6 px-4 md:px-8 sm:px-4 justify-start">
+                  {imageData.map((item, index) => (
+                    <Card key={index} data={item} />
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+          {mode === 1 && (
+            <div className="mt-8 border-t border-primary">
+              <div
+                onClick={handleUpload}
+                className="relative w-[200px] h-[200px] rounded-full bg-[#232323] border border-dashed border-white border-opacity-20"
+              >
+                <input
+                  type="file"
+                  ref={uploadImgRef}
+                  className="hidden"
+                  onChange={handleFileChange}
+                  accept="image/*"
+                />
+                <div className="appearance-none bg-transparent border-none w-full h-full flex justify-center items-center">
+                  {imageSrc ? (
+                    <img
+                      src={URL.createObjectURL(imageSrc)}
+                      alt="Avatar"
+                      className="rounded-full w-full h-full object-cover"
+                    />
+                  ) : (
+                    <Icon
+                      icon="mingcute:user-4-fill"
+                      className="w-8 h-8 text-white"
+                    />
+                  )}
+                </div>
+                {imageSrc && (
+                  <div
+                    className="absolute top-[-15px] right-[-18px]"
+                    onClick={handleRemoveUpload}
+                  >
+                    <Icon icon="streamline:recycle-bin-2" className="w-5 h-5" />
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
         <div className="absolute top-0 left-[-270px] z-10 w-[270px] h-full bg-black pt-[10px] flex flex-col px-4 border-r border-primary">
           <div className="pt-[19px] flex flex-row justify-between items-center">
