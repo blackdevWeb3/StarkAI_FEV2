@@ -57,6 +57,7 @@ const CommunityFeed = () => {
           )}
         </div>
       </div>
+      <ModalImgCard onUpdate={updateLibrary} />
     </>
   );
 };
