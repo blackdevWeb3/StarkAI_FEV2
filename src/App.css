@@ -854,3 +854,6 @@
 .hover-ground {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.51), rgba(0, 0, 0, 0.79));
 }
+.inherit-aspect-ratio {
+  aspect-ratio: inherit;
+}

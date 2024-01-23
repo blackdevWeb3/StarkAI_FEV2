@@ -26,6 +26,9 @@ module.exports = {
         Overpass: ["Overpass", "sans-serif"],
         Inter: ["Inter", "sans-serif"],
       },
+      aspectRatio: {
+        "custom-768-1152": "768/1152",
+      },
     },
   },
   plugins: [],
