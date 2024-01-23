@@ -6,8 +6,9 @@ import { format, parseISO } from "date-fns";
 import Modal from ".";
 import { Link } from "react-router-dom";
 import useOutsideClick from "../../utils/useOutsideClick";
+import axios from "axios";
 
-export default function ModalImgCard() {
+const ModalImgCard = ({ onUpdate }: any) => {
   const modalCtx = useContext(ModalContext);
   const [createdDate, setCreatedDate] = useState("");
   const ImgModalRef = useRef<HTMLDivElement>(null);
@@ -20,8 +21,13 @@ export default function ModalImgCard() {
     modalCtx.setVisible(false);
   };
 
-  const deleteImageHandler = (event: any) => {
-    console.log("Hello");
+  const deleteImageHandler = async () => {
+    const data = {
+      image: modalCtx.imageData.image,
+    };
+    await axios.post(`${process.env.REACT_APP_BACKEND_API}/deleteImage`, data);
+    modalCtx.setVisible(false);
+    onUpdate();
   };
 
   useEffect(() => {
@@ -51,6 +57,32 @@ export default function ModalImgCard() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [modalCtx.visible]);
+
+  const handleDownload = async () => {
+    const url = modalCtx.imageData.image;
+    const res = await fetch(url);
+    const pos = url.lastIndexOf("/");
+    const name = url.substring(pos + 1);
+    if (res.status === 200) {
+      const blob = await res.blob();
+      const blobUrl = URL.createObjectURL(blob);
+
+      // Create a temporary anchor element and trigger a download
+      const anchor = document.createElement("a");
+      anchor.href = blobUrl;
+      anchor.download = name;
+      document.body.appendChild(anchor); // Attach to the document so it can be clicked
+      anchor.click();
+
+      // Clean up: revoke the object URL and remove the anchor element
+      URL.revokeObjectURL(blobUrl);
+      document.body.removeChild(anchor);
+    }
+  };
+
+  const handleShare = async () => {
+    await navigator.clipboard.writeText(modalCtx.imageData.image);
+  };
 
   return (
     <Modal
@@ -84,14 +116,27 @@ export default function ModalImgCard() {
                     Alchemy Refiner
                   </span>
                 </button>
-                <button className="border-primary border rounded-lg h-[30px] px-2 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45]">
+                <button
+                  className="border-primary border rounded-lg h-[30px] px-2 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45]"
+                  onClick={handleDownload}
+                >
                   <Icon
                     icon="bytesize:download"
                     className="w-[14px] h-[14px]"
                   />
                   <span className="text-[14px]">Download</span>
                 </button>
-                <button className="border-primary border rounded-lg h-[30px] px-2 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45]">
+                {/* <a
+                  className="border-primary border rounded-lg h-[30px] px-2 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45]"
+                  href="/starkmeta_logo.png"
+                  download
+                >
+                  Download
+                </a> */}
+                <button
+                  className="border-primary border rounded-lg h-[30px] px-2 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45]"
+                  onClick={handleShare}
+                >
                   <Icon
                     icon="mdi:share-variant-outline"
                     className="w-[14px] h-[14px]"
@@ -304,4 +349,6 @@ export default function ModalImgCard() {
       </div>
     </Modal>
   );
-}
+};
+
+export default ModalImgCard;

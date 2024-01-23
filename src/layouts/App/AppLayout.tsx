@@ -29,7 +29,6 @@ const AppLayout = () => {
           <Route path="explore" element={<Explore />} />
           <Route path="marketplace" element={<Marketplace />} />
         </Routes>
-        <ModalImgCard />
       </>
     </div>
   );
