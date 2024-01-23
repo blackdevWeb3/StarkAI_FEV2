@@ -17,7 +17,7 @@ const Card = (props: any) => {
   };
 
   useEffect(() => {
-    console.log("Data:", props.data);
+    // console.log("Data:", props.data);
   }, []);
 
   return (
