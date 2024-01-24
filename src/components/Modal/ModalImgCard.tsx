@@ -112,7 +112,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
       onClose={modalCtx.visible ? handleHideImgCard : () => {}}
     >
       <div
-        className="flex-1 p-5 ps-6 pe-6 mt-0 bg-modalBackground border-primary w-[876px] font-Inter"
+        className="flex-1 p-5 ps-6 pe-6 mt-0 bg-modalBackground border-primary w-[876px] font-Inter relative"
         ref={ImgModalRef}
       >
         <div className="flex flex-col items-center relative">
@@ -140,37 +140,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
                 onClose={handleClose}
                 TransitionComponent={Transition}
                 aria-describedby="alert-dialog-slide-description"
-              >
-                <div className="bg-[#2D3748] flex flex-col w-auto rounded-lg z-10 h-full">
-                  <div className="flex p-0 mt-0 rounded-lg w-auto h-[calc(100%-72px)]">
-                    <div className="flex justify-center m-auto relative w-auto h-full">
-                      <div className="flex justify-center  w-auto h-full">
-                        <img
-                          className="z-10 relative object-contain w-auto h-full"
-                          src={modalCtx.imageData.image}
-                          alt="imagelogo"
-                        ></img>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-end ps-6 pe-6 flex-col p-0">
-                    <div className="flex flex-row z-10 w-full p-4">
-                      <div className="sm:justify-center sm:items-center justify-end items-end gap-5 flex flex-row">
-                        <div className="sm:justify-center sm:items-center flex flex-end">
-                          <button className="group p-3 rounded-full bg-[#19191980] hover:bg-[#19191950] flex flex-row items-center justify-center">
-                            <Icon
-                              icon="clarity:download-line"
-                              className="w-4 h-4 text-white/90 group-hover:text-[#B34BF0]"
-                            />
-                          </button>
-                          <button className=""></button>
-                        </div>
-                        <div className=""></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Dialog>
+              ></Dialog>
               {/*  */}
               <div className="flex flex-row justify-between gap-2 w-full pt-5 flex-wrap">
                 <button className="border-primary border rounded-lg h-[30px] px-4 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45]">
@@ -411,6 +381,52 @@ const ModalImgCard = ({ onUpdate }: any) => {
               className="w-6 h-6 text-[#CBD5E0] hover:text-white"
             />
           </button>
+        </div>
+        <div className="absolute top-0 left-0">
+          <div className="bg-[#282c34] flex flex-col w-auto rounded-lg z-10 h-full">
+            <div className="flex p-0 mt-0 rounded-lg w-auto h-[calc(100%-72px)]">
+              <div className="flex justify-center m-auto relative w-auto h-full">
+                <div className="flex justify-center  w-auto h-full">
+                  <img
+                    className="z-10 relative object-contain w-auto h-full"
+                    src={modalCtx.imageData.image}
+                    alt="imagelogo"
+                  ></img>
+                </div>
+                <button
+                  className="absolute top-5 right-5 rounded-full bg-[#0000005c] h-8 w-8 flex justify-center items-center z-10"
+                  onClick={handleHideImgCard}
+                >
+                  <Icon
+                    icon="iconamoon:close-light"
+                    className="w-6 h-6 text-[#CBD5E0] hover:text-white"
+                  />
+                </button>
+              </div>
+            </div>
+            <div className="flex items-center justify-end ps-6 pe-6 flex-col p-0">
+              <div className="flex flex-row z-10 w-full p-4 justify-end">
+                <div className="sm:justify-center sm:items-center justify-end items-end gap-5 flex flex-row">
+                  <div className="sm:justify-center sm:items-center flex flex-end">
+                    <button className="group p-3 rounded-full bg-[#19191980] hover:bg-[#19191950] flex flex-row items-center justify-center">
+                      <Icon
+                        icon="clarity:download-line"
+                        className="w-4 h-4 text-white/90 group-hover:text-[#B34BF0]"
+                      />
+                    </button>
+                  </div>
+                  <div className="">
+                    <button className="group p-3 rounded-full bg-[#19191980] hover:bg-[#19191950] flex flex-row items-center justify-center">
+                      <Icon
+                        icon="solar:trash-bin-2-linear"
+                        className="w-4 h-4 text-white/90 group-hover:text-[#B34BF0]"
+                      />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </Modal>
