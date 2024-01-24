@@ -10,6 +10,7 @@ import { TransitionProps } from "@mui/material/transitions";
 import Slide from "@mui/material/Slide/Slide";
 import Dialog from "@mui/material/Dialog/Dialog";
 import axios from "axios";
+import { useUser } from "../../context/UserContext";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -21,6 +22,7 @@ const Transition = React.forwardRef(function Transition(
 });
 
 const ModalImgCard = ({ onUpdate }: any) => {
+  const { user }: any = useUser();
   const modalCtx = useContext(ModalContext);
   const [createdDate, setCreatedDate] = useState("");
   const ImgModalRef = useRef<HTMLDivElement>(null);
@@ -44,6 +46,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
   };
 
   const deleteImageHandler = async () => {
+    if (modalCtx.imageData.owner !== JSON.parse(user).email) return;
     const data = {
       image: modalCtx.imageData.image,
     };
