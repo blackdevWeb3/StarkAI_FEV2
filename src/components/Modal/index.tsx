@@ -1,6 +1,5 @@
-import { useContext, useEffect, useRef, FunctionComponent } from "react";
+import { useEffect, useRef, FunctionComponent } from "react";
 import { createPortal } from "react-dom";
-import ModalContext from "../../utils/modalContext"; // Ensure the path matches case sensitivity
 
 interface ModalProps {
   children: React.ReactNode;
@@ -11,8 +10,6 @@ interface ModalProps {
 const Modal: FunctionComponent<ModalProps> = ({ children, open, onClose }) => {
   // Use HTMLDialogElement as the type parameter for useRef because we are working with <dialog> element
   const dialog = useRef<HTMLDialogElement>(null);
-
-  const modalCtx = useContext(ModalContext);
 
   useEffect(() => {
     const modal = dialog.current;

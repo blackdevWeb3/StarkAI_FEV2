@@ -1,4 +1,3 @@
-import { Icon } from "@iconify/react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useState } from "react";
 import { BlockchainButtonProps } from "../../utils/types";
@@ -9,7 +8,7 @@ const BlockchainButtons: React.FC<BlockchainButtonProps> = ({
   handleSelectChain,
 }) => {
   return (
-    <div className="flex flex-row">
+    <div className="flex flex-row font-chakra">
       {chains.map(({ name, key, ColorIcon, DefaultIcon }) => {
         const isSelected = selectedChain === key;
         return (
@@ -23,7 +22,7 @@ const BlockchainButtons: React.FC<BlockchainButtonProps> = ({
             {isSelected ? (
               <>
                 <ColorIcon />
-                <span className="text-white/90 font-Inter text-[14px] font-semibold leading-4">
+                <span className="text-white/90 text-[14px] font-semibold leading-4">
                   {name}
                 </span>
               </>

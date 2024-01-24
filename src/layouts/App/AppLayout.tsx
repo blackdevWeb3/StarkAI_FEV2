@@ -8,7 +8,6 @@ import Explore from "../../components/Explore";
 import Marketplace from "../../components/Marketplace";
 import TextGeneration from "../../components/TextGeneration";
 import Settings from "../../components/Settings";
-import ModalImgCard from "../../components/Modal/ModalImgCard";
 import ChainHeader from "../../components/Others/ChainHeader";
 
 const AppLayout = () => {

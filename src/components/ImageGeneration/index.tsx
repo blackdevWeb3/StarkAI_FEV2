@@ -16,11 +16,12 @@ import {
 } from "../../utils/constants";
 import { useUser } from "../../context/UserContext";
 import axios from "axios";
-import Card from "../Others/Card";
 import { Image } from "../../utils/types";
 
 import useOutsideClick from "../../utils/useOutsideClick";
 import ModalImgCard from "../Modal/ModalImgCard";
+import GenerationHistory from "./GenerationHistory";
+import ImageGuidance from "./ImageGuidance";
 
 const userSelectedModelItem: ModelItem = {
   id: "1e60896f-3c26-4296-8ecc-53e2afecc132",
@@ -58,7 +59,23 @@ const ImageGeneration = () => {
   const [generating, setGenerating] = useState(false);
   const [imageData, setImageData] = useState<Image[]>([]);
   const [imageSrc, setImageSrc] = useState<File | null>(null);
+
   const uploadImgRef = useRef<HTMLInputElement>(null);
+
+  const handleUpload = () => {
+    uploadImgRef.current?.click();
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0)
+      setImageSrc(event.target.files[0]);
+  };
+
+  const handleRemoveUpload = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.stopPropagation(); // Prevents triggering click on parent element
+    setImageSrc(null);
+    if (uploadImgRef.current) uploadImgRef.current.value = ""; // Clear the file input
+  };
 
   useOutsideClick(ModelMenuRef, setIsModelVisible);
   useOutsideClick(StyleMenuRef, setIsStyleVisible);
@@ -176,20 +193,6 @@ const ImageGeneration = () => {
     if (imageData.length > 0) return;
     updateLibrary();
   });
-
-  const handleUpload = () => {
-    uploadImgRef.current?.click();
-  };
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0])
-      setImageSrc(event.target.files[0]);
-  };
-
-  const handleRemoveUpload = (event: React.MouseEvent<HTMLDivElement>) => {
-    event.stopPropagation();
-    setImageSrc(null);
-  };
 
   return (
     <>
@@ -356,56 +359,24 @@ const ImageGeneration = () => {
             </nav>
           </div>
 
-          {activeTab === "generationHistory" && (
-            <div className="mt-3 border-primary">
-              {imageData.length > 0 && (
-                <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 grid-cols-1 gap-4 py-6 px-4 md:px-8 sm:px-4 justify-start">
-                  {imageData.map((item, index) => (
-                    <Card key={index} data={item} />
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-          {activeTab === "imgGuidance" && (
-            <div className="mt-3 border-primary">
-              <div
-                onClick={handleUpload}
-                className="relative w-[200px] h-[200px] rounded-full bg-[#232323] border border-dashed border-white border-opacity-20"
-              >
-                <input
-                  type="file"
-                  ref={uploadImgRef}
-                  className="hidden"
-                  onChange={handleFileChange}
-                  accept="image/*"
-                />
-                <div className="appearance-none bg-transparent border-none w-full h-full flex justify-center items-center">
-                  {imageSrc ? (
-                    <img
-                      src={URL.createObjectURL(imageSrc)}
-                      alt="Avatar"
-                      className="rounded-full w-full h-full object-cover"
-                    />
-                  ) : (
-                    <Icon
-                      icon="mingcute:user-4-fill"
-                      className="w-8 h-8 text-white"
-                    />
-                  )}
-                </div>
-                {imageSrc && (
-                  <div
-                    className="absolute top-[-15px] right-[-18px]"
-                    onClick={handleRemoveUpload}
-                  >
-                    <Icon icon="streamline:recycle-bin-2" className="w-5 h-5" />
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
+          {/* Tab Content */}
+          <div className="mt-3 border-primary">
+            {activeTab === "generationHistory" && (
+              <GenerationHistory imageData={imageData} />
+            )}
+            {activeTab === "imgGuidance" && (
+              <ImageGuidance
+                imageSrc={imageSrc}
+                uploadImgRef={uploadImgRef}
+                handleFileChange={handleFileChange}
+                handleRemoveUpload={handleRemoveUpload}
+                handleUpload={handleUpload}
+              />
+            )}
+          </div>
         </div>
+
+        {/* Left Image Generation Options */}
         <div className="absolute top-0 left-[-270px] z-10 w-[270px] h-full bg-black pt-[10px] flex flex-col px-4 border-r border-primary">
           <div className="pt-[19px] flex flex-row justify-between items-center">
             <span className="flex flex-row justify-center items-center">

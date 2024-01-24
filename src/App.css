@@ -180,7 +180,7 @@
   outline-offset: 2px;
   position: relative;
   appearance: none;
-  transition-property: var(--leonardo-ai-transition-property-common);
+  transition-property: all;
   transition-duration: 0.2s;
   font-size: 14px;
   padding-inline-start: 32px;
@@ -299,7 +299,7 @@
   line-height: calc(1.25rem);
   border-radius: calc(0.3125rem);
   font-weight: 400;
-  transition-property: var(--leonardo-ai-transition-property-common);
+  transition-property: all;
   transition-duration: 0.2s;
   height: calc(1.875rem);
   padding-inline-start: 2rem;
@@ -452,7 +452,7 @@
   line-height: calc(1.5rem);
   border-radius: 8px;
   font-weight: 500;
-  transition-property: var(--leonardo-ai-transition-property-common);
+  transition-property: all;
   transition-duration: 0.2s;
   min-width: 40px;
   font-size: calc(0.875rem);
@@ -559,7 +559,7 @@
   line-height: calc(1.5rem);
   border-radius: 8px;
   font-weight: 400;
-  transition-property: var(--leonardo-ai-transition-property-common);
+  transition-property: all;
   transition-duration: 0.2s;
   min-width: 40px;
   font-size: calc(0.875rem);
@@ -602,7 +602,7 @@
   outline-offset: 2px;
   line-height: calc(1.5rem);
   font-weight: 500;
-  transition-property: var(--leonardo-ai-transition-property-common);
+  transition-property: all;
   transition-duration: 0.2s;
   height: 56px;
   font-size: calc(0.875rem);
@@ -689,7 +689,7 @@
   line-height: calc(1.5rem);
   border-radius: 0px;
   font-weight: 500;
-  transition-property: var(--leonardo-ai-transition-property-common);
+  transition-property: all;
   transition-duration: 0.2s;
   height: calc(2.5rem);
   min-width: 40px;
@@ -733,7 +733,7 @@
   outline-offset: 2px;
   line-height: calc(1.5rem);
   font-weight: 500;
-  transition-property: var(--leonardo-ai-transition-property-common);
+  transition-property: all;
   transition-duration: 0.2s;
   height: calc(2.5rem);
   min-width: 40px;
