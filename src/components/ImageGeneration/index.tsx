@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useRef, useState } from "react";
 import CollapsibleSection from "./CollapsibleSection";
 import { ReactComponent as DocumentSVG } from "../../assets/document.svg";
-
+import TabButton from "../Others/TabButton";
 import {
   ImageNumberGroup,
   InputDimensionsGroup,
@@ -31,8 +31,14 @@ const userSelectedModelItem: ModelItem = {
     "https://cdn.leonardo.ai/users/384ab5c8-55d8-47a1-be22-6a274913c324/generations/9ea08719-5fd1-4df7-9adc-5218637cba17/Leonardo_Diffusion_XL_a_brain_suspended_in_midair_bathed_in_a_1.jpg",
 };
 
+const tabs = [
+  { id: "generationHistory", text: "Generation History" },
+  { id: "imgGuidance", text: "Image Guidance" },
+];
+
 const ImageGeneration = () => {
   const { user }: any = useUser();
+  const [activeTab, setActiveTab] = useState("generationHistory");
   const [isImageOpened, SetIsImageOpened] = useState<boolean>(false);
   const [isDimensionOpened, SetIsDimensionOpened] = useState<boolean>(false);
   const [photoReal, setPhotoReal] = useState<boolean>(false);
@@ -51,7 +57,6 @@ const ImageGeneration = () => {
   const [promptText, setPromptText] = useState<string>("");
   const [generating, setGenerating] = useState(false);
   const [imageData, setImageData] = useState<Image[]>([]);
-  const [mode, setMode] = useState(0);
   const [imageSrc, setImageSrc] = useState<File | null>(null);
   const uploadImgRef = useRef<HTMLInputElement>(null);
 
@@ -114,7 +119,7 @@ const ImageGeneration = () => {
   const handleGenerate = async () => {
     setGenerating(true);
     var res;
-    if (mode === 0) {
+    if (activeTab === "generationHistory") {
       const data = {
         user: JSON.parse(user).email,
         text: promptText,
@@ -335,12 +340,24 @@ const ImageGeneration = () => {
               </div>
             </div>
           </div>
-          <div className="flex gap-4">
-            <button onClick={() => setMode(0)}>Generation History</button>
-            <button onClick={() => setMode(1)}>Image Guidance</button>
+
+          {/* Tab Navigation */}
+          <div className="border-b border-gray-800 pl-8 pt-3">
+            <nav className="flex space-x-6">
+              {tabs.map((tab) => (
+                <TabButton
+                  key={tab.id}
+                  tabId={tab.id}
+                  text={tab.text}
+                  activeTab={activeTab}
+                  setActiveTab={setActiveTab}
+                />
+              ))}
+            </nav>
           </div>
-          {mode === 0 && (
-            <div className="mt-8 border-t border-primary">
+
+          {activeTab === "generationHistory" && (
+            <div className="mt-3 border-primary">
               {imageData.length > 0 && (
                 <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 grid-cols-1 gap-4 py-6 px-4 md:px-8 sm:px-4 justify-start">
                   {imageData.map((item, index) => (
@@ -350,8 +367,8 @@ const ImageGeneration = () => {
               )}
             </div>
           )}
-          {mode === 1 && (
-            <div className="mt-8 border-t border-primary">
+          {activeTab === "imgGuidance" && (
+            <div className="mt-3 border-primary">
               <div
                 onClick={handleUpload}
                 className="relative w-[200px] h-[200px] rounded-full bg-[#232323] border border-dashed border-white border-opacity-20"
