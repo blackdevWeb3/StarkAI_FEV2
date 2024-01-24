@@ -135,25 +135,40 @@ const ModalImgCard = ({ onUpdate }: any) => {
               {/* Magnify Modal */}
 
               <Dialog
-                keepMounted
+                id="MagnifyImage"
                 open={magnifyOpen}
                 onClose={handleClose}
                 TransitionComponent={Transition}
                 aria-describedby="alert-dialog-slide-description"
               >
-                <div className="bg-[#2D3748] flex flex-col w-auto rounded-lg z-10 overflow-hidden">
-                  <div className="flex flex-1 p-0 mt-0 rounded-lg min-w-full">
-                    <div className="flex justify-center m-auto max-w-[90vw] relative">
-                      <div className="flex justify-center h-auto max-h-full aspect-auto max-w-fit min-w-fit min-h-fit relative">
+                <div className="bg-[#2D3748] flex flex-col w-auto rounded-lg z-10 h-full">
+                  <div className="flex p-0 mt-0 rounded-lg w-auto h-[calc(100%-72px)]">
+                    <div className="flex justify-center m-auto relative w-auto h-full">
+                      <div className="flex justify-center  w-auto h-full">
                         <img
-                          className="z-10 relative object-contain"
-                          src="https://cdn.leonardo.ai/users/d5552a4f-db4e-4f6e-b039-332445359df8/generations/c98794c0-f84a-4dbd-bd96-57cb169a0482/variations/alchemyrefiner_alchemymagic_0_c98794c0-f84a-4dbd-bd96-57cb169a0482_0.jpg"
+                          className="z-10 relative object-contain w-auto h-full"
+                          src={modalCtx.imageData.image}
                           alt="imagelogo"
                         ></img>
                       </div>
                     </div>
                   </div>
-                  <div className=""></div>
+                  <div className="flex items-center justify-end ps-6 pe-6 flex-col p-0">
+                    <div className="flex flex-row z-10 w-full p-4">
+                      <div className="sm:justify-center sm:items-center justify-end items-end gap-5 flex flex-row">
+                        <div className="sm:justify-center sm:items-center flex flex-end">
+                          <button className="group p-3 rounded-full bg-[#19191980] hover:bg-[#19191950] flex flex-row items-center justify-center">
+                            <Icon
+                              icon="clarity:download-line"
+                              className="w-4 h-4 text-white/90 group-hover:text-[#B34BF0]"
+                            />
+                          </button>
+                          <button className=""></button>
+                        </div>
+                        <div className=""></div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </Dialog>
               {/*  */}
