@@ -59,7 +59,7 @@ const ImageGeneration = () => {
   const [generating, setGenerating] = useState(false);
   const [imageData, setImageData] = useState<Image[]>([]);
   const [imageSrc, setImageSrc] = useState<File | null>(null);
-
+  const [densityValue, setDensityValue] = useState<number>(50);
   const uploadImgRef = useRef<HTMLInputElement>(null);
 
   const handleUpload = () => {
@@ -131,6 +131,10 @@ const ImageGeneration = () => {
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     setPromptText(event.target.value);
+  };
+
+  const handleDensityChange = (event: Event, newValue: number | number[]) => {
+    setDensityValue(newValue as number);
   };
 
   const handleGenerate = async () => {
@@ -371,6 +375,8 @@ const ImageGeneration = () => {
                 handleFileChange={handleFileChange}
                 handleRemoveUpload={handleRemoveUpload}
                 handleUpload={handleUpload}
+                densityValue={densityValue}
+                handleDensityChange={handleDensityChange}
               />
             )}
           </div>

@@ -1,4 +1,5 @@
 import React, { RefObject } from "react";
+import { Slider } from "@mui/material";
 import { Icon } from "@iconify/react";
 
 interface ImageGuidanceProps {
@@ -7,6 +8,8 @@ interface ImageGuidanceProps {
   handleFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleRemoveUpload: (event: React.MouseEvent<HTMLDivElement>) => void;
   handleUpload: (event: React.MouseEvent<HTMLDivElement>) => void;
+  handleDensityChange: (event: Event, newValue: number | number[]) => void;
+  densityValue: number;
 }
 
 const ImageGuidance: React.FC<ImageGuidanceProps> = ({
@@ -15,6 +18,8 @@ const ImageGuidance: React.FC<ImageGuidanceProps> = ({
   handleFileChange,
   handleRemoveUpload,
   handleUpload,
+  handleDensityChange,
+  densityValue,
 }) => {
   return (
     <div className="py-5 px-8 font-chakra">
@@ -68,10 +73,32 @@ const ImageGuidance: React.FC<ImageGuidanceProps> = ({
               </div>
             </div>
             {imageSrc && (
-              <div className="w-1/3 px-5 py-3">
-                <div className="flex flex-col items-center justify-center gap-5">
+              <div className="w-1/3 p-5 h-[300px] rounded-md border border-primary border-dotted ml-3">
+                <div className="flex flex-col items-center justify-between w-full h-full gap-3">
+                  <div className="flex flex-col gap-1 items-center w-full px-5 py-3 border border-primary border-dotted rounded-md">
+                    <div className="flex flex-row justify-between items-center w-full">
+                      <span className="flex flex-row gap-1 items-center">
+                        <span className="text-[14px]">Strength</span>
+                        <Icon
+                          icon="ph:question-fill"
+                          className="w-4 h-4 text-white/30 mb-[2px]"
+                        />
+                      </span>
+                      <span className="text-[12px] font-semibold py-1 bg-[#181F2F] px-2 rounded-md">
+                        {densityValue / 100}
+                      </span>
+                    </div>
+                    <div className="w-full">
+                      <Slider
+                        aria-label="Volume"
+                        value={densityValue}
+                        onChange={handleDensityChange}
+                      />
+                    </div>
+                  </div>
+
                   <div
-                    className="group rounded-md border-primary border p-5 w-full flex flex-row items-center gap-5 justify-center hover:cursor-pointer hover:bg-[#393b45]"
+                    className="group rounded-md border-primary border border-md border-dotted p-5 w-full flex flex-row items-center gap-5 justify-center hover:cursor-pointer hover:bg-[#393b45]"
                     onClick={handleRemoveUpload}
                   >
                     <Icon
@@ -83,7 +110,7 @@ const ImageGuidance: React.FC<ImageGuidanceProps> = ({
                     </span>
                   </div>
                   <div
-                    className="group rounded-md border-primary border p-5 w-full flex flex-row items-center gap-5 justify-center hover:cursor-pointer hover:bg-[#393b45]"
+                    className="group rounded-md border-primary border border-dotted p-5 w-full flex flex-row items-center gap-5 justify-center hover:cursor-pointer hover:bg-[#393b45]"
                     onClick={handleUpload}
                   >
                     <Icon icon="entypo:upload" className="w-6 h-6" />
