@@ -5,7 +5,6 @@ import { Image } from "../../utils/types";
 import axios from "axios";
 import Card from "../Others/Card";
 
-import { ImageList, ImageListItem } from "@mui/material";
 import ModalImgCard from "../Modal/ModalImgCard";
 
 const CommunityFeed = () => {
@@ -24,9 +23,11 @@ const CommunityFeed = () => {
     };
     func();
   };
+
   useEffect(() => {
     if (imageData.length > 0) return;
     updateLibrary();
+    console.log("User:", user);
   });
 
   return (

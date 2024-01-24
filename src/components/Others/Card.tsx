@@ -2,7 +2,6 @@ import { useState, useContext, useEffect } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { ClipLoader } from "react-spinners";
 import { Icon } from "@iconify/react";
-import Modal from "../Modal";
 import ModalContext from "../../utils/modalContext";
 
 import "react-lazy-load-image-component/src/effects/blur.css";
