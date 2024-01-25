@@ -43,7 +43,7 @@ const ImageGeneration = () => {
   const [isImageOpened, SetIsImageOpened] = useState<boolean>(false);
   const [isDimensionOpened, SetIsDimensionOpened] = useState<boolean>(false);
   const [photoReal, setPhotoReal] = useState<boolean>(false);
-  const [alchemy, setAlchemy] = useState<boolean>(false);
+  const [alchemy, setAlchemy] = useState<boolean>(true);
   const [promptMagic, setPromptMagic] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState("1024 * 768");
   const [selectedNumber, setSelectedNumber] = useState<number>(1);
