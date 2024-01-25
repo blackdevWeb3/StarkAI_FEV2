@@ -883,3 +883,11 @@
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+.border-textarea {
+  border-color: #2f3037;
+}
+
+.border-textarea:focus-visible {
+  border-color: #9a5cf7 !important;
+}
