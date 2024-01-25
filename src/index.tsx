@@ -13,7 +13,6 @@ import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { mainnet, polygon, optimism, arbitrum, base, zora } from "wagmi/chains";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
-import { ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.min.css";
 import "@rainbow-me/rainbowkit/styles.css";
@@ -53,7 +52,6 @@ root.render(
       <RainbowKitProvider coolMode theme={darkTheme()} chains={chains}>
         <UserProvider>
           <GoogleOAuthProvider clientId="229159616238-4nkmtiq6ar6t44lgif12bve7vv1bmavm.apps.googleusercontent.com">
-            <ToastContainer />
             <App />
           </GoogleOAuthProvider>
         </UserProvider>

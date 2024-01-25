@@ -165,6 +165,7 @@ const ImageGeneration = () => {
       data.append("presetStyle", generationStyle);
       data.append("numberOfImages", selectedNumber.toString());
       data.append("dimension", selectedOption);
+      data.append("density", densityValue.toString());
       data.append("image", imageSrc || "");
       console.log(data);
       res = await axios.post(
