@@ -178,6 +178,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
                 TransitionComponent={Transition}
                 aria-describedby="alert-dialog-slide-description"
               >
+                <ToastContainer />
                 <div className="bg-[#282c34] flex flex-col w-auto rounded-lg z-10 h-full">
                   <div className="flex p-0 mt-0 rounded-lg w-auto h-[calc(100%-72px)]">
                     <div className="flex justify-center m-auto relative w-auto h-full">
