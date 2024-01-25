@@ -10,6 +10,9 @@ import { TransitionProps } from "@mui/material/transitions";
 import Slide from "@mui/material/Slide/Slide";
 import Dialog from "@mui/material/Dialog/Dialog";
 import axios from "axios";
+import { useUser } from "../../context/UserContext";
+import { ToastContainer, toast } from "react-toastify";
+import { ModelItem, ModelItems } from "../../utils/constants";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -21,10 +24,13 @@ const Transition = React.forwardRef(function Transition(
 });
 
 const ModalImgCard = ({ onUpdate }: any) => {
+  const { user }: any = useUser();
   const modalCtx = useContext(ModalContext);
   const [createdDate, setCreatedDate] = useState("");
   const ImgModalRef = useRef<HTMLDivElement>(null);
   const [magnifyOpen, setMagnifyOpen] = useState<boolean>(false);
+  const [modelNum, setModelNum] = useState(0);
+  const [title, setTitle] = useState("");
 
   const [IsMoreVisible, setIsMoreVisible] = useState<boolean>(false);
   const MoreFunctionRef = useRef<HTMLDivElement>(null);
@@ -45,6 +51,12 @@ const ModalImgCard = ({ onUpdate }: any) => {
   };
 
   const deleteImageHandler = async () => {
+    if (JSON.parse(user).email !== modalCtx.imageData.owner) {
+      toast.error("Only Owner can delete image", {
+        autoClose: 1500,
+      });
+      return;
+    }
     const data = {
       image: modalCtx.imageData.image,
     };
@@ -107,11 +119,22 @@ const ModalImgCard = ({ onUpdate }: any) => {
     await navigator.clipboard.writeText(modalCtx.imageData.image);
   };
 
+  useEffect(() => {
+    const res = ModelItems.findIndex(
+      (item: ModelItem) => item.id === modalCtx.imageData.data.modelId
+    );
+    if (res !== -1) setModelNum(res);
+    const prompt = modalCtx.imageData.data.prompt;
+    if (prompt.length > 30) setTitle(prompt.slice(0, 30) + "...");
+    else setTitle(prompt);
+  }, [modalCtx.imageData]);
+
   return (
     <Modal
       open={modalCtx.visible}
       onClose={modalCtx.visible ? handleHideImgCard : () => {}}
     >
+      <ToastContainer />
       <div
         className="flex-1 p-5 ps-6 pe-6 mt-0 bg-modalBackground border-primary w-[876px] font-Inter relative"
         ref={ImgModalRef}
@@ -167,7 +190,10 @@ const ModalImgCard = ({ onUpdate }: any) => {
                     <div className="flex flex-row z-10 w-full p-4 justify-end">
                       <div className="sm:justify-center sm:items-center justify-end items-end gap-5 flex flex-row">
                         <div className="sm:justify-center sm:items-center flex flex-end">
-                          <button className="group p-3 rounded-full bg-[#19191980] hover:bg-[#19191950] flex flex-row items-center justify-center button-detail">
+                          <button
+                            onClick={handleDownload}
+                            className="group p-3 rounded-full bg-[#19191980] hover:bg-[#19191950] flex flex-row items-center justify-center button-detail"
+                          >
                             <Icon
                               icon="clarity:download-line"
                               className="w-4 h-4 text-white"
@@ -175,7 +201,10 @@ const ModalImgCard = ({ onUpdate }: any) => {
                           </button>
                         </div>
                         <div className="">
-                          <button className="group p-3 rounded-full bg-[#19191980] hover:bg-[#19191950] flex flex-row items-center justify-center button-detail">
+                          <button
+                            onClick={deleteImageHandler}
+                            className="group p-3 rounded-full bg-[#19191980] hover:bg-[#19191950] flex flex-row items-center justify-center button-detail"
+                          >
                             <Icon
                               icon="solar:trash-bin-2-linear"
                               className="w-4 h-4 text-white"
@@ -273,7 +302,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
                   </button>
                 </div>
                 <span className="text-white font-semibold text-[18px] mt-2 text-ellipsis overflow-hidden">
-                  {modalCtx.imageData.data.prompt}
+                  {title}
                 </span>
                 <hr className="border-primary border-t mb-2" />
               </div>
@@ -283,7 +312,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
               <div className="p-2 border rounded-[7.2px] bg-[#202020] block border-primary">
                 <div className="mb-3 w-full rounded-[5.4px]">
                   <div className="block">
-                    <p className="font-light text-[11.34px] font-Inter text-[#fefefe] bg-[#171717] p-2 rounded-[6px]">
+                    <p className="font-light text-[13px] font-Inter text-[#fefefe] bg-[#171717] p-2 rounded-[6px]">
                       {modalCtx.imageData.data.prompt}
                     </p>
                   </div>
@@ -364,7 +393,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
                     -
                   </div>
                 </div>
-                <div className="w-[48%] pr-2 mb-3">
+                {/* <div className="w-[48%] pr-2 mb-3">
                   <span className="text-[#9094a6] text-[12px]">
                     Init Strength
                   </span>
@@ -379,7 +408,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
                   <div className="w-full flex items-center text-white text-[14px]">
                     -
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="w-full h-auto">
                 <div className="flex flex-col p-2 gap-2 rounded-lg bg-[#202020]">
@@ -388,17 +417,20 @@ const ModalImgCard = ({ onUpdate }: any) => {
                       <div className="w-[42px] h-[42px] overflow-hidden rounded-md">
                         <img
                           className="object-cover w-full h-full"
-                          src="https://cdn.leonardo.ai/users/384ab5c8-55d8-47a1-be22-6a274913c324/generations/bc0a7117-ad5e-4754-8648-6412cc554478/Leonardo_Vision_XL_A_gritty_unedited_photograph_perfectly_capt_2.jpg?w=256"
+                          // src="https://cdn.leonardo.ai/users/384ab5c8-55d8-47a1-be22-6a274913c324/generations/bc0a7117-ad5e-4754-8648-6412cc554478/Leonardo_Vision_XL_A_gritty_unedited_photograph_perfectly_capt_2.jpg?w=256"
+                          src={ModelItems[modelNum].imgURI}
                           alt="ImageCard"
                         ></img>
                       </div>
                       <div className="flex flex-col justify-between">
                         <span className="font-medium text-[14px] leading-[100%] text-[#dbdbdb80] pt-[2px]">
-                          Finetuned Model
+                          {/* Finetuned Model */}
+                          {ModelItems[modelNum].modelType}
                         </span>
                         <div className="flex items-center">
                           <span className="text-white text-[14px] pb-[2px]">
-                            StarkAI Vision XL
+                            {/* StarkAI Vision XL */}
+                            {ModelItems[modelNum].label}
                           </span>
                         </div>
                       </div>
