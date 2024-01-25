@@ -668,7 +668,7 @@
 
 .model-invisible {
   transform-origin: var(--popper-transform-origin);
-  opacity: 0;
+  display: none;
   visibility: hidden;
   transform: scale(0.95) translateZ(0px);
 }
