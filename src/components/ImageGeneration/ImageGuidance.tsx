@@ -41,8 +41,8 @@ const ImageGuidance: React.FC<ImageGuidanceProps> = ({
             <div
               onClick={handleUpload}
               className={`relative ${
-                imageSrc ? "w-2/3" : "w-full"
-              } h-[300px] rounded-md bg-[#101622] border border-dashed border-white border-opacity-20 hover:cursor-pointer`}
+                imageSrc ? "w-3/5" : "w-full"
+              } h-[300px] rounded-md bg-[#101622] border border-dashed border-white border-opacity-20 transition-all duration-200 ease-in-out hover:cursor-pointer group hover:bg-[#393b45]`}
             >
               <input
                 type="file"
@@ -65,15 +65,17 @@ const ImageGuidance: React.FC<ImageGuidanceProps> = ({
                   />
                 )}
                 {!imageSrc && (
-                  <Icon
-                    icon="mingcute:user-4-fill"
-                    className="w-8 h-8 text-white"
-                  />
+                  <div className="flex flex-row gap-3 items-center p-3 border-white border border-dotted rounded-md group-hover:text-deepPink group-hover:border-deepPink transition-all duration-200 ease-in-out">
+                    <Icon icon="entypo:upload" className="w-8 h-8" />
+                    <span className="font-semibold">
+                      Click here to upload an image
+                    </span>
+                  </div>
                 )}
               </div>
             </div>
             {imageSrc && (
-              <div className="w-1/3 p-5 h-[300px] rounded-md border border-primary border-dotted ml-3">
+              <div className="w-2/5 p-5 h-[300px] rounded-md border border-primary border-dotted ml-5">
                 <div className="flex flex-col items-center justify-between w-full h-full gap-3">
                   <div className="flex flex-col gap-1 items-center w-full px-5 py-3 border border-primary border-dotted rounded-md">
                     <div className="flex flex-row justify-between items-center w-full">
