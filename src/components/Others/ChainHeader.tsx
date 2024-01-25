@@ -39,7 +39,7 @@ const BlockchainButtons: React.FC<BlockchainButtonProps> = ({
 };
 
 const ChainHeader = () => {
-  const [selectedChain, setSelectedChain] = useState<string>("");
+  const [selectedChain, setSelectedChain] = useState<string>("all");
 
   const handleSelectChain = (chain: string) => {
     setSelectedChain(chain);
