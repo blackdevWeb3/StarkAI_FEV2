@@ -22,6 +22,7 @@ import useOutsideClick from "../../utils/useOutsideClick";
 import ModalImgCard from "../Modal/ModalImgCard";
 import GenerationHistory from "./GenerationHistory";
 import ImageGuidance from "./ImageGuidance";
+import { TextareaAutosize } from "@mui/material";
 
 const userSelectedModelItem: ModelItem = {
   id: "1e60896f-3c26-4296-8ecc-53e2afecc132",
@@ -131,6 +132,7 @@ const ImageGeneration = () => {
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     setPromptText(event.target.value);
+    console.log("XXX", promptText);
   };
 
   const handleDensityChange = (event: Event, newValue: number | number[]) => {
@@ -206,7 +208,7 @@ const ImageGeneration = () => {
             <span className="text-white font-chakra text-[20px] font-medium">
               AI Image Generation
             </span>
-            <div className="flex items-start w-full pt-12 mb-4">
+            <div className="flex items-start w-full pt-12 mb-4 h-full">
               <div className="relative block mr-2">
                 <button className="button-prompt">
                   <Icon
@@ -217,10 +219,11 @@ const ImageGeneration = () => {
                   />
                 </button>
               </div>
-              <textarea
-                placeholder="Type a prompt ..."
+              <TextareaAutosize
+                className="w-full font-chakra text-[18px] min-h-10 font-medium leading-5 px-3 pt-4 flex flex-col items-center justify-center rounded-md border border-primary bg-[#101622] hover:bg-[#0b0f17]  text-white focus-visible:bg-transparent focus-visible:outline-none"
+                placeholder="Type a comment ..."
                 maxLength={1000}
-                className="textarea-prompt font-chakra"
+                minRows={1}
                 value={promptText}
                 onChange={handlePromptTextChange}
               />

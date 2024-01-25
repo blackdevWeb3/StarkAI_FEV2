@@ -408,11 +408,7 @@
   transition-duration: 0.2s;
   padding-top: 14px;
   padding-bottom: 14px;
-  min-height: unset;
   vertical-align: top;
-  overflow: hidden;
-  resize: none;
-  height: 56px !important;
   color: rgb(151, 151, 151);
   outline: transparent solid;
   font-size: 20px;
