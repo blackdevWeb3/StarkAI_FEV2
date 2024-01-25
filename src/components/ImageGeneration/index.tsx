@@ -221,7 +221,7 @@ const ImageGeneration = () => {
                 </button>
               </div>
               <TextareaAutosize
-                className="w-full font-chakra text-[18px] min-h-10 font-medium leading-5 px-3 pt-4 flex flex-col items-center justify-center rounded-md border border-primary bg-[#101622] hover:bg-[#0b0f17]  text-white focus-visible:bg-transparent focus-visible:outline-none"
+                className="w-full font-chakra text-[18px] h-10 font-medium leading-5 px-3 py-4 flex flex-col items-center justify-center rounded-md border border-primary bg-[#101622] hover:bg-[#0b0f17]  text-white focus-visible:bg-transparent focus-visible:outline-none"
                 placeholder="Type a comment ..."
                 maxLength={1000}
                 minRows={1}

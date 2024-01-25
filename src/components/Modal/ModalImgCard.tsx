@@ -176,12 +176,12 @@ const ModalImgCard = ({ onUpdate }: any) => {
                         ></img>
                       </div>
                       <button
-                        className="absolute top-5 right-5 rounded-full bg-[#0000005c] h-8 w-8 flex justify-center items-center z-10"
+                        className="absolute top-5 right-5 rounded-full bg-[#0000005c] h-8 w-8 flex justify-center items-center z-10 group hover:bg-[#19191950]"
                         onClick={handleClose}
                       >
                         <Icon
                           icon="iconamoon:close-light"
-                          className="w-6 h-6 text-[#CBD5E0] hover:text-white"
+                          className="w-6 h-6 text-[#CBD5E0] group-hover:text-white"
                         />
                       </button>
                     </div>
