@@ -167,18 +167,18 @@ const ModalImgCard = ({ onUpdate }: any) => {
                     <div className="flex flex-row z-10 w-full p-4 justify-end">
                       <div className="sm:justify-center sm:items-center justify-end items-end gap-5 flex flex-row">
                         <div className="sm:justify-center sm:items-center flex flex-end">
-                          <button className="group p-3 rounded-full bg-[#19191980] hover:bg-[#19191950] flex flex-row items-center justify-center">
+                          <button className="group p-3 rounded-full bg-[#19191980] hover:bg-[#19191950] flex flex-row items-center justify-center button-detail">
                             <Icon
                               icon="clarity:download-line"
-                              className="w-4 h-4 text-white/90 group-hover:text-[#B34BF0]"
+                              className="w-4 h-4 text-white"
                             />
                           </button>
                         </div>
                         <div className="">
-                          <button className="group p-3 rounded-full bg-[#19191980] hover:bg-[#19191950] flex flex-row items-center justify-center">
+                          <button className="group p-3 rounded-full bg-[#19191980] hover:bg-[#19191950] flex flex-row items-center justify-center button-detail">
                             <Icon
                               icon="solar:trash-bin-2-linear"
-                              className="w-4 h-4 text-white/90 group-hover:text-[#B34BF0]"
+                              className="w-4 h-4 text-white"
                             />
                           </button>
                         </div>
