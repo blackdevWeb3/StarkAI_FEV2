@@ -1,5 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import React from "react";
+import AWS from "aws-sdk";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { format, parseISO } from "date-fns";
@@ -23,7 +24,14 @@ const Transition = React.forwardRef(function Transition(
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+AWS.config.update({
+  accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+  region: process.env.REACT_APP_BUCKET_REGION,
+});
+
 const ModalImgCard = ({ onUpdate }: any) => {
+  const s3 = new AWS.S3();
   const { user }: any = useUser();
   const modalCtx = useContext(ModalContext);
   const [createdDate, setCreatedDate] = useState("");
@@ -95,7 +103,12 @@ const ModalImgCard = ({ onUpdate }: any) => {
 
   const handleDownload = async () => {
     const url = modalCtx.imageData.image;
-    const res = await fetch(url);
+    const params = {
+      Bucket: process.env.REACT_APP_BUCKET_NAME || "starkmeta-assets",
+      Key: url.substring(52),
+    };
+    const tmpUrl = await s3.getSignedUrlPromise("getObject", params);
+    const res = await fetch(tmpUrl);
     const pos = url.lastIndexOf("/");
     const name = url.substring(pos + 1);
     if (res.status === 200) {
