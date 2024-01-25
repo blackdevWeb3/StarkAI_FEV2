@@ -37,6 +37,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
 
   const handleClose = () => {
     setMagnifyOpen(false);
+    modalCtx.setVisible(true);
   };
 
   const handleHideImgCard = () => {
@@ -153,7 +154,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
                       </div>
                       <button
                         className="absolute top-5 right-5 rounded-full bg-[#0000005c] h-8 w-8 flex justify-center items-center z-10"
-                        onClick={handleHideImgCard}
+                        onClick={handleClose}
                       >
                         <Icon
                           icon="iconamoon:close-light"
