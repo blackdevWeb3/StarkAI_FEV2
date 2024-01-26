@@ -1,20 +1,38 @@
 import { Icon } from "@iconify/react";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useUser } from "../../context/UserContext";
+import { Navigate } from "react-router-dom";
 
 const AppHeader = () => {
+  const { user, setUser }: any = useUser();
   const [dropState, SetDropState] = useState(false);
+
   const dropDownHandler = () => {
     SetDropState(!dropState);
   };
 
+  const CommunityFeedHandler = () => {
+    alert("Community Feed Button Clicked");
+  };
+
+  const PersonalFeedHandler = () => {
+    alert("Personal Feed Button Clicked");
+  };
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownButtonRef = useRef<HTMLButtonElement>(null);
+
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
-      const dropDownElement = document.getElementById("dropdown");
-
-      if (dropDownElement && !dropDownElement.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        !dropdownButtonRef.current?.contains(event.target as Node)
+      ) {
         SetDropState(false);
       }
     };
+
     document.addEventListener("mousedown", handleOutsideClick);
 
     return () => {
@@ -22,13 +40,47 @@ const AppHeader = () => {
     };
   }, []);
 
+  useEffect(() => {
+    console.log("State:", dropState);
+  }, [dropState]);
+
+  if (user === undefined || user === "none") {
+    return <Navigate to="/login" />;
+  }
+
+  const handleLogout = () => {
+    setUser("none");
+  };
+
   return (
-    <div className="px-4 md:px-6 lg:px-14 xl:px-[calc((100vw-var(--max-width))/2)] fixed top-0 bg-darkBackground z-20 w-full">
-      <div className="w-full max-w-[1176px] mx-auto flex justify-between items-center border-b border-white border-opacity-10 h-12 gap-5">
-        <h2 className="text-white font-semibold font-Overpass text-[32px] select-none">
-          STARK AI
-        </h2>
-        <div className="flex flex-row gap-8">
+    <div className="px-4 md:px-6 lg:px-14 xl:px-[calc((100vw-var(--max-width))/2)] fixed top-0 bg-darkBackground z-20 w-full border-b border-white border-opacity-10">
+      <div className="w-full max-w-[1176px] mx-auto flex justify-between items-center h-12 gap-5">
+        <div className="flex flex-row items-center gap-2">
+          <div className="flex flex-row">
+            <h1 className="text-[28px] font-semibold font-chakra text-primaryColor">
+              STARK.
+            </h1>
+            <h1 className="text-[28px] font-semibold font-chakra text-deepPink">
+              AI
+            </h1>
+          </div>
+        </div>
+
+        <div className="flex flex-row gap-8 justify-center items-center">
+          <button
+            className="flex flex-row gap-1 items-center opacity-60 hover:opacity-100 transition-opacity duration-300"
+            onClick={CommunityFeedHandler}
+          >
+            <Icon icon="mdi:users-group-outline" className="w-6 h-6" />
+            <span className="text-[14px]">Community Feed</span>
+          </button>
+          <button
+            onClick={PersonalFeedHandler}
+            className="flex flex-row gap-1 items-center opacity-60 hover:opacity-100 transition-opacity duration-300"
+          >
+            <Icon icon="ic:outline-dashboard" className="w-6 h-6" />
+            <span className="text-[14px]">Personal Feed</span>
+          </button>
           <a href="https://twitter.com/Starkmetagame">
             <Icon
               icon="ri:twitter-x-fill"
@@ -47,8 +99,10 @@ const AppHeader = () => {
           </a>
           <span className="relative px-2">
             <button
+              id="dropDownButton"
               className="group flex h-full items-center gap-2 peer/anchor flex-row"
-              onClick={dropDownHandler}
+              ref={dropdownButtonRef}
+              onClick={() => SetDropState(!dropState)}
             >
               <div className="w-5 h-5 bg-white bg-opacity-25 rounded-full">
                 <Icon
@@ -56,23 +110,24 @@ const AppHeader = () => {
                   className="w-5 h-5 rounded-full relative top-0.5 overflow-hidden"
                 />
               </div>
-              <span className="text-white">Sven</span>
+              <span className="text-white">{JSON.parse(user).username}</span>
               <Icon
                 icon={`carbon:chevron-${dropState ? "up" : "down"}`}
                 className="text-white opacity-60 group-hover:opacity-100 duration-200"
               />
             </button>
             {dropState && (
-              <ul
+              <div
                 className="flex-col gap-2.5 absolute top-[40px] right-0 p-4 rounded-[10px] bg-dark-elements shadow-popup min-w-[180px] z-20 flex"
-                id="dropdown"
+                id="dropMenu"
+                ref={dropdownRef}
               >
-                <li>
-                  <a href="/profile" className="text-[14px]">
+                <span>
+                  <a href="/app/profile" className="text-[14px]">
                     Profile
                   </a>
-                </li>
-                <li>
+                </span>
+                <span>
                   <a
                     target="_blank"
                     className="text-[14px]"
@@ -81,32 +136,29 @@ const AppHeader = () => {
                   >
                     Help
                   </a>
-                </li>
-                <li>
+                </span>
+                <span>
                   <a href="/profile" className="text-[14px]">
                     About
                   </a>
-                </li>
-                <li>
+                </span>
+                <span>
                   <a href="/profile" className="text-[14px]">
                     Careers
                   </a>
-                </li>
-                <li className="h-px w-full bg-white opacity-20"></li>
-                <li>
+                </span>
+                <span className="h-px w-full bg-white opacity-20"></span>
+                <span>
                   <a
-                    href="/"
-                    className="flex flex-row gap-2 text-[14px] items-center"
+                    className="flex flex-row gap-2 text-[14px] items-center cursor-pointer"
+                    onClick={handleLogout}
                   >
-                    <Icon
-                      icon="material-symbols-light:logout-rounded"
-                      className="w-6 h-6"
-                    />
+                    <Icon icon="mynaui:logout" className="w-6 h-6" />
                     Log out
                   </a>
-                </li>
-                <li className="h-px w-full bg-white opacity-20"></li>
-              </ul>
+                </span>
+                <span className="h-px w-full bg-white opacity-20"></span>
+              </div>
             )}
           </span>
         </div>

@@ -1,28 +1,30 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route, redirect } from "react-router-dom";
-import AppDashboard from "./layouts/App/AppDashboard";
-import Login from "./layouts/login";
-import Profile from "./components/Profile";
-import AppHeader from "./layouts/App/AppHeader";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./layouts/LayoutLogin";
 import LayoutDashboard from "./layouts/LayoutDashboard";
 import Navbar from "./layouts/Navbar";
+import AppLayout from "./layouts/App/AppLayout";
+import { ModalContextProvider } from "./utils/modalContext";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Navbar />
-              <LayoutDashboard />
-            </>
-          }
-        />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </BrowserRouter>
+    <ModalContextProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Navbar />
+                <LayoutDashboard />
+              </>
+            }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/app/*" element={<AppLayout />} />
+        </Routes>
+      </BrowserRouter>
+    </ModalContextProvider>
   );
 }
 
