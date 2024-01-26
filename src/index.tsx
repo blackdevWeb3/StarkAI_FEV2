@@ -17,6 +17,7 @@ import { publicProvider } from "wagmi/providers/public";
 import "react-toastify/dist/ReactToastify.min.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import "./index.css";
+import { ToastContainer } from "react-toastify";
 
 const { chains, publicClient } = configureChains(
   [mainnet, goerli, bsc, bscTestnet, polygon],
@@ -52,6 +53,7 @@ root.render(
       <RainbowKitProvider coolMode theme={darkTheme()} chains={chains}>
         <UserProvider>
           <GoogleOAuthProvider clientId="229159616238-4nkmtiq6ar6t44lgif12bve7vv1bmavm.apps.googleusercontent.com">
+            <ToastContainer containerId={"main"} />
             <App />
           </GoogleOAuthProvider>
         </UserProvider>
