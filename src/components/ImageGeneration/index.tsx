@@ -26,7 +26,8 @@ import { TextareaAutosize } from "@mui/material";
 
 import io from "socket.io-client";
 import { ToastContainer, toast } from "react-toastify";
-const socket = io("http://localhost:5001");
+// const socket = io("http://localhost:5001");
+const socket = io(process.env.REACT_APP_SOCKET_API || "http://localhost:5001");
 
 const userSelectedModelItem: ModelItem = {
   id: "1e60896f-3c26-4296-8ecc-53e2afecc132",
