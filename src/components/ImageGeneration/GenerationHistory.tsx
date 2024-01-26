@@ -1,5 +1,6 @@
 import Card from "../Others/Card";
 import { Image } from "../../utils/types";
+import { ImageList, ImageListItem } from "@mui/material";
 
 interface GenerationHistoryProps {
   imageData: Image[];
@@ -12,7 +13,11 @@ const GenerationHistory: React.FC<GenerationHistoryProps> = ({
 }) => {
   const tmpCardsArray = [];
   for (let i = 0; i < tmpCards; i++) {
-    tmpCardsArray.push(<Card key={`temp-${i}`} flag={true} />);
+    tmpCardsArray.push(
+      <ImageListItem key={`list-${i}`}>
+        <Card key={`temp-${i}`} flag={true} />
+      </ImageListItem>
+    );
   }
   return (
     <>
@@ -24,6 +29,15 @@ const GenerationHistory: React.FC<GenerationHistoryProps> = ({
           {tmpCardsArray}
         </div>
       )}
+
+      {/* <ImageList variant="masonry" cols={4} gap={8}>
+        {imageData.map((item, index) => (
+          <ImageListItem key={index}>
+            <Card data={item} key={index} />
+          </ImageListItem>
+        ))}
+        {tmpCardsArray}
+      </ImageList> */}
     </>
   );
 };

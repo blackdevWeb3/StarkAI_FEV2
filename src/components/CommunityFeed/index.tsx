@@ -6,6 +6,7 @@ import axios from "axios";
 import Card from "../Others/Card";
 
 import ModalImgCard from "../Modal/ModalImgCard";
+import { ImageList, ImageListItem } from "@mui/material";
 
 const CommunityFeed = () => {
   const { user }: any = useUser();
@@ -16,7 +17,13 @@ const CommunityFeed = () => {
         `${process.env.REACT_APP_BACKEND_API}/getAllImages`
       );
       if (res.status === 200) {
-        setImageData(res.data);
+        var tmp = res.data;
+        tmp.sort((a: Image, b: Image) => {
+          const dateA = new Date(a.created).getTime();
+          const dateB = new Date(b.created).getTime();
+          return dateB - dateA;
+        });
+        setImageData(tmp);
       } else {
         console.log("Error occurred");
       }
@@ -51,15 +58,14 @@ const CommunityFeed = () => {
 
         {/* Images shared with community */}
         <div className="mt-8 border-t border-primary p-3">
-          {imageData.length > 0 && (
+          {/* {imageData.length > 0 && (
             <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 grid-cols-1 gap-4 py-6 px-4 md:px-8 sm:px-4 justify-start">
               {imageData.map((item, index) => (
                 <Card key={index} data={item} />
               ))}
             </div>
-          )}
+          )} */}
 
-          {/* 
           <ImageList variant="masonry" cols={4} gap={8}>
             {imageData.map((item, index) => (
               <ImageListItem key={index}>
@@ -67,7 +73,6 @@ const CommunityFeed = () => {
               </ImageListItem>
             ))}
           </ImageList>
-        */}
         </div>
       </div>
       <ModalImgCard onUpdate={updateLibrary} />
