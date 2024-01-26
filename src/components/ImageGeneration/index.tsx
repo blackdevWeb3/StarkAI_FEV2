@@ -67,14 +67,22 @@ const ImageGeneration = () => {
   const [densityValue, setDensityValue] = useState<number>(50);
   const uploadImgRef = useRef<HTMLInputElement>(null);
   const [tmpCards, setTmpCards] = useState(0);
+  const [imgData, setImgData] = useState<any>(null);
 
   const handleUpload = () => {
     uploadImgRef.current?.click();
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files.length > 0)
+    if (event.target.files && event.target.files.length > 0) {
       setImageSrc(event.target.files[0]);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const tmp = reader.result;
+        setImgData(tmp);
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
   };
 
   const handleRemoveUpload = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -121,7 +129,7 @@ const ImageGeneration = () => {
   const handleImageNumberChange = (option: number) => {
     const numberValue = option;
     const tmp = selectedOption.split("*");
-    if (option > 4 && (parseInt(tmp[0]) >= 768 || parseInt(tmp[1]) >= 768)) {
+    if (option > 4 && (parseInt(tmp[0]) > 768 || parseInt(tmp[1]) > 768)) {
       toast.warning(
         "If either width or height is over 768, must be between 1 and 4.",
         {
@@ -176,7 +184,7 @@ const ImageGeneration = () => {
     const tmp = selectedOption.split("*");
     if (
       selectedNumber > 4 &&
-      (parseInt(tmp[0]) >= 768 || parseInt(tmp[1]) >= 768)
+      (parseInt(tmp[0]) > 768 || parseInt(tmp[1]) > 768)
     ) {
       toast.warning(
         "If either width or height is over 768, must be between 1 and 4.",
@@ -191,7 +199,6 @@ const ImageGeneration = () => {
 
   const handleGenerate = async () => {
     setGenerating(true);
-    var res;
     if (activeTab === "generationHistory") {
       const data = {
         user: JSON.parse(user).email,
@@ -203,32 +210,20 @@ const ImageGeneration = () => {
         dimension: selectedOption,
       };
       socket.emit("text-to-image", data);
-      // res = await axios.post(
-      //   `${process.env.REACT_APP_BACKEND_API}/generate/text-to-image`,
-      //   data
-      // );
     } else {
-      const data = new FormData();
-      data.append("user", JSON.parse(user).email);
-      data.append("text", promptText);
-      data.append("model", generationModel?.id || "");
-      data.append("alchemy", alchemy ? "true" : "false");
-      data.append("presetStyle", generationStyle);
-      data.append("numberOfImages", selectedNumber.toString());
-      data.append("dimension", selectedOption);
-      data.append("density", densityValue.toString());
-      data.append("image", imageSrc || "");
-      console.log(data);
-      res = await axios.post(
-        `${process.env.REACT_APP_BACKEND_API}/generate/image-to-image`,
-        data
-      );
+      const data = {
+        user: JSON.parse(user).email,
+        text: promptText,
+        model: generationModel?.id || "",
+        alchemy: alchemy ? "true" : "false",
+        presetStyle: generationStyle,
+        numberOfImages: selectedNumber.toString(),
+        dimension: selectedOption,
+        density: densityValue.toString(),
+        image: imgData,
+      };
+      socket.emit("image-to-image", data);
     }
-    // if (res.data.message === "Success") {
-    //   console.log("Success");
-    // } else {
-    //   console.log("Failed");
-    // }
   };
 
   const updateLibrary = () => {
