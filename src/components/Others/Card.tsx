@@ -38,13 +38,13 @@ const Card = (props: any) => {
             </div>
           )}
 
-          <LazyLoadImage
-            src={props.data.image}
-            onLoad={() => setLoading(false)}
-            alt="GeneratedImage"
-            effect="blur"
-            style={{ borderRadius: "10px" }}
-          />
+      <LazyLoadImage
+        src={props.data.image}
+        onLoad={() => setLoading(false)}
+        alt="GeneratedImage"
+        effect="blur"
+        className="rounded-sm"
+      />
 
           {/* Hovered Image Description */}
 

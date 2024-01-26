@@ -147,7 +147,6 @@ const ImageGeneration = () => {
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     setPromptText(event.target.value);
-    console.log("XXX", promptText);
   };
 
   const handleDensityChange = (event: Event, newValue: number | number[]) => {
