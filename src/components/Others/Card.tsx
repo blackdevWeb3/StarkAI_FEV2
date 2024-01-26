@@ -35,7 +35,7 @@ const Card = (props: any) => {
         onLoad={() => setLoading(false)}
         alt="GeneratedImage"
         effect="blur"
-        style={{ borderRadius: "10px" }}
+        className="rounded-sm"
       />
 
       {/* Hovered Image Description */}
