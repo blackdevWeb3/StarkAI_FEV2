@@ -62,6 +62,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
     if (JSON.parse(user).email !== modalCtx.imageData.owner) {
       toast.error("Only Owner can delete image", {
         autoClose: 1500,
+        containerId: "modal",
       });
       return;
     }
@@ -147,7 +148,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
       open={modalCtx.visible}
       onClose={modalCtx.visible ? handleHideImgCard : () => {}}
     >
-      <ToastContainer />
+      <ToastContainer containerId={"modal"} />
       <div
         className="flex-1 p-5 ps-6 pe-6 mt-0 bg-modalBackground border-primary w-[876px] font-Inter relative"
         ref={ImgModalRef}

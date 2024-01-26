@@ -24,6 +24,10 @@ import GenerationHistory from "./GenerationHistory";
 import ImageGuidance from "./ImageGuidance";
 import { TextareaAutosize } from "@mui/material";
 
+import io from "socket.io-client";
+import { ToastContainer, toast } from "react-toastify";
+const socket = io("http://localhost:5001");
+
 const userSelectedModelItem: ModelItem = {
   id: "1e60896f-3c26-4296-8ecc-53e2afecc132",
   modelType: "Finetuned Model",
@@ -62,6 +66,7 @@ const ImageGeneration = () => {
   const [imageSrc, setImageSrc] = useState<File | null>(null);
   const [densityValue, setDensityValue] = useState<number>(50);
   const uploadImgRef = useRef<HTMLInputElement>(null);
+  const [tmpCards, setTmpCards] = useState(0);
 
   const handleUpload = () => {
     uploadImgRef.current?.click();
@@ -115,7 +120,17 @@ const ImageGeneration = () => {
 
   const handleImageNumberChange = (option: number) => {
     const numberValue = option;
-    setSelectedNumber(numberValue);
+    const tmp = selectedOption.split("*");
+    if (option > 4 && (parseInt(tmp[0]) >= 768 || parseInt(tmp[1]) >= 768)) {
+      toast.warning(
+        "If either width or height is over 768, must be between 1 and 4.",
+        {
+          autoClose: 2000,
+          containerId: "main",
+        }
+      );
+      setSelectedNumber(4);
+    } else setSelectedNumber(numberValue);
   };
 
   const handleSelectModelClick = (item: ModelItem) => {
@@ -139,6 +154,42 @@ const ImageGeneration = () => {
     setDensityValue(newValue as number);
   };
 
+  useEffect(() => {
+    socket.on("Image Saved", (data) => {
+      console.log(data);
+      setTmpCards(data.total - data.id);
+      updateLibrary();
+    });
+
+    socket.on("Generation Complete", (data) => {
+      console.log(data);
+      setTmpCards(data.total);
+    });
+
+    socket.on("Save Complete", (data) => {
+      console.log(data);
+      updateLibrary();
+      setGenerating(false);
+    });
+  }, [socket]);
+
+  useEffect(() => {
+    const tmp = selectedOption.split("*");
+    if (
+      selectedNumber > 4 &&
+      (parseInt(tmp[0]) >= 768 || parseInt(tmp[1]) >= 768)
+    ) {
+      toast.warning(
+        "If either width or height is over 768, must be between 1 and 4.",
+        {
+          autoClose: 2000,
+          containerId: "main",
+        }
+      );
+      setSelectedNumber(4);
+    } else setSelectedNumber(selectedNumber);
+  }, [selectedOption]);
+
   const handleGenerate = async () => {
     setGenerating(true);
     var res;
@@ -152,10 +203,11 @@ const ImageGeneration = () => {
         numberOfImages: selectedNumber,
         dimension: selectedOption,
       };
-      res = await axios.post(
-        `${process.env.REACT_APP_BACKEND_API}/generate/text-to-image`,
-        data
-      );
+      socket.emit("text-to-image", data);
+      // res = await axios.post(
+      //   `${process.env.REACT_APP_BACKEND_API}/generate/text-to-image`,
+      //   data
+      // );
     } else {
       const data = new FormData();
       data.append("user", JSON.parse(user).email);
@@ -173,13 +225,11 @@ const ImageGeneration = () => {
         data
       );
     }
-    if (res.data.message === "Success") {
-      console.log("Success");
-    } else {
-      console.log("Failed");
-    }
-    setGenerating(false);
-    updateLibrary();
+    // if (res.data.message === "Success") {
+    //   console.log("Success");
+    // } else {
+    //   console.log("Failed");
+    // }
   };
 
   const updateLibrary = () => {
@@ -370,7 +420,7 @@ const ImageGeneration = () => {
           {/* Tab Content */}
           <div className="mt-3 border-primary">
             {activeTab === "generationHistory" && (
-              <GenerationHistory imageData={imageData} />
+              <GenerationHistory imageData={imageData} tmpCards={tmpCards} />
             )}
             {activeTab === "imgGuidance" && (
               <ImageGuidance
