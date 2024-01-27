@@ -58,21 +58,21 @@ const CommunityFeed = () => {
 
         {/* Images shared with community */}
         <div className="mt-8 border-t border-primary p-3">
-          {/* {imageData.length > 0 && (
+          {imageData.length > 0 && (
             <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 grid-cols-1 gap-4 py-6 px-4 md:px-8 sm:px-4 justify-start">
               {imageData.map((item, index) => (
                 <Card key={index} data={item} />
               ))}
             </div>
-          )} */}
+          )}
 
-          <ImageList variant="masonry" cols={4} gap={8}>
+          {/* <ImageList variant="masonry" cols={4} gap={8}>
             {imageData.map((item, index) => (
               <ImageListItem key={index}>
                 <Card data={item} key={index} />
               </ImageListItem>
             ))}
-          </ImageList>
+          </ImageList> */}
         </div>
       </div>
       <ModalImgCard onUpdate={updateLibrary} />
