@@ -101,6 +101,9 @@ dialog {
     height: 100%;
   }
 }
+.animate-delay-200 {
+  animation-delay: 0.2s;
+}
 .animate-delay-300 {
   animation-delay: 0.3s;
 }
@@ -133,4 +136,21 @@ dialog {
 }
 .animate-delay-1300 {
   animation-delay: 1.3s;
+}
+
+@keyframes fromWhite {
+  0% {
+    color: #9013ce;
+  }
+  100% {
+    color: white;
+  }
+}
+
+.anim-color {
+  animation-name: fromWhite;
+  animation-duration: 1s;
+  animation-direction: normal;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
 }

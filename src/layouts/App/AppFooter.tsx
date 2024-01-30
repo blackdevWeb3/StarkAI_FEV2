@@ -10,10 +10,10 @@ const AppFooter = () => {
       <div className="w-full flex flex-col items-center bg-[#0b0f17] font-chakra py-10">
         <div className="flex flex-row max-w-[1180px] mx-auto border-b-[1px] w-full border-primary justify-evenly sm:flex-col">
           <div className="flex flex-col items-center gap-2">
-            <Link to="/starkmeta.ai" className="pr-1">
+            <Link to="/" className="pr-1">
               <img src="/favicon.ico" alt="logo" />
             </Link>
-            <Link to="/starkmeta.ai">
+            <Link to="/">
               <span className="text-[20px] font-semibold">StarkMeta</span>
               <span className="text-[20px] font-semibold text-deepPink pl-1">
                 .Ai

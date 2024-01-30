@@ -1,26 +1,59 @@
 import { Link } from "react-router-dom";
+import { Icon } from "@iconify/react";
 
 const LayoutDashboard = () => {
   return (
-    <div className="h-screen w-full bg-black p-8 pt-24">
+    <div className="h-screen w-full bg-black p-8 pt-24 font-chakra">
       <div className="w-full h-full rounded-lg overflow-hidden">
-        <div className="w-full flex flex-row h-full mx-auto min-w-[1200px] relative">
-          <div className="w-2/5 h-full flex items-center justify-center">
-            <div className="items-center justify-center flex flex-col w-full h-full pl-20">
-              <span className="w-full h-[200px] text-white text-left font-semibold text-[30px] z-10">
-                Turn your infinite imagination into reality <br></br>
-                <span className="text-deepPink pr-2">AI digital canvas</span>
-                for creative creators!
+        <div className="w-full flex flex-row h-full mx-auto min-w-[1000px] relative items-center justify-evenly">
+          <div className="w-auto flex items-center justify-center">
+            <div className="flex flex-col">
+              <span className="text-white text-left font-semibold text-[30px] z-10 lg:text-[26px] md:text-[22px]">
+                Welcome to our exciting generative <br></br>
+                AI Web3 social
+                <span className="text-[#9013ce] px-2">STARK.AI</span>!
               </span>
-              <span className="z-[5] mt-[-30px] pl-0 p-10 flex flex-col justify-center items-center gap-3 rounded-md">
+              <span className="z-[5] pl-0 p-10 flex flex-col gap-3 rounded-md w-48">
                 <Link to="/login" className="primary-button z-10">
-                  Create an account
+                  Join now
                 </Link>
               </span>
+              <div className="flex flex-row items-center gap-5 pt-14">
+                <div className=" border-[4px] rounded-full border-[#9013ce] p-3">
+                  <div className="bg-[#9013ce] text-white rounded-full p-3 w-20 h-20 flex flex-col items-center justify-center">
+                    <span className="text-[12px]">Generate</span>
+                    <span className="text-[12px]">AI</span>
+                  </div>
+                </div>
+                <Icon
+                  icon="ic:baseline-double-arrow"
+                  className="w-12 h-12 anim-color"
+                />
+                <div className=" border-[4px] rounded-full border-[#9013ce] p-3">
+                  <div className="bg-[#9013ce] text-white rounded-full p-3 w-20 h-20 flex flex-col items-center justify-center">
+                    <span className="text-[12px]">Minting</span>
+                    <span className="text-[12px]">NFT</span>
+                  </div>
+                </div>
+                <Icon
+                  icon="ic:baseline-double-arrow"
+                  className="w-12 h-12 anim-color animate-delay-200"
+                />
+                <div className=" border-[4px] rounded-full border-[#9013ce] p-3">
+                  <div className="bg-[#9013ce] text-white rounded-full p-3 w-20 h-20 flex flex-col items-center justify-center">
+                    <span className="text-[12px]">Mining</span>
+                    <span className="text-[12px]">Reward</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="absolute w-[1100px] top-[-100px] right-0">
-            <img src="./assets/characters/lion.jpg" alt="lion" className="" />
+          <div className="w-auto pl-10">
+            <img
+              src="./assets/characters/lion.jpg"
+              alt="lion"
+              className="rounded-lg h-[750px] w-[560px]"
+            />
           </div>
         </div>
       </div>

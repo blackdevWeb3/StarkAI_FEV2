@@ -20,8 +20,8 @@ const Navbar = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   return (
-    <div className="w-full bg-darkBackground fixed top-0 h-16 z-30">
-      <div className="w-full max-w-[1176px] mx-auto flex flex-row justify-between items-center h-full px-10">
+    <div className="w-full bg-darkBackground fixed top-0 h-16 z-30 font-chakra">
+      <div className="w-full mx-auto flex flex-row justify-between items-center h-full px-10">
         <div className="flex flex-row items-center gap-2">
           {/* <img src="./favicon.ico" alt="logo" className="w-[30px]" /> */}
           <div className="flex flex-row">
@@ -33,12 +33,16 @@ const Navbar = () => {
             </h1>
           </div>
         </div>
-        <div className="flex flex-row gap-6 items-center sm:hidden">
-          <div className="flex flex-row items-center gap-10">
-            <Link to="/news/">Blog</Link>
-            <Link to="/faq">FAQ</Link>
-            <Link to="/api">API</Link>
-            <Link to="/contact-us">Contact us</Link>
+        <div className="flex flex-row gap-6 items-center sm:hidden md:hidden">
+          <div className="flex flex-row items-center lg:gap-6 gap-10">
+            {menuItems.map((item) => (
+              <Link
+                to={item.link}
+                className="text-[#9094a6] hover:text-white transition-all duration-300 ease-in-out lg:text-[14px]"
+              >
+                {item.text}
+              </Link>
+            ))}
           </div>
           <span className="h-10 w-[2px] bg-white opacity-20"></span>
           <Link to="/login">
@@ -47,7 +51,7 @@ const Navbar = () => {
         </div>
         <div
           id="hamburger_menu"
-          className="hidden flex-end sm:flex"
+          className="hidden flex-end sm:flex md:flex"
           onClick={DropDownMenu}
         >
           <div className="space-y-[6px] cursor-pointer">
