@@ -173,12 +173,12 @@ const Features = [
     title: "Stay tuned!",
   },
   { name: "Blog", link: "/news/" },
-  { name: "FAQ", link: "/" },
-  { name: "Team", link: "/" },
-  { name: "Affiliate Program", link: "/" },
-  { name: "Contact us", link: "/" },
-  { name: "Support", link: "/" },
-  { name: "Careers", link: "/" },
+  { name: "FAQ", link: "/faq" },
+  { name: "Team", link: "/team" },
+  { name: "Affiliate Program", link: "/affiliate-program" },
+  { name: "Contact us", link: "/contact-us" },
+  { name: "Support", link: "/support" },
+  { name: "Careers", link: "/careers" },
 ];
 
 const constants_SocialLink = [
