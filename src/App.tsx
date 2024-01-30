@@ -6,7 +6,6 @@ import Navbar from "./layouts/Navbar";
 import AppLayout from "./layouts/App/AppLayout";
 import { ModalContextProvider } from "./utils/modalContext";
 import AppFooter from "./layouts/App/AppFooter";
-import AppFooterSecondary from "./layouts/App/AppFooterSecondary";
 
 function App() {
   return (
@@ -20,7 +19,6 @@ function App() {
                 <Navbar />
                 <LayoutDashboard />
                 <AppFooter />
-                <AppFooterSecondary />
               </>
             }
           />

@@ -168,33 +168,11 @@ export interface ItemProps {
   link?: string;
 }
 
-const socialLinks = [
-  {
-    title: "About",
-  },
-  {
-    name: "Discord",
-    link: "/",
-  },
-  {
-    name: "Linkedin",
-    link: "/",
-  },
-  {
-    name: "Twitter",
-    link: "/",
-  },
-  {
-    name: "Youtube Community",
-    link: "/",
-  },
-];
-
 const Features = [
   {
     title: "Stay tuned!",
   },
-  { name: "Blog", link: "/" },
+  { name: "Blog", link: "/news/" },
   { name: "FAQ", link: "/" },
   { name: "Team", link: "/" },
   { name: "Affiliate Program", link: "/" },
@@ -206,23 +184,19 @@ const Features = [
 const constants_SocialLink = [
   {
     src: "discord.svg",
-    link: "/",
+    link: "https://discord.gg/starkmeta",
   },
   {
     src: "twitter.svg",
-    link: "/",
+    link: "https://twitter.com/Starkmetagame",
   },
   {
     src: "youtube.svg",
-    link: "/",
-  },
-  {
-    src: "telegram.svg",
-    link: "/",
+    link: "https://www.youtube.com/@GameStarkMeta",
   },
   {
     src: "instagram.svg",
-    link: "/",
+    link: "https://www.instagram.com/starkmetagame",
   },
 ];
 
@@ -235,7 +209,6 @@ export {
   photoRealStyle,
   defaultStyle,
   chains,
-  socialLinks,
   Features,
   constants_SocialLink,
 };

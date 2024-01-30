@@ -9,7 +9,7 @@ const Profile: React.FC = () => {
   const avatarInputRef = useRef<HTMLInputElement>(null);
 
   if (user === undefined || user === "none") {
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   }
 
   const handleSelectAvatar = () => {

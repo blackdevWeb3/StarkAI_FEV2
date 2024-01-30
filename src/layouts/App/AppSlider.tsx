@@ -17,12 +17,12 @@ const AppSlider = () => {
   };
 
   if (user === undefined || user === "none") {
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   }
 
   return (
     <>
-      <div className="hidden md:flex flex-col border-r border-primary bg-black w-[270px] min-w-[270px] pt-[10px]">
+      <div className="flex flex-col border-r border-primary bg-black w-[270px] min-w-[270px] pt-[10px] sm:hidden">
         <div className="pt-[19px] flex flex-row justify-center items-center">
           {/* <img src="./favicon.ico" className="w-6 h-6 mr-1" alt="logo" /> */}
           <h1 className="text-[24px] font-semibold font-chakra text-white">
