@@ -162,6 +162,70 @@ const chains: ChainConfig[] = [
 ];
 // const PhotoReal = "b9d4a72d-2dea-4473-9be5-caf645a3b67e";
 
+export interface ItemProps {
+  title?: string;
+  name?: string;
+  link?: string;
+}
+
+const socialLinks = [
+  {
+    title: "About",
+  },
+  {
+    name: "Discord",
+    link: "/",
+  },
+  {
+    name: "Linkedin",
+    link: "/",
+  },
+  {
+    name: "Twitter",
+    link: "/",
+  },
+  {
+    name: "Youtube Community",
+    link: "/",
+  },
+];
+
+const Features = [
+  {
+    title: "Stay tuned!",
+  },
+  { name: "Blog", link: "/" },
+  { name: "FAQ", link: "/" },
+  { name: "Team", link: "/" },
+  { name: "Affiliate Program", link: "/" },
+  { name: "Contact us", link: "/" },
+  { name: "Support", link: "/" },
+  { name: "Careers", link: "/" },
+];
+
+const constants_SocialLink = [
+  {
+    src: "discord.svg",
+    link: "/",
+  },
+  {
+    src: "twitter.svg",
+    link: "/",
+  },
+  {
+    src: "youtube.svg",
+    link: "/",
+  },
+  {
+    src: "telegram.svg",
+    link: "/",
+  },
+  {
+    src: "instagram.svg",
+    link: "/",
+  },
+];
+
 export {
   ImageDimensionsGroup,
   ImageNumberGroup,
@@ -171,4 +235,7 @@ export {
   photoRealStyle,
   defaultStyle,
   chains,
+  socialLinks,
+  Features,
+  constants_SocialLink,
 };

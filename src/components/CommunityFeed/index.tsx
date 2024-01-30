@@ -6,11 +6,13 @@ import axios from "axios";
 import Card from "../Others/Card";
 
 import ModalImgCard from "../Modal/ModalImgCard";
-import { ImageList, ImageListItem } from "@mui/material";
+import { ImageList, ImageListItem, useTheme } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const CommunityFeed = () => {
   const { user }: any = useUser();
   const [imageData, setImageData] = useState<Image[]>([]);
+
   const updateLibrary = () => {
     const func = async () => {
       const res = await axios.post(
