@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div className="w-full bg-darkBackground fixed top-0 h-16 z-10">
+    <div className="w-full bg-darkBackground fixed top-0 h-16 z-30">
       <div className="w-full max-w-[1176px] mx-auto flex flex-row justify-between items-center h-full px-10">
         <div className="flex flex-row items-center gap-2">
           {/* <img src="./favicon.ico" alt="logo" className="w-[30px]" /> */}
@@ -17,7 +17,7 @@ const Navbar = () => {
         </div>
         <div className="flex flex-row gap-6 items-center">
           <div className="flex flex-row items-center gap-10">
-            <Link to="/blog">Blog</Link>
+            <Link to="/news/">Blog</Link>
             <Link to="/faq">FAQ</Link>
             <Link to="/api">API</Link>
             <Link to="/contact-us">Contact us</Link>
