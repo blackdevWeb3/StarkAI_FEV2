@@ -8,7 +8,7 @@ const AppFooter = () => {
   return (
     <>
       <div className="w-full flex flex-col items-center bg-[#0b0f17] font-chakra py-10">
-        <div className="flex flex-row max-w-[1180px] mx-auto border-b-[1px] w-full border-primary justify-evenly sm:flex-col md:flex-col">
+        <div className="flex flex-row max-w-[1180px] mx-auto border-b-[1px] w-full border-primary justify-evenly sm:flex-col">
           <div className="flex flex-col items-center gap-2">
             <Link to="/starkmeta.ai" className="pr-1">
               <img src="/favicon.ico" alt="logo" />
@@ -20,15 +20,15 @@ const AppFooter = () => {
               </span>
             </Link>
           </div>
-          <div className="flex flex-row sm:justify-evenly md:justify-evenly justify-between w-1/3 sm:w-full md:w-full sm:pt-5 md:pt-5">
+          <div className="flex flex-row sm:justify-evenly md:justify-evenly justify-between w-1/3 sm:w-full sm:pt-5">
             <div className="flex flex-col pb-5">
               {Features.map((item, index) => (
                 <FooterItem item={item} key={index} />
               ))}
             </div>
 
-            <div className="flex flex-col">
-              <span className="text-white text-[22px] select-none font-medium">
+            <div className="flex flex-col md:pl-3">
+              <span className="text-white text-[22px] md:text-[18px] select-none font-medium">
                 Get the App
               </span>
               <Link to="/" className="pt-4 hover:opacity-85">
@@ -39,9 +39,9 @@ const AppFooter = () => {
               </Link>
             </div>
           </div>
-          <div className="flex flex-col sm:w-full md:w-full w-1/3 sm:justify-center sm:items-center md:justify-center md:items-center sm:pt-2 md:pt-2">
+          <div className="flex flex-col sm:w-full w-1/3 sm:justify-center sm:items-center sm:pt-2">
             <div className="px-5 pb-0">
-              <h4 className="text-[22px] text-white font-semibold">
+              <h4 className="text-[22px] text-white font-medium md:text-[18px]">
                 Contact Information:
               </h4>
             </div>
@@ -57,7 +57,7 @@ const AppFooter = () => {
                 </div>
               </div>
             </div>
-            <div className="px-[14px] py-4 sm:pt-0 sm:pb-5 w-full flex sm:justify-center md:justify-center">
+            <div className="px-[14px] py-4 sm:pt-0 sm:pb-5 w-full flex sm:justify-center">
               <div className="social-links">
                 {constants_SocialLink.map((item, index) => (
                   <a key={index} href={item.link}>
