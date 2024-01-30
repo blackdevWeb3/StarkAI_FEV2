@@ -20,7 +20,7 @@ const LayoutDashboard = () => {
             </div>
           </div>
           <div className="absolute w-[1100px] top-[-100px] right-0">
-            <img src="./assets/characters/lion.png" alt="lion" className="" />
+            <img src="./assets/characters/lion.jpg" alt="lion" className="" />
           </div>
         </div>
       </div>
