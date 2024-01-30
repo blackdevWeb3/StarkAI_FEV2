@@ -1,6 +1,7 @@
 import Card from "../Others/Card";
 import { Image } from "../../utils/types";
-import { ImageList, ImageListItem } from "@mui/material";
+import { ImageList, ImageListItem, useTheme } from "@mui/material";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 interface GenerationHistoryProps {
   imageData: Image[];
@@ -11,6 +12,18 @@ const GenerationHistory: React.FC<GenerationHistoryProps> = ({
   imageData,
   tmpCards,
 }) => {
+  const theme = useTheme();
+
+  const colsXl = useMediaQuery(theme.breakpoints.up("xl")) ? 5 : null;
+  const colsLg = useMediaQuery(theme.breakpoints.between("lg", "xl"))
+    ? 4
+    : null;
+  const colsMd = useMediaQuery(theme.breakpoints.between("md", "lg"))
+    ? 3
+    : null;
+  const colsSm = useMediaQuery(theme.breakpoints.down("sm")) ? 2 : null;
+  const cols = colsXl || colsLg || colsMd || colsSm || 2;
+
   const tmpCardsArray = [];
   for (let i = 0; i < tmpCards; i++) {
     tmpCardsArray.push(<Card key={`temp-${i}`} flag={true} />);

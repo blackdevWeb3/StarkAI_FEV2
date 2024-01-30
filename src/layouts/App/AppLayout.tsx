@@ -9,7 +9,6 @@ import Marketplace from "../../components/Marketplace";
 import TextGeneration from "../../components/TextGeneration";
 import Settings from "../../components/Settings";
 import ChainHeader from "../../components/Others/ChainHeader";
-import AppFooter from "./AppFooter";
 
 const AppLayout = () => {
   return (
@@ -30,7 +29,6 @@ const AppLayout = () => {
           </Routes>
         </div>
       </div>
-      <AppFooter />
     </div>
   );
 };
