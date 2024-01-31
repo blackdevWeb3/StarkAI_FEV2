@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import { BGStyle } from "../assets";
 
 const LayoutDashboard = () => {
   return (
-    <div className="h-screen w-full bg-black p-8 pt-24 font-chakra">
-      <div className="w-full h-full rounded-lg overflow-hidden">
+    <div className="h-screen w-full bg-black p-8 pt-24 font-chakra relative overflow-hidden">
+      <div className="w-full h-full rounded-lg">
         <div className="w-full flex flex-row h-full mx-auto min-w-[1000px] relative items-center justify-evenly">
           <div className="w-auto flex items-center justify-center">
             <div className="flex flex-col">
@@ -57,6 +58,10 @@ const LayoutDashboard = () => {
           </div>
         </div>
       </div>
+      <span className="absolute z-10 top-0 left-0">
+        <BGStyle />
+      </span>
+      <div className="bg-blur"></div>
     </div>
   );
 };

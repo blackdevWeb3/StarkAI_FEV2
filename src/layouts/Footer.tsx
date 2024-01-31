@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import FooterItem from "../../components/Others/FooterItem";
-import { Features } from "../../utils/constants";
-import { constants_SocialLink } from "../../utils/constants";
+import FooterItem from "../components/Others/FooterItem";
+import { Features } from "../utils/constants";
+import { constants_SocialLink } from "../utils/constants";
 import { Icon } from "@iconify/react";
 
-const AppFooter = () => {
+const Footer = () => {
   return (
     <>
       <div className="w-full flex flex-col items-center bg-[#0b0f17] font-chakra py-10">
@@ -31,11 +31,52 @@ const AppFooter = () => {
               <span className="text-white text-[22px] md:text-[18px] select-none font-medium">
                 Get the App
               </span>
-              <Link to="/" className="pt-4 hover:opacity-85">
-                <img src="/assets/img/appstore.svg" alt="playstore" />
+              <Link
+                to="/"
+                className="bg-black mt-3 rounded-[12px] w-52 md:w-40 sm:w-auto py-1 px-5 border-[#9013ce] flex flex-row gap-2 border-[1px] hover:cursor-pointer hover:opacity-90"
+              >
+                <span className="">
+                  <Icon icon="mdi:apple" width={32} />
+                </span>
+                <div className="flex flex-col justify-center hover:opacity-85">
+                  <span className="text-[12px] md:text-[8px]">
+                    Download on the{" "}
+                  </span>
+                  <div className="flex flex-row mt-[-5px] md:mt-0 gap-1 md:gap-0 items-center">
+                    <span className=" tracking-normal font-medium md:text-[10px]">
+                      App Store
+                    </span>
+                    <span className="md:text-[8px] md:mt-[1.5px]">
+                      &nbsp;(soon)
+                    </span>
+                  </div>
+                </div>
               </Link>
-              <Link to="/" className="pt-4 hover:opacity-85">
-                <img src="/assets/img/playstore.svg" alt="playstore" />
+
+              <Link
+                to="/"
+                className="bg-black mt-3 rounded-[12px] py-1 px-5 border-[#9013ce] flex flex-row gap-2 border-[1px] hover:cursor-pointer hover:opacity-90"
+              >
+                <span className="px-1">
+                  <img
+                    src="/assets/img/playstore.svg"
+                    alt="playstore"
+                    className="w-6 h-8"
+                  />
+                </span>
+                <div className="flex flex-col justify-center hover:opacity-85">
+                  <span className="text-[12px] md:text-[8px]">
+                    Google Play on
+                  </span>
+                  <div className="flex flex-row mt-[-5px] md:mt-0 gap-1 md:gap-0 items-center">
+                    <span className=" tracking-normal font-medium md:text-[10px]">
+                      Coming
+                    </span>
+                    <span className="md:text-[8px] md:mt-[1.5px]">
+                      &nbsp;(soon)
+                    </span>
+                  </div>
+                </div>
               </Link>
             </div>
           </div>
@@ -100,7 +141,7 @@ const AppFooter = () => {
             </Link>
           </div>
           <div className="flex flex-row gap-2 sm:text-[12px] md:text-[14px]">
-            <span>Copyright</span>
+            <span>Copyright©</span>
             <span className="text-deepPink">STARK.AI</span>
             <span>All Rights Reserved.</span>
           </div>
@@ -110,4 +151,4 @@ const AppFooter = () => {
   );
 };
 
-export default AppFooter;
+export default Footer;
