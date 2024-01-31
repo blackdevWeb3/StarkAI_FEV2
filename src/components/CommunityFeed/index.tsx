@@ -12,7 +12,9 @@ import ModalContext from "../../utils/modalContext";
 const CommunityFeed = () => {
   const { user }: any = useUser();
   const modalCtx = useContext(ModalContext);
+  const [searchKey, setSearchKey] = useState("");
   const [imageData, setImageData] = useState<Image[]>([]);
+  const [searchedData, setSearchedData] = useState<Image[]>([]);
 
   const updateLibrary = () => {
     const func = async () => {
@@ -36,14 +38,12 @@ const CommunityFeed = () => {
 
   const onNextImage = () => {
     const ind = modalCtx.index;
-    console.log(modalCtx);
     modalCtx.setData(imageData[ind + 1]);
     modalCtx.setIndex(ind + 1);
   };
 
   const onPrevImage = () => {
     const ind = modalCtx.index;
-    console.log(modalCtx);
     modalCtx.setData(imageData[ind - 1]);
     modalCtx.setIndex(ind - 1);
   };
@@ -51,9 +51,8 @@ const CommunityFeed = () => {
   useEffect(() => {
     if (imageData.length > 0) return;
     updateLibrary();
-    console.log("User:", user);
   });
-
+  console.log(searchKey);
   return (
     <>
       <div className="w-full bg-black pt-[29px] flex flex-col">
@@ -68,6 +67,8 @@ const CommunityFeed = () => {
             <input
               className="search-input font-chakra"
               placeholder="Search gallery"
+              value={searchKey}
+              onChange={(ev) => setSearchKey(ev.target.value)}
             ></input>
             <button className="search-button">Search</button>
           </div>
