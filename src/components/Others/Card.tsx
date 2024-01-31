@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { ClipLoader } from "react-spinners";
 import { Icon } from "@iconify/react";
@@ -13,11 +13,9 @@ const Card = (props: any) => {
   const handleImgModalOpen = () => {
     modalCtx.setVisible(true);
     modalCtx.setData(props.data);
+    modalCtx.setIndex(props.index);
+    modalCtx.setImgCount(props.count);
   };
-
-  useEffect(() => {
-    // console.log("Data:", props.data);
-  }, []);
 
   return (
     <>
@@ -38,13 +36,13 @@ const Card = (props: any) => {
             </div>
           )}
 
-      <LazyLoadImage
-        src={props.data.image}
-        onLoad={() => setLoading(false)}
-        alt="GeneratedImage"
-        effect="blur"
-        className="rounded-sm"
-      />
+          <LazyLoadImage
+            src={props.data.image}
+            onLoad={() => setLoading(false)}
+            alt="GeneratedImage"
+            effect="blur"
+            className="rounded-sm"
+          />
 
           {/* Hovered Image Description */}
 

@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import CollapsibleSection from "./CollapsibleSection";
 import { ReactComponent as DocumentSVG } from "../../assets/document.svg";
 import TabButton from "../Others/TabButton";
@@ -26,6 +26,7 @@ import { TextareaAutosize } from "@mui/material";
 
 import io from "socket.io-client";
 import { ToastContainer, toast } from "react-toastify";
+import ModalContext from "../../utils/modalContext";
 // const socket = io("http://localhost:5001");
 const socket = io(process.env.REACT_APP_SOCKET_API || "http://localhost:5001");
 
@@ -45,6 +46,7 @@ const tabs = [
 
 const ImageGeneration = () => {
   const { user }: any = useUser();
+  const modalCtx = useContext(ModalContext);
   const [activeTab, setActiveTab] = useState("generationHistory");
   const [isImageOpened, SetIsImageOpened] = useState<boolean>(false);
   const [isDimensionOpened, SetIsDimensionOpened] = useState<boolean>(false);
@@ -247,10 +249,25 @@ const ImageGeneration = () => {
     };
     func();
   };
+
   useEffect(() => {
     if (imageData.length > 0) return;
     updateLibrary();
   });
+
+  const onNextImage = () => {
+    const ind = modalCtx.index;
+    console.log(modalCtx);
+    modalCtx.setData(imageData[ind + 1]);
+    modalCtx.setIndex(ind + 1);
+  };
+
+  const onPrevImage = () => {
+    const ind = modalCtx.index;
+    console.log(modalCtx);
+    modalCtx.setData(imageData[ind - 1]);
+    modalCtx.setIndex(ind - 1);
+  };
 
   return (
     <>
@@ -615,7 +632,11 @@ const ImageGeneration = () => {
           />
         </div>
       </div>
-      <ModalImgCard onUpdate={updateLibrary} />
+      <ModalImgCard
+        onUpdate={updateLibrary}
+        onNextImage={onNextImage}
+        onPrevImage={onPrevImage}
+      />
     </>
   );
 };

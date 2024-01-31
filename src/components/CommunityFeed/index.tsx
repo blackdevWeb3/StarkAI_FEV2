@@ -1,16 +1,17 @@
 import { Icon } from "@iconify/react";
 import { useUser } from "../../context/UserContext";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Image } from "../../utils/types";
 import axios from "axios";
 import Card from "../Others/Card";
 
 import ModalImgCard from "../Modal/ModalImgCard";
 import { ImageList, ImageListItem, useTheme } from "@mui/material";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import ModalContext from "../../utils/modalContext";
 
 const CommunityFeed = () => {
   const { user }: any = useUser();
+  const modalCtx = useContext(ModalContext);
   const [imageData, setImageData] = useState<Image[]>([]);
 
   const updateLibrary = () => {
@@ -31,6 +32,20 @@ const CommunityFeed = () => {
       }
     };
     func();
+  };
+
+  const onNextImage = () => {
+    const ind = modalCtx.index;
+    console.log(modalCtx);
+    modalCtx.setData(imageData[ind + 1]);
+    modalCtx.setIndex(ind + 1);
+  };
+
+  const onPrevImage = () => {
+    const ind = modalCtx.index;
+    console.log(modalCtx);
+    modalCtx.setData(imageData[ind - 1]);
+    modalCtx.setIndex(ind - 1);
   };
 
   useEffect(() => {
@@ -71,13 +86,22 @@ const CommunityFeed = () => {
           <ImageList variant="masonry" cols={4} gap={8}>
             {imageData.map((item, index) => (
               <ImageListItem key={index}>
-                <Card data={item} key={index} />
+                <Card
+                  data={item}
+                  index={index}
+                  count={imageData.length}
+                  key={index}
+                />
               </ImageListItem>
             ))}
           </ImageList>
         </div>
       </div>
-      <ModalImgCard onUpdate={updateLibrary} />
+      <ModalImgCard
+        onUpdate={updateLibrary}
+        onNextImage={onNextImage}
+        onPrevImage={onPrevImage}
+      />
     </>
   );
 };

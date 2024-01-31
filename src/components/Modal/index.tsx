@@ -1,4 +1,5 @@
-import { useEffect, useRef, FunctionComponent } from "react";
+import { Icon } from "@iconify/react";
+import { useEffect, useRef, FunctionComponent, useState } from "react";
 import { createPortal } from "react-dom";
 
 interface ModalProps {
@@ -10,14 +11,19 @@ interface ModalProps {
 const Modal: FunctionComponent<ModalProps> = ({ children, open, onClose }) => {
   // Use HTMLDialogElement as the type parameter for useRef because we are working with <dialog> element
   const dialog = useRef<HTMLDialogElement>(null);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const modal = dialog.current;
     if (open && modal) {
+      setVisible(true);
       modal.showModal();
     }
     return () => {
-      if (modal) modal.close();
+      if (modal) {
+        setVisible(false);
+        modal.close();
+      }
     };
   }, [open]);
 
@@ -29,7 +35,7 @@ const Modal: FunctionComponent<ModalProps> = ({ children, open, onClose }) => {
   return createPortal(
     <dialog
       ref={dialog}
-      className="modal popup-container bg-modalBackground overflow-y-scroll hide-scrollbar"
+      className="modal popup-container overflow-y-scroll hide-scrollbar"
       onClose={handleClose}
     >
       {children}
