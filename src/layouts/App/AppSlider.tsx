@@ -41,9 +41,9 @@ const AppSlider = () => {
             text="Home"
           />
           <NavLink
-            to="/app/explore"
-            handleSetActiveLink={handleSetActiveLink}
-            activeLink={activeLink}
+            to="#"
+            handleSetActiveLink={() => {}}
+            activeLink={""}
             icon="ic:outline-wifi-find"
             text="Explore"
             activeState={false}
@@ -63,9 +63,9 @@ const AppSlider = () => {
             text="Community Collections"
           />
           <NavLink
-            to="/app/marketplace/"
-            handleSetActiveLink={handleSetActiveLink}
-            activeLink={activeLink}
+            to="#"
+            handleSetActiveLink={() => {}}
+            activeLink={""}
             icon="simple-icons:shopify"
             text="Marketplace"
             activeState={false}
@@ -83,9 +83,9 @@ const AppSlider = () => {
             text="Create Art"
           />
           <NavLink
-            to="/app/text-generator/"
-            handleSetActiveLink={handleSetActiveLink}
-            activeLink={activeLink}
+            to="#"
+            handleSetActiveLink={() => {}}
+            activeLink={""}
             icon="f7:pencil-outline"
             text="Texture Generation"
             activeState={false}

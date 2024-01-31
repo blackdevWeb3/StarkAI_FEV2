@@ -15,7 +15,7 @@ interface ModalContextType {
 const init: Image = {
   image: "",
   owner: "",
-  created: "",
+  created: "2024-01-25T13:50:09.666+00:00",
   data: {
     alchemy: false,
     modelId: "",

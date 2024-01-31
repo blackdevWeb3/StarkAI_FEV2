@@ -22,10 +22,10 @@ const AppLayout = () => {
             <Route path="community-feed" element={<CommunityFeed />} />
             <Route path="personal-feed" element={<PersonalFeed />} />
             <Route path="image-generator" element={<ImageGeneration />} />
-            <Route path="text-generator" element={<TextGeneration />} />
+            {/* <Route path="text-generator" element={<TextGeneration />} /> */}
             <Route path="settings" element={<Settings />} />
-            <Route path="explore" element={<Explore />} />
-            <Route path="marketplace" element={<Marketplace />} />
+            {/* <Route path="explore" element={<Explore />} /> */}
+            {/* <Route path="marketplace" element={<Marketplace />} /> */}
           </Routes>
         </div>
       </div>
