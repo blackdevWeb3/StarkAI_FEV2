@@ -174,8 +174,7 @@ const Features = [
   },
   { name: "Blog", link: "/news/" },
   { name: "FAQ", link: "/faq" },
-  { name: "Team", link: "/team" },
-  { name: "Affiliate Program", link: "/affiliate-program" },
+  { name: "API", link: "/api" },
   { name: "Contact us", link: "/contact-us" },
   { name: "Support", link: "/support" },
   { name: "Careers", link: "/careers" },
@@ -198,6 +197,19 @@ const constants_SocialLink = [
     src: "instagram.svg",
     link: "https://www.instagram.com/starkmetagame",
   },
+  {
+    src: "tiktok.svg",
+    link: "https://www.tiktok.com/@starkmeta",
+  },
+];
+
+const navbarMenuItems = [
+  { text: "Home", link: "/", delay: 400 },
+  { text: "Blog", link: "/news", delay: 500 },
+  { text: "Team", link: "/team", delay: 600 },
+  { text: "API", link: "/api", delay: 700 },
+  { text: "FAQ", link: "/faq", delay: 800 },
+  { text: "Contact Us", link: "/contact-us", delay: 900 },
 ];
 
 export {
@@ -211,4 +223,5 @@ export {
   chains,
   Features,
   constants_SocialLink,
+  navbarMenuItems,
 };

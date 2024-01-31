@@ -14,7 +14,7 @@ const AppFooter = () => {
               <img src="/favicon.ico" alt="logo" />
             </Link>
             <Link to="/">
-              <span className="text-[20px] font-semibold">StarkMeta</span>
+              <span className="text-[20px] font-semibold">Stark</span>
               <span className="text-[20px] font-semibold text-deepPink pl-1">
                 .Ai
               </span>
@@ -72,31 +72,38 @@ const AppFooter = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-row pt-5 md:text-[14px] sm:text-[12px]">
-          <Link
-            to="/"
-            className="px-[18px] border-r-[1px] border-primary text-[#9094a6] hover:text-white transition-all duration-300 ease-in-out sm:px-3"
-          >
-            <span className="">Legal Notice</span>
-          </Link>
-          <Link
-            to="/"
-            className="px-[18px] border-r-[1px] border-primary text-[#9094a6] hover:text-white transition-all duration-300 ease-in-out sm:px-3"
-          >
-            <span className="">DMCA</span>
-          </Link>
-          <Link
-            to="/"
-            className="px-[18px] border-r-[1px] border-primary text-[#9094a6] hover:text-white transition-all duration-300 ease-in-out sm:px-3"
-          >
-            <span className="">Terms of Service</span>
-          </Link>
-          <Link
-            to="/"
-            className="px-[18px] text-[#9094a6] hover:text-white transition-all duration-300 ease-in-out sm:px-3"
-          >
-            <span className="">Cookie Policy</span>
-          </Link>
+        <div className="pt-5 flex flex-col gap-5 items-center">
+          <div className="flex flex-row md:text-[14px] sm:text-[12px]">
+            <Link
+              to="/"
+              className="px-[18px] border-r-[1px] border-primary text-[#9094a6] hover:text-white transition-all duration-300 ease-in-out sm:px-3"
+            >
+              <span className="">Legal Notice</span>
+            </Link>
+            <Link
+              to="/"
+              className="px-[18px] border-r-[1px] border-primary text-[#9094a6] hover:text-white transition-all duration-300 ease-in-out sm:px-3"
+            >
+              <span className="">DMCA</span>
+            </Link>
+            <Link
+              to="/"
+              className="px-[18px] border-r-[1px] border-primary text-[#9094a6] hover:text-white transition-all duration-300 ease-in-out sm:px-3"
+            >
+              <span className="">Terms of Service</span>
+            </Link>
+            <Link
+              to="/"
+              className="px-[18px] text-[#9094a6] hover:text-white transition-all duration-300 ease-in-out sm:px-3"
+            >
+              <span className="">Cookie Policy</span>
+            </Link>
+          </div>
+          <div className="flex flex-row gap-2 sm:text-[12px] md:text-[14px]">
+            <span>Copyright</span>
+            <span className="text-deepPink">STARK.AI</span>
+            <span>All Rights Reserved.</span>
+          </div>
         </div>
       </div>
     </>

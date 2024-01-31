@@ -46,6 +46,7 @@ const AppSlider = () => {
             activeLink={activeLink}
             icon="ic:outline-wifi-find"
             text="Explore"
+            activeState={false}
           />
           <NavLink
             to="/app/personal-feed/"
@@ -67,6 +68,7 @@ const AppSlider = () => {
             activeLink={activeLink}
             icon="simple-icons:shopify"
             text="Marketplace"
+            activeState={false}
           />
         </div>
         <div className="flex flex-col pt-10">
@@ -86,6 +88,7 @@ const AppSlider = () => {
             activeLink={activeLink}
             icon="f7:pencil-outline"
             text="Texture Generation"
+            activeState={false}
           />
         </div>
         <div className="flex flex-col pt-10">

@@ -1,17 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import MenuItem from "../components/Others/MenuItem";
-
-const menuItems = [
-  { text: "Home", link: "/", delay: 400 },
-  { text: "Blog", link: "/news", delay: 500 },
-  { text: "FAQ", link: "/faq", delay: 600 },
-  { text: "Team", link: "/team", delay: 700 },
-  { text: "Affiliate Program", link: "/affiliate-program", delay: 800 },
-  { text: "Contact Us", link: "/contact-us", delay: 900 },
-  { text: "Support", link: "/support", delay: 900 },
-  { text: "Careers", link: "/careers", delay: 1000 },
-];
+import { navbarMenuItems } from "../utils/constants";
 
 const Navbar = () => {
   const DropDownMenu = () => {
@@ -34,15 +24,24 @@ const Navbar = () => {
           </div>
         </div>
         <div className="flex flex-row gap-6 items-center sm:hidden md:hidden">
-          <div className="flex flex-row items-center lg:gap-6 gap-10">
-            {menuItems.map((item) => (
+          <div className="flex flex-row items-center gap-10">
+            {navbarMenuItems.map((item) => (
               <Link
                 to={item.link}
-                className="text-[#9094a6] hover:text-white transition-all duration-300 ease-in-out lg:text-[14px]"
+                className="text-[#9094a6] hover:text-white transition-all duration-300 ease-in-out"
               >
                 {item.text}
               </Link>
             ))}
+            <div className="social-links">
+              <a href="https://discord.gg/starkmeta">
+                <img
+                  src="/assets/img/discord.svg"
+                  alt="discord"
+                  className="w-[18px]"
+                />
+              </a>
+            </div>
           </div>
           <span className="h-10 w-[2px] bg-white opacity-20"></span>
           <Link to="/login">
@@ -95,7 +94,7 @@ const Navbar = () => {
                 </span>
               </a>
             </li>
-            {menuItems.map((item, index) => {
+            {navbarMenuItems.map((item, index) => {
               return (
                 <MenuItem
                   link={item.link}
