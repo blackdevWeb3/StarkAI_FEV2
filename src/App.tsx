@@ -4,8 +4,9 @@ import Login from "./layouts/LayoutLogin";
 import LayoutDashboard from "./layouts/LayoutDashboard";
 import Navbar from "./layouts/Navbar";
 import AppLayout from "./layouts/App/AppLayout";
+import Footer from "./layouts/Footer";
+import RecentWorks from "./components/Dashboard/RecentWorks";
 import { ModalContextProvider } from "./utils/modalContext";
-import AppFooter from "./layouts/App/AppFooter";
 
 function App() {
   return (
@@ -18,7 +19,8 @@ function App() {
               <>
                 <Navbar />
                 <LayoutDashboard />
-                <AppFooter />
+                <RecentWorks />
+                <Footer />
               </>
             }
           />

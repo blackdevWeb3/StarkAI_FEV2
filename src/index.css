@@ -154,3 +154,14 @@ dialog {
   animation-fill-mode: both;
   animation-iteration-count: infinite;
 }
+
+.bg-blur {
+  z-index: 1;
+  left: -450px;
+  position: absolute;
+  top: -550px;
+  background-color: rgba(214, 81, 169, 0.2);
+  width: 900px;
+  height: 900px;
+  filter: blur(250px);
+}

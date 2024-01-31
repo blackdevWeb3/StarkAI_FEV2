@@ -17,3 +17,5 @@ export { ReactComponent as BitcoinColor } from "./bitcoinColor.svg";
 // Polygon Icons
 export { ReactComponent as PolygonDefault } from "./polygonDefault.svg";
 export { ReactComponent as PolygonColor } from "./polygonColor.svg";
+
+export { ReactComponent as BGStyle } from "./background_tile.svg";
