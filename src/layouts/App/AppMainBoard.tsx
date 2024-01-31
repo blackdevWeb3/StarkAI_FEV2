@@ -1,13 +1,15 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useUser } from "../../context/UserContext";
 import Card from "../../components/Others/Card";
 import axios from "axios";
 import { Image } from "../../utils/types";
 import ModalImgCard from "../../components/Modal/ModalImgCard";
 import { ImageList, ImageListItem } from "@mui/material";
+import ModalContext from "../../utils/modalContext";
 
 const AppMainBoard = () => {
   const { user }: any = useUser();
+  const modalCtx = useContext(ModalContext);
   const [imageData, setImageData] = useState<Image[]>([]);
   const updateLibrary = () => {
     const func = async () => {
@@ -29,10 +31,25 @@ const AppMainBoard = () => {
     };
     func();
   };
+
   useEffect(() => {
     if (imageData.length > 0) return;
     updateLibrary();
   });
+
+  const onNextImage = () => {
+    const ind = modalCtx.index;
+    console.log(modalCtx);
+    modalCtx.setData(imageData[ind + 1]);
+    modalCtx.setIndex(ind + 1);
+  };
+
+  const onPrevImage = () => {
+    const ind = modalCtx.index;
+    console.log(modalCtx);
+    modalCtx.setData(imageData[ind - 1]);
+    modalCtx.setIndex(ind - 1);
+  };
 
   return (
     <>
@@ -47,12 +64,21 @@ const AppMainBoard = () => {
       <ImageList variant="masonry" cols={4} gap={8}>
         {imageData.map((item, index) => (
           <ImageListItem key={index}>
-            <Card data={item} key={index} />
+            <Card
+              data={item}
+              index={index}
+              count={imageData.length}
+              key={index}
+            />
           </ImageListItem>
         ))}
       </ImageList>
 
-      <ModalImgCard onUpdate={updateLibrary} />
+      <ModalImgCard
+        onUpdate={updateLibrary}
+        onNextImage={onNextImage}
+        onPrevImage={onPrevImage}
+      />
     </>
   );
 };

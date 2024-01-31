@@ -3,9 +3,13 @@ import { Image } from "./types";
 
 interface ModalContextType {
   imageData: Image;
+  index: number;
+  imgCount: number;
   visible: boolean;
   setVisible: (flag: boolean) => void;
   setData: (data: any) => void;
+  setIndex: (ind: number) => void;
+  setImgCount: (count: number) => void;
 }
 
 const init: Image = {
@@ -27,8 +31,12 @@ const ModalContext = createContext<ModalContextType>({
   // Specify the type for the context
   imageData: init,
   visible: false,
+  index: 0,
+  imgCount: 0,
   setVisible: () => {},
   setData: () => {},
+  setIndex: () => {},
+  setImgCount: () => {},
 });
 
 // Define props for ModalContextProvider component
@@ -41,20 +49,19 @@ export const ModalContextProvider: FC<ModalContextProviderProps> = ({
 }) => {
   const [visible, setVisible] = useState(false);
   const [imageData, setImageData] = useState<Image>(init);
+  const [index, setIndex] = useState(0);
+  const [imgCount, setImgCount] = useState(0);
 
-  const handleVisible = (flag: boolean) => {
-    setVisible(flag);
-  };
-
-  const handleData = (data: any) => {
-    setImageData(data);
-  };
   // Use the defined functions directly without creating inline ones
   const modalContext: ModalContextType = {
     imageData,
     visible,
-    setVisible: handleVisible, // Use the defined function directly
-    setData: handleData,
+    index,
+    imgCount,
+    setVisible, // Use the defined function directly
+    setData: setImageData,
+    setIndex,
+    setImgCount,
   };
 
   return (

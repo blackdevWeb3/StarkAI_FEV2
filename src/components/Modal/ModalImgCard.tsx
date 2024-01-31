@@ -14,6 +14,7 @@ import axios from "axios";
 import { useUser } from "../../context/UserContext";
 import { ToastContainer, toast } from "react-toastify";
 import { ModelItem, ModelItems } from "../../utils/constants";
+import { Image } from "../../utils/types";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -30,7 +31,22 @@ AWS.config.update({
   region: process.env.REACT_APP_BUCKET_REGION,
 });
 
-const ModalImgCard = ({ onUpdate }: any) => {
+const init: Image = {
+  image: "",
+  owner: "",
+  created: "",
+  data: {
+    alchemy: false,
+    modelId: "",
+    num_image: 1,
+    presetStyle: "1",
+    prompt: "1",
+    width: 1024,
+    height: 1024,
+  },
+};
+
+const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
   const s3 = new AWS.S3();
   const { user }: any = useUser();
   const modalCtx = useContext(ModalContext);
@@ -39,6 +55,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
   const [magnifyOpen, setMagnifyOpen] = useState<boolean>(false);
   const [modelNum, setModelNum] = useState(0);
   const [title, setTitle] = useState("");
+  const [imageData, setImageData] = useState<Image>(init);
 
   const [IsMoreVisible, setIsMoreVisible] = useState<boolean>(false);
   const MoreFunctionRef = useRef<HTMLDivElement>(null);
@@ -59,7 +76,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
   };
 
   const deleteImageHandler = async () => {
-    if (JSON.parse(user).email !== modalCtx.imageData.owner) {
+    if (JSON.parse(user).email !== imageData.owner) {
       toast.error("Only Owner can delete image", {
         autoClose: 1500,
         containerId: "modal",
@@ -67,7 +84,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
       return;
     }
     const data = {
-      image: modalCtx.imageData.image,
+      image: imageData.image,
     };
     await axios.post(`${process.env.REACT_APP_BACKEND_API}/deleteImage`, data);
     modalCtx.setVisible(false);
@@ -84,15 +101,6 @@ const ModalImgCard = ({ onUpdate }: any) => {
       }
     };
 
-    if (modalCtx.imageData.created) {
-      setCreatedDate(
-        format(
-          parseISO(modalCtx.imageData.created.toString()),
-          "dd/MM/yy 'at' h:mm a"
-        )
-      );
-    }
-
     if (modalCtx.visible) {
       document.addEventListener("mousedown", handleClickOutside);
     }
@@ -103,7 +111,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
   }, [modalCtx.visible]);
 
   const handleDownload = async () => {
-    const url = modalCtx.imageData.image;
+    const url = imageData.image;
     const params = {
       Bucket: process.env.REACT_APP_BUCKET_NAME || "starkmeta-assets",
       Key: url.substring(52),
@@ -130,10 +138,11 @@ const ModalImgCard = ({ onUpdate }: any) => {
   };
 
   const handleShare = async () => {
-    await navigator.clipboard.writeText(modalCtx.imageData.image);
+    await navigator.clipboard.writeText(imageData.image);
   };
 
   useEffect(() => {
+    setImageData(modalCtx.imageData);
     const res = ModelItems.findIndex(
       (item: ModelItem) => item.id === modalCtx.imageData.data.modelId
     );
@@ -141,6 +150,13 @@ const ModalImgCard = ({ onUpdate }: any) => {
     const prompt = modalCtx.imageData.data.prompt;
     if (prompt.length > 30) setTitle(prompt.slice(0, 30) + "...");
     else setTitle(prompt);
+
+    setCreatedDate(
+      format(
+        parseISO(modalCtx.imageData.created.toString()),
+        "dd/MM/yy 'at' h:mm a"
+      )
+    );
   }, [modalCtx.imageData]);
 
   return (
@@ -150,13 +166,37 @@ const ModalImgCard = ({ onUpdate }: any) => {
     >
       <ToastContainer containerId={"modal"} />
       <div
-        className="flex-1 p-5 ps-6 pe-6 mt-0 bg-modalBackground border-primary w-[876px] font-Inter relative"
+        className="flex-1 px-8 py-5 mt-0 bg-modalBackground border-primary w-[876px] font-Inter relative"
         ref={ImgModalRef}
       >
+        {modalCtx.index > 0 && (
+          <div
+            className="absolute left-[5px] top-1/2 cursor-pointer"
+            onClick={onPrevImage}
+          >
+            <Icon
+              icon="teenyicons:left-circle-solid"
+              color="white"
+              width="16"
+            />
+          </div>
+        )}
+        {modalCtx.index < modalCtx.imgCount - 1 && (
+          <div
+            className="absolute right-[5px] top-1/2 cursor-pointer"
+            onClick={onNextImage}
+          >
+            <Icon
+              icon="teenyicons:right-circle-solid"
+              color="white"
+              width="16"
+            />
+          </div>
+        )}
         <div className="flex flex-col items-center relative">
           <div className="grid grid-cols-2 gap-x-5">
             {/* left */}
-            <div className="">
+            <div>
               <div
                 className="flex relative flex-col min-w-0 rounded-lg p-0 cursor-pointer"
                 onClick={handleMagnifyImage}
@@ -164,7 +204,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
                 <div className="rounded-lg">
                   <img
                     className="h-auto max-w-full rounded-md"
-                    src={modalCtx.imageData.image}
+                    src={imageData.image}
                     alt="imgCard"
                   />
                 </div>
@@ -186,7 +226,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
                       <div className="flex justify-center w-auto h-full">
                         <img
                           className="z-10 relative object-contain w-auto h-full"
-                          src={modalCtx.imageData.image}
+                          src={imageData.image}
                           alt="imagelogo"
                         ></img>
                       </div>
@@ -305,7 +345,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
                   <Link to="/" className="flex flex-row items-center">
                     <div className="rounded-full"></div>
                     <div className=" min-w-[auto] text-fontSecondary leading-[1] font-semibold">
-                      {modalCtx.imageData.owner}
+                      {imageData.owner}
                     </div>
                   </Link>
                   <button className="flex flex-row items-center justify-center font-normal gap-1 border-primary rounded-[16px] border px-4 py-1 transition-all duration-200 ease-in-out hover:bg-[#393b45]">
@@ -328,7 +368,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
                 <div className="mb-3 w-full rounded-[5.4px]">
                   <div className="block">
                     <p className="font-light text-[13px] font-Inter text-[#fefefe] bg-[#171717] p-2 rounded-[6px]">
-                      {modalCtx.imageData.data.prompt}
+                      {imageData.data.prompt}
                     </p>
                   </div>
                 </div>
@@ -372,8 +412,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
                     Input Resolution
                   </span>
                   <div className="w-full flex items-center text-white text-[14px] font-medium">
-                    {modalCtx.imageData.data.width} x{" "}
-                    {modalCtx.imageData.data.height}px
+                    {imageData.data.width} x {imageData.data.height}px
                   </div>
                 </div>
                 <div className="w-[48%] pr-2 mb-3">
@@ -397,7 +436,7 @@ const ModalImgCard = ({ onUpdate }: any) => {
                 <div className="w-[48%] pr-2 mb-3">
                   <span className="text-[#9094a6] text-[12px]">Preset</span>
                   <div className="w-full flex items-center text-white text-[14px]">
-                    {modalCtx.imageData.data.presetStyle}
+                    {imageData.data.presetStyle}
                   </div>
                 </div>
                 <div className="w-[48%] pr-2 mb-3">
