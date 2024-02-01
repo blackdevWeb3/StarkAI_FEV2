@@ -257,16 +257,22 @@ const ImageGeneration = () => {
 
   const onNextImage = () => {
     const ind = modalCtx.index;
-    console.log(modalCtx);
     modalCtx.setData(imageData[ind + 1]);
     modalCtx.setIndex(ind + 1);
   };
 
   const onPrevImage = () => {
     const ind = modalCtx.index;
-    console.log(modalCtx);
     modalCtx.setData(imageData[ind - 1]);
     modalCtx.setIndex(ind - 1);
+  };
+
+  const handleImage2Image = (data: any) => {
+    console.log(1);
+  };
+
+  const handleImage2Motion = (data: any) => {
+    console.log(2);
   };
 
   return (
@@ -636,6 +642,8 @@ const ImageGeneration = () => {
         onUpdate={updateLibrary}
         onNextImage={onNextImage}
         onPrevImage={onPrevImage}
+        handleImage2Image={(data: any) => handleImage2Image(data)}
+        handleImage2Motion={(data: any) => handleImage2Motion(data)}
       />
     </>
   );

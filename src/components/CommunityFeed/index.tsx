@@ -15,6 +15,7 @@ const CommunityFeed = () => {
   const [searchKey, setSearchKey] = useState("");
   const [imageData, setImageData] = useState<Image[]>([]);
   const [searchedData, setSearchedData] = useState<Image[]>([]);
+  const [searched, setSearched] = useState(false);
 
   const updateLibrary = () => {
     const func = async () => {
@@ -52,7 +53,25 @@ const CommunityFeed = () => {
     if (imageData.length > 0) return;
     updateLibrary();
   });
-  console.log(searchKey);
+
+  const handleImage2Image = (data: any) => {
+    console.log(1);
+  };
+
+  const handleImage2Motion = (data: any) => {
+    console.log(2);
+  };
+
+  const handleSearch = () => {
+    const lowerKey = searchKey.toLowerCase();
+    const tmp = imageData.filter((item: Image) => {
+      const lowerPrompt = item.data.prompt.toLowerCase();
+      return lowerPrompt.includes(lowerKey);
+    });
+    setSearchedData(tmp);
+    setSearched(true);
+  };
+
   return (
     <>
       <div className="w-full bg-black pt-[29px] flex flex-col">
@@ -70,7 +89,9 @@ const CommunityFeed = () => {
               value={searchKey}
               onChange={(ev) => setSearchKey(ev.target.value)}
             ></input>
-            <button className="search-button">Search</button>
+            <button onClick={handleSearch} className="search-button">
+              Search
+            </button>
           </div>
         </div>
 
@@ -85,7 +106,7 @@ const CommunityFeed = () => {
           )} */}
 
           <ImageList variant="masonry" cols={4} gap={8}>
-            {imageData.map((item, index) => (
+            {(searched ? searchedData : imageData).map((item, index) => (
               <ImageListItem key={index}>
                 <Card
                   data={item}
@@ -98,10 +119,13 @@ const CommunityFeed = () => {
           </ImageList>
         </div>
       </div>
+
       <ModalImgCard
         onUpdate={updateLibrary}
         onNextImage={onNextImage}
         onPrevImage={onPrevImage}
+        handleImage2Image={(data: any) => handleImage2Image(data)}
+        handleImage2Motion={(data: any) => handleImage2Motion(data)}
       />
     </>
   );

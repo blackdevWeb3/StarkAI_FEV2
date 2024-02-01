@@ -46,7 +46,13 @@ const init: Image = {
   },
 };
 
-const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
+const ModalImgCard = ({
+  onPrevImage,
+  onNextImage,
+  onUpdate,
+  handleImage2Image,
+  handleImage2Motion,
+}: any) => {
   const s3 = new AWS.S3();
   const { user }: any = useUser();
   const modalCtx = useContext(ModalContext);
@@ -381,7 +387,12 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                           className="w-4 h-4"
                         />
                       </span>
-                      <span className="text-[12.6px]">Image2Motion</span>
+                      <span
+                        className="text-[12.6px]"
+                        onClick={() => handleImage2Motion(modalCtx.imageData)}
+                      >
+                        Image2Motion
+                      </span>
                     </button>
                   </div>
                   <div className="block">
@@ -392,7 +403,12 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                           className="w-4 h-4"
                         />
                       </span>
-                      <span className="text-[12.6px]">Image2Image</span>
+                      <span
+                        className="text-[12.6px]"
+                        onClick={() => handleImage2Image(modalCtx.imageData)}
+                      >
+                        Image2Image
+                      </span>
                     </button>
                   </div>
                   <div className="block col-span-1">
