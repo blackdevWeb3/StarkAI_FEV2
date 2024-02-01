@@ -212,6 +212,20 @@ const navbarMenuItems = [
   { text: "Contact Us", link: "/contact-us", delay: 900 },
 ];
 
+type HashtagItem = {
+  name: string;
+  path: string;
+};
+
+const const_hashtags: HashtagItem[] = [
+  { name: "All", path: "/" },
+  { name: "Case Studies", path: "/case-studies" },
+  { name: "Community Events", path: "/community-events" },
+  { name: "HowTo", path: "/howto" },
+  { name: "Releases", path: "/releases" },
+  { name: "Uncategorized", path: "/uncategorized" },
+];
+
 export {
   ImageDimensionsGroup,
   ImageNumberGroup,
@@ -224,4 +238,5 @@ export {
   Features,
   constants_SocialLink,
   navbarMenuItems,
+  const_hashtags,
 };

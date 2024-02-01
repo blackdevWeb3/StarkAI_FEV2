@@ -25,8 +25,9 @@ const Navbar = () => {
         </div>
         <div className="flex flex-row gap-6 items-center sm:hidden md:hidden">
           <div className="flex flex-row items-center gap-10">
-            {navbarMenuItems.map((item) => (
+            {navbarMenuItems.map((item, index) => (
               <Link
+                key={index}
                 to={item.link}
                 className="text-[#9094a6] hover:text-white transition-all duration-300 ease-in-out"
               >
