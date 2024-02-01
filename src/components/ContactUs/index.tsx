@@ -50,10 +50,6 @@ const ContactUs = () => {
   const serviceID = process.env.REACT_APP_SERVICE_ID;
   const templateID = process.env.REACT_APP_TEMPLATE_ID;
 
-  if (typeof serviceID !== "string" || typeof templateID !== "string") {
-    throw new Error("Service ID or Template ID is undefined");
-  }
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -70,8 +66,8 @@ const ContactUs = () => {
       ];
       emailjs
         .sendForm(
-          serviceID,
-          templateID,
+          serviceID || "",
+          templateID || "",
           event.target as HTMLFormElement,
           process.env.REACT_APP_PUBLIC_KEY
         )

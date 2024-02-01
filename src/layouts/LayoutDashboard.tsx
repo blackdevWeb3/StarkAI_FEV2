@@ -61,7 +61,7 @@ const LayoutDashboard = () => {
       <span className="absolute z-10 top-0 left-0">
         <BGStyle />
       </span>
-      <div className="bg-blur"></div>
+      <div className="bg_blur"></div>
     </div>
   );
 };
