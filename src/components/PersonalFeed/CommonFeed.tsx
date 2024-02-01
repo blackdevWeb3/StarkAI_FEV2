@@ -1,9 +1,81 @@
 import { Icon } from "@iconify/react";
-import { useState } from "react";
-import AppMainBoard from "../../layouts/App/AppMainBoard";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import { ImageList, ImageListItem } from "@mui/material";
+
+import { useUser } from "../../context/UserContext";
+import ModalContext from "../../utils/modalContext";
+import { Image } from "../../utils/types";
+import Card from "../Others/Card";
+import ModalImgCard from "../Modal/ModalImgCard";
 
 const CommonFeed = () => {
   const [activeButton, setActiveButton] = useState(true);
+  const [searchKey, setSearchKey] = useState("");
+  const { user }: any = useUser();
+  const modalCtx = useContext(ModalContext);
+  const [imageData, setImageData] = useState<Image[]>([]);
+  const [searchedData, setSearchedData] = useState<Image[]>([]);
+  const [searched, setSearched] = useState(false);
+
+  const updateLibrary = () => {
+    const func = async () => {
+      const res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_API}/getImages`,
+        { email: JSON.parse(user).email }
+      );
+      if (res.status === 200) {
+        var tmp = res.data;
+        tmp.sort((a: Image, b: Image) => {
+          const dateA = new Date(a.created).getTime();
+          const dateB = new Date(b.created).getTime();
+          return dateB - dateA;
+        });
+        setImageData(tmp);
+      } else {
+        console.log("Error occurred");
+      }
+    };
+    func();
+  };
+
+  useEffect(() => {
+    if (imageData.length > 0) return;
+    updateLibrary();
+  });
+
+  const onNextImage = () => {
+    const ind = modalCtx.index;
+    console.log(modalCtx);
+    modalCtx.setData(imageData[ind + 1]);
+    modalCtx.setIndex(ind + 1);
+  };
+
+  const onPrevImage = () => {
+    const ind = modalCtx.index;
+    console.log(modalCtx);
+    modalCtx.setData(imageData[ind - 1]);
+    modalCtx.setIndex(ind - 1);
+  };
+
+  const handleImage2Image = (img: any) => {
+    console.log(1);
+  };
+
+  const handleImage2Motion = (img: any) => {
+    console.log(2);
+  };
+
+  const handleSearch = () => {
+    const lowerKey = searchKey.toLowerCase();
+    const tmp = imageData.filter((item: Image) => {
+      const lowerPrompt = item.data.prompt.toLowerCase();
+      return lowerPrompt.includes(lowerKey);
+    });
+    setSearchedData(tmp);
+    setSearched(true);
+  };
+
   return (
     <>
       <div className="relative">
@@ -19,8 +91,12 @@ const CommonFeed = () => {
                   <input
                     className="search-input font-chakra"
                     placeholder="Search gallery"
+                    value={searchKey}
+                    onChange={(ev) => setSearchKey(ev.target.value)}
                   ></input>
-                  <button className="search-button">Search</button>
+                  <button onClick={handleSearch} className="search-button">
+                    Search
+                  </button>
                 </div>
                 <div className="flex flex-row w-[364px]">
                   <div className="button-group border-primary">
@@ -84,7 +160,27 @@ const CommonFeed = () => {
         </div>
 
         {/* TabView Content */}
-        <AppMainBoard />
+
+        <ImageList variant="masonry" cols={4} gap={8}>
+          {(searched ? searchedData : imageData).map((item, index) => (
+            <ImageListItem key={index}>
+              <Card
+                data={item}
+                index={index}
+                count={imageData.length}
+                key={index}
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
+
+        <ModalImgCard
+          onUpdate={updateLibrary}
+          onNextImage={onNextImage}
+          onPrevImage={onPrevImage}
+          handleImage2Image={(data: any) => handleImage2Image(data)}
+          handleImage2Motion={(data: any) => handleImage2Motion(data)}
+        />
       </div>
     </>
   );
