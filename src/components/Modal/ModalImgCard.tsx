@@ -197,7 +197,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
     const data = {
       imageId: imageData.generationID,
       strength: densityValue,
-      tmpData,
+      imageData: tmpData,
     };
     socket.emit("image-to-motion", data);
   };
@@ -246,7 +246,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
               >
                 <div className="rounded-lg">
                   {srcType === "video" ? (
-                    <video autoPlay loop disableRemotePlayback>
+                    <video autoPlay loop disableRemotePlayback muted>
                       <source type="video/mp4" src={imageData.image} />
                     </video>
                   ) : (
