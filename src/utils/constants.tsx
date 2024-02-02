@@ -214,16 +214,15 @@ const navbarMenuItems = [
 
 type HashtagItem = {
   name: string;
-  path: string;
 };
 
 const const_hashtags: HashtagItem[] = [
-  { name: "All", path: "/" },
-  { name: "Case Studies", path: "/case-studies" },
-  { name: "Community Events", path: "/community-events" },
-  { name: "HowTo", path: "/howto" },
-  { name: "Releases", path: "/releases" },
-  { name: "Uncategorized", path: "/uncategorized" },
+  { name: "All" },
+  { name: "Case Studies" },
+  { name: "Community Events" },
+  { name: "HowTo" },
+  { name: "Releases" },
+  { name: "Uncategorized" },
 ];
 
 export {

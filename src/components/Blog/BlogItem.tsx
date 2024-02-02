@@ -1,13 +1,18 @@
 import { Link } from "react-router-dom";
 
 interface Post {
-  hashtag?: string;
   title?: string;
   content?: string; // You can specify the correct type for content here
   src?: string;
   featured_image?: string;
   summary?: string;
   slug?: string;
+  categories?: Category[];
+}
+
+interface Category {
+  name: string;
+  slug: string;
 }
 
 interface BlogItemProps {
@@ -30,8 +35,8 @@ const BlogItem: React.FC<BlogItemProps> = ({ post }) => {
             ></img>
           </div>
           <div className="py-[17px] px-0 max-w-full flex flex-col w-full items-start">
-            <div className="text-[#6b66ff] text-[14px] font-semibold leading-[20px] pb-[5px]">
-              {post.slug}
+            <div className="text-[#6b66ff] text-[14px] font-semibold leading-[20px] pb-[5px] flex flex-row">
+              {post.categories?.map((category) => category.name).join(", ")}
             </div>
             <header>
               <h3 className=" font-normal leading-8 text-[24px]">

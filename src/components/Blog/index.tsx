@@ -5,12 +5,18 @@ import { Loader, NewBlur } from "../../assets";
 import { const_hashtags } from "../../utils/constants";
 import BlogItem from "./BlogItem";
 
+interface Category {
+  name: string;
+  slug: string;
+}
+
 interface Post {
   status: string;
   slug?: string;
   title?: string;
   summary?: string;
   featured_image?: string;
+  categories?: Category[];
 }
 
 const Blog = () => {
@@ -24,19 +30,32 @@ const Blog = () => {
   };
 
   useEffect(() => {
-    // Define an async function within the useEffect hook
     const fetchData = async () => {
       const resp = await butter.post.list({ page: 1, page_size: 10 });
-
-      console.log("Export Data:", resp.data);
-      // ...do something with the response...
+      let filter;
+      if (hashtagSelected === "All") {
+        filter = resp?.data?.data;
+      } else if (hashtagSelected === "Uncategorized") {
+        filter = resp.data?.data.filter((post) =>
+          post.categories.some(
+            (category) =>
+              category.name !== "Case Studies" &&
+              category.name !== "Community Events" &&
+              category.name !== "HowTo" &&
+              category.name !== "Releases"
+          )
+        );
+      } else {
+        filter = resp.data?.data.filter((post) =>
+          post.categories.some((category) => category.name === hashtagSelected)
+        );
+      }
       setLoaderState(false);
-      setPosts(resp.data?.data as any);
+      setPosts(filter as any);
     };
 
-    // Call the async function
     fetchData();
-  }, []); // Empty dependency array means this effect runs once on mount
+  }, [hashtagSelected]);
 
   if (error) {
     return <div>Error: {error}</div>;
