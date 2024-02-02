@@ -26,11 +26,12 @@ const CommonFeed = () => {
       );
       if (res.status === 200) {
         var tmp = res.data;
-        tmp.sort((a: Image, b: Image) => {
-          const dateA = new Date(a.created).getTime();
-          const dateB = new Date(b.created).getTime();
-          return dateB - dateA;
-        });
+        // tmp.sort((a: Image, b: Image) => {
+        //   const dateA = new Date(a.created).getTime();
+        //   const dateB = new Date(b.created).getTime();
+        //   return dateB - dateA;
+        // });
+        tmp.reverse();
         setImageData(tmp);
       } else {
         console.log("Error occurred");
@@ -46,7 +47,6 @@ const CommonFeed = () => {
 
   const onNextImage = () => {
     const ind = modalCtx.index;
-    console.log(modalCtx);
     modalCtx.setData(imageData[ind + 1]);
     modalCtx.setIndex(ind + 1);
   };
