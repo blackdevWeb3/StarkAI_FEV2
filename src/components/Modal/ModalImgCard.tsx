@@ -190,16 +190,16 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
 
   const handleImage2Motion = () => {
     handleConfirmOpen();
-    // const tmpData: Image = {
-    //   ...imageData,
-    //   owner: JSON.parse(user).email,
-    // };
-    // const data = {
-    //   imageId: imageData.generationID,
-    //   strength: densityValue,
-    //   tmpData,
-    // };
-    // socket.emit("image-to-motion", data);
+    const tmpData: Image = {
+      ...imageData,
+      owner: JSON.parse(user).email,
+    };
+    const data = {
+      imageId: imageData.generationID,
+      strength: densityValue,
+      tmpData,
+    };
+    socket.emit("image-to-motion", data);
   };
 
   return (
