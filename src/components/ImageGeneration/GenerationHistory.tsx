@@ -5,13 +5,9 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 interface GenerationHistoryProps {
   imageData: Image[];
-  tmpCards: number;
 }
 
-const GenerationHistory: React.FC<GenerationHistoryProps> = ({
-  imageData,
-  tmpCards,
-}) => {
+const GenerationHistory: React.FC<GenerationHistoryProps> = ({ imageData }) => {
   const theme = useTheme();
 
   const colsXl = useMediaQuery(theme.breakpoints.up("xl")) ? 5 : null;
@@ -24,10 +20,6 @@ const GenerationHistory: React.FC<GenerationHistoryProps> = ({
   const colsSm = useMediaQuery(theme.breakpoints.down("sm")) ? 2 : null;
   const cols = colsXl || colsLg || colsMd || colsSm || 2;
 
-  const tmpCardsArray = [];
-  for (let i = 0; i < tmpCards; i++) {
-    tmpCardsArray.push(<Card key={`temp-${i}`} flag={true} />);
-  }
   return (
     <>
       {/* {imageData.length > 0 && (
@@ -38,7 +30,6 @@ const GenerationHistory: React.FC<GenerationHistoryProps> = ({
           ))}
         </div>
       )} */}
-      {tmpCardsArray}
       <ImageList variant="masonry" cols={4} gap={8}>
         {imageData.map((item, index) => (
           <ImageListItem key={index}>

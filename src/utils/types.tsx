@@ -12,6 +12,7 @@ export interface ImageOptions {
 
 export interface Image {
   image: string;
+  generationID: string;
   owner: string;
   created: string;
   data: ImageOptions;

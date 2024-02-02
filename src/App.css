@@ -575,6 +575,34 @@
   display: block;
 }
 
+.button-close {
+  appearance: none;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  user-select: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  line-height: calc(1.5rem);
+  border-radius: 8px;
+  font-weight: 400;
+  transition-property: all;
+  transition-duration: 0.2s;
+  min-width: 40px;
+  font-size: calc(0.875rem);
+  padding-inline-start: 48px;
+  padding-inline-end: 48px;
+  position: relative;
+  cursor: pointer;
+  height: 56px;
+  display: none;
+  margin-left: 1rem;
+  display: block;
+}
+
 .button-generate:disabled {
   opacity: 0.4;
   cursor: not-allowed;
@@ -891,4 +919,17 @@
 
 .border-textarea:focus-visible {
   border-color: #9a5cf7 !important;
+}
+
+.gradient-text {
+  background: linear-gradient(
+      81.02deg,
+      rgb(250, 85, 96) -23.49%,
+      rgb(177, 75, 244) 45.66%,
+      rgb(77, 145, 255) 114.8%
+    )
+    text;
+  color: transparent;
+  font-weight: bold;
+  -webkit-text-fill-color: transparent;
 }
