@@ -69,7 +69,6 @@ const ImageGeneration = () => {
   const [imageSrc, setImageSrc] = useState<File | null>(null);
   const [densityValue, setDensityValue] = useState<number>(50);
   const uploadImgRef = useRef<HTMLInputElement>(null);
-  const [tmpCards, setTmpCards] = useState(0);
   const [imgData, setImgData] = useState<any>(null);
 
   const handleUpload = () => {
@@ -167,19 +166,20 @@ const ImageGeneration = () => {
   useEffect(() => {
     socket.on("Image Saved", (data) => {
       console.log(data);
-      setTmpCards(data.total - data.id);
-      updateLibrary();
     });
 
     socket.on("Generation Complete", (data) => {
       console.log(data);
-      setTmpCards(data.total);
     });
 
     socket.on("Save Complete", (data) => {
       console.log(data);
       updateLibrary();
       setGenerating(false);
+    });
+
+    socket.on("Motion Saved", (data) => {
+      console.log("Motion Saved", data);
     });
   }, [socket]);
 
@@ -265,14 +265,6 @@ const ImageGeneration = () => {
     const ind = modalCtx.index;
     modalCtx.setData(imageData[ind - 1]);
     modalCtx.setIndex(ind - 1);
-  };
-
-  const handleImage2Image = (data: any) => {
-    console.log(1);
-  };
-
-  const handleImage2Motion = (data: any) => {
-    console.log(2);
   };
 
   return (
@@ -444,7 +436,7 @@ const ImageGeneration = () => {
           {/* Tab Content */}
           <div className="mt-3 border-primary">
             {activeTab === "generationHistory" && (
-              <GenerationHistory imageData={imageData} tmpCards={tmpCards} />
+              <GenerationHistory imageData={imageData} />
             )}
             {activeTab === "imgGuidance" && (
               <ImageGuidance
@@ -642,8 +634,6 @@ const ImageGeneration = () => {
         onUpdate={updateLibrary}
         onNextImage={onNextImage}
         onPrevImage={onPrevImage}
-        handleImage2Image={(data: any) => handleImage2Image(data)}
-        handleImage2Motion={(data: any) => handleImage2Motion(data)}
       />
     </>
   );

@@ -54,14 +54,6 @@ const CommunityFeed = () => {
     updateLibrary();
   });
 
-  const handleImage2Image = (data: any) => {
-    console.log(1);
-  };
-
-  const handleImage2Motion = (data: any) => {
-    console.log(2);
-  };
-
   const handleSearch = () => {
     const lowerKey = searchKey.toLowerCase();
     const tmp = imageData.filter((item: Image) => {
@@ -124,8 +116,6 @@ const CommunityFeed = () => {
         onUpdate={updateLibrary}
         onNextImage={onNextImage}
         onPrevImage={onPrevImage}
-        handleImage2Image={(data: any) => handleImage2Image(data)}
-        handleImage2Motion={(data: any) => handleImage2Motion(data)}
       />
     </>
   );

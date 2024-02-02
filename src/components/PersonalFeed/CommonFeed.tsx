@@ -58,14 +58,6 @@ const CommonFeed = () => {
     modalCtx.setIndex(ind - 1);
   };
 
-  const handleImage2Image = (img: any) => {
-    console.log(1);
-  };
-
-  const handleImage2Motion = (img: any) => {
-    console.log(2);
-  };
-
   const handleSearch = () => {
     const lowerKey = searchKey.toLowerCase();
     const tmp = imageData.filter((item: Image) => {
@@ -178,8 +170,6 @@ const CommonFeed = () => {
           onUpdate={updateLibrary}
           onNextImage={onNextImage}
           onPrevImage={onPrevImage}
-          handleImage2Image={(data: any) => handleImage2Image(data)}
-          handleImage2Motion={(data: any) => handleImage2Motion(data)}
         />
       </div>
     </>

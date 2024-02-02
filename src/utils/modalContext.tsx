@@ -16,6 +16,7 @@ const init: Image = {
   image: "",
   owner: "",
   created: "2024-01-25T13:50:09.666+00:00",
+  generationID: "",
   data: {
     alchemy: false,
     modelId: "",
