@@ -9,6 +9,7 @@ import RecentWorks from "./components/Dashboard/RecentWorks";
 import { ModalContextProvider } from "./utils/modalContext";
 import ContactUs from "./components/ContactUs";
 import Blog from "./components/Blog";
+import BlogPost from "./components/Blog/BlogPost";
 
 interface LayoutWithNavbarAndFooterProps {
   children: React.ReactNode; // This defines the type for children
@@ -56,6 +57,16 @@ function App() {
               <>
                 <LayoutWithNavbarAndFooter>
                   <Blog />
+                </LayoutWithNavbarAndFooter>
+              </>
+            }
+          />
+          <Route
+            path="/news/:post"
+            element={
+              <>
+                <LayoutWithNavbarAndFooter>
+                  <BlogPost />
                 </LayoutWithNavbarAndFooter>
               </>
             }
