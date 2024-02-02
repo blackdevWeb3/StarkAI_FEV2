@@ -53,7 +53,6 @@ const CommonFeed = () => {
 
   const onPrevImage = () => {
     const ind = modalCtx.index;
-    console.log(modalCtx);
     modalCtx.setData(imageData[ind - 1]);
     modalCtx.setIndex(ind - 1);
   };
