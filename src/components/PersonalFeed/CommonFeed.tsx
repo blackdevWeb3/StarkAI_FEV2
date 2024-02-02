@@ -153,7 +153,7 @@ const CommonFeed = () => {
 
         {/* TabView Content */}
 
-        <ImageList variant="masonry" cols={4} gap={8}>
+        <ImageList variant="masonry" cols={4} gap={8} sx={{ padding: "12px" }}>
           {(searched ? searchedData : imageData).map((item, index) => (
             <ImageListItem key={index}>
               <Card

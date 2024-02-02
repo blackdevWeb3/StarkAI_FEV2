@@ -37,7 +37,7 @@ const Card = (props: any) => {
           )}
 
           {props.data.image.endsWith(".mp4") ? (
-            <video autoPlay loop disableRemotePlayback>
+            <video autoPlay loop disableRemotePlayback muted>
               <source type="video/mp4" src={props.data.image} />
             </video>
           ) : (
