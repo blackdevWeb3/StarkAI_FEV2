@@ -165,6 +165,21 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
   };
 
   useEffect(() => {
+    if (
+      imageData.image.endsWith(".mp4") &&
+      modalCtx.imageData.image.endsWith(".mp4")
+    ) {
+      const videocontainer = document.getElementById(
+        "videocontainer"
+      ) as HTMLVideoElement;
+      const videosource = document.getElementById(
+        "videosource"
+      ) as HTMLVideoElement;
+      videocontainer?.pause();
+      videosource?.setAttribute("src", modalCtx.imageData.image);
+      videocontainer?.load();
+      videocontainer?.play();
+    }
     setImageData(modalCtx.imageData);
     if (modalCtx.imageData.image.endsWith(".mp4")) setSrcType("video");
     else setSrcType("image");
@@ -202,6 +217,11 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
     socket.emit("image-to-motion", data);
   };
 
+  useEffect(() => {
+    socket.on("Motion Saved", (data) => {
+      console.log(data);
+    });
+  }, [socket]);
   return (
     <Modal
       open={modalCtx.visible}
@@ -246,13 +266,23 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
               >
                 <div className="rounded-lg">
                   {srcType === "video" ? (
-                    <video autoPlay loop disableRemotePlayback muted>
-                      <source type="video/mp4" src={imageData.image} />
+                    <video
+                      id="videocontainer"
+                      autoPlay
+                      loop
+                      disableRemotePlayback
+                      muted
+                    >
+                      <source
+                        id="videosource"
+                        type="video/mp4"
+                        src={modalCtx.imageData.image}
+                      />
                     </video>
                   ) : (
                     <img
                       className="h-auto max-w-full rounded-md"
-                      src={imageData.image}
+                      src={modalCtx.imageData.image}
                       alt="imgCard"
                     />
                   )}
