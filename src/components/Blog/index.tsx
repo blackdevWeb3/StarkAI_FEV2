@@ -43,7 +43,7 @@ const Blog = () => {
   }
 
   return (
-    <div className="h-screen w-full bg-black font-chakra relative overflow-hidden">
+    <div className="w-full bg-black font-chakra relative overflow-hidden">
       <div className="pt-32 px-10 text-white flex flex-col w-full">
         <div className="flex flex-col max-w-[960px] mx-auto w-full items-center gap-3">
           <span className="text-[42px] font-semibold">Latest News</span>
@@ -76,30 +76,24 @@ const Blog = () => {
                   ))}
                 </ul>
               </div>
-              <div className="w-full items-stretch gap-[30px] grid grid-cols-3 pt-[85px]">
-                {posts.map((post, index) => (
-                  <BlogItem
-                    key={index}
-                    src={post.featured_image}
-                    hashtag="Case Studies"
-                    title={post.title}
-                    content={post.summary}
-                  />
-                ))}
+              <div className="pt-[85px]">
+                {posts.length > 0 ? (
+                  <div className="w-full items-stretch gap-[30px] grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
+                    {posts.map((post, index) => (
+                      <BlogItem key={index} post={post} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="w-full">
+                    <h2 className="text-center w-full font-medium text-[32px]">
+                      No posts to display.
+                    </h2>
+                  </div>
+                )}
               </div>
             </div>
           </div>
         </div>
-        {/* <h1>Posts</h1>
-        {posts.length > 0 ? (
-          <ul>
-            {posts.map((post) => (
-              <li key={post.slug}>{post.title}</li> // Modify based on your Post interface
-            ))}
-          </ul>
-        ) : (
-          <p>No posts to display.</p>
-        )} */}
       </div>
       <NewBlur />
     </div>

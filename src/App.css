@@ -994,3 +994,11 @@
   width: 120px;
   height: 120px;
 }
+
+.blog_item_color {
+  color: #6b66ff;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+}
