@@ -59,7 +59,10 @@ const BlogPost = () => {
             </div>
           </div>
           <img src={post?.featured_image} alt="featured_image" />
-          <div className="pb-20"></div>
+          <div className="pb-20 pt-10">
+            <div dangerouslySetInnerHTML={{ __html: post?.body }} />
+          </div>
+
           <div className="border-t-[1px] border-primary max-w-full w-full flex flex-col items-end text-[#a8aab5] pb-16">
             <Link
               to="/news/"

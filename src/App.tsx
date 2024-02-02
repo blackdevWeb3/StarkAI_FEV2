@@ -12,7 +12,7 @@ import Blog from "./components/Blog";
 import BlogPost from "./components/Blog/BlogPost";
 
 interface LayoutWithNavbarAndFooterProps {
-  children: React.ReactNode; // This defines the type for children
+  children: React.ReactNode;
 }
 
 function LayoutWithNavbarAndFooter({
@@ -44,31 +44,25 @@ function App() {
           <Route
             path="/contact-us"
             element={
-              <>
-                <LayoutWithNavbarAndFooter>
-                  {/* <ContactUs /> */}
-                </LayoutWithNavbarAndFooter>
-              </>
+              <LayoutWithNavbarAndFooter>
+                {/* <ContactUs /> */}
+              </LayoutWithNavbarAndFooter>
             }
           />
           <Route
             path="/news"
             element={
-              <>
-                <LayoutWithNavbarAndFooter>
-                  <Blog />
-                </LayoutWithNavbarAndFooter>
-              </>
+              <LayoutWithNavbarAndFooter>
+                <Blog />
+              </LayoutWithNavbarAndFooter>
             }
           />
           <Route
             path="/news/:post"
             element={
-              <>
-                <LayoutWithNavbarAndFooter>
-                  <BlogPost />
-                </LayoutWithNavbarAndFooter>
-              </>
+              <LayoutWithNavbarAndFooter>
+                <BlogPost />
+              </LayoutWithNavbarAndFooter>
             }
           />
           <Route path="/login" element={<Login />} />
