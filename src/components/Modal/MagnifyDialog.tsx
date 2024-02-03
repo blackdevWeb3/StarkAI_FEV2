@@ -23,11 +23,27 @@ const MagnifyDialog = ({
         <div className="flex p-0 mt-0 rounded-lg w-auto h-[calc(100%-72px)]">
           <div className="flex justify-center m-auto relative w-auto h-full">
             <div className="flex justify-center w-auto h-full">
-              <img
-                className="z-10 relative object-contain w-auto h-full"
-                src={imageData.image}
-                alt="imagelogo"
-              ></img>
+              {imageData.image.endsWith(".mp4") ? (
+                <video
+                  id="videocontainer1"
+                  autoPlay
+                  loop
+                  disableRemotePlayback
+                  muted
+                >
+                  <source
+                    id="videosource1"
+                    type="video/mp4"
+                    src={imageData.image}
+                  />
+                </video>
+              ) : (
+                <img
+                  className="z-10 relative object-contain w-auto h-full"
+                  src={imageData.image}
+                  alt="imagelogo"
+                />
+              )}
             </div>
             <button
               className="absolute top-5 right-5 rounded-full bg-[#0000005c] h-8 w-8 flex justify-center items-center z-10 group hover:bg-[#19191950]"
