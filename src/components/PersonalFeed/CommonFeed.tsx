@@ -1,15 +1,17 @@
 import { Icon } from "@iconify/react";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { ImageList, ImageListItem } from "@mui/material";
+import { ImageList, ImageListItem, Slider } from "@mui/material";
 
 import { useUser } from "../../context/UserContext";
 import ModalContext from "../../utils/modalContext";
 import { Image } from "../../utils/types";
 import Card from "../Others/Card";
 import ModalImgCard from "../Modal/ModalImgCard";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const CommonFeed = () => {
+  const windowSize = useWindowSize();
   const [activeButton, setActiveButton] = useState(true);
   const [searchKey, setSearchKey] = useState("");
   const { user }: any = useUser();
@@ -17,6 +19,8 @@ const CommonFeed = () => {
   const [imageData, setImageData] = useState<Image[]>([]);
   const [searchedData, setSearchedData] = useState<Image[]>([]);
   const [searched, setSearched] = useState(false);
+  const [maxStretch, setMaxStretch] = useState(5);
+  const [curVal, setCurVal] = useState(5);
 
   const updateLibrary = () => {
     const func = async () => {
@@ -65,6 +69,23 @@ const CommonFeed = () => {
     });
     setSearchedData(tmp);
     setSearched(true);
+  };
+  console.log(maxStretch, curVal);
+  useEffect(() => {
+    const wid = windowSize[0];
+    if (wid > 1200 && maxStretch != 5) setMaxStretch(5);
+    if (wid > 1000 && wid <= 1200 && maxStretch != 4) setMaxStretch(4);
+    if (wid > 768 && wid <= 1000 && maxStretch != 3) setMaxStretch(3);
+    if (wid > 480 && wid <= 768 && maxStretch != 2) setMaxStretch(2);
+    if (wid <= 480 && maxStretch != 1) setMaxStretch(1);
+  }, [windowSize]);
+
+  useEffect(() => {
+    if (curVal > maxStretch) setCurVal(maxStretch);
+  }, [maxStretch]);
+
+  const handleStretch = (event: Event, newValue: number | number[]) => {
+    setCurVal(newValue as number);
   };
 
   return (
@@ -142,7 +163,15 @@ const CommonFeed = () => {
                     <div className="button-cover"></div>
                   </button>
                 </div>
-                <div className=""></div>
+                <div className="w-[200px]">
+                  <Slider
+                    aria-label="Volume"
+                    min={1}
+                    max={maxStretch}
+                    value={curVal}
+                    onChange={handleStretch}
+                  />
+                </div>
               </div>
             </div>
             <div className=""></div>
@@ -152,7 +181,12 @@ const CommonFeed = () => {
 
         {/* TabView Content */}
 
-        <ImageList variant="masonry" cols={4} gap={8} sx={{ padding: "12px" }}>
+        <ImageList
+          variant="masonry"
+          cols={curVal}
+          gap={8}
+          sx={{ padding: "12px" }}
+        >
           {(searched ? searchedData : imageData).map((item, index) => (
             <ImageListItem key={index}>
               <Card
