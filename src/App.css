@@ -1002,3 +1002,83 @@
   font-weight: 600;
   line-height: 20px;
 }
+
+.contact-board {
+  background-color: #060c0e;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-attachment: scroll;
+  background-size: auto;
+  background-blend-mode: color-dodge !important;
+}
+
+.contact-board::before {
+  content: "";
+  position: absolute;
+  background: url(../public/assets/img/Group-1000001732.png);
+  width: 1328px;
+  height: 790px;
+  left: calc(50% + 50px);
+  bottom: 0px;
+  transform: translateX(-50%);
+  z-index: 9;
+}
+
+@media screen and (max-width: 767px) {
+  .contact-board::before {
+    background-size: 265% auto !important;
+    background-position: center !important;
+    left: 0 !important;
+    bottom: 90px !important;
+    width: 100% !important;
+    transform: none !important;
+    background-repeat: no-repeat !important;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .contact-board::before {
+    background-size: 115% auto !important;
+    background-repeat: no-repeat !important;
+    background-position: left center !important;
+    left: 0px !important;
+    transform: none !important;
+    bottom: -13px !important;
+    width: 100% !important;
+  }
+}
+
+.adrestus-color {
+  background: linear-gradient(
+    90.24deg,
+    #38c8ed 4.13%,
+    #45dfac 55.95%,
+    #23afa5 104.62%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  position: relative;
+  z-index: 99;
+}
+
+.filter-blur {
+  filter: blur(3px);
+}
+.colorBtn {
+  background: linear-gradient(
+    90.24deg,
+    #38c8ed 4.13%,
+    #3ffde0 55.95%,
+    #23afa5 104.62%
+  ) !important;
+  border-radius: 33px;
+  background-size: 200% auto !important;
+  background-position: left center !important;
+  transition: all 0.2s ease !important;
+}
+
+.colorBtn:hover {
+  background-position: right center !important;
+}
