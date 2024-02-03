@@ -45,7 +45,7 @@ function App() {
             path="/contact-us"
             element={
               <LayoutWithNavbarAndFooter>
-                {/* <ContactUs /> */}
+                <ContactUs />
               </LayoutWithNavbarAndFooter>
             }
           />
