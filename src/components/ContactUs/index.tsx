@@ -1,15 +1,3 @@
-// const ContactUs = () => {
-//   return (
-//     <div className="w-full bg-black font-chakra relative overflow-hidden min-h-screen">
-//       <div className="pt-32 px-10 text-white flex flex-col w-full">
-//         <h2 className="">Hello</h2>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ContactUs;
-
 import { useState, useRef, useEffect, ChangeEvent, FormEvent } from "react";
 import { Link } from "react-router-dom";
 import emailjs from "@emailjs/browser";

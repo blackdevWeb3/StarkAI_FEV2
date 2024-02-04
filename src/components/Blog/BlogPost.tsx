@@ -4,6 +4,7 @@ import butter from "../../hooks/butter-client";
 import { NewBlur } from "../../assets";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import changeDateFormat from "../../utils/changeDateFormat";
 
 const BlogPost = () => {
   const [post, setPost] = useState<any>({});
@@ -26,12 +27,11 @@ const BlogPost = () => {
     };
 
     fetchPost();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty dependencies array ensures this effect runs only once when the component mounts
 
   return (
-    <div className="w-full bg-black font-chakra relative overflow-hidden">
+    <div className="w-full bg-black font-chakra relative overflow-hidden min-h-screen">
       <div className="pt-32 px-10 text-white flex flex-col w-full">
         <div className="max-w-[900px] mx-auto px-5 flex flex-col items-start w-full">
           <div className="w-full text-[15px] z-50 text-[#d1d2e4]">
@@ -54,7 +54,9 @@ const BlogPost = () => {
               </span>
               <span className="blog_item_color text-[#D1D4E2]">
                 Published on &nbsp;
-                {post?.published}
+                {post && post.published
+                  ? changeDateFormat(post?.published)
+                  : "Date unavailable"}
               </span>
             </div>
           </div>

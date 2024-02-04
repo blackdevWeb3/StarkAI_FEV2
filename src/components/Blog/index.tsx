@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import butter from "../../hooks/butter-client";
+import { useState, useEffect } from "react";
 import { Loader, NewBlur } from "../../assets";
 import { const_hashtags } from "../../utils/constants";
+import butter from "../../hooks/butter-client";
 import BlogItem from "./BlogItem";
 
 interface Category {
@@ -19,6 +18,13 @@ interface Post {
   categories?: Category[];
 }
 
+const categoriesToExclude = [
+  "Case Studies",
+  "Community Events",
+  "HowTo",
+  "Releases",
+];
+
 const Blog = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loaderState, setLoaderState] = useState<boolean>(true);
@@ -29,29 +35,28 @@ const Blog = () => {
     setHashtagSelected(name);
   };
 
+  const filterPostsByHashtag = (posts: Post[], hashtag: string): Post[] =>
+    hashtag === "All"
+      ? posts
+      : posts.filter((post) =>
+          hashtag === "Uncategorized"
+            ? post.categories?.every(
+                (category) => !categoriesToExclude.includes(category.name)
+              )
+            : post.categories?.some((category) => category.name === hashtag)
+        );
+
   useEffect(() => {
     const fetchData = async () => {
-      const resp = await butter.post.list({ page: 1, page_size: 10 });
-      let filter;
-      if (hashtagSelected === "All") {
-        filter = resp?.data?.data;
-      } else if (hashtagSelected === "Uncategorized") {
-        filter = resp.data?.data.filter((post) =>
-          post.categories.some(
-            (category) =>
-              category.name !== "Case Studies" &&
-              category.name !== "Community Events" &&
-              category.name !== "HowTo" &&
-              category.name !== "Releases"
-          )
-        );
-      } else {
-        filter = resp.data?.data.filter((post) =>
-          post.categories.some((category) => category.name === hashtagSelected)
-        );
+      try {
+        const resp = await butter.post.list({ page: 1, page_size: 10 });
+        if (!resp?.data?.data) throw new Error("No data received");
+        setPosts(filterPostsByHashtag(resp.data.data, hashtagSelected));
+      } catch (err) {
+        setError("Failed to fetch data");
+      } finally {
+        setLoaderState(false);
       }
-      setLoaderState(false);
-      setPosts(filter as any);
     };
 
     fetchData();
