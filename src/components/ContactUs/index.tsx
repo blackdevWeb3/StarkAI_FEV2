@@ -55,30 +55,32 @@ const ContactUs = () => {
       alert("Please verify the reCAPTCHA!");
       return;
     }
-    const newFormData = [
-      {
-        name: name,
-        email: email,
-        phone: phone,
-        message: message,
-      },
-    ];
-
-    console.log("Form value:**********", event.target as HTMLFormElement);
+    const newFormData = {
+      name: name,
+      email: email,
+      phone: phone,
+      message: message,
+    };
+    console.log(
+      "Form value:**********",
+      process.env.REACT_APP_SERVICE_ID,
+      process.env.REACT_APP_TEMPLATE_ID,
+      process.env.REACT_APP_PUBLIC_KEY
+    );
 
     emailjs
-      .sendForm(
+      .send(
         process.env.REACT_APP_SERVICE_ID!,
         process.env.REACT_APP_TEMPLATE_ID!,
-        event.target as HTMLFormElement,
+        newFormData as any,
         process.env.REACT_APP_PUBLIC_KEY
       )
       .then(
-        (result) => {
-          console.log(result.text);
+        (response) => {
+          console.log("Success!", response.status, response.text);
         },
         (error) => {
-          console.log(error.text);
+          console.log("Failed", error);
         }
       );
 
