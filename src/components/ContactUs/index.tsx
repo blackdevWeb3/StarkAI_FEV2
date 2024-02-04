@@ -64,7 +64,7 @@ const ContactUs = () => {
       },
     ];
 
-    console.log("Form value:**********", formRef.current!);
+    console.log("Form value:**********", event.target as HTMLFormElement);
 
     emailjs
       .sendForm(
