@@ -35,7 +35,9 @@ const AppSlider = ({
     <>
       <div
         className={`flex flex-col z-50 border-r border-primary bg-black w-[270px] min-w-[270px] pt-[10px] transition-all duration-300 ease-in-out ${
-          sliderOpen ? "sm:w-full sm:max-w-full fixed" : "sm:hidden"
+          sliderOpen
+            ? "sm:w-full sm:max-w-full fixed min-h-screen h-full"
+            : "sm:hidden"
         }`}
       >
         <div className="pt-[19px] flex flex-row justify-between w-full items-center px-10">
