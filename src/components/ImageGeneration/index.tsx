@@ -27,6 +27,17 @@ import { TextareaAutosize } from "@mui/material";
 import io from "socket.io-client";
 import { ToastContainer, toast } from "react-toastify";
 import ModalContext from "../../utils/modalContext";
+import {
+  useAccount,
+  useSignTypedData,
+  useNetwork,
+  useContractRead,
+} from "wagmi";
+import { MarketPlace } from "../../config/const";
+import MarketPlaceABI from "../../config/marketplace.json";
+import ERC20ABI from "../../config/ERC20.json";
+import { writeContract, readContract, waitForTransaction } from "@wagmi/core";
+
 // const socket = io("http://localhost:5001");
 const socket = io(process.env.REACT_APP_SOCKET_API || "http://localhost:5001");
 
@@ -71,6 +82,7 @@ const ImageGeneration = () => {
   const uploadImgRef = useRef<HTMLInputElement>(null);
   const [tmpCards, setTmpCards] = useState(0);
   const [imgData, setImgData] = useState<any>(null);
+  const { address, isConnected } = useAccount();
 
   const handleUpload = () => {
     uploadImgRef.current?.click();
@@ -200,32 +212,83 @@ const ImageGeneration = () => {
     } else setSelectedNumber(selectedNumber);
   }, [selectedOption]);
 
+  const { chain } = useNetwork();
+
   const handleGenerate = async () => {
+    if (!isConnected) {
+      toast.warning("Connect wallet first!", {
+        autoClose: 2000,
+        containerId: "main",
+      });
+      return;
+    }
     setGenerating(true);
-    if (activeTab === "generationHistory") {
-      const data = {
-        user: JSON.parse(user).email,
-        text: promptText,
-        model: generationModel?.id,
-        alchemy: alchemy,
-        presetStyle: generationStyle,
-        numberOfImages: selectedNumber,
-        dimension: selectedOption,
-      };
-      socket.emit("text-to-image", data);
-    } else {
-      const data = {
-        user: JSON.parse(user).email,
-        text: promptText,
-        model: generationModel?.id || "",
-        alchemy: alchemy ? "true" : "false",
-        presetStyle: generationStyle,
-        numberOfImages: selectedNumber.toString(),
-        dimension: selectedOption,
-        density: densityValue.toString(),
-        image: imgData,
-      };
-      socket.emit("image-to-image", data);
+    const chainId = chain ? chain.id : 97;
+    const tradeToken: any = await readContract({
+      address: MarketPlace[chainId],
+      abi: MarketPlaceABI,
+      functionName: "tradeToken",
+    });
+    const generateImageFee: any = await readContract({
+      address: MarketPlace[chainId],
+      abi: MarketPlaceABI,
+      functionName: "generateImageFee",
+    });
+
+    console.log("trade---", tradeToken);
+
+    // let tx: any = await writeContract({
+    //   address: tradeToken,
+    //   abi: ERC20ABI,
+    //   functionName: 'approve',
+    //   args: [MarketPlace[chainId], generateImageFee],
+    // })
+    // console.log('----------tx--------', tx)
+    try {
+      let tx = await writeContract({
+        address: tradeToken,
+        abi: ERC20ABI,
+        functionName: "approve",
+        args: [MarketPlace[chainId], generateImageFee],
+      });
+      console.log(tx);
+      let data = await waitForTransaction(tx)
+      console.log('-------data-------', data)
+      tx = await writeContract({
+        address: MarketPlace[chainId],
+        abi: MarketPlaceABI,
+        functionName: "generateImage",
+      });
+      data = await waitForTransaction(tx)
+      console.log('-------data-2------', data)
+      if (activeTab === "generationHistory") {
+        const data = {
+          user: JSON.parse(user).email,
+          text: promptText,
+          model: generationModel?.id,
+          alchemy: alchemy,
+          presetStyle: generationStyle,
+          numberOfImages: selectedNumber,
+          dimension: selectedOption,
+        };
+        socket.emit("text-to-image", data);
+      } else {
+        const data = {
+          user: JSON.parse(user).email,
+          text: promptText,
+          model: generationModel?.id || "",
+          alchemy: alchemy ? "true" : "false",
+          presetStyle: generationStyle,
+          numberOfImages: selectedNumber.toString(),
+          dimension: selectedOption,
+          density: densityValue.toString(),
+          image: imgData,
+        };
+        socket.emit("image-to-image", data);
+      }
+    } catch (e) {
+      setGenerating(false);
+      return;
     }
   };
 

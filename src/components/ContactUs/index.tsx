@@ -76,11 +76,11 @@ const ContactUs = () => {
           process.env.REACT_APP_PUBLIC_KEY
         )
         .then(
-          (result) => {
+          (result: any) => {
             alert("message sent successfully...");
             console.log(result.text);
           },
-          (error) => {
+          (error: any) => {
             console.log(error.text);
           }
         );

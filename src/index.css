@@ -165,3 +165,15 @@ dialog {
   height: 900px;
   filter: blur(250px);
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: rgb(105, 105, 105);
+}
+::-webkit-scrollbar-track {
+  width: 10px;
+  background: transparent;
+}
