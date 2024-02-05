@@ -20,7 +20,6 @@ const BlogPost = () => {
       try {
         const response = await butter.post.retrieve(postId);
         setPost(response.data?.data);
-        console.log("Post content:", response.data);
       } catch (error) {
         console.error("There was an issue fetching the post:", error);
       }

@@ -72,10 +72,10 @@ const CommonFeed = () => {
   };
   console.log(maxStretch, curVal);
   useEffect(() => {
-    const wid = windowSize[0];
+    const wid = windowSize;
     if (wid > 1200 && maxStretch !== 5) setMaxStretch(5);
-    if (wid > 1000 && wid <= 1200 && maxStretch !== 4) setMaxStretch(4);
-    if (wid > 768 && wid <= 1000 && maxStretch !== 3) setMaxStretch(3);
+    if (wid > 1000 && wid <= 1280 && maxStretch !== 4) setMaxStretch(4);
+    if (wid > 768 && wid <= 1024 && maxStretch !== 3) setMaxStretch(3);
     if (wid > 480 && wid <= 768 && maxStretch !== 2) setMaxStretch(2);
     if (wid <= 480 && maxStretch !== 1) setMaxStretch(1);
   }, [windowSize]);
