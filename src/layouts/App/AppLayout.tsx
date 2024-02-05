@@ -8,15 +8,27 @@ import Explore from "../../components/Explore";
 import Marketplace from "../../components/Marketplace";
 import TextGeneration from "../../components/TextGeneration";
 import Settings from "../../components/Settings";
-import ChainHeader from "../../components/Others/ChainHeader";
+import AppHeader from "./AppHeader";
+import { useState } from "react";
 
 const AppLayout = () => {
+  const [sliderOpen, setSliderOpen] = useState<boolean>(false);
+
+  const sliderHandler = () => {
+    setSliderOpen(!sliderOpen);
+    console.log("Slider State:", sliderOpen);
+  };
+
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-row w-full bg-black">
-        <AppSlider />
+        <AppSlider
+          sliderOpen={sliderOpen}
+          setSliderOpen={setSliderOpen}
+          sliderHandler={sliderHandler}
+        />
         <div className="flex flex-col min-h-screen h-full bg-black w-full">
-          <ChainHeader />
+          <AppHeader sliderOpen={sliderOpen} sliderHandler={sliderHandler} />
           <Routes>
             <Route path="/" element={<AppHome />} />
             <Route path="community-feed" element={<CommunityFeed />} />
