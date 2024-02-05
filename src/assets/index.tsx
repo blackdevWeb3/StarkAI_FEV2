@@ -19,3 +19,11 @@ export { ReactComponent as PolygonDefault } from "./polygonDefault.svg";
 export { ReactComponent as PolygonColor } from "./polygonColor.svg";
 
 export { ReactComponent as BGStyle } from "./background_tile.svg";
+
+export { ReactComponent as IconMotion } from "./image2motion.svg";
+
+export { ReactComponent as NewBlur } from "./new_blur.svg";
+
+export { ReactComponent as Loader } from "./loader.svg";
+
+export { ReactComponent as MoreSVG } from "./more.svg";

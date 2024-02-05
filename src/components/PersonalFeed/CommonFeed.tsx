@@ -1,9 +1,93 @@
 import { Icon } from "@iconify/react";
-import { useState } from "react";
-import AppMainBoard from "../../layouts/App/AppMainBoard";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import { ImageList, ImageListItem, Slider } from "@mui/material";
+
+import { useUser } from "../../context/UserContext";
+import ModalContext from "../../utils/modalContext";
+import { Image } from "../../utils/types";
+import Card from "../Others/Card";
+import ModalImgCard from "../Modal/ModalImgCard";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const CommonFeed = () => {
+  const windowSize = useWindowSize();
   const [activeButton, setActiveButton] = useState(true);
+  const [searchKey, setSearchKey] = useState("");
+  const { user }: any = useUser();
+  const modalCtx = useContext(ModalContext);
+  const [imageData, setImageData] = useState<Image[]>([]);
+  const [searchedData, setSearchedData] = useState<Image[]>([]);
+  const [searched, setSearched] = useState(false);
+  const [maxStretch, setMaxStretch] = useState(5);
+  const [curVal, setCurVal] = useState(5);
+
+  const updateLibrary = () => {
+    const func = async () => {
+      const res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_API}/getImages`,
+        { email: JSON.parse(user).email }
+      );
+      if (res.status === 200) {
+        var tmp = res.data;
+        // tmp.sort((a: Image, b: Image) => {
+        //   const dateA = new Date(a.created).getTime();
+        //   const dateB = new Date(b.created).getTime();
+        //   return dateB - dateA;
+        // });
+        tmp.reverse();
+        setImageData(tmp);
+      } else {
+        console.log("Error occurred");
+      }
+    };
+    func();
+  };
+
+  useEffect(() => {
+    if (imageData.length > 0) return;
+    updateLibrary();
+  });
+
+  const onNextImage = () => {
+    const ind = modalCtx.index;
+    modalCtx.setData(imageData[ind + 1]);
+    modalCtx.setIndex(ind + 1);
+  };
+
+  const onPrevImage = () => {
+    const ind = modalCtx.index;
+    modalCtx.setData(imageData[ind - 1]);
+    modalCtx.setIndex(ind - 1);
+  };
+
+  const handleSearch = () => {
+    const lowerKey = searchKey.toLowerCase();
+    const tmp = imageData.filter((item: Image) => {
+      const lowerPrompt = item.data.prompt.toLowerCase();
+      return lowerPrompt.includes(lowerKey);
+    });
+    setSearchedData(tmp);
+    setSearched(true);
+  };
+  console.log(maxStretch, curVal);
+  useEffect(() => {
+    const wid = windowSize[0];
+    if (wid > 1200 && maxStretch !== 5) setMaxStretch(5);
+    if (wid > 1000 && wid <= 1200 && maxStretch !== 4) setMaxStretch(4);
+    if (wid > 768 && wid <= 1000 && maxStretch !== 3) setMaxStretch(3);
+    if (wid > 480 && wid <= 768 && maxStretch !== 2) setMaxStretch(2);
+    if (wid <= 480 && maxStretch !== 1) setMaxStretch(1);
+  }, [windowSize]);
+
+  useEffect(() => {
+    if (curVal > maxStretch) setCurVal(maxStretch);
+  }, [maxStretch]);
+
+  const handleStretch = (event: Event, newValue: number | number[]) => {
+    setCurVal(newValue as number);
+  };
+
   return (
     <>
       <div className="relative">
@@ -19,8 +103,12 @@ const CommonFeed = () => {
                   <input
                     className="search-input font-chakra"
                     placeholder="Search gallery"
+                    value={searchKey}
+                    onChange={(ev) => setSearchKey(ev.target.value)}
                   ></input>
-                  <button className="search-button">Search</button>
+                  <button onClick={handleSearch} className="search-button">
+                    Search
+                  </button>
                 </div>
                 <div className="flex flex-row w-[364px]">
                   <div className="button-group border-primary">
@@ -75,7 +163,15 @@ const CommonFeed = () => {
                     <div className="button-cover"></div>
                   </button>
                 </div>
-                <div className=""></div>
+                <div className="w-[200px]">
+                  <Slider
+                    aria-label="Volume"
+                    min={1}
+                    max={maxStretch}
+                    value={curVal}
+                    onChange={handleStretch}
+                  />
+                </div>
               </div>
             </div>
             <div className=""></div>
@@ -84,7 +180,30 @@ const CommonFeed = () => {
         </div>
 
         {/* TabView Content */}
-        <AppMainBoard />
+
+        <ImageList
+          variant="masonry"
+          cols={curVal}
+          gap={8}
+          sx={{ padding: "12px" }}
+        >
+          {(searched ? searchedData : imageData).map((item, index) => (
+            <ImageListItem key={index}>
+              <Card
+                data={item}
+                index={index}
+                count={imageData.length}
+                key={index}
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
+
+        <ModalImgCard
+          onUpdate={updateLibrary}
+          onNextImage={onNextImage}
+          onPrevImage={onPrevImage}
+        />
       </div>
     </>
   );

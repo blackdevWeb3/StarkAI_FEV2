@@ -80,7 +80,6 @@ const ImageGeneration = () => {
   const [imageSrc, setImageSrc] = useState<File | null>(null);
   const [densityValue, setDensityValue] = useState<number>(50);
   const uploadImgRef = useRef<HTMLInputElement>(null);
-  const [tmpCards, setTmpCards] = useState(0);
   const [imgData, setImgData] = useState<any>(null);
   const { address, isConnected } = useAccount();
 
@@ -179,19 +178,20 @@ const ImageGeneration = () => {
   useEffect(() => {
     socket.on("Image Saved", (data) => {
       console.log(data);
-      setTmpCards(data.total - data.id);
-      updateLibrary();
     });
 
     socket.on("Generation Complete", (data) => {
       console.log(data);
-      setTmpCards(data.total);
     });
 
     socket.on("Save Complete", (data) => {
       console.log(data);
       updateLibrary();
       setGenerating(false);
+    });
+
+    socket.on("Motion Saved", (data) => {
+      console.log("Motion Saved", data);
     });
   }, [socket]);
 
@@ -300,11 +300,12 @@ const ImageGeneration = () => {
       );
       if (res.status === 200) {
         var tmp = res.data;
-        tmp.sort((a: Image, b: Image) => {
-          const dateA = new Date(a.created).getTime();
-          const dateB = new Date(b.created).getTime();
-          return dateB - dateA;
-        });
+        // tmp.sort((a: Image, b: Image) => {
+        //   const dateA = new Date(a.created).getTime();
+        //   const dateB = new Date(b.created).getTime();
+        //   return dateB - dateA;
+        // });
+        tmp.reverse();
         setImageData(tmp);
       } else {
         console.log("Error occurred");
@@ -320,14 +321,12 @@ const ImageGeneration = () => {
 
   const onNextImage = () => {
     const ind = modalCtx.index;
-    console.log(modalCtx);
     modalCtx.setData(imageData[ind + 1]);
     modalCtx.setIndex(ind + 1);
   };
 
   const onPrevImage = () => {
     const ind = modalCtx.index;
-    console.log(modalCtx);
     modalCtx.setData(imageData[ind - 1]);
     modalCtx.setIndex(ind - 1);
   };
@@ -501,7 +500,7 @@ const ImageGeneration = () => {
           {/* Tab Content */}
           <div className="mt-3 border-primary">
             {activeTab === "generationHistory" && (
-              <GenerationHistory imageData={imageData} tmpCards={tmpCards} />
+              <GenerationHistory imageData={imageData} />
             )}
             {activeTab === "imgGuidance" && (
               <ImageGuidance

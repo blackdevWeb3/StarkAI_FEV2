@@ -8,7 +8,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 
 const Card = (props: any) => {
   const modalCtx = useContext(ModalContext);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   const handleImgModalOpen = () => {
     modalCtx.setVisible(true);
@@ -36,13 +36,19 @@ const Card = (props: any) => {
             </div>
           )}
 
-          <LazyLoadImage
-            src={props.data.image}
-            onLoad={() => setLoading(false)}
-            alt="GeneratedImage"
-            effect="blur"
-            className="rounded-sm"
-          />
+          {props.data.image.endsWith(".mp4") ? (
+            <video autoPlay loop disableRemotePlayback muted>
+              <source type="video/mp4" src={props.data.image} />
+            </video>
+          ) : (
+            <LazyLoadImage
+              src={props.data.image}
+              onLoad={() => setLoading(false)}
+              alt="GeneratedImage"
+              effect="blur"
+              className="rounded-sm"
+            />
+          )}
 
           {/* Hovered Image Description */}
 

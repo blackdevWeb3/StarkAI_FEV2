@@ -7,6 +7,25 @@ import AppLayout from "./layouts/App/AppLayout";
 import Footer from "./layouts/Footer";
 import RecentWorks from "./components/Dashboard/RecentWorks";
 import { ModalContextProvider } from "./utils/modalContext";
+import ContactUs from "./components/ContactUs";
+import Blog from "./components/Blog";
+import BlogPost from "./components/Blog/BlogPost";
+
+interface LayoutWithNavbarAndFooterProps {
+  children: React.ReactNode;
+}
+
+function LayoutWithNavbarAndFooter({
+  children,
+}: LayoutWithNavbarAndFooterProps) {
+  return (
+    <>
+      <Navbar />
+      {children}
+      <Footer />
+    </>
+  );
+}
 
 function App() {
   return (
@@ -16,12 +35,34 @@ function App() {
           <Route
             path="/"
             element={
-              <>
-                <Navbar />
+              <LayoutWithNavbarAndFooter>
                 <LayoutDashboard />
                 <RecentWorks />
-                <Footer />
-              </>
+              </LayoutWithNavbarAndFooter>
+            }
+          />
+          <Route
+            path="/contact-us"
+            element={
+              <LayoutWithNavbarAndFooter>
+                <ContactUs />
+              </LayoutWithNavbarAndFooter>
+            }
+          />
+          <Route
+            path="/news"
+            element={
+              <LayoutWithNavbarAndFooter>
+                <Blog />
+              </LayoutWithNavbarAndFooter>
+            }
+          />
+          <Route
+            path="/news/:post"
+            element={
+              <LayoutWithNavbarAndFooter>
+                <BlogPost />
+              </LayoutWithNavbarAndFooter>
             }
           />
           <Route path="/login" element={<Login />} />

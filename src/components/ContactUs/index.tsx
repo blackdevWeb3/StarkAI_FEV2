@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, ChangeEvent, FormEvent } from "react";
 import { Link } from "react-router-dom";
 import emailjs from "@emailjs/browser";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
@@ -6,88 +6,79 @@ import HCaptcha from "@hcaptcha/react-hcaptcha";
 const ContactUs = () => {
   const [token, setToken] = useState<string | null>(null);
   const captchaRef = useRef<HCaptcha>(null);
-  const form = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
 
-  const onLoad = () => {
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
+
+  const onLoad = (): void => {
     if (captchaRef.current) {
       captchaRef.current.execute();
     }
   };
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [message, setMessage] = useState("");
-
-  const handleInputChangeName = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  // Correct usage in your component.
+  const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
 
-  const handleInputChangeEmail = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
 
-  const handleInputChangePhone = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handlePhoneChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPhone(event.target.value);
   };
 
-  const handleVerify = (token: string, _ekey: string) => {
-    setToken(token);
-  };
-
-  const handleInputChangeMessage: React.ChangeEventHandler<
-    HTMLTextAreaElement
-  > = (event) => {
+  const handleMessageChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(event.target.value);
   };
 
-  const serviceID = process.env.REACT_APP_SERVICE_ID;
-  const templateID = process.env.REACT_APP_TEMPLATE_ID;
-
-  if (typeof serviceID !== "string" || typeof templateID !== "string") {
-    throw new Error("Service ID or Template ID is undefined");
-  }
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
     if (!token) {
       alert("Please verify the reCAPTCHA!");
-    } else {
-      const newFormData = [
-        {
-          name: name,
-          email: email,
-          phone: phone,
-          message: message,
-        },
-      ];
-      emailjs
-        .sendForm(
-          serviceID,
-          templateID,
-          event.target as HTMLFormElement,
-          process.env.REACT_APP_PUBLIC_KEY
-        )
-        .then(
-          (result: any) => {
-            alert("message sent successfully...");
-            console.log(result.text);
-          },
-          (error: any) => {
-            console.log(error.text);
-          }
-        );
-
-      // make form submission
-      alert("Form submission successful!");
+      return;
     }
+    const newFormData = {
+      name: name,
+      email: email,
+      phone: phone,
+      message: message,
+    };
+    console.log(
+      "Form value:**********",
+      process.env.REACT_APP_SERVICE_ID,
+      process.env.REACT_APP_TEMPLATE_ID,
+      process.env.REACT_APP_PUBLIC_KEY
+    );
+
+    emailjs
+      .send(
+        process.env.REACT_APP_SERVICE_ID!,
+        process.env.REACT_APP_TEMPLATE_ID!,
+        newFormData as any,
+        process.env.REACT_APP_PUBLIC_KEY
+      )
+      .then(
+        (response: any) => {
+          console.log("Success!", response.status, response.text);
+        },
+        (error: any) => {
+          console.log("Failed", error);
+        }
+      );
+
+    setName("");
+    setEmail("");
+    setPhone("");
+    setMessage("");
+
+    // Optionally reset the captcha here
+    setToken(null);
   };
   useEffect(() => {
     if (token) console.log(`hCaptcha Token: ${token}`);
@@ -139,10 +130,10 @@ const ContactUs = () => {
                             Address
                           </h4>
                           <p className="font-Poppins mb-[10px] text-[14px] font-normal leading-[2] md:text-[12px] sm:text-[12px]">
-                            Paphos, Cyprus
+                            390 Orchard Rd,
                           </p>
                           <p className="font-Poppins mb-[10px] text-[14px] font-normal leading-[2] md:text-[12px] sm:text-[12px]">
-                            Cyprus 1225
+                            Singapore 238871
                           </p>
                         </div>
                         <div className="flex flex-col sm:pl-[23px] contact-info-2 sm:basis-1/2 sm:max-w-1/2 sm:mb-0">
@@ -153,10 +144,10 @@ const ContactUs = () => {
                             to="mailto:info@adrestus.com"
                             className="font-Poppins mb-[10px] text-[14px] font-normal leading-[2] md:text-[12px] sm:text-[12px] text-[#4D546C] hover:text-[#31C3A8] transition-all duration-200 ease-in-out"
                           >
-                            info@adrestus.net
+                            dev2024@starkmeta.io
                           </Link>
                           <Link
-                            to="https://www.adrestus.net/contact-us/tel:00000000"
+                            to="/contact-us/tel:00000000"
                             className="font-Poppins mb-[10px] text-[14px] font-normal leading-[2] md:text-[12px] sm:text-[12px] text-[#4D546C] hover:text-[#31C3A8] transition-all duration-200 ease-in-out"
                           >
                             000 000 0000
@@ -179,19 +170,19 @@ const ContactUs = () => {
                 </div>
                 <div>
                   <div className="p-5 pt-16">
-                    <form ref={form} onSubmit={handleSubmit}>
+                    <form ref={formRef} onSubmit={handleSubmit}>
                       <div className="flex flex-col w-full">
                         <div className="mb-[25px]">
                           <p>
                             <span className="relative">
                               <input
-                                className="w-full font-Poppins rounded border border-primary-700/70 bg-primary-100/20 py-1 px-3 text-base leading-8 outline-none transition-colors duration-200 ease-in-out focus:ring-1 focus:ring-primary-700/70 dark:border-primary-300/50 dark:bg-primary-300/10 dark:focus:ring-primary-300/50 text-white/70"
+                                className="w-full font-Poppins rounded border border-primary-700/70 bg-primary-100/20 py-1 px-3 text-base leading-8 outline-none transition-colors duration-200 ease-in-out focus:ring-1 focus:ring-primary-700/70 dark:border-primary-300/50 dark:bg-primary-300/10 dark:focus:ring-primary-300/50 text-black"
                                 placeholder="Name"
                                 type="text"
                                 name="name"
                                 required
                                 value={name}
-                                onChange={handleInputChangeName}
+                                onChange={handleNameChange}
                               ></input>
                             </span>
                           </p>
@@ -200,13 +191,13 @@ const ContactUs = () => {
                           <p>
                             <span className="relative">
                               <input
-                                className="w-full text-white/70 rounded border font-Poppins border-primary-700/70 bg-primary-100/20 py-1 px-3 text-base leading-8 outline-none transition-colors duration-200 ease-in-out focus:ring-1 focus:ring-primary-700/70 dark:border-primary-300/50 dark:bg-primary-300/10 dark:focus:ring-primary-300/50"
+                                className="w-full text-black rounded border font-Poppins border-primary-700/70 bg-primary-100/20 py-1 px-3 text-base leading-8 outline-none transition-colors duration-200 ease-in-out focus:ring-1 focus:ring-primary-700/70 dark:border-primary-300/50 dark:bg-primary-300/10 dark:focus:ring-primary-300/50"
                                 placeholder="Email"
                                 type="email"
                                 name="email"
                                 required
                                 value={email}
-                                onChange={handleInputChangeEmail}
+                                onChange={handleEmailChange}
                               ></input>
                             </span>
                           </p>
@@ -215,13 +206,13 @@ const ContactUs = () => {
                           <p>
                             <span className="relative">
                               <input
-                                className="w-full text-white/70 rounded border font-Poppins border-primary-700/70 bg-primary-100/20 py-1 px-3 text-base leading-8 outline-none transition-colors duration-200 ease-in-out focus:ring-1 focus:ring-primary-700/70 dark:border-primary-300/50 dark:bg-primary-300/10 dark:focus:ring-primary-300/50"
+                                className="w-full text-black rounded border font-Poppins border-primary-700/70 bg-primary-100/20 py-1 px-3 text-base leading-8 outline-none transition-colors duration-200 ease-in-out focus:ring-1 focus:ring-primary-700/70 dark:border-primary-300/50 dark:bg-primary-300/10 dark:focus:ring-primary-300/50"
                                 placeholder="Phone"
                                 type="tel"
                                 name="phone"
                                 required
                                 value={phone}
-                                onChange={handleInputChangePhone}
+                                onChange={handlePhoneChange}
                               ></input>
                             </span>
                           </p>
@@ -230,23 +221,20 @@ const ContactUs = () => {
                           <p>
                             <span className="relative">
                               <textarea
-                                className="w-full text-white/70 rounded border font-Poppins border-primary-700/70 bg-primary-100/20 py-1 px-3 text-base leading-8 outline-none transition-colors duration-200 ease-in-out focus:ring-1 focus:ring-primary-700/70 dark:border-primary-300/50 dark:bg-primary-300/10 dark:focus:ring-primary-300/50"
+                                className="w-full text-black rounded border font-Poppins border-primary-700/70 bg-primary-100/20 py-1 px-3 text-base leading-8 outline-none transition-colors duration-200 ease-in-out focus:ring-1 focus:ring-primary-700/70 dark:border-primary-300/50 dark:bg-primary-300/10 dark:focus:ring-primary-300/50"
                                 placeholder="Message"
                                 name="message"
                                 value={message}
-                                onChange={handleInputChangeMessage}
+                                onChange={handleMessageChange}
                               ></textarea>
                             </span>
                           </p>
                         </div>
                         <div className="flex justify-center">
                           <HCaptcha
-                            sitekey={
-                              process.env.REACT_APP_HCAP_SITE_KEY ||
-                              "your_fallback_site_key_here"
-                            }
+                            sitekey={process.env.REACT_APP_HCAP_SITE_KEY!}
                             onLoad={onLoad}
-                            onVerify={handleVerify}
+                            onVerify={(token: string) => setToken(token)}
                             ref={captchaRef}
                           />
                         </div>

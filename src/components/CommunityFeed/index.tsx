@@ -15,6 +15,7 @@ const CommunityFeed = () => {
   const [searchKey, setSearchKey] = useState("");
   const [imageData, setImageData] = useState<Image[]>([]);
   const [searchedData, setSearchedData] = useState<Image[]>([]);
+  const [searched, setSearched] = useState(false);
 
   const updateLibrary = () => {
     const func = async () => {
@@ -23,11 +24,12 @@ const CommunityFeed = () => {
       );
       if (res.status === 200) {
         var tmp = res.data;
-        tmp.sort((a: Image, b: Image) => {
-          const dateA = new Date(a.created).getTime();
-          const dateB = new Date(b.created).getTime();
-          return dateB - dateA;
-        });
+        // tmp.sort((a: Image, b: Image) => {
+        //   const dateA = new Date(a.created).getTime();
+        //   const dateB = new Date(b.created).getTime();
+        //   return dateB - dateA;
+        // });
+        tmp.reverse();
         setImageData(tmp);
       } else {
         console.log("Error occurred");
@@ -52,7 +54,17 @@ const CommunityFeed = () => {
     if (imageData.length > 0) return;
     updateLibrary();
   });
-  console.log(searchKey);
+
+  const handleSearch = () => {
+    const lowerKey = searchKey.toLowerCase();
+    const tmp = imageData.filter((item: Image) => {
+      const lowerPrompt = item.data.prompt.toLowerCase();
+      return lowerPrompt.includes(lowerKey);
+    });
+    setSearchedData(tmp);
+    setSearched(true);
+  };
+
   return (
     <>
       <div className="w-full bg-black pt-[29px] flex flex-col">
@@ -70,7 +82,9 @@ const CommunityFeed = () => {
               value={searchKey}
               onChange={(ev) => setSearchKey(ev.target.value)}
             ></input>
-            <button className="search-button">Search</button>
+            <button onClick={handleSearch} className="search-button">
+              Search
+            </button>
           </div>
         </div>
 
@@ -85,7 +99,7 @@ const CommunityFeed = () => {
           )} */}
 
           <ImageList variant="masonry" cols={4} gap={8}>
-            {imageData.map((item, index) => (
+            {(searched ? searchedData : imageData).map((item, index) => (
               <ImageListItem key={index}>
                 <Card
                   data={item}
@@ -98,6 +112,7 @@ const CommunityFeed = () => {
           </ImageList>
         </div>
       </div>
+
       <ModalImgCard
         onUpdate={updateLibrary}
         onNextImage={onNextImage}

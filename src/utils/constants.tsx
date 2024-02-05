@@ -206,10 +206,22 @@ const constants_SocialLink = [
 const navbarMenuItems = [
   { text: "Home", link: "/", delay: 400 },
   { text: "Blog", link: "/news", delay: 500 },
-  { text: "Team", link: "/team", delay: 600 },
-  { text: "API", link: "/api", delay: 700 },
-  { text: "FAQ", link: "/faq", delay: 800 },
-  { text: "Contact Us", link: "/contact-us", delay: 900 },
+  { text: "API", link: "/api", delay: 600 },
+  { text: "FAQ", link: "/faq", delay: 700 },
+  { text: "Contact Us", link: "/contact-us", delay: 800 },
+];
+
+type HashtagItem = {
+  name: string;
+};
+
+const const_hashtags: HashtagItem[] = [
+  { name: "All" },
+  { name: "Case Studies" },
+  { name: "Community Events" },
+  { name: "HowTo" },
+  { name: "Releases" },
+  { name: "Uncategorized" },
 ];
 
 export {
@@ -224,4 +236,5 @@ export {
   Features,
   constants_SocialLink,
   navbarMenuItems,
+  const_hashtags,
 };

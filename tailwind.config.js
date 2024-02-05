@@ -42,6 +42,7 @@ module.exports = {
       },
       aspectRatio: {
         "custom-768-1152": "768/1152",
+        "custom-16-10": "16/10",
       },
     },
   },
