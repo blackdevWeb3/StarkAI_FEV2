@@ -81,11 +81,6 @@ const Blog = () => {
         <div className="max-w-[1180px] w-full px-5 flex flex-col mx-auto items-start">
           <div className="relative min-h-[705px] w-full max-w-full">
             <div className="min-h-[600px]">
-              {loaderState === true && (
-                <div className="overlay-loader">
-                  <Loader />
-                </div>
-              )}
               <div className="flex items-center justify-center pt-10 z-50">
                 <ul className="flex flex-wrap p-0 nav-filter justify-center">
                   {const_hashtags.map((item) => (
@@ -100,7 +95,12 @@ const Blog = () => {
                   ))}
                 </ul>
               </div>
-              <div className="pt-[85px]">
+              <div className="pt-[85px] w-full relative">
+                {loaderState === true && (
+                  <div className="overlay-loader ml-8 sm:ml-6">
+                    <Loader />
+                  </div>
+                )}
                 {posts.length > 0 ? (
                   <div className="w-full items-stretch gap-[30px] grid grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
                     {posts.map((post, index) => (
