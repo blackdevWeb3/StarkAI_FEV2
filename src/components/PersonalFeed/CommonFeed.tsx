@@ -71,21 +71,14 @@ const CommonFeed = () => {
     setSearched(true);
   };
   console.log(maxStretch, curVal);
-
-  const getMaxStretch = (width: number): number => {
-    if (width > 1200) return 5;
-    if (width > 1000) return 4;
-    if (width > 768) return 3;
-    if (width > 480) return 2;
-    return 1;
-  };
-
   useEffect(() => {
-    const currentMaxStretch = getMaxStretch(windowSize[0]);
-    if (maxStretch !== currentMaxStretch) {
-      setMaxStretch(currentMaxStretch);
-    }
-  }, [windowSize, maxStretch]);
+    const wid = windowSize[0];
+    if (wid > 1200 && maxStretch !== 5) setMaxStretch(5);
+    if (wid > 1000 && wid <= 1200 && maxStretch !== 4) setMaxStretch(4);
+    if (wid > 768 && wid <= 1000 && maxStretch !== 3) setMaxStretch(3);
+    if (wid > 480 && wid <= 768 && maxStretch !== 2) setMaxStretch(2);
+    if (wid <= 480 && maxStretch !== 1) setMaxStretch(1);
+  }, [windowSize]);
 
   useEffect(() => {
     if (curVal > maxStretch) setCurVal(maxStretch);

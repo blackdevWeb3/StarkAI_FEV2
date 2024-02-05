@@ -5,10 +5,21 @@ import { useUser } from "../../context/UserContext";
 import NavLink from "../../components/Others/NavLink";
 import { Navigate } from "react-router-dom";
 
-const AppSlider = () => {
+interface AppSliderProps {
+  sliderOpen: boolean;
+  setSliderOpen: (open: boolean) => void;
+  sliderHandler: () => void;
+}
+
+const AppSlider = ({
+  sliderOpen,
+  setSliderOpen,
+  sliderHandler,
+}: AppSliderProps) => {
   const [activeLink, setActiveLink] = useState("/app/");
   const { user, setUser }: any = useUser();
   const handleSetActiveLink = (path: string) => {
+    setSliderOpen(false);
     setActiveLink(path);
   };
 
@@ -22,15 +33,25 @@ const AppSlider = () => {
 
   return (
     <>
-      <div className="flex flex-col border-r border-primary bg-black w-[270px] min-w-[270px] pt-[10px] sm:hidden">
-        <div className="pt-[19px] flex flex-row justify-center items-center">
-          {/* <img src="./favicon.ico" className="w-6 h-6 mr-1" alt="logo" /> */}
-          <h1 className="text-[24px] font-semibold font-chakra text-white">
-            STARK.
-          </h1>
-          <h1 className="text-[24px] font-semibold font-chakra text-deepPink">
-            AI
-          </h1>
+      <div
+        className={`flex flex-col z-50 border-r border-primary bg-black w-[270px] min-w-[270px] pt-[10px] transition-all duration-300 ease-in-out ${
+          sliderOpen ? "sm:w-full sm:max-w-full fixed" : "sm:hidden"
+        }`}
+      >
+        <div className="pt-[19px] flex flex-row justify-between w-full items-center px-10">
+          <div className="flex flex-row justify-center items-center">
+            <h1 className="text-[24px] font-semibold font-chakra text-white">
+              STARK.
+            </h1>
+            <h1 className="text-[24px] font-semibold font-chakra text-deepPink">
+              AI
+            </h1>
+          </div>
+          {sliderOpen && (
+            <button className="hover:opacity-70" onClick={sliderHandler}>
+              <Icon icon="lets-icons:close-round" width={24} />
+            </button>
+          )}
         </div>
         <div className="flex flex-col pt-10">
           <NavLink
