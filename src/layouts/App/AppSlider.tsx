@@ -24,10 +24,10 @@ const AppSlider = ({
   };
 
   const handleLogout = () => {
-    setUser("none");
+    setUser("None");
   };
 
-  if (user === undefined || user === "none") {
+  if (user === undefined || user === "None") {
     return <Navigate to="/" />;
   }
 

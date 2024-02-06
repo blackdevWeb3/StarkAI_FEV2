@@ -1,16 +1,18 @@
 import { Icon } from "@iconify/react";
 import { useUser } from "../../context/UserContext";
-import { Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import React, { useRef, useState } from "react";
+import updateUserInfo from "../../api/updateUserInfo";
 
 const Profile: React.FC = () => {
   const { user, setUser }: any = useUser();
-  const [avatarSrc, setAvatarSrc] = useState<string | ArrayBuffer | null>(null);
+  const user_string = JSON.parse(user === "None" ? "{}" : user);
+  const [avatarSrc, setAvatarSrc] = useState<string | ArrayBuffer | null>(
+    user_string?.avatar || ""
+  );
+  const [username, setUserName] = useState<string>(user_string?.username || "");
+  const [email, setEmail] = useState<string>(user_string?.email || "");
   const avatarInputRef = useRef<HTMLInputElement>(null);
-
-  if (user === undefined || user === "none") {
-    return <Navigate to="/" />;
-  }
 
   const handleSelectAvatar = () => {
     avatarInputRef.current?.click();
@@ -27,7 +29,7 @@ const Profile: React.FC = () => {
       };
 
       reader.readAsDataURL(file);
-      console.log("Selected File:", file.name);
+      console.log("Selected File:", file);
     }
   };
 
@@ -36,6 +38,25 @@ const Profile: React.FC = () => {
     setAvatarSrc(null);
   };
 
+  const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUserName(event.target.value);
+  };
+
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+
+  const handleLogout = () => {
+    setUser("None");
+  };
+
+  const handleSaveChange = () => {
+    updateUserInfo({ username: username, email: email, avatar: avatarSrc });
+  };
+
+  if (user === "None" || user === undefined) {
+    return <Navigate to="/" />;
+  }
   return (
     <div className="w-full bg-darkBackground">
       <div className=" w-full max-w-[1176px] mx-auto pt-8 font-chakra">
@@ -84,17 +105,28 @@ const Profile: React.FC = () => {
               <label className="text-s-mobile lg:text-s text-white select-none">
                 Name
               </label>
-              <input className="rounded-lg px-3.5 py-2.5 bg-dark-elements appearance-none outline-none invalid:focus:border-danger-primary placeholder:text-light-secondary text-white disabled:text-opacity-60 disabled:cursor-not-allowed"></input>
+              <input
+                className="rounded-lg px-3.5 py-2.5 bg-dark-elements appearance-none outline-none invalid:focus:border-danger-primary placeholder:text-light-secondary text-white disabled:text-opacity-60 disabled:cursor-not-allowed"
+                value={username}
+                onChange={handleUsernameChange}
+              ></input>
             </div>
             <div className="flex flex-col gap-2">
               <label className="text-s-mobile lg:text-s text-white select-none">
                 Email
               </label>
-              <input className="rounded-lg px-3.5 py-2.5 bg-dark-elements appearance-none outline-none invalid:focus:border-danger-primary placeholder:text-light-secondary text-white disabled:text-opacity-60 disabled:cursor-not-allowed"></input>
+              <input
+                value={email}
+                onChange={handleEmailChange}
+                className="rounded-lg px-3.5 py-2.5 bg-dark-elements appearance-none outline-none invalid:focus:border-danger-primary placeholder:text-light-secondary text-white disabled:text-opacity-60 disabled:cursor-not-allowed"
+              ></input>
             </div>
             <div className="flex flex-col gap-2 text-s-mobile lg:text-s">
               <p className="select-none">Discord</p>
-              <button className="rounded-md font-extra-thick transition-colors disabled:cursor-not-allowed px-4 gap-2 py-2.5 flex items-center justify-center hover:bg-dark-elements-hover text-light-primary bg-dark-elements">
+              <Link
+                to="https://discord.com/invite/starkmeta"
+                className="rounded-md font-extra-thick transition-colors disabled:cursor-not-allowed px-4 gap-2 py-2.5 flex items-center justify-center hover:bg-dark-elements-hover text-light-primary bg-dark-elements hover:bg-[#171717]"
+              >
                 <Icon
                   icon="ic:round-discord"
                   className="text-white opacity-60 hover:opacity-100 transition-opacity duration-300"
@@ -104,17 +136,17 @@ const Profile: React.FC = () => {
                 <span className="text-light-primary font-extra-thick select-none">
                   Connect Discord
                 </span>
-              </button>
+              </Link>
               <p className="text-white text-opacity-60 select-none">
                 To connect Discord, your Discord account should have the same
                 email as your StarkMeta account
               </p>
             </div>
           </div>
-          <div className="">
+          <div className="py-7">
             <button
-              onClick={() => setUser("none")}
-              className="flex items-center gap-2 text-m-mobile lg:text-m mt-7 opacity-60 hover:opacity-100 transition-opacity"
+              onClick={handleLogout}
+              className="flex items-center gap-2 text-m-mobile lg:text-md opacity-60 hover:opacity-100 transition-opacity"
             >
               <Icon
                 icon="material-symbols-light:logout-rounded"
@@ -123,8 +155,14 @@ const Profile: React.FC = () => {
               <span className="select-none">Log out</span>
             </button>
           </div>
+          <button
+            onClick={handleSaveChange}
+            className="rounded-md font-extra-thick transition-colors disabled:cursor-not-allowed px-7 gap-2 py-2.5 flex items-center justify-center hover:bg-dark-elements-hover text-light-primary bg-dark-elements hover:bg-[#171717]"
+          >
+            Save Changes
+          </button>
           <div className="mt-auto pb-6">
-            <p className="text-s text-white text-opacity-50 text-center h-[var(--footer-height)] flex items-center justify-center select-none">
+            <p className="text-white text-sm text-opacity-50 text-center h-[var(--footer-height)] flex items-center justify-center select-none">
               StarkMeta © 2024. All rights reserved
             </p>
           </div>
