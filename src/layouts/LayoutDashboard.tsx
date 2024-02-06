@@ -14,8 +14,8 @@ const LayoutDashboard = () => {
                 AI Web3 social
                 <span className="text-[#9013ce] px-2">STARK.AI</span>!
               </span>
-              <span className="z-[100] pl-0 p-10 flex flex-col gap-3 rounded-md w-48">
-                <Link to="/login" className="primary-button z-10">
+              <span className="z-20 pl-0 p-10 flex flex-col gap-3 rounded-md w-48">
+                <Link to="/login" className="primary-button z-20">
                   Join now
                 </Link>
               </span>

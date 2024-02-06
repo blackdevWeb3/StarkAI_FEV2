@@ -2,7 +2,7 @@ import { GoogleLogin } from "google-login-react";
 import { useUser } from "../context/UserContext";
 import { Navigate, Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import axios from "axios";
+import registerUserInfo from "../api/registerUserInfo";
 
 const Login = () => {
   const onLogin = async (credentialResponse: any) => {
@@ -11,22 +11,19 @@ const Login = () => {
     const data = {
       username: credentialResponse.name,
       email: credentialResponse.email,
+      avatar: credentialResponse.picture,
     };
 
-    const res = await axios.post(
-      `${process.env.REACT_APP_BACKEND_API}/login`,
-      data
-    );
-    if (res.data.message === "Success") {
-      console.log("Success");
-    } else {
-      console.log("Fail");
-    }
-    setUser(JSON.stringify(data));
+    console.log("UserInfo Result:", await registerUserInfo(data));
+
+    if ((await registerUserInfo(data)) === "Success")
+      setUser(JSON.stringify(data));
+    else return;
   };
 
   const { user, setUser }: any = useUser();
-  if (user && user !== "none") {
+
+  if (user && user !== "None") {
     return <Navigate to="/app" />;
   }
 

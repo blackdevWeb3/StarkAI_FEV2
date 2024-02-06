@@ -3,14 +3,14 @@ import React, { useContext, useState } from "react";
 const UserContext = React.createContext({});
 
 export const UserProvider = ({ children }: any) => {
-  const T_KEY = "user";
+  const CONTEXT_KEY = "user";
   const getInitialUser = () => {
-    return localStorage.getItem(T_KEY) ?? "none";
+    return localStorage.getItem(CONTEXT_KEY) ?? "None";
   };
   const [user, setUser] = useState(getInitialUser);
 
   const handleUser = (value: any) => {
-    localStorage.setItem(T_KEY, value);
+    localStorage.setItem(CONTEXT_KEY, value);
     setUser(value);
   };
 
