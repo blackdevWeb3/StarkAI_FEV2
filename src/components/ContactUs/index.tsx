@@ -49,12 +49,6 @@ const ContactUs = () => {
       phone: phone,
       message: message,
     };
-    console.log(
-      "Form value:**********",
-      process.env.REACT_APP_SERVICE_ID,
-      process.env.REACT_APP_TEMPLATE_ID,
-      process.env.REACT_APP_PUBLIC_KEY
-    );
 
     emailjs
       .send(
