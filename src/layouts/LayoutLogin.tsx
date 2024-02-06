@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { GoogleLogin } from "google-login-react";
 import { useUser } from "../context/UserContext";
 import { Navigate, Link } from "react-router-dom";
@@ -5,6 +6,8 @@ import { Icon } from "@iconify/react";
 import registerUserInfo from "../api/registerUserInfo";
 
 const Login = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const onLogin = async (credentialResponse: any) => {
     if (!credentialResponse) return;
 
@@ -22,6 +25,10 @@ const Login = () => {
   };
 
   const { user, setUser }: any = useUser();
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
 
   if (user && user !== "None") {
     return <Navigate to="/app" />;
@@ -73,45 +80,67 @@ const Login = () => {
                 OR
               </div>
             </div>
-            <div className="flex flex-col gap-3 w-full">
-              <div className="flex flex-col gap-2 w-full">
-                <label className="text-[14px] font-medium lg:text-s text-white select-none">
-                  Email
-                </label>
-                <input
-                  placeholder="name@host.com"
-                  className="text-[14px] w-full rounded-[4px] h-10 px-3.5 py-2 bg-black/25 appearance-none outline-none invalid:focus:border-danger-primary placeholder:text-light-secondary text-white disabled:text-opacity-60 disabled:cursor-not-allowed"
-                ></input>
-              </div>
-              <div className="flex flex-col gap-2">
-                <label className="text-[14px] font-medium lg:text-s text-white select-none">
-                  Password
-                </label>
-                <input
-                  type="password"
-                  placeholder="Enter password"
-                  className="text-[14px] rounded-[4px] px-3.5 py-2 h-10 bg-black/25 appearance-none outline-none invalid:focus:border-danger-primary placeholder:text-light-secondary text-white disabled:text-opacity-60 disabled:cursor-not-allowed"
-                ></input>
-              </div>
-              <span className="">
-                <Link
-                  to="/reset-password"
-                  className="text-[14px] text-indigo-400"
-                >
-                  Forgot your password?
-                </Link>
-              </span>
-              <div className="pt-[6px]">
-                <button className="button-color w-full h-12 text-[14px] rounded-[4px]">
-                  Sign in
-                </button>
-              </div>
-              <span className="w-full flex flex-row gap-2 items-center justify-center pt-[6px]">
-                <span className="text-[14px]">Need an account?</span>
-                <Link to="/register" className="text-[14px] text-indigo-400">
-                  Sign up
-                </Link>
-              </span>
+            <div>
+              <form
+                className="flex flex-col gap-3 w-full"
+                onSubmit={handleSubmit}
+              >
+                <div className="flex flex-col gap-2 w-full">
+                  <label
+                    htmlFor="email"
+                    className="text-[14px] font-medium lg:text-s text-white select-none"
+                  >
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="name@host.com"
+                    autoComplete="username"
+                    className="text-[14px] w-full rounded-[4px] h-10 px-3.5 py-2 bg-black/25 appearance-none outline-none invalid:focus:border-danger-primary placeholder:text-light-secondary text-white disabled:text-opacity-60 disabled:cursor-not-allowed"
+                    required
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label
+                    htmlFor="password"
+                    className="text-[14px] font-medium lg:text-s text-white select-none"
+                  >
+                    Password
+                  </label>
+                  <input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter password"
+                    autoComplete="current-password"
+                    className="text-[14px] rounded-[4px] px-3.5 py-2 h-10 bg-black/25 appearance-none outline-none invalid:focus:border-danger-primary placeholder:text-light-secondary text-white disabled:text-opacity-60 disabled:cursor-not-allowed"
+                    required
+                  />
+                </div>
+                <span>
+                  <Link
+                    to="/reset-password"
+                    className="text-[14px] text-indigo-400"
+                  >
+                    Forgot your password?
+                  </Link>
+                </span>
+                <div className="pt-[6px]">
+                  <button className="button-color w-full h-12 text-[14px] rounded-[4px]">
+                    Sign in
+                  </button>
+                </div>
+                <span className="w-full flex flex-row gap-2 items-center justify-center pt-[6px]">
+                  <span className="text-[14px]">Need an account?</span>
+                  <Link to="/register" className="text-[14px] text-indigo-400">
+                    Sign up
+                  </Link>
+                </span>
+              </form>
             </div>
             <div className=""></div>
           </div>
