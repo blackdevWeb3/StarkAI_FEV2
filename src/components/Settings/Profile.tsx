@@ -119,6 +119,7 @@ const Profile: React.FC = () => {
                 value={email}
                 onChange={handleEmailChange}
                 className="rounded-lg px-3.5 py-2.5 bg-dark-elements appearance-none outline-none invalid:focus:border-danger-primary placeholder:text-light-secondary text-white disabled:text-opacity-60 disabled:cursor-not-allowed"
+                disabled
               ></input>
             </div>
             <div className="flex flex-col gap-2 text-s-mobile lg:text-s">
