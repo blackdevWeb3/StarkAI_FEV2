@@ -18,8 +18,8 @@ const AppSlider = ({
 }: AppSliderProps) => {
   const [activeLink, setActiveLink] = useState("/app/");
   const { user, setUser }: any = useUser();
-  const userObject = JSON.parse(user);
-  console.log("user info:************:", userObject);
+  const userObject = JSON.parse(user === "None" ? "{}" : user);
+
   const handleSetActiveLink = (path: string) => {
     setSliderOpen(false);
     setActiveLink(path);
@@ -112,9 +112,9 @@ const AppSlider = ({
           </button>
           <Link to="/app/settings/" className="text-white hover:bg-[#1b1c20]">
             <span className="flex flex-row gap-[10px] items-center py-[10px] px-5">
-              {userObject.avatar ? (
+              {userObject?.avatar ? (
                 <img
-                  src={userObject.avatar}
+                  src={userObject?.avatar}
                   alt="avatar"
                   className="w-8 h-8 rounded-full"
                 />
@@ -122,7 +122,7 @@ const AppSlider = ({
                 <Icon icon="carbon:user-avatar" className="w-7 h-7" />
               )}
               <span className="text-[15px] font-medium font-chakra">
-                {userObject.username}
+                {userObject?.username}
               </span>
             </span>
           </Link>
