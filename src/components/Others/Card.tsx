@@ -3,10 +3,14 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { ClipLoader } from "react-spinners";
 import { Icon } from "@iconify/react";
 import ModalContext from "../../utils/modalContext";
+import { useUser } from "../../context/UserContext";
 
 import "react-lazy-load-image-component/src/effects/blur.css";
 
 const Card = (props: any) => {
+  const { user }: any = useUser();
+  const userObejct = JSON.parse(user);
+  const isOwner = props.data.owner === userObejct.email;
   const modalCtx = useContext(ModalContext);
   const [loading, setLoading] = useState(false);
 
@@ -15,6 +19,14 @@ const Card = (props: any) => {
     modalCtx.setData(props.data);
     modalCtx.setIndex(props.index);
     modalCtx.setImgCount(props.count);
+  };
+
+  const handleAddHearMark: React.MouseEventHandler<HTMLButtonElement> = (
+    event
+  ) => {
+    event.preventDefault();
+    event.stopPropagation();
+    console.log("Hello:", props.data);
   };
 
   return (
@@ -62,10 +74,20 @@ const Card = (props: any) => {
                   {props.data.owner}
                 </span>
               </div>
-              <div className="flex flex-row items-center rounded-[24px] py-2 px-3 bg-[#63636355] gap-2">
+              <button
+                className="flex flex-row items-center rounded-[24px] py-2 px-3 bg-[#63636355] gap-2"
+                onClick={handleAddHearMark}
+                disabled={isOwner}
+              >
                 <span className="">0</span>
-                <Icon icon="ph:heart" className="w-6 h-6" />
-              </div>
+
+                <Icon icon="tdesign:heart" className="w-6 h-6" />
+                <Icon
+                  icon="tdesign:heart-filled"
+                  className="w-6 h-6"
+                  color="red"
+                />
+              </button>
             </div>
             <div className="flex flex-col overflow-hidden text-ellipsis">
               <span className="flex overflow-hidden text-ellipsis text-[14px]">

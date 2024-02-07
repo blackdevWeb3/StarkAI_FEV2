@@ -360,8 +360,18 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
               <div className="flex flex-col gap-2">
                 <div className="flex flex-row gap-4">
                   <Link to="/" className="flex flex-row items-center">
-                    <div className="rounded-full"></div>
-                    <div className=" min-w-[auto] text-fontSecondary leading-[1] font-semibold">
+                    <div className="rounded-full">
+                      {/* <img
+                        src=""
+                        alt="Avatar"
+                        className="rounded-full w-full h-full object-cover"
+                      /> */}
+                      <Icon
+                        icon="mingcute:user-4-fill"
+                        className="w-8 h-8 text-white"
+                      />
+                    </div>
+                    <div className=" min-w-[auto] text-fontSecondary leading-[1] font-semibold px-1">
                       {imageData.owner}
                     </div>
                   </Link>
@@ -390,9 +400,9 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                   </div>
                 </div>
                 {srcType === "image" && (
-                  <div className="grid grid-rows-1 grid-cols-3 gap-2 mt-3">
+                  <div className="flex flex-row items-center justify-between mt-3">
                     <div className="block">
-                      <button className="inline-flex rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 ps-[6px] pe-[6px] button-detail">
+                      <button className="inline-flex rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 px-3 button-detail">
                         <span className="self-center inline-flex flex-shrink-[0] me-[6px]">
                           <Icon
                             icon="emojione-v1:film-frames"
@@ -426,22 +436,22 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                       </button>
                     </div>
                     <div className="block">
-                      <button className="inline-flex rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 ps-[6px] pe-[6px] button-detail">
+                      <button className="inline-flex rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 px-3 button-detail">
                         <span className="self-center inline-flex flex-shrink-[0] me-[6px]">
                           <Icon
                             icon="fluent:layer-20-filled"
                             className="w-4 h-4"
                           />
                         </span>
-                        <span className="text-[12.6px]">Image2Image</span>
+                        <span className="text-[12.6px]">Image Transform</span>
                       </button>
                     </div>
                     <div className="block col-span-1">
-                      <button className="inline-flex w-full rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 ps-[6px] pe-[6px] button-detail">
+                      <button className="inline-flex w-full rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 px-3 button-detail">
                         <span className="self-center inline-flex flex-shrink-[0] me-[6px]">
                           <Icon icon="raphael:magic" className="w-4 h-4" />
                         </span>
-                        <span className="text-[12.6px]">Remix</span>
+                        <span className="text-[12.6px]">Remake</span>
                       </button>
                     </div>
                   </div>
@@ -469,7 +479,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                       Base Model
                     </span>
                     <div className="w-full flex items-center text-white text-[14px]">
-                      Leonardo Motion
+                      Stark Movie
                     </div>
                   </div>
                 ) : (
@@ -563,7 +573,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
           </div>
 
           <button
-            className="absolute top-0 right-0 rounded-full bg-[#0000005c] h-8 w-8 flex justify-center items-center"
+            className="absolute top-0 right-[-15px] rounded-full bg-[#0000005c] h-8 w-8 flex justify-center items-center"
             onClick={handleHideImgCard}
           >
             <Icon
