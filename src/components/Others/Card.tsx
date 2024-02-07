@@ -9,7 +9,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 
 const Card = (props: any) => {
   const { user }: any = useUser();
-  const userObejct = JSON.parse(user);
+  const userObejct = JSON.parse(user === "None" ? "{}" : user);
   const isOwner = props.data.owner === userObejct.email;
   const modalCtx = useContext(ModalContext);
   const [loading, setLoading] = useState(false);
