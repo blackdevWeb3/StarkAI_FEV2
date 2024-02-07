@@ -454,7 +454,7 @@ const ImageGeneration = () => {
         </div>
 
         {/* Left Image Generation Options */}
-        <div className="absolute top-0 left-[-270px] z-10 w-[270px] h-full bg-black pt-[10px] flex flex-col px-4 border-r border-primary">
+        <div className="absolute top-0 left-[-270px] z-50 w-[270px] h-full bg-black pt-[10px] flex flex-col px-4 border-r border-primary">
           <div className="pt-[19px] flex flex-row justify-between items-center">
             <span className="flex flex-row justify-center items-center">
               <h1 className="text-[24px] font-semibold font-chakra text-white">

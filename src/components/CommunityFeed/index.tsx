@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
 import { useUser } from "../../context/UserContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Image } from "../../utils/types";
 import axios from "axios";
 import Card from "../Others/Card";
@@ -9,6 +9,34 @@ import ModalImgCard from "../Modal/ModalImgCard";
 import { ImageList, ImageListItem, useTheme } from "@mui/material";
 import ModalContext from "../../utils/modalContext";
 
+type StyleOptions = "All" | "Upscaled" | "Motion";
+
+type SortButtonProps = {
+  label: string;
+  isSelected: boolean;
+  onClick: () => void;
+};
+
+const SortButton: React.FC<SortButtonProps> = ({
+  label,
+  isSelected,
+  onClick,
+}) => (
+  <button
+    className={`sort-button px-5 ${
+      isSelected ? "text-white" : ""
+    } hover:text-white`}
+    onClick={onClick}
+  >
+    <span className="z-[2] relative">{label}</span>
+    <div
+      className={`sort-button-cover ${
+        isSelected ? "selected opacity-100" : "opacity-0"
+      }`}
+    />
+  </button>
+);
+
 const CommunityFeed = () => {
   const { user }: any = useUser();
   const modalCtx = useContext(ModalContext);
@@ -16,26 +44,36 @@ const CommunityFeed = () => {
   const [imageData, setImageData] = useState<Image[]>([]);
   const [searchedData, setSearchedData] = useState<Image[]>([]);
   const [searched, setSearched] = useState(false);
+  const [selectedStyle, setSelectedStyle] = useState<StyleOptions>("All");
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const updateLibrary = () => {
-    const func = async () => {
+  const scroll = (direction: "left" | "right") => {
+    if (scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
+      const scrollAmount = direction === "left" ? -200 : 200; // adjust the value as needed
+      container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
+
+  useEffect(() => {
+    if (imageData.length === 0) {
+      updateLibrary();
+    }
+  }, [imageData]);
+
+  const updateLibrary = async () => {
+    try {
       const res = await axios.post(
         `${process.env.REACT_APP_BACKEND_API}/getAllImages`
       );
       if (res.status === 200) {
-        var tmp = res.data;
-        // tmp.sort((a: Image, b: Image) => {
-        //   const dateA = new Date(a.created).getTime();
-        //   const dateB = new Date(b.created).getTime();
-        //   return dateB - dateA;
-        // });
-        tmp.reverse();
-        setImageData(tmp);
+        setImageData(res.data.reverse());
       } else {
-        console.log("Error occurred");
+        console.error("Error occurred");
       }
-    };
-    func();
+    } catch (error) {
+      console.error("Error fetching images:", error);
+    }
   };
 
   const onNextImage = () => {
@@ -50,11 +88,6 @@ const CommunityFeed = () => {
     modalCtx.setIndex(ind - 1);
   };
 
-  useEffect(() => {
-    if (imageData.length > 0) return;
-    updateLibrary();
-  });
-
   const handleSearch = () => {
     const lowerKey = searchKey.toLowerCase();
     const tmp = imageData.filter((item: Image) => {
@@ -67,29 +100,123 @@ const CommunityFeed = () => {
 
   return (
     <>
-      <div className="w-full bg-black pt-[29px] flex flex-col">
+      <div className="w-full bg-black pt-[29px] flex flex-col font-chakra">
         <div className="pl-8">
-          <span className="font-chakra text-[26px]">Community Feed</span>
+          <span className="text-[26px]">Community Feed</span>
         </div>
-        <div className="pl-8 pt-8">
-          <div className="search-panel w-[376px]">
-            <span className="search-icon">
-              <Icon icon="ic:round-search" className="w-5 h-5" />
-            </span>
-            <input
-              className="search-input font-chakra"
-              placeholder="Search gallery"
-              value={searchKey}
-              onChange={(ev) => setSearchKey(ev.target.value)}
-            ></input>
-            <button onClick={handleSearch} className="search-button">
-              Search
-            </button>
+        <div className="top-0 sticky z-10 border-b-[1px] border-primary w-full">
+          <div className="px-8 py-8 flex flex-col gap-5 bg-black">
+            <div>
+              <div className="search-panel w-[376px]">
+                <span className="search-icon">
+                  <Icon icon="ic:round-search" className="w-5 h-5" />
+                </span>
+                <input
+                  className="search-input"
+                  placeholder="Search gallery"
+                  value={searchKey}
+                  onChange={(ev) => setSearchKey(ev.target.value)}
+                ></input>
+                <button onClick={handleSearch} className="search-button">
+                  Search
+                </button>
+              </div>
+            </div>
+            <div className="flex items-start gap-3 justify-start text-[18px] flex-col w-full relative">
+              <div className="flex flex-row gap-2 items-center justify-center">
+                <div className="grid-explore block z-[1]">
+                  <button className="primary-button rounded-full h-10">
+                    <span className="flex-auto pointer-events-none flex flex-row gap-2 items-center">
+                      <Icon icon="icon-park-solid:fire" />
+                      <span>Trending</span>
+                      <Icon icon="icon-park-solid:down-one" />
+                    </span>
+                  </button>
+                </div>
+                <div className="block">
+                  <hr className="opacity-60 border-[#4A5568] border-[1px] h-8"></hr>
+                </div>
+                <div className="grid-type block">
+                  <div className="inline-flex overflow-hidden rounded-full bg-[#0c0f16] items-center">
+                    <SortButton
+                      label="All"
+                      isSelected={selectedStyle === "All"}
+                      onClick={() => setSelectedStyle("All")}
+                    />
+                    <SortButton
+                      label="Upscaled"
+                      isSelected={selectedStyle === "Upscaled"}
+                      onClick={() => setSelectedStyle("Upscaled")}
+                    />
+                    <SortButton
+                      label="Motion"
+                      isSelected={selectedStyle === "Motion"}
+                      onClick={() => setSelectedStyle("Motion")}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex flex-row px-[1px] relative">
+                <button
+                  onClick={() => scroll("left")}
+                  className="focus:outline-none absolute left-0 z-10 inline-flex items-center justify-center h-full cursor-pointer"
+                >
+                  &#10094; {/* Left arrow symbol or use an icon */}
+                </button>
+                <div
+                  className="flex flex-row gap-2 overflow-x-auto"
+                  ref={scrollContainerRef}
+                >
+                  <span className="inline-block">
+                    <button className="primary-button rounded-full flex items-center justify-center flex-row gap-2">
+                      <Icon icon="radix-icons:dashboard" width={20} />
+                      <span className="font-semibold">All</span>
+                    </button>
+                  </span>
+                  <button className="hashtag-button gap-2 text-[16px]">
+                    <Icon icon="ion:camera-outline" />
+                    <span>Photography</span>
+                  </button>
+                  <button className="hashtag-button gap-2 text-[16px]">
+                    <Icon icon="emojione-monotone:pouting-cat-face" />
+                    <span>Animals</span>
+                  </button>
+                  <button className="hashtag-button gap-2 text-[16px]">
+                    <Icon icon="lucide:fan" />
+                    <span>Anime</span>
+                  </button>
+                  <button className="hashtag-button gap-2 text-[16px]">
+                    <Icon icon="bi:buildings" />
+                    <span>Architecture</span>
+                  </button>
+                  <button className="hashtag-button gap-2 text-[16px]">
+                    <Icon icon="icon-park-outline:avatar" />
+                    <span>Character</span>
+                  </button>
+                  <button className="hashtag-button gap-2 text-[16px]">
+                    <Icon icon="uil:food" />
+                    <span>Food</span>
+                  </button>
+                  <button className="hashtag-button gap-2 text-[16px]">
+                    <Icon icon="streamline:ecology-science-alien-extraterristerial-life-form-space-universe-head" />
+                    <span>Sci-Fi</span>
+                  </button>
+                </div>
+                <button
+                  onClick={() => scroll("right")}
+                  className="focus:outline-none absolute right-0 z-10 inline-flex items-center justify-center h-full cursor-pointer"
+                >
+                  &#10095; {/* Right arrow symbol or use an icon */}
+                </button>
+                <div></div>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Images shared with community */}
-        <div className="mt-8 border-t border-primary p-3">
+        <div className="border-primary p-3">
           {/* {imageData.length > 0 && (
             <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 grid-cols-1 gap-4 py-6 px-4 md:px-8 sm:px-4 justify-start">
               {imageData.map((item, index) => (

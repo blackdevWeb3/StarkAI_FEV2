@@ -1095,7 +1095,7 @@
   outline: transparent solid 2px;
   outline-offset: 2px;
   line-height: calc(1.5rem);
-  border-radius: calc(0.5rem);
+  border-radius: calc(0.25rem);
   transition-property: var(--leonardo-ai-transition-property-common);
   transition-duration: var(--leonardo-ai-transition-duration-normal);
   height: calc(2.5rem);
@@ -1119,4 +1119,126 @@
 
 .login-button:hover {
   background: #ffffff29;
+}
+
+.grid-template-hashtag {
+  grid-template-areas: "explore divider type divider2 categories";
+  -webkit-box-pack: start;
+}
+
+.grid-explore {
+  grid-area: explore;
+}
+.grid-divider {
+  grid-area: divider;
+}
+
+.grid-type {
+  grid-area: type;
+}
+
+.grid-divider2 {
+  grid-area: divider2;
+}
+
+.grid-categoreis {
+  grid-area: categories;
+}
+
+.sort-button {
+  display: inline-flex;
+  appearance: none;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  user-select: none;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  line-height: calc(1.5rem);
+  border-radius: calc(0.3125rem);
+  transition-property: transform;
+  transition-duration: 200ms;
+  height: calc(2.5rem);
+  padding-inline: calc(0.188rem) calc(0.25rem);
+  padding-top: 8px;
+  padding-bottom: 8px;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 500;
+  min-width: 64px;
+  color: #a0aec0;
+}
+
+.sort-button-cover {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background: linear-gradient(
+    81.02deg,
+    rgb(250, 85, 96) -23.47%,
+    rgb(177, 75, 244) 45.52%,
+    rgb(77, 145, 255) 114.8%
+  );
+  border-radius: 9999px;
+}
+
+.selected {
+  transform: translateY(0%) translateZ(0px);
+  transform-origin: 50% 50% 0px;
+  opacity: 1;
+}
+
+.hashtag-board {
+  overflow-x: scroll;
+  scrollbar-width: none;
+  scroll-snap-type: x mandatory;
+}
+
+.hashtag-button {
+  display: inline-flex;
+  appearance: none;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  user-select: none;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  line-height: calc(1.5rem);
+  border-radius: 9999px;
+  font-weight: 600;
+  height: calc(2.5rem);
+  min-width: 40px;
+  padding-inline-start: 1rem;
+  padding-inline-end: 1rem;
+  box-sizing: border-box;
+  width: max-content;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(16, 22, 34);
+  background: linear-gradient(rgb(16, 22, 34), rgb(16, 22, 34)) border-box
+    border-box;
+  box-shadow: rgba(145, 0, 255, 0) 0px 0px 1rem;
+  transition: all 0.3s ease 0s;
+}
+
+.hashtag-button:hover {
+  border-color: transparent;
+  background: linear-gradient(rgb(16, 22, 34), rgb(16, 22, 34)) padding-box
+      padding-box,
+    linear-gradient(
+        81.02deg,
+        rgb(250, 85, 96) -23.47%,
+        rgb(177, 75, 244) 45.52%,
+        rgb(77, 145, 255) 114.8%
+      )
+      border-box border-box;
+  box-shadow: rgba(145, 0, 255, 0.6) 0px 0px 1rem;
 }

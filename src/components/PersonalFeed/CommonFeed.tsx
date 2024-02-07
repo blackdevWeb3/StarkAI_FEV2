@@ -81,7 +81,7 @@ const CommonFeed = () => {
   }, [windowSize]);
 
   useEffect(() => {
-    setCurVal(sliderValue<maxStretch?sliderValue:maxStretch);
+    setCurVal(sliderValue < maxStretch ? sliderValue : maxStretch);
   }, [maxStretch]);
 
   const handleStretch = (event: Event, newValue: number | number[]) => {
@@ -93,7 +93,7 @@ const CommonFeed = () => {
     <>
       <div className="relative">
         {/* TabView Settings */}
-        <div className="sticky z-10 w-full bg-black pt-4">
+        <div className="sticky z-10 w-full bg-black pt-4 top-0">
           <div className="px-8">
             <div className="flex flex-col w-full gap-5">
               <div className="flex flex-wrap justify-between gap-4">
@@ -164,7 +164,7 @@ const CommonFeed = () => {
                     <div className="button-cover"></div>
                   </button>
                 </div>
-                <div className="w-[200px]">
+                <div className="w-[200px] h-[31px]">
                   <Slider
                     aria-label="Volume"
                     min={1}

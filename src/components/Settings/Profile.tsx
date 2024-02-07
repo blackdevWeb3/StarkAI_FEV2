@@ -65,7 +65,7 @@ const Profile: React.FC = () => {
             <div className="flex flex-col items-center gap-2.5">
               <div
                 onClick={handleSelectAvatar}
-                className="relative w-[5.625rem] h-[5.625rem] rounded-full bg-[#232323] border border-dashed border-white border-opacity-20"
+                className="relative w-[5.625rem] h-[5.625rem] rounded-full bg-[#232323] border border-dashed border-white border-opacity-20 hover:cursor-pointer"
               >
                 <input
                   type="file"
