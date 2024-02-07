@@ -35,7 +35,7 @@ const Login = () => {
   }
 
   return (
-    <div className="w-full h-screen bg-black font-chakra overflow-hidden">
+    <div className="w-full h-screen bg-black font-chakra overflow-hidden transition-all duration-300 ease-in-out">
       <div className="w-full h-full flex flex-row justify-between items-center p-20 sm:p-10 z-10 relative">
         <div className="w-[380px] h-full px-12 md:px-8 lg:px-10 py-10 bg-[#171717] rounded-tl-lg rounded-bl-lg sm:w-full sm:rounded-tr-lg sm:rounded-br-lg sm:px-8">
           <div className="flex flex-col justify-between items-center gap-12 w-full">
