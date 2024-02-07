@@ -30,8 +30,7 @@ const AppLayout = () => {
         <div className="flex flex-col min-h-screen h-full bg-black w-full">
           <AppHeader sliderOpen={sliderOpen} sliderHandler={sliderHandler} />
           <Routes>
-            <Route path="/" element={<AppHome />} />
-            <Route path="community-feed" element={<CommunityFeed />} />
+            <Route path="/" element={<CommunityFeed />} />
             <Route path="personal-feed" element={<PersonalFeed />} />
             <Route path="image-generator" element={<ImageGeneration />} />
             {/* <Route path="text-generator" element={<TextGeneration />} /> */}
