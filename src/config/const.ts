@@ -3,11 +3,11 @@ export interface Addresses {
 }
 
 export const MarketPlace: Addresses = {
-  97: "0x50c79F73F5103882809645aB76035C9F198fD054",
+  97: "0x41471bA96EbC503fA4c21dEbB1917bEbCF623221",
 };
 
 export const MarketFactory: Addresses = {
-    97: "0x1Ea3907727f5b6003bAFC95ca10B869C4FAFF7a1",
+    97: "0x072aF2eE19a2F0777F0a550CfbA7A29Eb4c9E79C",
 };
 
 export const PUBLIC_NODES : {[chainId: number]: string[]} = {

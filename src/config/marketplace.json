@@ -315,7 +315,8 @@
     "inputs": [
       { "internalType": "address", "name": "collectionId", "type": "address" },
       { "internalType": "string", "name": "uri", "type": "string" },
-      { "internalType": "uint8", "name": "royaltyFee", "type": "uint8" }
+      { "internalType": "uint8", "name": "royaltyFee", "type": "uint8" },
+      { "internalType": "uint256", "name": "tokenId", "type": "uint256" }
     ],
     "name": "mint",
     "outputs": [],

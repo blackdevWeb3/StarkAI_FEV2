@@ -4362,6 +4362,13 @@ axios@^1.6.5:
     form-data "^4.0.0"
     proxy-from-env "^1.1.0"
 
+axios@~0.21.1:
+  version "0.21.4"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.4.tgz#c67b90dc0568e5c1cf2b0b858c43ba28e2eda575"
+  integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
+  dependencies:
+    follow-redirects "^1.14.0"
+
 axobject-query@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/axobject-query/-/axobject-query-3.2.1.tgz#39c378a6e3b06ca679f29138151e45b2b32da62a"
@@ -4750,6 +4757,13 @@ builtin-modules@^3.1.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/builtin-modules/-/builtin-modules-3.3.0.tgz#cae62812b89801e9656336e46223e030386be7b6"
   integrity sha512-zhaCDicdLuWN5UbN5IMnFqNMhNfo919sH85y2/ea+5Yg9TsTkeZxpL+JLbp6cgYFS4sRLp3YV4S6yDuqVWHYOw==
+
+buttercms@^1.2.15:
+  version "1.2.15"
+  resolved "https://registry.yarnpkg.com/buttercms/-/buttercms-1.2.15.tgz#84f1490941281dc53a3e7a929d1a04d9a05b294e"
+  integrity sha512-cwzgceMoEpEF1mrEp7bC3GAcFXZZjuUYtHlDwARBE/jygO/6gYfhL4xIFZYYoMHo3yxC8UF+reV6x2UR2slcog==
+  dependencies:
+    axios "~0.21.1"
 
 bytes@3.0.0:
   version "3.0.0"
@@ -6774,7 +6788,7 @@ flatted@^3.2.9:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.9.tgz#7eb4c67ca1ba34232ca9d2d93e9886e611ad7daf"
   integrity sha512-36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==
 
-follow-redirects@^1.0.0, follow-redirects@^1.15.4:
+follow-redirects@^1.0.0, follow-redirects@^1.14.0, follow-redirects@^1.15.4:
   version "1.15.5"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.5.tgz#54d4d6d062c0fa7d9d17feb008461550e3ba8020"
   integrity sha512-vSFWUON1B+yAw1VN4xMfxgn5fTUiaOzAJCKBwIIgT/+7CuGy9+r+5gITvP62j3RmaD5Ph65UaERdOSRGUzZtgw==
@@ -7052,6 +7066,11 @@ globby@^11.0.4, globby@^11.1.0:
     ignore "^5.2.0"
     merge2 "^1.4.1"
     slash "^3.0.0"
+
+google-login-react@^0.2.17:
+  version "0.2.17"
+  resolved "https://registry.yarnpkg.com/google-login-react/-/google-login-react-0.2.17.tgz#89fa37d2773b039eb0cd1b7d839b6e8e92e79ad2"
+  integrity sha512-VO4eNYHTM+wLK1fGLqjSc/HqEJy11Pir4R/7uiGxzx6RYozo5xsHovDkSDP1pBVokyLo2dyGtVk0Ekv0Cu8hrw==
 
 gopd@^1.0.1:
   version "1.0.1"

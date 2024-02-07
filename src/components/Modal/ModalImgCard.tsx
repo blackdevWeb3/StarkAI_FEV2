@@ -173,7 +173,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
         return;
       }
       const blob = await res.blob();
-      // console.log("----------blob--------", blob);
+      console.log("----------blob--------", blob);
 
       imgUrl = await storage.store({
         name: nftName,
@@ -203,7 +203,8 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
       return;
     }
 
-    let tokenId;
+    const now = Date.now();
+    const tokenId = Math.round(Math.random() * 10000) * 1000000000000 + now
     try {
       const chainId = chain ? chain.id : 56;
       let tx = await writeContract({
@@ -211,35 +212,21 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
         abi: MarketplaceABI,
         functionName: "mint",
         // args: [MarketFactory[chainId], "imgUrl.url", 3],
-        args: [zeroAddress, imgUrl.url, 3],
+        args: [zeroAddress, 'imgUrl.url', 3, tokenId],
       });
 
-      const data = await waitForTransaction(tx);
+      const data: any = await waitForTransaction(tx);
       console.log(data);
 
-      const config = {
-        abi: MarketFactoryABI,
-        data: data.logs[data.logs.length - 2].data,
-        topics: data.logs[data.logs.length - 2].topics,
-      } as DecodeEventLogParameters
-
-      const result = decodeEventLog(config);
-
-      console.log("-----------result---------", result);
-      tokenId = (result.args as any).tokenId;
-      console.log('tokenId', tokenId)
+      setMinting(false);
+      return;
     } catch (e) {
       console.log(e);
       toast.update(id2, {
         render: "Fail in Creating",
         type: "error",
       });
-      setMinting(false);
-      return;
     }
-    console.log('--------process.env.REACT_APP_MARKETPLACE_API_ENDPOINT--------', 
-    process.env.REACT_APP_MARKETPLACE_API_ENDPOINT
-    )
     try {
       const chainId = chain ? chain.id : 56;
       const data = {
