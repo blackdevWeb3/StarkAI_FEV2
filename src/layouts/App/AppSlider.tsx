@@ -60,16 +60,8 @@ const AppSlider = ({
             to="/app/"
             handleSetActiveLink={handleSetActiveLink}
             activeLink={activeLink}
-            icon="mdi:home-outline"
-            text="Home"
-          />
-          <NavLink
-            to="#"
-            handleSetActiveLink={() => {}}
-            activeLink={""}
-            icon="ic:outline-wifi-find"
-            text="Explore"
-            activeState={false}
+            icon="heroicons:user-group-solid"
+            text="Community Collections"
           />
           <NavLink
             to="/app/personal-feed/"
@@ -77,13 +69,6 @@ const AppSlider = ({
             activeLink={activeLink}
             icon="material-symbols:dashboard-outline"
             text="My Collections"
-          />
-          <NavLink
-            to="/app/community-feed/"
-            handleSetActiveLink={handleSetActiveLink}
-            activeLink={activeLink}
-            icon="heroicons:user-group-solid"
-            text="Community Collections"
           />
           <NavLink
             to="#"
@@ -104,14 +89,6 @@ const AppSlider = ({
             activeLink={activeLink}
             icon="prime:images"
             text="Create Art"
-          />
-          <NavLink
-            to="#"
-            handleSetActiveLink={() => {}}
-            activeLink={""}
-            icon="f7:pencil-outline"
-            text="Texture Generation"
-            activeState={false}
           />
         </div>
         <div className="flex flex-col pt-10">
