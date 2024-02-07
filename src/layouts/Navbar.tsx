@@ -25,15 +25,24 @@ const Navbar = () => {
         </div>
         <div className="flex flex-row gap-6 items-center sm:hidden md:hidden">
           <div className="flex flex-row items-center gap-10">
-            {navbarMenuItems.map((item, index) => (
-              <Link
-                key={index}
-                to={item.link}
-                className="text-[#9094a6] hover:text-white transition-all duration-300 ease-in-out"
-              >
-                {item.text}
-              </Link>
-            ))}
+            {navbarMenuItems.map((item, index) =>
+              item.text === "API" || item.text === "FAQ" ? (
+                <span
+                  key={index}
+                  className={`transition-all duration-300 ease-in-out text-deepPink cursor-not-allowed`}
+                >
+                  {item.text}
+                </span>
+              ) : (
+                <Link
+                  key={index}
+                  to={item.link}
+                  className={`hover:text-white transition-all duration-300 ease-in-out text-[#9094a6]`}
+                >
+                  {item.text}
+                </Link>
+              )
+            )}
             <div className="social-links">
               <a href="https://discord.gg/starkmeta">
                 <img
