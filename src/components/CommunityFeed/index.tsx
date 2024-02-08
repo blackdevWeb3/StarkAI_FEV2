@@ -128,7 +128,7 @@ const CommunityFeed = () => {
         </div>
         <div className="top-0 sticky z-10 border-b-[1px] border-primary w-full">
           <div className="px-8 py-8 flex flex-col gap-5 bg-black">
-            <div>
+            <div className="flex flex-row justify-between">
               <div className="search-panel w-[376px]">
                 <span className="search-icon">
                   <Icon icon="ic:round-search" className="w-5 h-5" />
@@ -142,6 +142,16 @@ const CommunityFeed = () => {
                 <button onClick={handleSearch} className="search-button">
                   Search
                 </button>
+              </div>
+              <div className="w-[200px]">
+                <Slider
+                  aria-label="Volume"
+                  min={1}
+                  max={maxStretch}
+                  valueLabelDisplay="auto"
+                  value={sliderValue}
+                  onChange={handleStretch}
+                />
               </div>
             </div>
             <div className="flex items-start gap-3 justify-start text-[18px] flex-col w-full relative">
@@ -234,16 +244,6 @@ const CommunityFeed = () => {
                 <div></div>
               </div>
             </div>
-          </div>
-          <div className="w-[200px]">
-            <Slider
-              aria-label="Volume"
-              min={1}
-              max={maxStretch}
-              valueLabelDisplay="auto"
-              value={sliderValue}
-              onChange={handleStretch}
-            />
           </div>
         </div>
 
