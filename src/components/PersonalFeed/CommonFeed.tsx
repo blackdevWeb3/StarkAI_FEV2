@@ -169,7 +169,6 @@ const CommonFeed = () => {
                     aria-label="Volume"
                     min={1}
                     max={maxStretch}
-                    marks
                     valueLabelDisplay="auto"
                     value={sliderValue}
                     onChange={handleStretch}
