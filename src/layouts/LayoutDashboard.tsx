@@ -1,8 +1,36 @@
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { BGStyle } from "../assets";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+import { Image } from "../utils/types";
+import Card from "../components/Others/Card";
 
 const LayoutDashboard = () => {
+  const [image, setImage]=useState<Image>();
+
+  const updateLibrary = () => {
+    const func = async () => {
+      const res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_API}/getRecentImages`
+      );
+      if (res.status === 200) {
+        var tmp = res.data;
+        tmp.reverse();
+        setImage(tmp[Math.round(Math.random()*10)])
+      } else {
+        console.log("Error occurred");
+      }
+    };
+    func();
+  };
+
+  useEffect(()=>{
+    if(image) return;
+    updateLibrary();
+  })
+
   return (
     <div className="h-screen w-full md:h-full sm:h-full bg-black p-8 pt-24 font-chakra relative overflow-hidden">
       <div className="w-full h-full rounded-lg">
@@ -50,11 +78,7 @@ const LayoutDashboard = () => {
             </div>
           </div>
           <div className="w-auto">
-            <img
-              src="./assets/characters/lion.jpg"
-              alt="lion"
-              className="rounded-lg h-[750px] w-[560px] sm:w-[480px] sm:h-auto"
-            />
+            {image && <Card data={image} hideDescription />}
           </div>
         </div>
       </div>

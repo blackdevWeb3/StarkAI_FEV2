@@ -6,8 +6,9 @@ import axios from "axios";
 import Card from "../Others/Card";
 
 import ModalImgCard from "../Modal/ModalImgCard";
-import { ImageList, ImageListItem, useTheme } from "@mui/material";
+import { ImageList, ImageListItem, useTheme, Slider } from "@mui/material";
 import ModalContext from "../../utils/modalContext";
+import useWindowSize from "../../hooks/useWindowSize";
 
 type StyleOptions = "All" | "Upscaled" | "Motion";
 
@@ -44,6 +45,10 @@ const CommunityFeed = () => {
   const [imageData, setImageData] = useState<Image[]>([]);
   const [searchedData, setSearchedData] = useState<Image[]>([]);
   const [searched, setSearched] = useState(false);
+  const [maxStretch, setMaxStretch] = useState(5);
+  const [curVal, setCurVal] = useState(5);
+  const [sliderValue, setSliderValue] = useState(5);
+  const windowSize=useWindowSize();
   const [selectedStyle, setSelectedStyle] = useState<StyleOptions>("All");
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -97,6 +102,23 @@ const CommunityFeed = () => {
     setSearchedData(tmp);
     setSearched(true);
   };
+  useEffect(() => {
+    const wid = windowSize;
+    if (wid > 1280 && maxStretch !== 5) setMaxStretch(5);
+    if (wid > 1024 && wid <= 1280 && maxStretch !== 4) setMaxStretch(4);
+    if (wid > 768 && wid <= 1024 && maxStretch !== 3) setMaxStretch(3);
+    if (wid > 480 && wid <= 768 && maxStretch !== 2) setMaxStretch(2);
+    if (wid <= 480 && maxStretch !== 1) setMaxStretch(1);
+  }, [windowSize]);
+
+  useEffect(() => {
+    setCurVal(sliderValue<maxStretch?sliderValue:maxStretch);
+  }, [maxStretch]);
+
+  const handleStretch = (event: Event, newValue: number | number[]) => {
+    setSliderValue(newValue as number);
+    setCurVal(newValue as number);
+  };
 
   return (
     <>
@@ -106,7 +128,7 @@ const CommunityFeed = () => {
         </div>
         <div className="top-0 sticky z-10 border-b-[1px] border-primary w-full">
           <div className="px-8 py-8 flex flex-col gap-5 bg-black">
-            <div>
+            <div className="flex flex-row justify-between">
               <div className="search-panel w-[376px]">
                 <span className="search-icon">
                   <Icon icon="ic:round-search" className="w-5 h-5" />
@@ -120,6 +142,16 @@ const CommunityFeed = () => {
                 <button onClick={handleSearch} className="search-button">
                   Search
                 </button>
+              </div>
+              <div className="w-[200px]">
+                <Slider
+                  aria-label="Volume"
+                  min={1}
+                  max={maxStretch}
+                  valueLabelDisplay="auto"
+                  value={sliderValue}
+                  onChange={handleStretch}
+                />
               </div>
             </div>
             <div className="flex items-start gap-3 justify-start text-[18px] flex-col w-full relative">
@@ -225,7 +257,7 @@ const CommunityFeed = () => {
             </div>
           )} */}
 
-          <ImageList variant="masonry" cols={4} gap={8}>
+          <ImageList variant="masonry" cols={curVal} gap={8}>
             {(searched ? searchedData : imageData).map((item, index) => (
               <ImageListItem key={index}>
                 <Card
