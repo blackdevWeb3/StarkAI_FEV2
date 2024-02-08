@@ -8,7 +8,7 @@ import { Image } from "../utils/types";
 import Card from "../components/Others/Card";
 
 const LayoutDashboard = () => {
-  const [image, setImage]=useState<Image>();
+  const [image, setImage] = useState<Image>();
 
   const updateLibrary = () => {
     const func = async () => {
@@ -18,7 +18,7 @@ const LayoutDashboard = () => {
       if (res.status === 200) {
         var tmp = res.data;
         tmp.reverse();
-        setImage(tmp[Math.round(Math.random()*10)])
+        setImage(tmp[Math.round(Math.random() * 10)]);
       } else {
         console.log("Error occurred");
       }
@@ -26,15 +26,15 @@ const LayoutDashboard = () => {
     func();
   };
 
-  useEffect(()=>{
-    if(image) return;
+  useEffect(() => {
+    if (image) return;
     updateLibrary();
-  })
+  });
 
   return (
     <div className="h-screen w-full md:h-full sm:h-full bg-black p-8 pt-24 font-chakra relative overflow-hidden">
       <div className="w-full h-full rounded-lg">
-        <div className="w-full flex flex-row h-full mx-auto min-w-[1000px] md:min-w-full sm:min-w-full relative items-center justify-evenly md:flex-col sm:flex-col gap-5 md:gap-10 sm:gap-12">
+        <div className="w-full flex flex-row h-full mx-auto min-w-[1000px] md:min-w-full sm:min-w-full relative items-center justify-evenly md:flex-col sm:flex-col gap-5 md:gap-10 sm:gap-12 overflow-hidden">
           <div className="w-auto flex items-center justify-center">
             <div className="flex flex-col">
               <span className="text-white text-left font-semibold text-[30px] z-10 lg:text-[26px] md:text-[22px]">
@@ -68,7 +68,7 @@ const LayoutDashboard = () => {
                   icon="ic:baseline-double-arrow"
                   className="w-12 h-12 anim-color animate-delay-200 sm:w-8 sm:h-8"
                 />
-                <div className=" border-[4px] rounded-full border-[#9013ce] p-3 sm:p-[6px]">
+                <div className="border-[4px] rounded-full border-[#9013ce] p-3 sm:p-[6px]">
                   <div className="bg-[#9013ce] text-white rounded-full p-3 w-20 h-20 sm:w-16 sm:h-16 flex flex-col items-center justify-center">
                     <span className="">Mining</span>
                     <span className="">Reward</span>
@@ -77,7 +77,7 @@ const LayoutDashboard = () => {
               </div>
             </div>
           </div>
-          <div className="w-auto">
+          <div className="max-w-[830px] max-h-[623px] w-auto flex items-center justify-center flex-col sm:w-auto sm:h-auto md:p-10">
             {image && <Card data={image} hideDescription />}
           </div>
         </div>
