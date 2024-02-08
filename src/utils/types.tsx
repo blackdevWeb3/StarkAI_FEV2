@@ -8,6 +8,7 @@ export interface ImageOptions {
   prompt: string;
   width: number;
   height: number;
+  negative_prompt?: string;
 }
 
 export interface Image {

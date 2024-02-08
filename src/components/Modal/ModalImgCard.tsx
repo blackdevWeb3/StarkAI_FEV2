@@ -48,6 +48,7 @@ const init: Image = {
     prompt: "1",
     width: 1024,
     height: 1024,
+    negative_prompt: "",
   },
 };
 
@@ -197,6 +198,8 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
         "dd/MM/yy 'at' h:mm a"
       )
     );
+
+    console.log("ImageData:", modalCtx.imageData.data.negative_prompt);
   }, [modalCtx.imageData]);
 
   const handleDensityChange = (event: Event, newValue: number | number[]) => {
@@ -457,6 +460,26 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                   </div>
                 )}
               </div>
+
+              {/* Negative Prompt */}
+              {imageData.data.negative_prompt !== undefined && (
+                <>
+                  <h2 className="text-white font-Inter text-[12.6px] leading-[1.2] font-medium pt-3">
+                    Negative Prompt Details
+                  </h2>
+
+                  <div className="p-2 border rounded-[7.2px] bg-[#202020] block border-primary">
+                    <div className="w-full rounded-[5.4px]">
+                      <div className="block">
+                        <p className="font-light text-[13px] font-Inter text-[#fefefe] bg-[#171717] p-2 rounded-[6px]">
+                          {imageData.data?.negative_prompt}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+              {/* negative prompt */}
               <hr className="border-primary border-t mt-2"></hr>
               <div className="flex flex-wrap gap-2">
                 <div className="w-[48%] pr-2 mb-3">

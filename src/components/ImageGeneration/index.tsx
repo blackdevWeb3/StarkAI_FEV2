@@ -226,10 +226,8 @@ const ImageGeneration = () => {
         presetStyle: generationStyle,
         numberOfImages: selectedNumber,
         dimension: selectedOption,
+        negative_prompt: negativePromptText,
       };
-
-      console.log("Sending Data:", data);
-
       socket.emit("text-to-image", data);
     } else {
       const data = {
@@ -242,6 +240,7 @@ const ImageGeneration = () => {
         dimension: selectedOption,
         density: densityValue.toString(),
         image: imgData,
+        negative_prompt: negativePromptText,
       };
       socket.emit("image-to-image", data);
     }
