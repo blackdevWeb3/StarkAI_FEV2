@@ -48,6 +48,7 @@ const init: Image = {
     prompt: "1",
     width: 1024,
     height: 1024,
+    negative_prompt: "",
   },
 };
 
@@ -197,6 +198,8 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
         "dd/MM/yy 'at' h:mm a"
       )
     );
+
+    console.log("ImageData:", modalCtx.imageData.data.negative_prompt);
   }, [modalCtx.imageData]);
 
   const handleDensityChange = (event: Event, newValue: number | number[]) => {
@@ -360,8 +363,18 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
               <div className="flex flex-col gap-2">
                 <div className="flex flex-row gap-4">
                   <Link to="/" className="flex flex-row items-center">
-                    <div className="rounded-full"></div>
-                    <div className=" min-w-[auto] text-fontSecondary leading-[1] font-semibold">
+                    <div className="rounded-full">
+                      {/* <img
+                        src=""
+                        alt="Avatar"
+                        className="rounded-full w-full h-full object-cover"
+                      /> */}
+                      <Icon
+                        icon="mingcute:user-4-fill"
+                        className="w-8 h-8 text-white"
+                      />
+                    </div>
+                    <div className=" min-w-[auto] text-fontSecondary leading-[1] font-semibold px-1">
                       {imageData.owner}
                     </div>
                   </Link>
@@ -390,9 +403,9 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                   </div>
                 </div>
                 {srcType === "image" && (
-                  <div className="grid grid-rows-1 grid-cols-3 gap-2 mt-3">
+                  <div className="flex flex-row items-center justify-between mt-3">
                     <div className="block">
-                      <button className="inline-flex rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 ps-[6px] pe-[6px] button-detail">
+                      <button className="inline-flex rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 px-3 button-detail">
                         <span className="self-center inline-flex flex-shrink-[0] me-[6px]">
                           <Icon
                             icon="emojione-v1:film-frames"
@@ -426,27 +439,47 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                       </button>
                     </div>
                     <div className="block">
-                      <button className="inline-flex rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 ps-[6px] pe-[6px] button-detail">
+                      <button className="inline-flex rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 px-3 button-detail">
                         <span className="self-center inline-flex flex-shrink-[0] me-[6px]">
                           <Icon
                             icon="fluent:layer-20-filled"
                             className="w-4 h-4"
                           />
                         </span>
-                        <span className="text-[12.6px]">Image2Image</span>
+                        <span className="text-[12.6px]">Image Transform</span>
                       </button>
                     </div>
                     <div className="block col-span-1">
-                      <button className="inline-flex w-full rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 ps-[6px] pe-[6px] button-detail">
+                      <button className="inline-flex w-full rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 px-3 button-detail">
                         <span className="self-center inline-flex flex-shrink-[0] me-[6px]">
                           <Icon icon="raphael:magic" className="w-4 h-4" />
                         </span>
-                        <span className="text-[12.6px]">Remix</span>
+                        <span className="text-[12.6px]">Remake</span>
                       </button>
                     </div>
                   </div>
                 )}
               </div>
+
+              {/* Negative Prompt */}
+              {imageData.data.negative_prompt !== undefined && (
+                <>
+                  <h2 className="text-white font-Inter text-[12.6px] leading-[1.2] font-medium pt-3">
+                    Negative Prompt Details
+                  </h2>
+
+                  <div className="p-2 border rounded-[7.2px] bg-[#202020] block border-primary">
+                    <div className="w-full rounded-[5.4px]">
+                      <div className="block">
+                        <p className="font-light text-[13px] font-Inter text-[#fefefe] bg-[#171717] p-2 rounded-[6px]">
+                          {imageData.data?.negative_prompt}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+              {/* negative prompt */}
               <hr className="border-primary border-t mt-2"></hr>
               <div className="flex flex-wrap gap-2">
                 <div className="w-[48%] pr-2 mb-3">
@@ -469,7 +502,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                       Base Model
                     </span>
                     <div className="w-full flex items-center text-white text-[14px]">
-                      Leonardo Motion
+                      Stark Movie
                     </div>
                   </div>
                 ) : (
@@ -563,7 +596,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
           </div>
 
           <button
-            className="absolute top-0 right-0 rounded-full bg-[#0000005c] h-8 w-8 flex justify-center items-center"
+            className="absolute top-0 right-[-15px] rounded-full bg-[#0000005c] h-8 w-8 flex justify-center items-center"
             onClick={handleHideImgCard}
           >
             <Icon

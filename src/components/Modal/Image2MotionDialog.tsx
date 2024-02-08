@@ -31,7 +31,7 @@ const Image2MotionDialog = ({
         <div className="flex justify-between items-center">
           <div className="flex gap-2 items-center">
             <IconMotion width={36} />
-            <p className="text-white text-2xl">Image2Motion</p>
+            <p className="text-white text-2xl">Image2Movie</p>
           </div>
           <Icon
             icon="carbon:close-outline"
