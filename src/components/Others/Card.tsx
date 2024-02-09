@@ -65,7 +65,7 @@ const Card = (props: any) => {
           {/* Hovered Image Description */}
 
           {!props.hideDescription && (
-            <div className="absolute w-full h-full top-0 left-0 hover-ground opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4 flex flex-col justify-start">
+            <div className="absolute w-full h-full top-0 left-0 hover-ground opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4 flex flex-col justify-between">
               <div className="flex flex-row justify-between gap-2">
                 <div className="flex flex-row items-center gap-1 overflow-hidden">
                   <span className="w-8 h-8 p-3 rounded-full bg-[#1cb578] flex text-center justify-center items-center text-black font-semibold">
@@ -90,11 +90,8 @@ const Card = (props: any) => {
                   />
                 </button>
               </div>
-              <div className="flex flex-col overflow-hidden text-ellipsis">
-                <span className="flex overflow-hidden text-ellipsis text-[14px]">
-                  {props.data.data.prompt}
-                </span>
-                <span className=""></span>
+              <div className="flex flex-col overflow-hidden text-ellipsis text-wrap break-words h-8 text-[12px]">
+                {props.data.data.prompt}
               </div>
             </div>
           )}

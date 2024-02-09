@@ -416,7 +416,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                           className="text-[12.6px]"
                           onClick={handleMotionOpen}
                         >
-                          Image2Motion
+                          Image2Movie
                         </span>
 
                         <Image2MotionDialog
@@ -462,23 +462,25 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
               </div>
 
               {/* Negative Prompt */}
-              {imageData.data.negative_prompt !== undefined && (
-                <>
-                  <h2 className="text-white font-Inter text-[12.6px] leading-[1.2] font-medium pt-3">
-                    Negative Prompt Details
-                  </h2>
+              {imageData.data.negative_prompt !== undefined &&
+                imageData.data.negative_prompt !== null &&
+                imageData.data.negative_prompt !== "" && (
+                  <>
+                    <h2 className="text-white font-Inter text-[12.6px] leading-[1.2] font-medium pt-3">
+                      Negative Prompt Details
+                    </h2>
 
-                  <div className="p-2 border rounded-[7.2px] bg-[#202020] block border-primary">
-                    <div className="w-full rounded-[5.4px]">
-                      <div className="block">
-                        <p className="font-light text-[13px] font-Inter text-[#fefefe] bg-[#171717] p-2 rounded-[6px]">
-                          {imageData.data?.negative_prompt}
-                        </p>
+                    <div className="p-2 border rounded-[7.2px] bg-[#202020] block border-primary">
+                      <div className="w-full rounded-[5.4px]">
+                        <div className="block">
+                          <p className="font-light text-[13px] font-Inter text-[#fefefe] bg-[#171717] p-2 rounded-[6px]">
+                            {imageData.data?.negative_prompt}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </>
-              )}
+                  </>
+                )}
               {/* negative prompt */}
               <hr className="border-primary border-t mt-2"></hr>
               <div className="flex flex-wrap gap-2">
