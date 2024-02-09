@@ -1,39 +1,43 @@
+import React, { useState } from "react";
 import { GoogleLogin } from "google-login-react";
 import { useUser } from "../context/UserContext";
 import { Navigate, Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import axios from "axios";
+import registerUserInfo from "../api/registerUserInfo";
 
 const Login = () => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const onLogin = async (credentialResponse: any) => {
     if (!credentialResponse) return;
 
     const data = {
       username: credentialResponse.name,
       email: credentialResponse.email,
+      avatar: credentialResponse.picture,
     };
 
-    const res = await axios.post(
-      `${process.env.REACT_APP_BACKEND_API}/login`,
-      data
-    );
-    if (res.data.message === "Success") {
-      console.log("Success");
-    } else {
-      console.log("Fail");
-    }
-    setUser(JSON.stringify(data));
+    console.log("UserInfo Result:", await registerUserInfo(data));
+
+    if ((await registerUserInfo(data)) === "Success")
+      setUser(JSON.stringify(data));
+    else return;
   };
 
   const { user, setUser }: any = useUser();
-  if (user && user !== "none") {
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
+
+  if (user && user !== "None") {
     return <Navigate to="/app" />;
   }
 
   return (
-    <div className="p-10 w-full h-screen bg-black font-chakra">
-      <div className="w-full h-full flex flex-row justify-between items-center">
-        <div className="w-[380px] h-full px-16 py-10 bg-[#171717] rounded-tl-lg rounded-bl-lg sm:w-full sm:rounded-tr-lg sm:rounded-br-lg sm:px-8">
+    <div className="w-full h-screen bg-black font-chakra overflow-hidden transition-all duration-300 ease-in-out">
+      <div className="w-full h-full flex flex-row justify-between items-center p-20 sm:p-10 z-10 relative">
+        <div className="w-[380px] h-full px-12 md:px-8 lg:px-10 py-10 bg-[#171717] rounded-tl-lg rounded-bl-lg sm:w-full sm:rounded-tr-lg sm:rounded-br-lg sm:px-8">
           <div className="flex flex-col justify-between items-center gap-12 w-full">
             <div className="w-full flex flex-col gap-2 items-center">
               <img src="./favicon.ico" className="w-[64px]" alt="logo" />
@@ -76,27 +80,47 @@ const Login = () => {
                 OR
               </div>
             </div>
-            <div className="flex flex-col gap-3 w-full">
+            <form
+              className="flex flex-col gap-3 w-full"
+              onSubmit={handleSubmit}
+            >
               <div className="flex flex-col gap-2 w-full">
-                <label className="text-[14px] font-medium lg:text-s text-white select-none">
+                <label
+                  htmlFor="email"
+                  className="text-[14px] font-medium text-white select-none"
+                >
                   Email
                 </label>
                 <input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@host.com"
+                  autoComplete="username"
                   className="text-[14px] w-full rounded-[4px] h-10 px-3.5 py-2 bg-black/25 appearance-none outline-none invalid:focus:border-danger-primary placeholder:text-light-secondary text-white disabled:text-opacity-60 disabled:cursor-not-allowed"
-                ></input>
+                  required
+                />
               </div>
               <div className="flex flex-col gap-2">
-                <label className="text-[14px] font-medium lg:text-s text-white select-none">
+                <label
+                  htmlFor="password"
+                  className="text-[14px] font-medium text-white select-none"
+                >
                   Password
                 </label>
                 <input
+                  id="password"
                   type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter password"
+                  autoComplete="current-password"
                   className="text-[14px] rounded-[4px] px-3.5 py-2 h-10 bg-black/25 appearance-none outline-none invalid:focus:border-danger-primary placeholder:text-light-secondary text-white disabled:text-opacity-60 disabled:cursor-not-allowed"
-                ></input>
+                  required
+                />
               </div>
-              <span className="">
+              <span>
                 <Link
                   to="/reset-password"
                   className="text-[14px] text-indigo-400"
@@ -115,12 +139,18 @@ const Login = () => {
                   Sign up
                 </Link>
               </span>
-            </div>
+            </form>
             <div className=""></div>
           </div>
         </div>
         <div className="w-full background-board rounded-tr-lg rounded-br-lg sm:hidden"></div>
       </div>
+      <div
+        className="absolute w-full h-full min-h-screen opacity-25 bg-no-repeat bg-center bg-cover top-0"
+        style={{
+          backgroundImage: "url('/assets/characters/background.jpg')",
+        }}
+      ></div>
     </div>
   );
 };

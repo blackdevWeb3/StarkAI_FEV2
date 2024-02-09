@@ -27,6 +27,7 @@ import { TextareaAutosize } from "@mui/material";
 import io from "socket.io-client";
 import { ToastContainer, toast } from "react-toastify";
 import ModalContext from "../../utils/modalContext";
+import ToggleCheckBox from "../Modal/ToggleCheckbox";
 import {
   useAccount,
   useSignTypedData,
@@ -64,6 +65,7 @@ const ImageGeneration = () => {
   const [photoReal, setPhotoReal] = useState<boolean>(false);
   const [alchemy, setAlchemy] = useState<boolean>(true);
   const [promptMagic, setPromptMagic] = useState<boolean>(false);
+  const [negativePrompt, setNegativePrompt] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState("1024 * 768");
   const [selectedNumber, setSelectedNumber] = useState<number>(1);
   const [generationModel, setGenerationModel] = useState<ModelItem | null>(
@@ -75,6 +77,9 @@ const ImageGeneration = () => {
   const ModelMenuRef = useRef<HTMLDivElement>(null);
   const StyleMenuRef = useRef<HTMLDivElement>(null);
   const [promptText, setPromptText] = useState<string>("");
+  const [negativePromptText, setNegativePromptText] = useState<
+    string | undefined
+  >("");
   const [generating, setGenerating] = useState(false);
   const [imageData, setImageData] = useState<Image[]>([]);
   const [imageSrc, setImageSrc] = useState<File | null>(null);
@@ -140,6 +145,10 @@ const ImageGeneration = () => {
     setPromptMagic(event.target.checked);
   };
 
+  const handleNegativePrompt = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNegativePrompt(event.target.checked);
+  };
+
   const handleImageNumberChange = (option: number) => {
     const numberValue = option;
     const tmp = selectedOption.split("*");
@@ -169,6 +178,12 @@ const ImageGeneration = () => {
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     setPromptText(event.target.value);
+  };
+
+  const handleNegativePromptTextChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setNegativePromptText(event.target.value);
   };
 
   const handleDensityChange = (event: Event, newValue: number | number[]) => {
@@ -270,6 +285,7 @@ const ImageGeneration = () => {
           presetStyle: generationStyle,
           numberOfImages: selectedNumber,
           dimension: selectedOption,
+        negative_prompt: negativePromptText,
         };
         socket.emit("text-to-image", data);
       } else {
@@ -283,6 +299,7 @@ const ImageGeneration = () => {
           dimension: selectedOption,
           density: densityValue.toString(),
           image: imgData,
+        negative_prompt: negativePromptText,
         };
         socket.emit("image-to-image", data);
       }
@@ -339,7 +356,7 @@ const ImageGeneration = () => {
             <span className="text-white font-chakra text-[20px] font-medium">
               AI Image Generation
             </span>
-            <div className="flex items-start w-full pt-12 mb-4 h-full">
+            <div className="flex items-start w-full pt-12 pb-4 h-full">
               <div className="relative block mr-2">
                 <button className="button-prompt">
                   <Icon
@@ -351,7 +368,7 @@ const ImageGeneration = () => {
                 </button>
               </div>
               <TextareaAutosize
-                className="w-full font-chakra text-[18px] h-10 font-medium leading-5 px-3 py-4 flex flex-col items-center justify-center rounded-md border border-textarea bg-[#101622] hover:bg-[#0b0f17]  text-white focus-visible:bg-transparent focus-visible:outline-none"
+                className="w-full font-chakra text-[18px] h-10 font-medium leading-5 px-5 py-4 flex flex-col items-center justify-center rounded-md border border-textarea bg-[#101622] hover:bg-[#0b0f17]  text-white focus-visible:bg-transparent focus-visible:outline-none"
                 placeholder="Type a comment ..."
                 maxLength={1000}
                 minRows={1}
@@ -377,6 +394,24 @@ const ImageGeneration = () => {
                   </span>
                 </button>
               </span>
+            </div>
+            <div
+              className={`w-full pb-4 overflow-hidden ${
+                negativePrompt
+                  ? "opacity-100 h-auto block"
+                  : "h-0 hidden opacity-0"
+              }`}
+            >
+              <TextareaAutosize
+                className="w-full font-chakra text-[18px] h-10 font-medium leading-5 px-5 py-4 flex flex-col items-center justify-center rounded-md border border-textarea bg-[#101622] hover:bg-[#0b0f17]  text-white focus-visible:bg-transparent focus-visible:outline-none"
+                placeholder="Type what you don’t want to see in the image (a negative prompt)..."
+                maxLength={1000}
+                minRows={1}
+                value={
+                  negativePromptText !== null ? negativePromptText : undefined
+                }
+                onChange={handleNegativePromptTextChange}
+              />
             </div>
             <div className="flex items-stretch gap-4 flex-wrap relative">
               <div className="relative" id="modelSelector" ref={ModelMenuRef}>
@@ -479,6 +514,16 @@ const ImageGeneration = () => {
                   </div>
                 </div>
               </div>
+              {/* Negative Prompt Switch */}
+              <div className="flex flex-row gap-2 items-center">
+                <ToggleCheckBox
+                  name="negativePrompt"
+                  id="negativePrompt"
+                  checked={negativePrompt}
+                  changeHandler={handleNegativePrompt}
+                />
+                <span className="text-[14px]">Add Negative Prompt</span>
+              </div>
             </div>
           </div>
 
@@ -517,7 +562,7 @@ const ImageGeneration = () => {
         </div>
 
         {/* Left Image Generation Options */}
-        <div className="absolute top-0 left-[-270px] z-10 w-[270px] h-full bg-black pt-[10px] flex flex-col px-4 border-r border-primary">
+        <div className="absolute top-0 left-[-270px] z-50 w-[270px] h-full bg-black pt-[10px] flex flex-col px-4 border-r border-primary">
           <div className="pt-[19px] flex flex-row justify-between items-center">
             <span className="flex flex-row justify-center items-center">
               <h1 className="text-[24px] font-semibold font-chakra text-white">
@@ -575,20 +620,12 @@ const ImageGeneration = () => {
           <div className="border-b-[1px] border-[#ffffff29] py-3">
             <button className="flex flex-row items-center justify-between w-full bg-transparent">
               <span className="font-chakra">PhotoReal</span>
-              <div className="relative inline-block w-[46px] align-middle select-none transition duration-200 ease-in">
-                <input
-                  type="checkbox"
-                  name="photo"
-                  checked={photoReal}
-                  onChange={handleRealPhotoChange}
-                  id="photo"
-                  className="toggle-checkbox absolute mt-[2px] ml-[2px] block w-5 h-5 rounded-full bg-white border-1 appearance-none cursor-pointer"
-                />
-                <label
-                  htmlFor="photo"
-                  className="toggle-label block overflow-hidden h-6 rounded-full bg-[#515151] cursor-pointer"
-                ></label>
-              </div>
+              <ToggleCheckBox
+                name="photo"
+                checked={photoReal}
+                changeHandler={handleRealPhotoChange}
+                id="photo"
+              />
             </button>
             {photoReal && (
               <div className="primary-box mt-3">
@@ -608,20 +645,12 @@ const ImageGeneration = () => {
           <div className="border-b-[1px] border-[#ffffff29] py-3">
             <button className="flex flex-row items-center justify-between w-full bg-transparent">
               <span className="font-chakra">Alchemy</span>
-              <div className="relative inline-block w-[46px] align-middle select-none transition duration-200 ease-in">
-                <input
-                  type="checkbox"
-                  name="alchemy"
-                  checked={alchemy}
-                  onChange={handleAlchemyChange}
-                  id="alchemy"
-                  className="toggle-checkbox absolute mt-[2px] ml-[2px] block w-5 h-5 rounded-full bg-white border-1 appearance-none cursor-pointer"
-                />
-                <label
-                  htmlFor="alchemy"
-                  className="toggle-label block overflow-hidden h-6 rounded-full bg-[#515151] cursor-pointer"
-                ></label>
-              </div>
+              <ToggleCheckBox
+                name="alchemy"
+                checked={alchemy}
+                changeHandler={handleAlchemyChange}
+                id="alchemy"
+              />
             </button>
             {alchemy && (
               <div className="primary-box mt-3">
@@ -636,20 +665,12 @@ const ImageGeneration = () => {
             <div className="border-b-[1px] border-[#ffffff29] py-3">
               <button className="flex flex-row items-center justify-between w-full bg-transparent">
                 <span className="font-chakra">Prompt Magic</span>
-                <div className="relative inline-block w-[46px] align-middle select-none transition duration-200 ease-in">
-                  <input
-                    type="checkbox"
-                    checked={promptMagic}
-                    onChange={handlePromptChange}
-                    name="promptMagic"
-                    id="promptMagic"
-                    className="toggle-checkbox absolute mt-[2px] ml-[2px] block w-5 h-5 rounded-full bg-white border-1 appearance-none cursor-pointer"
-                  />
-                  <label
-                    htmlFor="promptMagic"
-                    className="toggle-label block overflow-hidden h-6 rounded-full bg-[#515151] cursor-pointer"
-                  ></label>
-                </div>
+                <ToggleCheckBox
+                  name="promptMagic"
+                  checked={promptMagic}
+                  changeHandler={handlePromptChange}
+                  id="promptMagic"
+                />
               </button>
               {promptMagic && (
                 <div className="primary-box mt-3">
@@ -670,18 +691,7 @@ const ImageGeneration = () => {
           <div className="border-b-[1px] border-[#ffffff29] py-3">
             <button className="flex flex-row items-center justify-between w-full bg-transparent">
               <span className="font-chakra">Public Images</span>
-              <div className="relative inline-block w-[46px] align-middle select-none transition duration-200 ease-in">
-                <input
-                  type="checkbox"
-                  name="publicImage"
-                  id="publicImage"
-                  className="toggle-checkbox absolute mt-[2px] ml-[2px] block w-5 h-5 rounded-full bg-white border-1 appearance-none cursor-pointer"
-                />
-                <label
-                  htmlFor="publicImage"
-                  className="toggle-label block overflow-hidden h-6 rounded-full bg-[#515151] cursor-pointer"
-                ></label>
-              </div>
+              <ToggleCheckBox name="publicImage" id="publicImage" />
             </button>
           </div>
           <CollapsibleSection

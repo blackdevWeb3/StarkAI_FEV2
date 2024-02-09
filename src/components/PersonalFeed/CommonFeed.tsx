@@ -21,6 +21,7 @@ const CommonFeed = () => {
   const [searched, setSearched] = useState(false);
   const [maxStretch, setMaxStretch] = useState(5);
   const [curVal, setCurVal] = useState(5);
+  const [sliderValue, setSliderValue] = useState(5);
 
   const updateLibrary = () => {
     const func = async () => {
@@ -70,21 +71,21 @@ const CommonFeed = () => {
     setSearchedData(tmp);
     setSearched(true);
   };
-  console.log(maxStretch, curVal);
   useEffect(() => {
     const wid = windowSize;
-    if (wid > 1200 && maxStretch !== 5) setMaxStretch(5);
-    if (wid > 1000 && wid <= 1280 && maxStretch !== 4) setMaxStretch(4);
+    if (wid > 1280 && maxStretch !== 5) setMaxStretch(5);
+    if (wid > 1024 && wid <= 1280 && maxStretch !== 4) setMaxStretch(4);
     if (wid > 768 && wid <= 1024 && maxStretch !== 3) setMaxStretch(3);
     if (wid > 480 && wid <= 768 && maxStretch !== 2) setMaxStretch(2);
     if (wid <= 480 && maxStretch !== 1) setMaxStretch(1);
   }, [windowSize]);
 
   useEffect(() => {
-    if (curVal > maxStretch) setCurVal(maxStretch);
+    setCurVal(sliderValue < maxStretch ? sliderValue : maxStretch);
   }, [maxStretch]);
 
   const handleStretch = (event: Event, newValue: number | number[]) => {
+    setSliderValue(newValue as number);
     setCurVal(newValue as number);
   };
 
@@ -92,7 +93,7 @@ const CommonFeed = () => {
     <>
       <div className="relative">
         {/* TabView Settings */}
-        <div className="sticky z-10 w-full bg-black pt-4">
+        <div className="sticky z-10 w-full bg-black pt-4 top-0">
           <div className="px-8">
             <div className="flex flex-col w-full gap-5">
               <div className="flex flex-wrap justify-between gap-4">
@@ -163,12 +164,13 @@ const CommonFeed = () => {
                     <div className="button-cover"></div>
                   </button>
                 </div>
-                <div className="w-[200px]">
+                <div className="w-[200px] h-[31px]">
                   <Slider
                     aria-label="Volume"
                     min={1}
                     max={maxStretch}
-                    value={curVal}
+                    valueLabelDisplay="auto"
+                    value={sliderValue}
                     onChange={handleStretch}
                   />
                 </div>
