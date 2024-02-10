@@ -249,7 +249,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
         )}
         {modalCtx.index < modalCtx.imgCount - 1 && (
           <div
-            className="absolute right-[5px] top-1/2 cursor-pointer"
+            className="absolute right-[-5px] top-1/2 cursor-pointer"
             onClick={onNextImage}
           >
             <Icon

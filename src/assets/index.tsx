@@ -27,3 +27,6 @@ export { ReactComponent as NewBlur } from "./new_blur.svg";
 export { ReactComponent as Loader } from "./loader.svg";
 
 export { ReactComponent as MoreSVG } from "./more.svg";
+
+export { ReactComponent as LockClosed } from "./lockClosed.svg";
+export { ReactComponent as LockOpened } from "./lockOpened.svg";
