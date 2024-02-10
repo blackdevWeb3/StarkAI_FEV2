@@ -1242,3 +1242,103 @@
       border-box border-box;
   box-shadow: rgba(145, 0, 255, 0.6) 0px 0px 1rem;
 }
+
+.lock-button {
+  display: inline-flex;
+  appearance: none;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  user-select: none;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: middle;
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  line-height: calc(1.5rem);
+  border-radius: 6px;
+  font-weight: 600px;
+  transition-property: all;
+  transition-duration: 0.2s;
+  height: calc(2.5rem);
+  min-width: 40px;
+  font-size: calc(0.875rem);
+  padding-inline-start: 12px;
+  padding-inline-end: 12px;
+  color: rgba(255, 255, 255, 0.92);
+  padding: 0px;
+  border: calc(0.04375rem) solid rgb(36, 44, 62);
+  background: rgb(16, 22, 34);
+}
+
+.lock-button:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.select-ratio {
+  padding-inline-end: 2rem;
+  width: 100%;
+  height: 40px;
+  padding-inline-start: 1rem;
+  border-radius: 6px;
+  min-width: 0px;
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  position: relative;
+  appearance: none;
+  transition-property: all;
+  transition-duration: 0.2s;
+  padding-bottom: 1px;
+  line-height: normal;
+  background-image: inherit;
+  background-position: inherit;
+  background-size: inherit;
+  background-repeat: inherit;
+  background-attachment: inherit;
+  background-origin: inherit;
+  background-clip: inherit;
+  --select-bg: var(--leonardo-ai-colors-white);
+  --input-font-size: var(--leonardo-ai-fontSizes-md);
+  --input-padding: var(--leonardo-ai-space-4);
+  --input-border-radius: var(--leonardo-ai-radii-md);
+  --input-height: var(--leonardo-ai-sizes-10);
+  border: 1px solid rgb(36, 44, 62);
+  font-size: calc(0.75rem);
+  font-weight: 600;
+  background-color: rgb(16, 22, 34) !important;
+}
+
+.select-ratio:focus-visible {
+  z-index: 1;
+  border-color: rgb(99, 179, 237);
+  box-shadow: rgb(99, 179, 237) 0px 0px 0px 1px;
+}
+
+.input-ratio {
+  width: 100%;
+  height: 40px;
+  min-width: 100px;
+  outline: transparent solid 2px;
+  outline-offset: 2px;
+  position: relative;
+  appearance: none;
+  transition-property: all;
+  transition-duration: 0.2s;
+  --input-font-size: var(--leonardo-ai-fontSizes-sm);
+  --input-padding: 12px;
+  --input-border-radius: 2px;
+  --input-height: 32px;
+  border-width: calc(0.125rem);
+  border-style: solid;
+  border-image: initial;
+  border-color: transparent;
+  border-radius: calc(0.312rem);
+  padding-top: 16px;
+  padding-bottom: 16px;
+  padding-inline-start: 2rem;
+  padding-inline-end: 2rem;
+  text-align: center;
+  background: rgb(11, 15, 23);
+  color: rgb(255, 255, 255);
+}
