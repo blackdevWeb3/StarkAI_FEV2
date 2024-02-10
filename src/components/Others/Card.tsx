@@ -4,6 +4,7 @@ import { ClipLoader } from "react-spinners";
 import { Icon } from "@iconify/react";
 import ModalContext from "../../utils/modalContext";
 import { useUser } from "../../context/UserContext";
+import axios from "axios";
 
 import "react-lazy-load-image-component/src/effects/blur.css";
 
@@ -13,6 +14,7 @@ const Card = (props: any) => {
   const isOwner = props.data.owner === userObejct.email;
   const modalCtx = useContext(ModalContext);
   const [loading, setLoading] = useState(false);
+  const [likeImages, setLikeImages] = useState<String[]>([]);
 
   const handleImgModalOpen = () => {
     modalCtx.setVisible(true);
@@ -27,6 +29,23 @@ const Card = (props: any) => {
     event.preventDefault();
     event.stopPropagation();
     console.log("Hello:", props.data);
+  };
+
+  const updateLibrary = () => {
+    const func = async () => {
+      const res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_API}/getLikeImages`,
+        {email: userObejct.email, imageID: props.data.generationID}
+      );
+      if (res.status === 200) {
+        var tmp = res.data;
+        tmp.reverse();
+        setLikeImages(tmp);
+      } else {
+        console.log("Error occurred");
+      }
+    };
+    func();
   };
 
   return (
