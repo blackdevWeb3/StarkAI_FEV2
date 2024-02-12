@@ -1,10 +1,10 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { ClipLoader } from "react-spinners";
 import { Icon } from "@iconify/react";
 import ModalContext from "../../utils/modalContext";
 import { useUser } from "../../context/UserContext";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 import "react-lazy-load-image-component/src/effects/blur.css";
 
@@ -15,6 +15,7 @@ const Card = (props: any) => {
   const modalCtx = useContext(ModalContext);
   const [loading, setLoading] = useState(false);
   const [likeImages, setLikeImages] = useState<String[]>([]);
+  const [heartCount, setHeartCount] = useState<Number>(0);
 
   const handleImgModalOpen = () => {
     modalCtx.setVisible(true);
@@ -28,7 +29,14 @@ const Card = (props: any) => {
   ) => {
     event.preventDefault();
     event.stopPropagation();
-    console.log("Hello:", props.data);
+    axios.post(
+      `${process.env.REACT_APP_BACKEND_API}/putLikeImages`,
+      {email: userObejct.email, imageID: props.data.generationID}
+    )
+    .then((res : AxiosResponse<any, any>)=> {
+      console.log(res.data);
+      updateLibrary();
+    })
   };
 
   const updateLibrary = () => {
@@ -38,15 +46,21 @@ const Card = (props: any) => {
         {email: userObejct.email, imageID: props.data.generationID}
       );
       if (res.status === 200) {
-        var tmp = res.data;
+        var tmp = res.data.images;
         tmp.reverse();
         setLikeImages(tmp);
+        setHeartCount(res.data.heartCount);
       } else {
         console.log("Error occurred");
       }
     };
     func();
   };
+
+  useEffect(()=>{
+    if(likeImages.length>0) return;
+    updateLibrary();
+  });
 
   return (
     <>
@@ -99,14 +113,17 @@ const Card = (props: any) => {
                   onClick={handleAddHearMark}
                   disabled={isOwner}
                 >
-                  <span className="">0</span>
+                  <span className="">{`${heartCount}`}</span>
 
-                  <Icon icon="tdesign:heart" className="w-6 h-6" />
-                  <Icon
-                    icon="tdesign:heart-filled"
-                    className="w-6 h-6"
-                    color="red"
-                  />
+                  {
+                  (likeImages.find((val : any)=>{return val.email===userObejct.email && val.imageID===props.data.generationID})) ? 
+                    <Icon
+                      icon="tdesign:heart-filled"
+                      className="w-6 h-6"
+                      color="red"
+                    /> :
+                    <Icon icon="tdesign:heart" className="w-6 h-6" />
+                  }
                 </button>
               </div>
               <div className="flex flex-col overflow-hidden text-ellipsis text-wrap break-words h-8 text-[12px]">
