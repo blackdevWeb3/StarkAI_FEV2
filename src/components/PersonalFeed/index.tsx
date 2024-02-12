@@ -15,10 +15,10 @@ const PersonalFeed = () => {
   return (
     <>
       <div className="w-full bg-black pt-[29px] flex flex-col">
-        <div className="pl-8">
+        <div className="pl-8 sm:pl-4">
           <span className="font-chakra text-[26px]">Personal Feed</span>
         </div>
-        <div className="border-b border-gray-800 pl-8 pt-3">
+        <div className="border-b border-gray-800 pl-8 pt-3 sm:pl-4">
           {/* Tab navigation */}
           <nav className="flex space-x-6">
             {tabs.map((tab) => (

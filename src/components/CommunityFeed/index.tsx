@@ -48,7 +48,7 @@ const CommunityFeed = () => {
   const [maxStretch, setMaxStretch] = useState(5);
   const [curVal, setCurVal] = useState(5);
   const [sliderValue, setSliderValue] = useState(5);
-  const windowSize=useWindowSize();
+  const windowSize = useWindowSize();
   const [selectedStyle, setSelectedStyle] = useState<StyleOptions>("All");
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -112,7 +112,7 @@ const CommunityFeed = () => {
   }, [windowSize]);
 
   useEffect(() => {
-    setCurVal(sliderValue<maxStretch?sliderValue:maxStretch);
+    setCurVal(sliderValue < maxStretch ? sliderValue : maxStretch);
   }, [maxStretch]);
 
   const handleStretch = (event: Event, newValue: number | number[]) => {
@@ -122,13 +122,13 @@ const CommunityFeed = () => {
 
   return (
     <>
-      <div className="w-full bg-black pt-[29px] flex flex-col font-chakra">
-        <div className="pl-8">
+      <div className="w-full bg-black pt-[29px] flex flex-col font-chakra sm:pt-4">
+        <div className="pl-8 sm:pl-4">
           <span className="text-[26px]">Community Feed</span>
         </div>
         <div className="top-0 sticky z-10 border-b-[1px] border-primary w-full">
-          <div className="px-8 py-8 flex flex-col gap-5 bg-black">
-            <div className="flex flex-row justify-between">
+          <div className="px-8 py-8 flex flex-col gap-5 bg-black sm:px-4 sm:py-4">
+            <div className="flex flex-row justify-between flex-wrap gap-4">
               <div className="search-panel w-[376px]">
                 <span className="search-icon">
                   <Icon icon="ic:round-search" className="w-5 h-5" />
@@ -139,11 +139,14 @@ const CommunityFeed = () => {
                   value={searchKey}
                   onChange={(ev) => setSearchKey(ev.target.value)}
                 ></input>
-                <button onClick={handleSearch} className="search-button">
+                <button
+                  onClick={handleSearch}
+                  className="search-button h-8 sm:h-7"
+                >
                   Search
                 </button>
               </div>
-              <div className="w-[200px]">
+              <div className="w-[200px] flex sm:hidden">
                 <Slider
                   aria-label="Volume"
                   min={1}
@@ -155,7 +158,7 @@ const CommunityFeed = () => {
               </div>
             </div>
             <div className="flex items-start gap-3 justify-start text-[18px] flex-col w-full relative">
-              <div className="flex flex-row gap-2 items-center justify-center">
+              <div className="flex flex-row gap-4 items-center flex-wrap">
                 <div className="grid-explore block z-[1]">
                   <button className="primary-button rounded-full h-10">
                     <span className="flex-auto pointer-events-none flex flex-row gap-2 items-center">
@@ -165,9 +168,9 @@ const CommunityFeed = () => {
                     </span>
                   </button>
                 </div>
-                <div className="block">
+                {/* <div className="block">
                   <hr className="opacity-60 border-[#4A5568] border-[1px] h-8"></hr>
-                </div>
+                </div> */}
                 <div className="grid-type block">
                   <div className="inline-flex overflow-hidden rounded-full bg-[#0c0f16] items-center">
                     <SortButton
@@ -189,12 +192,12 @@ const CommunityFeed = () => {
                 </div>
               </div>
 
-              <div className="flex flex-row px-[1px] relative">
+              {/* <div className="flex flex-row px-[1px] relative">
                 <button
                   onClick={() => scroll("left")}
                   className="focus:outline-none absolute left-0 z-10 inline-flex items-center justify-center h-full cursor-pointer"
                 >
-                  &#10094; {/* Left arrow symbol or use an icon */}
+                  &#10094;
                 </button>
                 <div
                   className="flex flex-row gap-2 overflow-x-auto"
@@ -239,10 +242,10 @@ const CommunityFeed = () => {
                   onClick={() => scroll("right")}
                   className="focus:outline-none absolute right-0 z-10 inline-flex items-center justify-center h-full cursor-pointer"
                 >
-                  &#10095; {/* Right arrow symbol or use an icon */}
+                  &#10095;
                 </button>
                 <div></div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

@@ -22,7 +22,7 @@ const ImageGuidance: React.FC<ImageGuidanceProps> = ({
   densityValue,
 }) => {
   return (
-    <div className="py-5 px-8 font-chakra">
+    <div className="py-5 font-chakra sm:px-1">
       <div className="flex flex-col w-full bg-[#0b0f17] rounded-md">
         <div className="flex flex-row w-full justify-between items-center px-5 py-3">
           <span className="flex flex-row gap-5 items-center">
@@ -37,11 +37,11 @@ const ImageGuidance: React.FC<ImageGuidanceProps> = ({
             <span className="text-[14px]">Add an image to get started</span>
             <Icon icon="ph:question-fill" className="w-4 h-4 text-white/30" />
           </span>
-          <div className="py-2 flex flex-row items-center justify-center">
+          <div className="py-2 flex flex-row items-center justify-center sm:flex-col sm:gap-5">
             <div
               onClick={handleUpload}
               className={`relative ${
-                imageSrc ? "w-3/5" : "w-full"
+                imageSrc ? "w-3/5 sm:w-full" : "w-full"
               } h-[300px] rounded-md bg-[#101622] border border-dashed border-white border-opacity-20 transition-all duration-200 ease-in-out hover:cursor-pointer group hover:bg-[#393b45]`}
             >
               <input
@@ -65,9 +65,12 @@ const ImageGuidance: React.FC<ImageGuidanceProps> = ({
                   />
                 )}
                 {!imageSrc && (
-                  <div className="flex flex-row gap-3 items-center p-3 border-white border border-dotted rounded-md group-hover:text-deepPink group-hover:border-deepPink transition-all duration-200 ease-in-out">
-                    <Icon icon="entypo:upload" className="w-8 h-8" />
-                    <span className="font-semibold">
+                  <div className="flex flex-row gap-3 items-center p-3 sm:p-[6px] border-white border border-dotted rounded-md group-hover:text-deepPink group-hover:border-deepPink transition-all duration-200 ease-in-out">
+                    <Icon
+                      icon="entypo:upload"
+                      className="w-8 h-8 sm:w-6 sm:h-6"
+                    />
+                    <span className="font-semibold sm:text-[14px]">
                       Click here to upload an image
                     </span>
                   </div>
@@ -75,7 +78,7 @@ const ImageGuidance: React.FC<ImageGuidanceProps> = ({
               </div>
             </div>
             {imageSrc && (
-              <div className="w-2/5 p-5 h-[300px] rounded-md border border-primary border-dotted ml-5">
+              <div className="w-2/5 sm:w-full p-5 h-[300px] rounded-md border border-primary border-dotted ml-5 sm:ml-0">
                 <div className="flex flex-col items-center justify-between w-full h-full gap-3">
                   <div className="flex flex-col gap-1 items-center w-full px-5 py-3 border border-primary border-dotted rounded-md">
                     <div className="flex flex-row justify-between items-center w-full">
@@ -100,23 +103,23 @@ const ImageGuidance: React.FC<ImageGuidanceProps> = ({
                   </div>
 
                   <div
-                    className="group rounded-md border-primary border border-md border-dotted p-5 w-full flex flex-row items-center gap-5 justify-center hover:cursor-pointer hover:bg-[#393b45]"
+                    className="group rounded-md border-primary border border-md border-dotted p-5 w-full flex flex-row items-center gap-5 justify-center hover:cursor-pointer hover:bg-[#393b45] sm:p-3"
                     onClick={handleRemoveUpload}
                   >
                     <Icon
                       icon="streamline:recycle-bin-2-solid"
                       className="w-6 h-6"
                     />
-                    <span className="text-[18px] font-semibold select-none">
+                    <span className="text-[18px] font-semibold select-none sm:text-[14px]">
                       Remove Image
                     </span>
                   </div>
                   <div
-                    className="group rounded-md border-primary border border-dotted p-5 w-full flex flex-row items-center gap-5 justify-center hover:cursor-pointer hover:bg-[#393b45]"
+                    className="group rounded-md border-primary border border-dotted p-5 w-full flex flex-row items-center gap-5 justify-center hover:cursor-pointer hover:bg-[#393b45] sm:p-3"
                     onClick={handleUpload}
                   >
                     <Icon icon="entypo:upload" className="w-6 h-6" />
-                    <span className="text-[18px] font-semibold select-none">
+                    <span className="text-[18px] font-semibold select-none sm:text-[14px]">
                       Upload Image
                     </span>
                   </div>

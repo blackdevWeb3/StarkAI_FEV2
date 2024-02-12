@@ -6,9 +6,9 @@ const FollowerFeed = () => {
   return (
     <>
       <div className="sticky z-10 w-full bg-black pt-4">
-        <div className="px-8">
+        <div className="px-8 sm:px-4">
           <div className="flex flex-col w-full gap-5">
-            <div className="flex flex-row justify-between gap-4">
+            <div className="flex flex-row justify-between gap-4 flex-wrap">
               <div className="search-panel w-[376px]">
                 <span className="search-icon">
                   <Icon icon="ic:round-search" className="w-5 h-5" />
