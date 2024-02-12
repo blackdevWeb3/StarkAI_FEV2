@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import MenuItem from "../components/Others/MenuItem";
 import { navbarMenuItems } from "../utils/constants";
+import { CloseButton } from "../assets";
 
 const Navbar = () => {
   const DropDownMenu = () => {
@@ -79,21 +80,7 @@ const Navbar = () => {
               onClick={DropDownMenu}
               className="bg-transparent rounded-md p-2 inline-flex items-center justify-center text-white focus:outline-none"
             >
-              <svg
-                className="h-10 w-10"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              <CloseButton />
             </button>
           </div>
           <ul className="p-0 relative top-1/2 w-[80%] mx-auto my-0 transform translate-y-[-50%]">
@@ -114,6 +101,11 @@ const Navbar = () => {
                 />
               );
             })}
+            <Link to="/login" className="flex flex-row justify-center">
+              <span className="primary-button mt-7 fadeInLeft text-center opacity-0 animate-delay-900 w-[140px]">
+                Launch App
+              </span>
+            </Link>
           </ul>
         </div>
       )}
