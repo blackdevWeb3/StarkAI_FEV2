@@ -94,7 +94,7 @@ const CommonFeed = () => {
       <div className="relative">
         {/* TabView Settings */}
         <div className="sticky z-10 w-full bg-black pt-4 top-0">
-          <div className="px-8">
+          <div className="px-8 sm:px-4">
             <div className="flex flex-col w-full gap-5">
               <div className="flex flex-wrap justify-between gap-4">
                 <div className="search-panel w-[376px]">
@@ -139,7 +139,7 @@ const CommonFeed = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-row justify-between gap-4">
+              <div className="flex flex-row justify-between gap-4 flex-wrap">
                 <div className="flex bg-[#0c0f16] overflow-hidden rounded-lg">
                   <button
                     className={`button-item w-[116px] ${
@@ -164,7 +164,7 @@ const CommonFeed = () => {
                     <div className="button-cover"></div>
                   </button>
                 </div>
-                <div className="w-[200px] h-[31px]">
+                <div className="w-[200px] h-[31px] sm:hidden flex">
                   <Slider
                     aria-label="Volume"
                     min={1}

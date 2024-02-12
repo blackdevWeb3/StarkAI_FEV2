@@ -47,7 +47,7 @@ const LayoutDashboard = () => {
                   Join now
                 </Link>
               </span>
-              <div className="flex flex-row items-center gap-5 pt-14 text-[12px] sm:text-[10px] sm:justify-center">
+              <div className="flex flex-row items-center gap-5 sm:gap-2 pt-14 text-[12px] sm:text-[10px] sm:justify-center">
                 <div className="border-[4px] rounded-full border-[#9013ce] p-3 sm:p-[6px]">
                   <div className="bg-[#9013ce] text-white rounded-full p-3 w-20 h-20 sm:w-16 sm:h-16 flex flex-col items-center justify-center">
                     <span className="">Generate</span>

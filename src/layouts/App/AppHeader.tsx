@@ -20,7 +20,7 @@ const BlockchainButtons: React.FC<BlockchainButtonProps> = ({
         return (
           <button
             key={key}
-            className={`px-5 h-10 flex items-center gap-2 ${
+            className={`px-5 sm:px-4 h-10 flex items-center gap-2 ${
               isSelected ? "text-blue-500 bg-[#40324e]" : ""
             }`}
             onClick={() => handleSelectChain(key)}
@@ -54,7 +54,7 @@ const AppHeader = ({ sliderOpen, sliderHandler }: AppHeaderProps) => {
   return (
     <>
       <div className="bg-black flex-col relative w-full">
-        <div className="items-center right-5 top-2 absolute flex flex-row gap-2 ">
+        <div className="items-center right-5 top-2 absolute flex flex-row gap-2 sm:right-3">
           <div id="walletConnect">
             <ConnectButton />
           </div>

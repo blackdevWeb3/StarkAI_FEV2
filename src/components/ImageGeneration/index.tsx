@@ -289,7 +289,7 @@ const ImageGeneration = () => {
     <>
       <div className="relative w-full">
         <div className="w-full bg-black min-h-[100vh] pt-[29px] flex flex-col">
-          <div className="w-full flex flex-col px-8">
+          <div className="w-full flex flex-col px-8 sm:px-4">
             <span className="text-white font-chakra text-[20px] font-medium">
               AI Image Generation
             </span>
@@ -312,7 +312,7 @@ const ImageGeneration = () => {
                 value={promptText}
                 onChange={handlePromptTextChange}
               />
-              <span className="inline-block">
+              <span className="inline-block sm:hidden md:hidden">
                 <button
                   className="button-generate"
                   disabled={!promptText || generating}
@@ -462,10 +462,29 @@ const ImageGeneration = () => {
                 <span className="text-[14px]">Add Negative Prompt</span>
               </div>
             </div>
+            <span className="hidden sm:inline-block md:inline-block mt-6">
+              <button
+                className="button-generate ml-0 w-full"
+                disabled={!promptText || generating}
+                onClick={handleGenerate}
+              >
+                <span className="flex flex-row items-center gap-[10px] justify-center">
+                  <span className="font-chakra text-[18px] font-medium">
+                    {generating ? "Generating..." : "Generate"}
+                  </span>
+                  {!generating && (
+                    <span className="flex flex-row items-center justify-center gap-1">
+                      <Icon icon="game-icons:cash" className="w-5 h-5" />
+                      <span className="text-[16px] font-medium">2</span>
+                    </span>
+                  )}
+                </span>
+              </button>
+            </span>
           </div>
 
           {/* Tab Navigation */}
-          <div className="border-b border-gray-800 pl-8 pt-3">
+          <div className="border-b border-gray-800 pl-8 pt-3 sm:pl-4">
             <nav className="flex space-x-6">
               {tabs.map((tab) => (
                 <TabButton
@@ -480,7 +499,7 @@ const ImageGeneration = () => {
           </div>
 
           {/* Tab Content */}
-          <div className="mt-3 border-primary">
+          <div className="border-primary sm:px-4 px-8 sm:mt-3 mt-5">
             {activeTab === "generationHistory" && (
               <GenerationHistory imageData={imageData} />
             )}
