@@ -29,21 +29,22 @@ const Card = (props: any) => {
   ) => {
     event.preventDefault();
     event.stopPropagation();
-    axios.post(
-      `${process.env.REACT_APP_BACKEND_API}/putLikeImages`,
-      {email: userObejct.email, imageID: props.data.generationID}
-    )
-    .then((res : AxiosResponse<any, any>)=> {
-      console.log(res.data);
-      updateLibrary();
-    })
+    axios
+      .post(`${process.env.REACT_APP_BACKEND_API}/putLikeImages`, {
+        email: userObejct.email,
+        imageID: props.data.generationID,
+      })
+      .then((res: AxiosResponse<any, any>) => {
+        console.log(res.data);
+        updateLibrary();
+      });
   };
 
   const updateLibrary = () => {
     const func = async () => {
       const res = await axios.post(
         `${process.env.REACT_APP_BACKEND_API}/getLikeImages`,
-        {email: userObejct.email, imageID: props.data.generationID}
+        { email: userObejct.email, imageID: props.data.generationID }
       );
       if (res.status === 200) {
         var tmp = res.data.images;
@@ -57,8 +58,8 @@ const Card = (props: any) => {
     func();
   };
 
-  useEffect(()=>{
-    if(likeImages.length>0) return;
+  useEffect(() => {
+    if (likeImages.length > 0) return;
     updateLibrary();
   });
 
@@ -82,7 +83,13 @@ const Card = (props: any) => {
           )}
 
           {props.data.image.endsWith(".mp4") ? (
-            <video autoPlay loop disableRemotePlayback muted>
+            <video
+              autoPlay
+              loop
+              disableRemotePlayback
+              muted
+              className="rounded-md"
+            >
               <source type="video/mp4" src={props.data.image} />
             </video>
           ) : (
@@ -91,7 +98,7 @@ const Card = (props: any) => {
               onLoad={() => setLoading(false)}
               alt="GeneratedImage"
               effect="blur"
-              className="rounded-sm"
+              className="rounded-md"
             />
           )}
 
@@ -115,18 +122,23 @@ const Card = (props: any) => {
                 >
                   <span className="">{`${heartCount}`}</span>
 
-                  {
-                  (likeImages.find((val : any)=>{return val.email===userObejct.email && val.imageID===props.data.generationID})) ? 
+                  {likeImages.find((val: any) => {
+                    return (
+                      val.email === userObejct.email &&
+                      val.imageID === props.data.generationID
+                    );
+                  }) ? (
                     <Icon
                       icon="tdesign:heart-filled"
                       className="w-6 h-6"
                       color="red"
-                    /> :
+                    />
+                  ) : (
                     <Icon icon="tdesign:heart" className="w-6 h-6" />
-                  }
+                  )}
                 </button>
               </div>
-              <div className="flex flex-col overflow-hidden text-ellipsis text-wrap break-words h-8 text-[12px]">
+              <div className="flex flex-col overflow-hidden text-ellipsis text-wrap break-words h-[34px] text-[12px]">
                 {props.data.data.prompt}
               </div>
             </div>
