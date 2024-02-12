@@ -136,12 +136,9 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
 
   const handleDownload = async () => {
     const url = imageData.image;
-    const params = {
-      Bucket: process.env.REACT_APP_BUCKET_NAME || "starkmeta-assets",
-      Key: url.substring(52),
-    };
-    const tmpUrl = await s3.getSignedUrlPromise("getObject", params);
-    const res = await fetch(tmpUrl);
+    const tmpUrl = await axios.post(`${process.env.REACT_APP_BACKEND_API}/getSignedUrl`, {url:url});
+    console.log(tmpUrl.data);
+    const res = await fetch(tmpUrl.data);
     const pos = url.lastIndexOf("/");
     const name = url.substring(pos + 1);
     if (res.status === 200) {

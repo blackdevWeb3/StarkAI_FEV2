@@ -18,7 +18,7 @@ const LayoutDashboard = () => {
       if (res.status === 200) {
         var tmp = res.data;
         tmp.reverse();
-        setImage(tmp[Math.round(Math.random() * 10)]);
+        setImage(tmp[Math.round(Math.random()*tmp.length)])
       } else {
         console.log("Error occurred");
       }
