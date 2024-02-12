@@ -64,6 +64,7 @@ const init: Image = {
 const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
   const s3 = new AWS.S3();
   const { user }: any = useUser();
+  const userObject = JSON.parse(user === "None" ? "{}" : user);
   const modalCtx = useContext(ModalContext);
   const [createdDate, setCreatedDate] = useState("");
   const ImgModalRef = useRef<HTMLDivElement>(null);
@@ -116,7 +117,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
   };
 
   const deleteImageHandler = async (type: number) => {
-    if (JSON.parse(user).email !== imageData.owner) {
+    if (userObject?.email !== imageData.owner) {
       toast.error("Only Owner can delete image", {
         autoClose: 1500,
         containerId: type === 1 ? "modal" : "dialog",
@@ -205,7 +206,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
     }
 
     const now = Date.now();
-    const tokenId = Math.round(Math.random() * 10000) * 1000000000000 + now
+    const tokenId = Math.round(Math.random() * 10000) * 1000000000000 + now;
     try {
       const chainId = chain ? chain.id : 56;
       let tx = await writeContract({
@@ -213,7 +214,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
         abi: MarketplaceABI,
         functionName: "mint",
         // args: [MarketFactory[chainId], "imgUrl.url", 3],
-        args: [zeroAddress, 'imgUrl.url', 3, tokenId],
+        args: [zeroAddress, "imgUrl.url", 3, tokenId],
       });
 
       const data: any = await waitForTransaction(tx);
@@ -282,7 +283,10 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
 
   const handleDownload = async () => {
     const url = imageData.image;
-    const tmpUrl = await axios.post(`${process.env.REACT_APP_BACKEND_API}/getSignedUrl`, {url:url});
+    const tmpUrl = await axios.post(
+      `${process.env.REACT_APP_BACKEND_API}/getSignedUrl`,
+      { url: url }
+    );
     console.log(tmpUrl.data);
     const res = await fetch(tmpUrl.data);
     const pos = url.lastIndexOf("/");
@@ -344,7 +348,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
     );
 
     console.log("ImageData:", modalCtx.imageData.data.negative_prompt);
-    if (JSON.parse(user).email !== modalCtx.imageData.owner) {
+    if (userObject?.email !== modalCtx.imageData.owner) {
       setMe(false);
     } else {
       setMe(true);
@@ -359,7 +363,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
     handleConfirmOpen();
     const tmpData: Image = {
       ...imageData,
-      owner: JSON.parse(user).email,
+      owner: userObject?.email,
     };
     const data = {
       imageId: imageData.generationID,
