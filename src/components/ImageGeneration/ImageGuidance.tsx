@@ -37,11 +37,11 @@ const ImageGuidance: React.FC<ImageGuidanceProps> = ({
             <span className="text-[14px]">Add an image to get started</span>
             <Icon icon="ph:question-fill" className="w-4 h-4 text-white/30" />
           </span>
-          <div className="py-2 flex flex-row items-center justify-center sm:flex-col sm:gap-5">
+          <div className="py-2 flex flex-row items-center justify-center sm:flex-col sm:gap-5 md:flex-col md:gap-7">
             <div
               onClick={handleUpload}
               className={`relative ${
-                imageSrc ? "w-3/5 sm:w-full" : "w-full"
+                imageSrc ? "w-3/5 sm:w-full md:w-full" : "w-full"
               } h-[300px] rounded-md bg-[#101622] border border-dashed border-white border-opacity-20 transition-all duration-200 ease-in-out hover:cursor-pointer group hover:bg-[#393b45]`}
             >
               <input
@@ -78,7 +78,7 @@ const ImageGuidance: React.FC<ImageGuidanceProps> = ({
               </div>
             </div>
             {imageSrc && (
-              <div className="w-2/5 sm:w-full p-5 h-[300px] rounded-md border border-primary border-dotted ml-5 sm:ml-0">
+              <div className="w-2/5 sm:w-full md:w-full p-5 h-[300px] rounded-md border border-primary border-dotted ml-5 sm:ml-0 md:ml-0">
                 <div className="flex flex-col items-center justify-between w-full h-full gap-3">
                   <div className="flex flex-col gap-1 items-center w-full px-5 py-3 border border-primary border-dotted rounded-md">
                     <div className="flex flex-row justify-between items-center w-full">
