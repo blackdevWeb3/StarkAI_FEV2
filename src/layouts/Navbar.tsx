@@ -15,14 +15,14 @@ const Navbar = () => {
       <div className="w-full mx-auto flex flex-row justify-between items-center h-full px-10">
         <div className="flex flex-row items-center gap-2">
           {/* <img src="./favicon.ico" alt="logo" className="w-[30px]" /> */}
-          <div className="flex flex-row">
+          <Link className="flex flex-row" to="/">
             <h1 className="text-[26px] font-semibold font-chakra text-primaryColor">
               STARK
             </h1>
             <h1 className="text-[26px] font-semibold font-chakra text-deepPink">
               .AI
             </h1>
-          </div>
+          </Link>
         </div>
         <div className="flex flex-row gap-6 items-center sm:hidden md:hidden">
           <div className="flex flex-row items-center gap-10">

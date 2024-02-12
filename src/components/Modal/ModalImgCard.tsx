@@ -428,6 +428,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                       loop
                       disableRemotePlayback
                       muted
+                      className="rounded-lg"
                     >
                       <source
                         id="videosource"
@@ -437,7 +438,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                     </video>
                   ) : (
                     <img
-                      className="h-auto max-w-full rounded-md"
+                      className="h-auto max-w-full rounded-lg"
                       src={modalCtx.imageData.image}
                       alt="imgCard"
                     />

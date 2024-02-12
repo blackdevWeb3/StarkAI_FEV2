@@ -8,20 +8,18 @@ const FooterItem: React.FC<{ item: ItemProps }> = ({ item }) => {
         {item.title}
       </span>
       {item.link &&
-        (item.name === "API" || item.name === "FAQ" ? (
-          // Render a span that looks like the Link but is not clickable
-          <span className="pt-2 group">
-            <span className="text-deepPink cursor-not-allowed transition-all duration-300 ease-in-out md:text-[14px]">
-              {item.name}
-            </span>
-          </span>
-        ) : (
-          // Render the clickable Link as before
+        (item.name === "Blog" || item.name === "Contact us" ? (
           <Link to={item.link} className="pt-2 group">
             <span className="text-[#9094a6] group-hover:text-white transition-all duration-300 ease-in-out md:text-[14px]">
               {item.name}
             </span>
           </Link>
+        ) : (
+          <span className="pt-2 group">
+            <span className="text-deepPink cursor-not-allowed transition-all duration-300 ease-in-out md:text-[14px]">
+              {item.name}
+            </span>
+          </span>
         ))}
     </>
   );
