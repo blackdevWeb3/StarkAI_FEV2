@@ -166,6 +166,17 @@ dialog {
   filter: blur(250px);
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: rgb(105, 105, 105);
+}
+::-webkit-scrollbar-track {
+  width: 10px;
+  background: transparent;
+}
 .bg_blur_news {
   z-index: 1;
   left: calc(50% - 300px);

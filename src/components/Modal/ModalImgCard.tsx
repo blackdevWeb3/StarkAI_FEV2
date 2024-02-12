@@ -15,6 +15,15 @@ import { useUser } from "../../context/UserContext";
 import { ToastContainer, toast } from "react-toastify";
 import { ModelItem, ModelItems } from "../../utils/constants";
 import { Image } from "../../utils/types";
+import { useAccount, useNetwork } from "wagmi";
+import { writeContract, waitForTransaction } from "@wagmi/core";
+import { NFTStorage } from "nft.storage";
+import { MarketFactory, MarketPlace } from "../../config/const";
+import MarketplaceABI from "../../config/marketplace.json";
+import MarketFactoryABI from "../../config/MarketFactory.json";
+import { zeroAddress, decodeEventLog, DecodeEventLogParameters } from "viem";
+
+// import
 import MagnifyDialog from "./MagnifyDialog";
 import Image2MotionDialog from "./Image2MotionDialog";
 import MotionConfirmDialog from "./MotionConfirmDialog";
@@ -64,6 +73,12 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
   const [modelNum, setModelNum] = useState(0);
   const [title, setTitle] = useState("");
   const [imageData, setImageData] = useState<Image>(init);
+  const [isMe, setMe] = useState(false);
+  const { address, isConnected } = useAccount();
+  const [isMinting, setMinting] = useState(false);
+  const [nftName, setNftName] = useState("");
+  const [nftType, setNftType] = useState("");
+  const [description, setDescription] = useState("");
   const [densityValue, setDensityValue] = useState(5);
   const [activeButton, setActiveButton] = useState(true);
   const [srcType, setSrcType] = useState("image");
@@ -71,6 +86,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
   const [IsMoreVisible, setIsMoreVisible] = useState<boolean>(false);
   const MoreFunctionRef = useRef<HTMLDivElement>(null);
   useOutsideClick(MoreFunctionRef, setIsMoreVisible);
+  const { chain } = useNetwork();
 
   const handleMagnifyImage = () => {
     setMagnifyOpen(true);
@@ -115,6 +131,136 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
     onUpdate();
   };
 
+  const mintNFT = async () => {
+    if (!isMe) {
+      toast.error("Only Owner can mint NFT", {
+        autoClose: 1500,
+        containerId: "modal",
+      });
+      return;
+    }
+    if (!isConnected) {
+      toast.error("Please connect wallet!", {
+        autoClose: 1500,
+        containerId: "modal",
+      });
+      return;
+    }
+
+    const storage = new NFTStorage({
+      token: process.env.NEXT_PUBLIC_API_NFTSTORAGE as any,
+    });
+
+    let id = toast.loading("Uploading metadata....");
+    let id2;
+    setMinting(true);
+
+    let imgUrl;
+
+    try {
+      const url = imageData.image;
+      const params = {
+        Bucket: process.env.REACT_APP_BUCKET_NAME || "starkmeta-assets",
+        Key: url.substring(52),
+      };
+      const tmpUrl = await s3.getSignedUrlPromise("getObject", params);
+      const res = await fetch(tmpUrl);
+      if (res.status !== 200) {
+        toast.update(id, {
+          render: "Something went wrong in Uploading Metadata",
+          type: "error",
+        });
+        setMinting(false);
+        return;
+      }
+      const blob = await res.blob();
+      console.log("----------blob--------", blob);
+
+      imgUrl = await storage.store({
+        name: nftName,
+        description: description,
+        image: blob,
+        type: nftType,
+        // tags: tags,
+        // subCategory: subType,
+        // properties: _.reduce(
+        //   property,
+        //   (acc, { type, name }) => ({ ...acc, [type]: name }),
+        //   {}
+        // ),
+      });
+
+      toast.update(id, {
+        render: "Upload in Success!",
+        type: "success",
+      });
+      id2 = toast.loading("Creating NFT....");
+    } catch (e) {
+      toast.update(id, {
+        render: "Something went wrong in Uploading Metadata",
+        type: "error",
+      });
+      setMinting(false);
+      return;
+    }
+
+    const now = Date.now();
+    const tokenId = Math.round(Math.random() * 10000) * 1000000000000 + now
+    try {
+      const chainId = chain ? chain.id : 56;
+      let tx = await writeContract({
+        address: MarketPlace[chainId],
+        abi: MarketplaceABI,
+        functionName: "mint",
+        // args: [MarketFactory[chainId], "imgUrl.url", 3],
+        args: [zeroAddress, 'imgUrl.url', 3, tokenId],
+      });
+
+      const data: any = await waitForTransaction(tx);
+      console.log(data);
+
+      setMinting(false);
+      return;
+    } catch (e) {
+      console.log(e);
+      toast.update(id2, {
+        render: "Fail in Creating",
+        type: "error",
+      });
+    }
+    try {
+      const chainId = chain ? chain.id : 56;
+      const data = {
+        collectionId: MarketFactory[chainId],
+        chainId: chainId,
+        category: nftType,
+        // subCategory: subType,
+        // tags: tags,
+        metadata: imgUrl.url,
+        tokenId: String(tokenId),
+        // socials: {telegram: tg, twitter: tw, Discord: ds}
+        maker: address,
+      };
+
+      const result = await axios.post(
+        `${process.env.REACT_APP_MARKETPLACE_API_ENDPOINT}/addItem`,
+        data
+      );
+
+      toast.update(id2, {
+        render: "Creating Item",
+        type: "success",
+      });
+    } catch (e) {
+      console.log(e);
+      toast.update(id2, {
+        render: "Fail to create",
+        type: "error",
+      });
+    }
+    setMinting(false);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -143,6 +289,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
     const name = url.substring(pos + 1);
     if (res.status === 200) {
       const blob = await res.blob();
+      console.log("----------blob--------", blob);
       const blobUrl = URL.createObjectURL(blob);
 
       // Create a temporary anchor element and trigger a download
@@ -197,7 +344,12 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
     );
 
     console.log("ImageData:", modalCtx.imageData.data.negative_prompt);
-  }, [modalCtx.imageData]);
+    if (JSON.parse(user).email !== modalCtx.imageData.owner) {
+      setMe(false);
+    } else {
+      setMe(true);
+    }
+  }, [modalCtx.imageData, user]);
 
   const handleDensityChange = (event: Event, newValue: number | number[]) => {
     setDensityValue(newValue as number);
@@ -353,6 +505,48 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                   </div>
                 )}
               </div>
+              {isMe && (
+                <div className="flex flex-col space-y-2 p-2 border rounded-[7.2px] bg-[#202020] border-primary">
+                  <div className="flex space-x-2">
+                    <div className="mb-3 w-full rounded-[5.4px]">
+                      <input
+                        className="font-light text-[13px] font-Inter focus-visible:outline-0 text-[#fefefe] bg-[#171717] p-2 rounded-[6px]"
+                        placeholder="NFT name"
+                        value={nftName}
+                        onChange={(e) => setNftName(e.target.value)}
+                      />
+                    </div>
+                    <div className="mb-3 w-full rounded-[5.4px]">
+                      <input
+                        className="font-light text-[13px] font-Inter focus-visible:outline-0 text-[#fefefe] bg-[#171717] p-2 rounded-[6px]"
+                        placeholder="NFT type"
+                        value={nftType}
+                        onChange={(e) => setNftType(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                  <div className="mb-3 w-full rounded-[5.4px]">
+                    <textarea
+                      className="resize-none h-20 w-full font-light text-[13px] font-Inter focus-visible:outline-0 text-[#fefefe] bg-[#171717] p-2 rounded-[6px]"
+                      placeholder="Description..."
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {isMe && (
+                <button
+                  className="button-color py-2 px-4 text-[14px] flex justify-center items-center rounded-md text-white font-[530] flex-row gap-1"
+                  onClick={mintNFT}
+                >
+                  <span className="">
+                    <Icon icon="fluent:layer-20-filled" className="w-4 h-4" />
+                  </span>
+                  <span className=" select-none">Mint NFT</span>
+                </button>
+              )}
             </div>
 
             {/* right */}

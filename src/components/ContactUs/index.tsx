@@ -58,10 +58,10 @@ const ContactUs = () => {
         process.env.REACT_APP_PUBLIC_KEY
       )
       .then(
-        (response) => {
+        (response: any) => {
           console.log("Success!", response.status, response.text);
         },
-        (error) => {
+        (error: any) => {
           console.log("Failed", error);
         }
       );
