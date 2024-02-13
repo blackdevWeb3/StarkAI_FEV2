@@ -19,7 +19,7 @@ const MagnifyDialog = ({
       aria-describedby="alert-dialog-slide-description"
     >
       <ToastContainer containerId={"dialog"} />
-      <div className="bg-[#282c34] flex flex-col w-auto rounded-lg z-10 h-full">
+      <div className="bg-[#282c34] flex flex-col w-full rounded-lg z-10 h-full sm:h-auto">
         <div className="flex p-0 mt-0 rounded-lg w-auto h-[calc(100%-72px)]">
           <div className="flex justify-center m-auto relative w-auto h-full">
             <div className="flex justify-center w-auto h-full">
@@ -57,8 +57,8 @@ const MagnifyDialog = ({
           </div>
         </div>
         <div className="flex items-center justify-end ps-6 pe-6 flex-col p-0">
-          <div className="flex flex-row z-10 w-full p-4 justify-end">
-            <div className="sm:justify-center sm:items-center justify-end items-end gap-5 flex flex-row">
+          <div className="flex flex-row z-10 w-full p-4 justify-center">
+            <div className="sm:justify-center sm:items-center justify-end items-end gap-2 flex flex-row">
               <div className="sm:justify-center sm:items-center flex flex-end">
                 <button
                   onClick={handleDownload}

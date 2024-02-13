@@ -56,6 +56,7 @@ const Image2MotionDialog = ({
               padding: "20px",
               borderRadius: "40px",
             }}
+            alt="logo"
           />
         </div>
         <div className="flex flex-col gap-1 w-full px-5 py-3 bg-[#0d0e11] rounded-md text-white">
