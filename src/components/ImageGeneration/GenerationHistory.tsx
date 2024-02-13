@@ -20,7 +20,7 @@ const GenerationHistory: React.FC<GenerationHistoryProps> = ({ imageData }) => {
         </div>
       )} */}
 
-      <ImageList variant="masonry" cols={4} gap={8}>
+      <ImageList variant="masonry" cols={2} gap={8}>
         {imageData.map((item, index) => (
           <ImageListItem key={index}>
             <Card

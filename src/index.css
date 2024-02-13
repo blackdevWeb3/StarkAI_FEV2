@@ -194,3 +194,19 @@ dialog {
   top: 0px;
   left: 0px;
 }
+
+.css-jx1sa5-MuiSlider-thumb {
+  width: 10px !important;
+  height: 10px !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}

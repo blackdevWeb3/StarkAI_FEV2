@@ -385,7 +385,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
     >
       <ToastContainer containerId={"modal"} />
       <div
-        className="flex-1 px-8 py-5 mt-0 bg-modalBackground border-primary w-[876px] font-Inter relative"
+        className="flex-1 px-8 py-5 mt-0 bg-modalBackground border-primary max-w-[748px] font-Inter relative w-full"
         ref={ImgModalRef}
       >
         {modalCtx.index > 0 && (
@@ -413,7 +413,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
           </div>
         )}
         <div className="flex flex-col items-center relative">
-          <div className="grid grid-cols-2 gap-x-5">
+          <div className="flex flex-row gap-5 sm:flex-col">
             {/* left */}
             <div>
               <div

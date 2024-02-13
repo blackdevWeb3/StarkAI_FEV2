@@ -3,6 +3,19 @@ import { LockClosed, LockOpened } from "../../assets";
 import { Icon } from "@iconify/react";
 import { Slider } from "@mui/material";
 
+const ratios = [
+  { label: "Aspect Ratio", value: "n:m" },
+  { label: "1:1", value: "1" },
+  { label: "1:2", value: "1/2" },
+  { label: "2:3", value: "2/3" },
+  { label: "3:2", value: "3/2" },
+  { label: "3:4", value: "3/4" },
+  { label: "4:3", value: "4/3" },
+  { label: "9:16", value: "9/16" },
+  { label: "16:9", value: "16/9" },
+  { label: "2.39:1", value: "2.39" },
+];
+
 interface CollapsibleSectionProps {
   title: string;
   optionsGroup: string[];
@@ -10,6 +23,18 @@ interface CollapsibleSectionProps {
   setIsDimensionOpened: (isOpen: boolean) => void;
   selectedOption: string;
   setSelectedOption: (value: string) => void;
+  sliderWidthDimension: number;
+  sliderHeightDimension: number;
+  handleSliderChange: (event, newValue) => void;
+  handleDimensionInputChange: (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => void;
+  handleInputBlur: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  lockOpened: boolean;
+  dimensionRatio: string;
+  handleLockOpenedState: () => void;
+  handleDRatioChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  convertWH: () => void;
 }
 
 const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
@@ -19,6 +44,16 @@ const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
   setIsDimensionOpened,
   selectedOption,
   setSelectedOption,
+  sliderWidthDimension,
+  sliderHeightDimension,
+  handleSliderChange,
+  handleDimensionInputChange,
+  handleInputBlur,
+  lockOpened,
+  handleLockOpenedState,
+  dimensionRatio,
+  handleDRatioChange,
+  convertWH,
 }) => {
   return (
     <div className="border-b-[1px] border-[#ffffff29] py-3 font-chakra">
@@ -75,37 +110,95 @@ const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
       >
         <p>Advanced Controls</p>
         <div className="flex flex-row w-full relative items-center gap-2 pt-3">
-          <button className="lock-button">
-            <span className="h-3 w-3 flex items-center justify-center">
-              <LockClosed />
-            </span>
+          <button className="lock-button" onClick={handleLockOpenedState}>
+            {lockOpened ? (
+              <span className="h-3 w-3 flex items-center justify-center">
+                <LockOpened />
+              </span>
+            ) : (
+              <span className="h-3 w-3 flex items-center justify-center">
+                <LockClosed />
+              </span>
+            )}
           </button>
           <div className="w-full relative text-[#9094a6] h-fit">
-            <select className="select-ratio hover:border-[#7258f2] hover:cursor-pointer"></select>
+            <select
+              className="select-ratio hover:border-[#7258f2] hover:cursor-pointer"
+              disabled={!lockOpened}
+              value={dimensionRatio}
+              onChange={handleDRatioChange}
+            >
+              {ratios.map((ratio) => (
+                <option key={ratio.value} value={ratio.value}>
+                  {ratio.label}
+                </option>
+              ))}
+            </select>
             <div className="absolute flex w-6 h-full right-2 items-center justify-center top-1/2 text-[#9094a6] translate-y-[-50%] z-[2]">
               <Icon icon="majesticons:chevron-down" />
             </div>
           </div>
         </div>
-        <div className="flex flex-row items-center gap-3 pt-3">
-          <Slider />
-          <div className="w-full relative flex isolate items-center">
+        <div className="flex flex-row items-center gap-3 pt-3 w-full">
+          <div className="pl-2 w-1/2 flex items-center">
+            <Slider
+              min={512}
+              max={1536}
+              name="width"
+              onChange={handleSliderChange}
+              value={sliderWidthDimension}
+              disabled={!lockOpened}
+            />
+          </div>
+          <div className="w-1/2 relative flex isolate items-center">
             <div className="absolute left-0 w-10 h-10 z-[2] flex items-center justify-center top-0 bottom-0 m-auto pointer-events-none">
               <p>W</p>
             </div>
-            <input className="input-ratio"></input>
+            <input
+              type="number"
+              className="input-ratio text-[14px]"
+              name="width"
+              value={sliderWidthDimension}
+              onChange={handleDimensionInputChange}
+              onBlur={handleInputBlur}
+              disabled={!lockOpened}
+            ></input>
             <div className="absolute right-0 w-10 h-10 z-[2] flex items-center justify-center top-0 bottom-0 m-auto pointer-events-none">
               <p className="text-[#9094a6] text-[14px] mb-1">px</p>
             </div>
+            <button
+              className="absolute bottom-0 left-[calc(50%-18px)] translate-y-[14px] z-10 bg-[#0b0f17] px-3 py-1 border-[#242C3E] border rounded-full hover:border-[#7258F2] hover:bg-[#1E1644]"
+              onClick={convertWH}
+              disabled={!lockOpened}
+            >
+              <Icon icon="iconamoon:swap-thin" className="w-3 h-3" />
+            </button>
           </div>
         </div>
-        <div className="flex flex-row items-center gap-3 pt-3">
-          <Slider />
-          <div className="w-full relative flex isolate items-center">
+        <div className="flex flex-row items-center gap-3 pt-3 w-full">
+          <div className="pl-2 w-1/2 flex items-center">
+            <Slider
+              min={512}
+              max={1536}
+              name="height"
+              onChange={handleSliderChange}
+              value={sliderHeightDimension}
+              disabled={!lockOpened}
+            />
+          </div>
+          <div className="w-1/2 relative flex isolate items-center">
             <div className="absolute left-0 w-10 h-10 z-[2] flex items-center justify-center top-0 bottom-0 m-auto pointer-events-none">
               <p>H</p>
             </div>
-            <input className="input-ratio"></input>
+            <input
+              type="number"
+              className="input-ratio text-[14px]"
+              name="height"
+              value={sliderHeightDimension}
+              onChange={handleDimensionInputChange}
+              onBlur={handleInputBlur}
+              disabled={!lockOpened}
+            />
             <div className="absolute right-0 w-10 h-10 z-[2] flex items-center justify-center top-0 bottom-0 m-auto pointer-events-none">
               <p className="text-[#9094a6] text-[14px] mb-1">px</p>
             </div>

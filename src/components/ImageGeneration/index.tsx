@@ -87,6 +87,89 @@ const ImageGeneration = () => {
   const uploadImgRef = useRef<HTMLInputElement>(null);
   const [imgData, setImgData] = useState<any>(null);
   const { address, isConnected } = useAccount();
+  const [sliderWidthDimension, setSliderWidthDimension] = useState<number>(512);
+  const [sliderHeightDimension, setSliderHeightDimension] =
+    useState<number>(512);
+  const [lockOpened, setLockOpened] = useState<boolean>(false);
+  const [dimensionRatio, setDimensionRatio] = useState<string>("");
+
+  const convertWH = () => {
+    const currentWidth = sliderWidthDimension;
+    const currentHeight = sliderHeightDimension;
+    setSliderWidthDimension(currentHeight);
+    setSliderHeightDimension(currentWidth);
+  };
+
+  // const handleDRatioChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  //   const currentRatio = event.target.value;
+  //   console.log("Current Ratio:", currentRatio);
+  //   if (currentRatio.includes("/") || currentRatio.includes(":")) {
+  //     console.log("Ratio:", eval(currentRatio));
+  //   }
+  //   setDimensionRatio(event.target.value);
+  // };
+
+  const handleDRatioChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = event.target.value;
+    // Check if the value contains ':' or '/' indicating it's a ratio and needs evaluation
+    if (selectedValue.includes("/") || selectedValue.includes(":")) {
+      setSliderHeightDimension(
+        Math.trunc(sliderWidthDimension / eval(selectedValue))
+      );
+      setDimensionRatio(event.target.value);
+    } else {
+      setDimensionRatio(parseFloat(selectedValue).toString());
+      setDimensionRatio(event.target.value);
+    }
+  };
+
+  const handleLockState = () => {
+    setLockOpened(!lockOpened);
+  };
+
+  const handleInputBlur = (event: React.ChangeEvent<HTMLInputElement>) => {
+    switch (event.target.name) {
+      case "width":
+        setSliderWidthDimension(
+          Math.max(512, Math.min(1536, sliderWidthDimension))
+        );
+        break;
+      case "height":
+        setSliderHeightDimension(
+          Math.max(512, Math.min(1536, sliderHeightDimension))
+        );
+        break;
+      default:
+    }
+  };
+
+  const handleDimensionInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const inputValue = event.target.valueAsNumber;
+    if (event.target.name === "width") {
+      setSliderWidthDimension(inputValue);
+    } else if (event.target.name === "height")
+      setSliderHeightDimension(inputValue);
+  };
+
+  const handleSliderChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    newValue: number | number[]
+  ) => {
+    if (typeof newValue === "number") {
+      const target = event.target;
+      switch (target.name) {
+        case "width":
+          setSliderWidthDimension(Math.max(512, Math.min(1536, newValue)));
+          break;
+        case "height":
+          setSliderHeightDimension(Math.max(512, Math.min(1536, newValue)));
+          break;
+        default:
+      }
+    }
+  };
 
   const handleUpload = () => {
     uploadImgRef.current?.click();
@@ -267,15 +350,15 @@ const ImageGeneration = () => {
         args: [MarketPlace[chainId], generateImageFee],
       });
       console.log(tx);
-      let data = await waitForTransaction(tx)
-      console.log('-------data-------', data)
+      let data = await waitForTransaction(tx);
+      console.log("-------data-------", data);
       tx = await writeContract({
         address: MarketPlace[chainId],
         abi: MarketPlaceABI,
         functionName: "generateImage",
       });
-      data = await waitForTransaction(tx)
-      console.log('-------data-2------', data)
+      data = await waitForTransaction(tx);
+      console.log("-------data-2------", data);
       if (activeTab === "generationHistory") {
         const data = {
           user: JSON.parse(user).email,
@@ -285,7 +368,7 @@ const ImageGeneration = () => {
           presetStyle: generationStyle,
           numberOfImages: selectedNumber,
           dimension: selectedOption,
-        negative_prompt: negativePromptText,
+          negative_prompt: negativePromptText,
         };
         socket.emit("text-to-image", data);
       } else {
@@ -299,7 +382,7 @@ const ImageGeneration = () => {
           dimension: selectedOption,
           density: densityValue.toString(),
           image: imgData,
-        negative_prompt: negativePromptText,
+          negative_prompt: negativePromptText,
         };
         socket.emit("image-to-image", data);
       }
@@ -718,8 +801,18 @@ const ImageGeneration = () => {
             optionsGroup={dimensionsGroup}
             isDimensionOpened={isDimensionOpened}
             setIsDimensionOpened={SetIsDimensionOpened}
-            selectedOption={selectedOption} // Pass this as a prop
-            setSelectedOption={setSelectedOption} // Pass this as a prop
+            selectedOption={selectedOption}
+            setSelectedOption={setSelectedOption}
+            sliderWidthDimension={sliderWidthDimension}
+            sliderHeightDimension={sliderHeightDimension}
+            handleSliderChange={handleSliderChange}
+            handleDimensionInputChange={handleDimensionInputChange}
+            handleInputBlur={handleInputBlur}
+            lockOpened={lockOpened}
+            handleLockOpenedState={handleLockState}
+            dimensionRatio={dimensionRatio}
+            handleDRatioChange={handleDRatioChange}
+            convertWH={convertWH}
           />
         </div>
       </div>
