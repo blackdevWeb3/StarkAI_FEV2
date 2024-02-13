@@ -883,23 +883,6 @@
   aspect-ratio: inherit;
 }
 
-.css-22jxwj-MuiPaper-root-MuiDialog-paper {
-  max-width: none !important;
-  width: auto !important;
-  background-color: transparent !important;
-  padding: 32px;
-  height: 100% !important;
-}
-
-.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
-  height: 100% !important;
-  width: auto !important;
-  max-width: calc(100% - 200px) !important;
-  background-color: #282c34 !important;
-  padding: 0px 0px !important;
-  border-radius: 8px !important;
-}
-
 .css-187mznn-MuiSlider-root {
   color: #ff31f8 !important;
 }
