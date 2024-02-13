@@ -385,7 +385,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
     >
       <ToastContainer containerId={"modal"} />
       <div
-        className="flex-1 px-8 py-5 mt-0 bg-modalBackground border-primary max-w-[748px] font-Inter relative w-full"
+        className="flex-1 px-8 py-5 mt-0 bg-modalBackground border-primary md:min-w-[768px] font-Inter relative w-full max-w-[1000px]"
         ref={ImgModalRef}
       >
         {modalCtx.index > 0 && (
@@ -511,7 +511,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                 )}
               </div>
               {isMe && (
-                <div className="flex flex-col space-y-2 p-2 border rounded-[7.2px] bg-[#202020] border-primary">
+                <div className="flex flex-col space-y-2 p-2 border rounded-[7.2px] bg-[#202020] border-primary mt-2">
                   <div className="flex space-x-2">
                     <div className="mb-3 w-full rounded-[5.4px]">
                       <input
@@ -543,7 +543,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
 
               {isMe && (
                 <button
-                  className="button-color py-2 px-4 text-[14px] flex justify-center items-center rounded-md text-white font-[530] flex-row gap-1"
+                  className="button-color py-2 px-4 text-[14px] flex justify-center items-center rounded-md text-white font-[530] flex-row gap-1 mt-2"
                   onClick={mintNFT}
                 >
                   <span className="">
@@ -599,7 +599,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                   </div>
                 </div>
                 {srcType === "image" && (
-                  <div className="flex flex-row items-center justify-between mt-3">
+                  <div className="flex flex-row items-center justify-between sm:justify-start sm:gap-1 mt-3">
                     <div className="block">
                       <button className="inline-flex rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 px-3 button-detail">
                         <span className="self-center inline-flex flex-shrink-[0] me-[6px]">

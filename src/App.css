@@ -896,7 +896,7 @@
   width: auto !important;
   max-width: calc(100% - 200px) !important;
   background-color: #282c34 !important;
-  padding: 0px 32px !important;
+  padding: 0px 0px !important;
   border-radius: 8px !important;
 }
 
