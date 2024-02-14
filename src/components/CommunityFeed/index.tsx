@@ -9,6 +9,8 @@ import ModalImgCard from "../Modal/ModalImgCard";
 import { ImageList, ImageListItem, useTheme, Slider } from "@mui/material";
 import ModalContext from "../../utils/modalContext";
 import useWindowSize from "../../hooks/useWindowSize";
+import SortSelectionButtonGroup from "../Others/SortSelectionButtonGroup";
+import { sortOptions } from "../Others/SortSelectionButtonGroup";
 
 type StyleOptions = "All" | "Upscaled" | "Motion";
 
@@ -51,6 +53,13 @@ const CommunityFeed = () => {
   const windowSize = useWindowSize();
   const [selectedStyle, setSelectedStyle] = useState<StyleOptions>("All");
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [selectedOption, setSelectedOption] = useState(sortOptions[0]);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+    setIsOpen(false);
+  };
 
   const scroll = (direction: "left" | "right") => {
     if (scrollContainerRef.current) {
@@ -177,18 +186,42 @@ const CommunityFeed = () => {
             </div>
             <div className="flex items-start gap-3 justify-start text-[18px] flex-col w-full relative">
               <div className="flex flex-row gap-4 items-center flex-wrap">
-                <div className="grid-explore block z-[1]">
-                  <button className="primary-button rounded-full h-10">
-                    <span className="flex-auto pointer-events-none flex flex-row gap-2 items-center">
-                      <Icon icon="icon-park-solid:fire" />
-                      <span>Trending</span>
-                      <Icon icon="icon-park-solid:down-one" />
-                    </span>
-                  </button>
-                </div>
                 {/* <div className="block">
                   <hr className="opacity-60 border-[#4A5568] border-[1px] h-8"></hr>
                 </div> */}
+                <div className="grid-explore block z-[1]">
+                  <SortSelectionButtonGroup
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                    selectedOption={selectedOption}
+                    handleOptionClick={handleOptionClick}
+                  />
+                  {/* <div className="relative">
+             
+                    <div
+                      className="primary-button rounded-full h-10 flex items-center justify-between w-36"
+                      onClick={() => setIsOpen(!isOpen)}
+                    >
+                      <Icon icon={selectedOption.icon} />
+                      {selectedOption.label}
+                      <Icon icon="icon-park-solid:down-one" />
+                    </div>
+                    {isOpen && (
+                      <div className="absolute bg-[#273748] w-full pt-8 pb-2 px-5 border border-[#ffffff29] -translate-y-6 z-[-1] rounded-br-2xl rounded-bl-2xl">
+                        {options.map((option, index) => (
+                          <div
+                            key={index}
+                            className="flex flex-row items-center text-[16px] gap-3 py-1"
+                            onClick={() => handleOptionClick(option)}
+                          >
+                            <Icon icon={option.icon} className="w-4 h-4" />
+                            {option.label}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div> */}
+                </div>
                 <div className="grid-type block">
                   <div className="inline-flex overflow-hidden rounded-full bg-[#0c0f16] items-center">
                     <SortButton
