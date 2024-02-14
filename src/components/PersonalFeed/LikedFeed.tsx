@@ -1,83 +1,211 @@
 import { Icon } from "@iconify/react";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import { ImageList, ImageListItem, Slider } from "@mui/material";
+
+import { useUser } from "../../context/UserContext";
+import ModalContext from "../../utils/modalContext";
+import { Image } from "../../utils/types";
+import Card from "../Others/Card";
+import ModalImgCard from "../Modal/ModalImgCard";
+import useWindowSize from "../../hooks/useWindowSize";
 
 const LikedFeed = () => {
-  const [activeButton, setActiveButton] = useState(false);
+  const windowSize = useWindowSize();
+  const [activeButton, setActiveButton] = useState(true);
+  const [searchKey, setSearchKey] = useState("");
+  const { user }: any = useUser();
+  const modalCtx = useContext(ModalContext);
+  const [imageData, setImageData] = useState<Image[]>([]);
+  const [searchedData, setSearchedData] = useState<Image[]>([]);
+  const [searched, setSearched] = useState(false);
+  const [maxStretch, setMaxStretch] = useState(5);
+  const [curVal, setCurVal] = useState(5);
+  const [sliderValue, setSliderValue] = useState(5);
+
+  const updateLibrary = () => {
+    const func = async () => {
+      const res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_API}/getLikeImages`,
+        { email: JSON.parse(user).email }
+      );
+      if (res.status === 200) {
+        var tmp = res.data.images;
+        // tmp.sort((a: Image, b: Image) => {
+        //   const dateA = new Date(a.created).getTime();
+        //   const dateB = new Date(b.created).getTime();
+        //   return dateB - dateA;
+        // });
+        tmp.reverse();
+        setImageData(tmp);
+      } else {
+        console.log("Error occurred");
+      }
+    };
+    func();
+  };
+
+  useEffect(() => {
+    if (imageData.length > 0) return;
+    updateLibrary();
+  });
+
+  const onNextImage = () => {
+    const ind = modalCtx.index;
+    modalCtx.setData(imageData[ind + 1]);
+    modalCtx.setIndex(ind + 1);
+  };
+
+  const onPrevImage = () => {
+    const ind = modalCtx.index;
+    modalCtx.setData(imageData[ind - 1]);
+    modalCtx.setIndex(ind - 1);
+  };
+
+  const handleSearch = () => {
+    const lowerKey = searchKey.toLowerCase();
+    const tmp = imageData.filter((item: Image) => {
+      const lowerPrompt = item.data.prompt.toLowerCase();
+      return lowerPrompt.includes(lowerKey);
+    });
+    setSearchedData(tmp);
+    setSearched(true);
+  };
+  useEffect(() => {
+    const wid = windowSize;
+    if (wid > 1280 && maxStretch !== 5) setMaxStretch(5);
+    if (wid > 1024 && wid <= 1280 && maxStretch !== 4) setMaxStretch(4);
+    if (wid > 768 && wid <= 1024 && maxStretch !== 3) setMaxStretch(3);
+    if (wid > 480 && wid <= 768 && maxStretch !== 2) setMaxStretch(2);
+    if (wid <= 480 && maxStretch !== 1) setMaxStretch(1);
+  }, [windowSize]);
+
+  useEffect(() => {
+    setCurVal(sliderValue < maxStretch ? sliderValue : maxStretch);
+  }, [maxStretch]);
+
+  const handleStretch = (event: Event, newValue: number | number[]) => {
+    setSliderValue(newValue as number);
+    setCurVal(newValue as number);
+  };
+
   return (
     <>
-      <div className="sticky z-10 w-full bg-black pt-4">
-        <div className="px-8 sm:px-4">
-          <div className="flex flex-col w-full gap-5">
-            <div className="flex flex-row justify-between gap-4 flex-wrap">
-              <div className="search-panel w-[376px]">
-                <span className="search-icon">
-                  <Icon icon="ic:round-search" className="w-5 h-5" />
-                </span>
-                <input
-                  className="search-input font-chakra"
-                  placeholder="Search gallery"
-                ></input>
-                <button className="search-button">Search</button>
+      <div className="relative">
+        {/* TabView Settings */}
+        <div className="sticky z-10 w-full bg-black pt-4 top-0">
+          <div className="px-8 sm:px-4">
+            <div className="flex flex-col w-full gap-5">
+              <div className="flex flex-wrap justify-between gap-4">
+                <div className="search-panel w-[376px]">
+                  <span className="search-icon">
+                    <Icon icon="ic:round-search" className="w-5 h-5" />
+                  </span>
+                  <input
+                    className="search-input font-chakra"
+                    placeholder="Search gallery"
+                    value={searchKey}
+                    onChange={(ev) => setSearchKey(ev.target.value)}
+                  ></input>
+                  <button onClick={handleSearch} className="search-button">
+                    Search
+                  </button>
+                </div>
+                <div className="flex flex-row w-[364px]">
+                  <div className="button-group border-primary">
+                    <button className="button-element">
+                      <span className="button-icon">
+                        <Icon icon="ri:fire-fill" className="w-4 h-4" />
+                      </span>
+                      <span className="button-title">Trending</span>
+                    </button>
+                    <button className="button-element">
+                      <span className="button-icon">
+                        <Icon
+                          icon="mynaui:spinner"
+                          rotate={3}
+                          className="w-4 h-4"
+                        />
+                      </span>
+                      <span className="button-title">New</span>
+                      <span className="button-selected"></span>
+                    </button>
+                    <button className="button-element">
+                      <span className="button-icon">
+                        <Icon icon="ri:fire-fill" className="w-4 h-4" />
+                      </span>
+                      <span className="button-title">Top</span>
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div className="flex flex-row w-[364px]">
-                <div className="button-group border-primary">
-                  <button className="button-element">
-                    <span className="button-icon">
-                      <Icon icon="ri:fire-fill" className="w-4 h-4" />
+              <div className="flex flex-row justify-between gap-4 flex-wrap">
+                <div className="flex bg-[#0c0f16] overflow-hidden rounded-lg">
+                  <button
+                    className={`button-item w-[116px] ${
+                      activeButton ? "active" : ""
+                    }`}
+                    onClick={() => setActiveButton(true)}
+                  >
+                    <span className="font-chakra relative z-10 button-font">
+                      All
                     </span>
-                    <span className="button-title">Trending</span>
+                    <div className="button-cover"></div>
                   </button>
-                  <button className="button-element">
-                    <span className="button-icon">
-                      <Icon
-                        icon="mynaui:spinner"
-                        rotate={3}
-                        className="w-4 h-4"
-                      />
+                  <button
+                    className={`button-item w-[116px] ${
+                      !activeButton ? "active" : ""
+                    }`}
+                    onClick={() => setActiveButton(false)}
+                  >
+                    <span className="font-chakra relative z-10 button-font">
+                      Upscaled
                     </span>
-                    <span className="button-title">New</span>
-                    <span className="button-selected"></span>
+                    <div className="button-cover"></div>
                   </button>
-                  <button className="button-element">
-                    <span className="button-icon">
-                      <Icon icon="ri:fire-fill" className="w-4 h-4" />
-                    </span>
-                    <span className="button-title">Top</span>
-                  </button>
+                </div>
+                <div className="w-[200px] h-[31px] sm:hidden flex">
+                  <Slider
+                    aria-label="Volume"
+                    min={1}
+                    max={maxStretch}
+                    valueLabelDisplay="auto"
+                    value={sliderValue}
+                    onChange={handleStretch}
+                  />
                 </div>
               </div>
             </div>
-            <div className="flex flex-row justify-between gap-4">
-              <div className="flex bg-[#0c0f16] overflow-hidden rounded-lg">
-                <button
-                  className={`button-item w-[116px] ${
-                    activeButton ? "active" : ""
-                  }`}
-                  onClick={() => setActiveButton(true)}
-                >
-                  <span className="font-chakra relative z-10 button-font">
-                    All
-                  </span>
-                  <div className="button-cover"></div>
-                </button>
-                <button
-                  className={`button-item w-[116px] ${
-                    !activeButton ? "active" : ""
-                  }`}
-                  onClick={() => setActiveButton(false)}
-                >
-                  <span className="font-chakra relative z-10 button-font">
-                    Upscaled
-                  </span>
-                  <div className="button-cover"></div>
-                </button>
-              </div>
-              <div className=""></div>
-            </div>
+            <div className=""></div>
           </div>
-          <div className=""></div>
+          <hr className=" border-gray-800 mt-7" />
         </div>
-        <hr className=" border-gray-800 mt-7" />
+
+        {/* TabView Content */}
+
+        <ImageList
+          variant="masonry"
+          cols={curVal}
+          gap={8}
+          sx={{ padding: "12px" }}
+        >
+          {(searched ? searchedData : imageData).map((item, index) => (
+            <ImageListItem key={index}>
+              <Card
+                data={item}
+                index={index}
+                count={imageData.length}
+                key={index}
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
+
+        <ModalImgCard
+          onUpdate={updateLibrary}
+          onNextImage={onNextImage}
+          onPrevImage={onPrevImage}
+        />
       </div>
     </>
   );

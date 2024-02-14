@@ -7,6 +7,7 @@ import updateUserInfo from "../../api/updateUserInfo";
 const Profile: React.FC = () => {
   const { user, setUser }: any = useUser();
   const user_string = JSON.parse(user === "None" ? "{}" : user);
+  console.log(user_string);
   const [avatarSrc, setAvatarSrc] = useState<string | ArrayBuffer | null>(
     user_string?.avatar || ""
   );
@@ -52,6 +53,7 @@ const Profile: React.FC = () => {
 
   const handleSaveChange = () => {
     updateUserInfo({ username: username, email: email, avatar: avatarSrc });
+    // setUser({ username: username, email: email, avatar: avatarSrc });
   };
 
   if (user === "None" || user === undefined) {
