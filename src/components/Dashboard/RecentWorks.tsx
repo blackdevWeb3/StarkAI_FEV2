@@ -56,7 +56,7 @@ const RecentWorks = () => {
           ))}
         </ImageList> */}
           {imageData.length > 0 && (
-            <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-1 lg:grid-cols-4 2xl:grid-cols-5 grid-cols-1 gap-4 py-6 px-4 md:px-8 sm:px-4 justify-start">
+            <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 grid-cols-4 gap-4 py-6 px-4 md:px-8 sm:px-4 justify-start">
             
               {imageData.map((item, index) => (
                 <ImageListItem key={index}>
