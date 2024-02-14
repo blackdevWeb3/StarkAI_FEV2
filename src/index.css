@@ -239,3 +239,13 @@ input[type="number"] {
     border-radius: 8px !important;
   }
 }
+
+.sort-dropdown {
+  visibility: visible;
+  --popper-transform-origin: top left;
+  position: absolute;
+  inset: 0px auto auto 0px;
+  margin: 0px;
+  transform: translate(32px, 76px);
+  width: 144px;
+}
