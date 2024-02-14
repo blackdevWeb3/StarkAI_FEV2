@@ -93,6 +93,23 @@ const CommunityFeed = () => {
     modalCtx.setIndex(ind - 1);
   };
 
+  async function filterImage(data: Image[], extension: string) {
+    if (data.length > 0) {
+      return data.filter((item) => item.image.includes(extension));
+    } else return [];
+  }
+
+  const hashtagFilter = (param: StyleOptions) => {
+    setSelectedStyle(param);
+    const filterKey =
+      param === "All" ? "" : param === "Motion" ? ".mp4" : ".jpg";
+    const tmp = imageData.filter((item: Image) => {
+      return item.image.includes(filterKey);
+    });
+    setSearchedData(tmp);
+    setSearched(true);
+  };
+
   const handleSearch = () => {
     const lowerKey = searchKey.toLowerCase();
     const tmp = imageData.filter((item: Image) => {
@@ -102,6 +119,7 @@ const CommunityFeed = () => {
     setSearchedData(tmp);
     setSearched(true);
   };
+
   useEffect(() => {
     const wid = windowSize;
     if (wid > 1280 && maxStretch !== 5) setMaxStretch(5);
@@ -176,17 +194,17 @@ const CommunityFeed = () => {
                     <SortButton
                       label="All"
                       isSelected={selectedStyle === "All"}
-                      onClick={() => setSelectedStyle("All")}
+                      onClick={() => hashtagFilter("All")}
                     />
                     <SortButton
                       label="Upscaled"
                       isSelected={selectedStyle === "Upscaled"}
-                      onClick={() => setSelectedStyle("Upscaled")}
+                      onClick={() => hashtagFilter("Upscaled")}
                     />
                     <SortButton
                       label="Motion"
                       isSelected={selectedStyle === "Motion"}
-                      onClick={() => setSelectedStyle("Motion")}
+                      onClick={() => hashtagFilter("Motion")}
                     />
                   </div>
                 </div>
