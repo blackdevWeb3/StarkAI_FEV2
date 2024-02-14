@@ -9,6 +9,8 @@ import { Image } from "../../utils/types";
 import Card from "../Others/Card";
 import ModalImgCard from "../Modal/ModalImgCard";
 import useWindowSize from "../../hooks/useWindowSize";
+import { sortOptions } from "../Others/SortSelectionButtonGroup";
+import SortSelectionButtonGroup from "../Others/SortSelectionButtonGroup";
 
 const LikedFeed = () => {
   const windowSize = useWindowSize();
@@ -22,6 +24,28 @@ const LikedFeed = () => {
   const [maxStretch, setMaxStretch] = useState(5);
   const [curVal, setCurVal] = useState(5);
   const [sliderValue, setSliderValue] = useState(5);
+  const [selectedOption, setSelectedOption] = useState(sortOptions[0]);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleStretch = (event: Event, newValue: number | number[]) => {
+    setSliderValue(newValue as number);
+    setCurVal(newValue as number);
+  };
+
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+    setIsOpen(false);
+  };
+
+  const handleSearch = () => {
+    const lowerKey = searchKey.toLowerCase();
+    const tmp = imageData.filter((item: Image) => {
+      const lowerPrompt = item.data.prompt.toLowerCase();
+      return lowerPrompt.includes(lowerKey);
+    });
+    setSearchedData(tmp);
+    setSearched(true);
+  };
 
   const updateLibrary = () => {
     const func = async () => {
@@ -62,15 +86,6 @@ const LikedFeed = () => {
     modalCtx.setIndex(ind - 1);
   };
 
-  const handleSearch = () => {
-    const lowerKey = searchKey.toLowerCase();
-    const tmp = imageData.filter((item: Image) => {
-      const lowerPrompt = item.data.prompt.toLowerCase();
-      return lowerPrompt.includes(lowerKey);
-    });
-    setSearchedData(tmp);
-    setSearched(true);
-  };
   useEffect(() => {
     const wid = windowSize;
     if (wid > 1280 && maxStretch !== 5) setMaxStretch(5);
@@ -83,11 +98,6 @@ const LikedFeed = () => {
   useEffect(() => {
     setCurVal(sliderValue < maxStretch ? sliderValue : maxStretch);
   }, [maxStretch]);
-
-  const handleStretch = (event: Event, newValue: number | number[]) => {
-    setSliderValue(newValue as number);
-    setCurVal(newValue as number);
-  };
 
   return (
     <>
@@ -107,36 +117,17 @@ const LikedFeed = () => {
                     value={searchKey}
                     onChange={(ev) => setSearchKey(ev.target.value)}
                   ></input>
-                  <button onClick={handleSearch} className="search-button">
+                  <button onClick={handleSearch} className="search-button h-8">
                     Search
                   </button>
                 </div>
-                <div className="flex flex-row w-[364px]">
-                  <div className="button-group border-primary">
-                    <button className="button-element">
-                      <span className="button-icon">
-                        <Icon icon="ri:fire-fill" className="w-4 h-4" />
-                      </span>
-                      <span className="button-title">Trending</span>
-                    </button>
-                    <button className="button-element">
-                      <span className="button-icon">
-                        <Icon
-                          icon="mynaui:spinner"
-                          rotate={3}
-                          className="w-4 h-4"
-                        />
-                      </span>
-                      <span className="button-title">New</span>
-                      <span className="button-selected"></span>
-                    </button>
-                    <button className="button-element">
-                      <span className="button-icon">
-                        <Icon icon="ri:fire-fill" className="w-4 h-4" />
-                      </span>
-                      <span className="button-title">Top</span>
-                    </button>
-                  </div>
+                <div className="flex flex-row z-50">
+                  <SortSelectionButtonGroup
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                    selectedOption={selectedOption}
+                    handleOptionClick={handleOptionClick}
+                  />
                 </div>
               </div>
               <div className="flex flex-row justify-between gap-4 flex-wrap">
