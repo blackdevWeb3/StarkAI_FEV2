@@ -30,3 +30,5 @@ export { ReactComponent as MoreSVG } from "./more.svg";
 
 export { ReactComponent as LockClosed } from "./lockClosed.svg";
 export { ReactComponent as LockOpened } from "./lockOpened.svg";
+
+export { ReactComponent as CloseButton } from "./closeButton.svg";

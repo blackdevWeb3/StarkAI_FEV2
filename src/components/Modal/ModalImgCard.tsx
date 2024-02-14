@@ -64,6 +64,7 @@ const init: Image = {
 const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
   const s3 = new AWS.S3();
   const { user }: any = useUser();
+  const userObject = JSON.parse(user === "None" ? "{}" : user);
   const modalCtx = useContext(ModalContext);
   const [createdDate, setCreatedDate] = useState("");
   const ImgModalRef = useRef<HTMLDivElement>(null);
@@ -116,7 +117,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
   };
 
   const deleteImageHandler = async (type: number) => {
-    if (JSON.parse(user).email !== imageData.owner) {
+    if (userObject?.email !== imageData.owner) {
       toast.error("Only Owner can delete image", {
         autoClose: 1500,
         containerId: type === 1 ? "modal" : "dialog",
@@ -205,7 +206,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
     }
 
     const now = Date.now();
-    const tokenId = Math.round(Math.random() * 10000) * 1000000000000 + now
+    const tokenId = Math.round(Math.random() * 10000) * 1000000000000 + now;
     try {
       const chainId = chain ? chain.id : 56;
       let tx = await writeContract({
@@ -213,7 +214,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
         abi: MarketplaceABI,
         functionName: "mint",
         // args: [MarketFactory[chainId], "imgUrl.url", 3],
-        args: [zeroAddress, 'imgUrl.url', 3, tokenId],
+        args: [zeroAddress, "imgUrl.url", 3, tokenId],
       });
 
       const data: any = await waitForTransaction(tx);
@@ -282,7 +283,10 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
 
   const handleDownload = async () => {
     const url = imageData.image;
-    const tmpUrl = await axios.post(`${process.env.REACT_APP_BACKEND_API}/getSignedUrl`, {url:url});
+    const tmpUrl = await axios.post(
+      `${process.env.REACT_APP_BACKEND_API}/getSignedUrl`,
+      { url: url }
+    );
     console.log(tmpUrl.data);
     const res = await fetch(tmpUrl.data);
     const pos = url.lastIndexOf("/");
@@ -344,7 +348,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
     );
 
     console.log("ImageData:", modalCtx.imageData.data.negative_prompt);
-    if (JSON.parse(user).email !== modalCtx.imageData.owner) {
+    if (userObject?.email !== modalCtx.imageData.owner) {
       setMe(false);
     } else {
       setMe(true);
@@ -359,7 +363,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
     handleConfirmOpen();
     const tmpData: Image = {
       ...imageData,
-      owner: JSON.parse(user).email,
+      owner: userObject?.email,
     };
     const data = {
       imageId: imageData.generationID,
@@ -381,7 +385,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
     >
       <ToastContainer containerId={"modal"} />
       <div
-        className="flex-1 px-8 py-5 mt-0 bg-modalBackground border-primary w-[876px] font-Inter relative"
+        className="flex-1 px-8 py-5 mt-0 bg-modalBackground border-primary md:min-w-[768px] font-Inter relative w-full max-w-[1000px]"
         ref={ImgModalRef}
       >
         {modalCtx.index > 0 && (
@@ -409,7 +413,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
           </div>
         )}
         <div className="flex flex-col items-center relative">
-          <div className="grid grid-cols-2 gap-x-5">
+          <div className="flex flex-row gap-5 sm:flex-col">
             {/* left */}
             <div>
               <div
@@ -424,6 +428,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                       loop
                       disableRemotePlayback
                       muted
+                      className="rounded-lg"
                     >
                       <source
                         id="videosource"
@@ -433,7 +438,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                     </video>
                   ) : (
                     <img
-                      className="h-auto max-w-full rounded-md"
+                      className="h-auto max-w-full rounded-lg"
                       src={modalCtx.imageData.image}
                       alt="imgCard"
                     />
@@ -506,7 +511,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                 )}
               </div>
               {isMe && (
-                <div className="flex flex-col space-y-2 p-2 border rounded-[7.2px] bg-[#202020] border-primary">
+                <div className="flex flex-col space-y-2 p-2 border rounded-[7.2px] bg-[#202020] border-primary mt-2">
                   <div className="flex space-x-2">
                     <div className="mb-3 w-full rounded-[5.4px]">
                       <input
@@ -538,7 +543,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
 
               {isMe && (
                 <button
-                  className="button-color py-2 px-4 text-[14px] flex justify-center items-center rounded-md text-white font-[530] flex-row gap-1"
+                  className="button-color py-2 px-4 text-[14px] flex justify-center items-center rounded-md text-white font-[530] flex-row gap-1 mt-2"
                   onClick={mintNFT}
                 >
                   <span className="">
@@ -594,7 +599,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                   </div>
                 </div>
                 {srcType === "image" && (
-                  <div className="flex flex-row items-center justify-between mt-3">
+                  <div className="flex flex-row items-center justify-between sm:justify-start sm:gap-1 mt-3">
                     <div className="block">
                       <button className="inline-flex rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 px-3 button-detail">
                         <span className="self-center inline-flex flex-shrink-[0] me-[6px]">

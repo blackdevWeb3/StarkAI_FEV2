@@ -110,7 +110,12 @@ const AppSlider = ({
               <span className="text-[15px] font-chakra">Logout</span>
             </span>
           </button>
-          <Link to="/app/settings/" className="text-white hover:bg-[#1b1c20]">
+
+          <Link
+            to="/app/settings/"
+            className="text-white hover:bg-[#1b1c20]"
+            onClick={() => handleSetActiveLink("/app/settings/")}
+          >
             <span className="flex flex-row gap-[10px] items-center py-[10px] px-5">
               {userObject?.avatar ? (
                 <img
@@ -122,7 +127,7 @@ const AppSlider = ({
                 <Icon icon="carbon:user-avatar" className="w-7 h-7" />
               )}
               <span className="text-[15px] font-medium font-chakra">
-                {userObject?.username}
+                {userObject?.username || "User"}
               </span>
             </span>
           </Link>

@@ -1,4 +1,4 @@
-import { Dialog, Slider } from "@mui/material";
+import { Dialog } from "@mui/material";
 import { IconMotion } from "../../assets";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
