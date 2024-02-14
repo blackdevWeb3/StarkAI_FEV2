@@ -35,7 +35,7 @@ const RecentWorks = () => {
       <div className="w-full max-w-[1124px] mx-auto flex flex-col justify-center items-center gap-4 px-5">
         <span className="text-[22px] font-semibold">Recent works</span>
         {/* Recent Generated Images */}
-          <ImageList
+          {/* <ImageList
             variant="masonry"
             cols={4}
             gap={8}
@@ -53,7 +53,17 @@ const RecentWorks = () => {
                 /></a>
               </ImageListItem>
             ))}
-          </ImageList>
+          </ImageList> */}
+          {imageData.length > 0 && (
+            <div className="grid xl:grid-cols-5 md:grid-cols-3 sm:grid-cols-1 lg:grid-cols-4 2xl:grid-cols-5 grid-cols-1 gap-4 py-6 px-4 md:px-8 sm:px-4 justify-start">
+            
+              {imageData.map((item, index) => (
+                <ImageListItem key={index}>
+                  <Card key={index} data={item} flag={false} />
+                </ImageListItem>
+              ))}
+            </div>
+          )}
         <div className="w-full"></div>
       </div>
     </div>

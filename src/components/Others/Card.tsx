@@ -116,7 +116,7 @@ const Card = (props: any) => {
                   <span className="">{`${heartCount}`}</span>
 
                   {
-                  (likeImages.find((val : any)=>{return val.email===userObejct.email && val.imageID===props.data.generationID})) ? 
+                  (likeImages.find((val : any)=>{return val.generationID===props.data.generationID})) ? 
                     <Icon
                       icon="tdesign:heart-filled"
                       className="w-6 h-6"
