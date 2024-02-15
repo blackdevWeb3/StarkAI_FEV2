@@ -4,7 +4,7 @@ import axios from "axios";
 import { ImageList, ImageListItem, Slider } from "@mui/material";
 
 import { useUser } from "../../context/UserContext";
-import ModalContext from "../../utils/modalContext";
+import ModalContext from "../../context/modalContext";
 import { Image } from "../../utils/types";
 import Card from "../Others/Card";
 import ModalImgCard from "../Modal/ModalImgCard";
@@ -25,7 +25,7 @@ const CommonFeed = () => {
   const [maxStretch, setMaxStretch] = useState(5);
   const [curVal, setCurVal] = useState(5);
   const [sliderValue, setSliderValue] = useState(5);
-  const [selectedOption, setSelectedOption] = useState(sortOptions[0]);
+  const [selectedOption, setSelectedOption] = useState(sortOptions[1]);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedStyle, setSelectedStyle] = useState<StyleOptions>("All");
 

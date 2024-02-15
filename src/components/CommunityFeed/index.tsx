@@ -1,18 +1,19 @@
-import { Icon } from "@iconify/react";
-import { useUser } from "../../context/UserContext";
 import { useContext, useEffect, useRef, useState } from "react";
-import { Image } from "../../utils/types";
 import axios from "axios";
+import { Icon } from "@iconify/react";
+import ModalContext from "../../context/modalContext";
+import { useUser } from "../../context/UserContext";
+import { Image } from "../../utils/types";
 import Card from "../Others/Card";
-
 import ModalImgCard from "../Modal/ModalImgCard";
-import { ImageList, ImageListItem, useTheme, Slider } from "@mui/material";
-import ModalContext from "../../utils/modalContext";
+import { ImageList, ImageListItem, Slider } from "@mui/material";
 import useWindowSize from "../../hooks/useWindowSize";
-import SortSelectionButtonGroup from "../Others/SortSelectionButtonGroup";
-import { sortOptions } from "../Others/SortSelectionButtonGroup";
-import SortButton from "../Others/SortButton";
-import { StyleOptions } from "../Others/SortButton";
+import SortSelectionButtonGroup, {
+  sortOptions,
+} from "../Others/SortSelectionButtonGroup";
+import SortButton, { StyleOptions } from "../Others/SortButton";
+import { getFilterKey } from "../../utils/getFilterKey";
+import useDynamicSliderStretch from "../../hooks/useDynamicSliderStretch ";
 
 const CommunityFeed = () => {
   const { user }: any = useUser();
@@ -21,14 +22,14 @@ const CommunityFeed = () => {
   const [imageData, setImageData] = useState<Image[]>([]);
   const [searchedData, setSearchedData] = useState<Image[]>([]);
   const [searched, setSearched] = useState(false);
-  const [maxStretch, setMaxStretch] = useState(5);
   const [curVal, setCurVal] = useState(5);
   const [sliderValue, setSliderValue] = useState(5);
   const windowSize = useWindowSize();
   const [selectedStyle, setSelectedStyle] = useState<StyleOptions>("All");
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [selectedOption, setSelectedOption] = useState(sortOptions[0]);
+  const [selectedOption, setSelectedOption] = useState(sortOptions[1]);
   const [isOpen, setIsOpen] = useState(false);
+  const maxStretch = useDynamicSliderStretch(windowSize);
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
@@ -45,11 +46,11 @@ const CommunityFeed = () => {
 
   useEffect(() => {
     if (imageData.length === 0) {
-      updateLibrary();
+      fetchImage();
     }
   }, [imageData]);
 
-  const updateLibrary = async () => {
+  const fetchImage = async () => {
     try {
       const res = await axios.post(
         `${process.env.REACT_APP_BACKEND_API}/getAllImages`
@@ -76,41 +77,28 @@ const CommunityFeed = () => {
     modalCtx.setIndex(ind - 1);
   };
 
-  async function filterImage(data: Image[], extension: string) {
-    if (data.length > 0) {
-      return data.filter((item) => item.image.includes(extension));
-    } else return [];
-  }
-
-  const hashtagFilter = (param: StyleOptions) => {
-    setSelectedStyle(param);
-    const filterKey =
-      param === "All" ? "" : param === "Motion" ? ".mp4" : ".jpg";
-    const tmp = imageData.filter((item: Image) => {
-      return item.image.includes(filterKey);
-    });
-    setSearchedData(tmp);
-    setSearched(true);
-  };
-
-  const handleSearch = () => {
-    const lowerKey = searchKey.toLowerCase();
-    const tmp = imageData.filter((item: Image) => {
-      const lowerPrompt = item.data.prompt.toLowerCase();
-      return lowerPrompt.includes(lowerKey);
-    });
-    setSearchedData(tmp);
-    setSearched(true);
-  };
-
   useEffect(() => {
-    const wid = windowSize;
-    if (wid > 1280 && maxStretch !== 5) setMaxStretch(5);
-    if (wid > 1024 && wid <= 1280 && maxStretch !== 4) setMaxStretch(4);
-    if (wid > 768 && wid <= 1024 && maxStretch !== 3) setMaxStretch(3);
-    if (wid > 480 && wid <= 768 && maxStretch !== 2) setMaxStretch(2);
-    if (wid <= 480 && maxStretch !== 1) setMaxStretch(1);
-  }, [windowSize]);
+    handleMultipleSearch();
+  }, [selectedStyle, imageData]);
+
+  const handleMultipleSearch = (): void => {
+    const filterKey = getFilterKey(selectedStyle).toLowerCase();
+    const searchKeyLower = searchKey.toLowerCase();
+
+    const filteredData = imageData.filter((item: Image) => {
+      return (
+        item.image.includes(filterKey) &&
+        item.data.prompt.toLowerCase().includes(searchKeyLower)
+      );
+    });
+
+    setSearchedData(filteredData);
+    setSearched(true);
+  };
+
+  const ImageTypeFilter = (param: StyleOptions) => {
+    setSelectedStyle(param);
+  };
 
   useEffect(() => {
     setCurVal(sliderValue < maxStretch ? sliderValue : maxStretch);
@@ -141,7 +129,7 @@ const CommunityFeed = () => {
                   onChange={(ev) => setSearchKey(ev.target.value)}
                 ></input>
                 <button
-                  onClick={handleSearch}
+                  onClick={handleMultipleSearch}
                   className="search-button h-8 sm:h-7"
                 >
                   Search
@@ -160,9 +148,6 @@ const CommunityFeed = () => {
             </div>
             <div className="flex items-start gap-3 justify-start text-[18px] flex-col w-full relative">
               <div className="flex flex-row gap-4 items-center flex-wrap">
-                {/* <div className="block">
-                  <hr className="opacity-60 border-[#4A5568] border-[1px] h-8"></hr>
-                </div> */}
                 <div className="grid-explore block z-[1]">
                   <SortSelectionButtonGroup
                     isOpen={isOpen}
@@ -170,48 +155,23 @@ const CommunityFeed = () => {
                     selectedOption={selectedOption}
                     handleOptionClick={handleOptionClick}
                   />
-                  {/* <div className="relative">
-             
-                    <div
-                      className="primary-button rounded-full h-10 flex items-center justify-between w-36"
-                      onClick={() => setIsOpen(!isOpen)}
-                    >
-                      <Icon icon={selectedOption.icon} />
-                      {selectedOption.label}
-                      <Icon icon="icon-park-solid:down-one" />
-                    </div>
-                    {isOpen && (
-                      <div className="absolute bg-[#273748] w-full pt-8 pb-2 px-5 border border-[#ffffff29] -translate-y-6 z-[-1] rounded-br-2xl rounded-bl-2xl">
-                        {options.map((option, index) => (
-                          <div
-                            key={index}
-                            className="flex flex-row items-center text-[16px] gap-3 py-1"
-                            onClick={() => handleOptionClick(option)}
-                          >
-                            <Icon icon={option.icon} className="w-4 h-4" />
-                            {option.label}
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div> */}
                 </div>
                 <div className="grid-type block">
                   <div className="inline-flex overflow-hidden rounded-full bg-[#0c0f16] items-center">
                     <SortButton
                       label="All"
                       isSelected={selectedStyle === "All"}
-                      onClick={() => hashtagFilter("All")}
+                      onClick={() => ImageTypeFilter("All")}
                     />
                     <SortButton
                       label="Upscaled"
                       isSelected={selectedStyle === "Upscaled"}
-                      onClick={() => hashtagFilter("Upscaled")}
+                      onClick={() => ImageTypeFilter("Upscaled")}
                     />
                     <SortButton
                       label="Motion"
                       isSelected={selectedStyle === "Motion"}
-                      onClick={() => hashtagFilter("Motion")}
+                      onClick={() => ImageTypeFilter("Motion")}
                     />
                   </div>
                 </div>
@@ -284,7 +244,6 @@ const CommunityFeed = () => {
               ))}
             </div>
           )} */}
-
           <ImageList variant="masonry" cols={curVal} gap={8}>
             {(searched ? searchedData : imageData).map((item, index) => (
               <ImageListItem key={index}>
@@ -299,9 +258,8 @@ const CommunityFeed = () => {
           </ImageList>
         </div>
       </div>
-
       <ModalImgCard
-        onUpdate={updateLibrary}
+        onUpdate={fetchImage}
         onNextImage={onNextImage}
         onPrevImage={onPrevImage}
       />

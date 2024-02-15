@@ -26,7 +26,7 @@ import { TextareaAutosize } from "@mui/material";
 
 import io from "socket.io-client";
 import { ToastContainer, toast } from "react-toastify";
-import ModalContext from "../../utils/modalContext";
+import ModalContext from "../../context/modalContext";
 import ToggleCheckBox from "../Modal/ToggleCheckbox";
 import {
   useAccount,
