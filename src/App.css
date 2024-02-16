@@ -1198,7 +1198,7 @@
   border-radius: 9999px;
   font-weight: 600;
   height: calc(2.5rem);
-  min-width: 40px;
+  min-width: 150px;
   padding-inline-start: 1rem;
   padding-inline-end: 1rem;
   box-sizing: border-box;
@@ -1224,6 +1224,10 @@
       )
       border-box border-box;
   box-shadow: rgba(145, 0, 255, 0.6) 0px 0px 1rem;
+}
+
+#hashtagbutton-group::-webkit-scrollbar {
+  display: none;
 }
 
 .lock-button {

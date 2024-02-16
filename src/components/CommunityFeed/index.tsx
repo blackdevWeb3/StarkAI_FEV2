@@ -177,15 +177,16 @@ const CommunityFeed = () => {
                 </div>
               </div>
 
-              {/* <div className="flex flex-row px-[1px] relative">
+              <div className="flex flex-row px-[1px] relative w-full">
                 <button
                   onClick={() => scroll("left")}
-                  className="focus:outline-none absolute left-0 z-10 inline-flex items-center justify-center h-full cursor-pointer"
+                  className="text-[10px] flex justify-center items-center bg-black border border-white rounded-full w-5 h-5 absolute left-0 top-1/2 -translate-y-1/2 z-10"
                 >
                   &#10094;
                 </button>
                 <div
-                  className="flex flex-row gap-2 overflow-x-auto"
+                  className="flex flex-row space-x-2 overflow-x-auto"
+                  id="hashtagbutton-group"
                   ref={scrollContainerRef}
                 >
                   <span className="inline-block">
@@ -225,12 +226,12 @@ const CommunityFeed = () => {
                 </div>
                 <button
                   onClick={() => scroll("right")}
-                  className="focus:outline-none absolute right-0 z-10 inline-flex items-center justify-center h-full cursor-pointer"
+                  className="text-[10px] flex justify-center items-center bg-black border border-white rounded-full w-5 h-5 absolute right-0 top-1/2 -translate-y-1/2 z-10"
                 >
                   &#10095;
                 </button>
                 <div></div>
-              </div> */}
+              </div>
             </div>
           </div>
         </div>
