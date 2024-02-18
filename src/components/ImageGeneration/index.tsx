@@ -13,6 +13,7 @@ import {
   defaultStyle,
   AlchemyStyle,
   photoRealStyle,
+  typeItems,
 } from "../../utils/constants";
 import { useUser } from "../../context/UserContext";
 import axios from "axios";
@@ -25,15 +26,10 @@ import ImageGuidance from "./ImageGuidance";
 import { TextareaAutosize } from "@mui/material";
 
 import io from "socket.io-client";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import ModalContext from "../../context/modalContext";
 import ToggleCheckBox from "../Modal/ToggleCheckbox";
-import {
-  useAccount,
-  useSignTypedData,
-  useNetwork,
-  useContractRead,
-} from "wagmi";
+import { useAccount, useNetwork } from "wagmi";
 import { MarketPlace } from "../../config/const";
 import MarketPlaceABI from "../../config/marketplace.json";
 import ERC20ABI from "../../config/ERC20.json";
@@ -72,10 +68,13 @@ const ImageGeneration = () => {
     userSelectedModelItem
   );
   const [generationStyle, setGenerationStyle] = useState<string>("None");
+  const [generationType, setGenerationType] = useState<string>("None");
   const [isModelVisible, setIsModelVisible] = useState(false);
   const [isStyleVisible, setIsStyleVisible] = useState(false);
+  const [isTypeVisible, setIsTypeVisible] = useState(false);
   const ModelMenuRef = useRef<HTMLDivElement>(null);
   const StyleMenuRef = useRef<HTMLDivElement>(null);
+  const TypeMenuRef = useRef<HTMLDivElement>(null);
   const [promptText, setPromptText] = useState<string>("");
   const [negativePromptText, setNegativePromptText] = useState<
     string | undefined
@@ -86,7 +85,7 @@ const ImageGeneration = () => {
   const [densityValue, setDensityValue] = useState<number>(50);
   const uploadImgRef = useRef<HTMLInputElement>(null);
   const [imgData, setImgData] = useState<any>(null);
-  const { address, isConnected } = useAccount();
+  const { isConnected } = useAccount();
   const [sliderWidthDimension, setSliderWidthDimension] = useState<number>(512);
   const [sliderHeightDimension, setSliderHeightDimension] =
     useState<number>(512);
@@ -195,6 +194,7 @@ const ImageGeneration = () => {
 
   useOutsideClick(ModelMenuRef, setIsModelVisible);
   useOutsideClick(StyleMenuRef, setIsStyleVisible);
+  useOutsideClick(TypeMenuRef, setIsTypeVisible);
 
   const dimensionsGroup = alchemy ? InputDimensionsGroup : ImageDimensionsGroup;
   const title = alchemy ? "Input Dimensions" : "Image Dimensions";
@@ -203,6 +203,7 @@ const ImageGeneration = () => {
     : alchemy
     ? AlchemyStyle
     : defaultStyle;
+
   const handleRealPhotoChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -255,6 +256,11 @@ const ImageGeneration = () => {
   const handleSelectStyleClick = (item: any) => {
     setGenerationStyle(item.id);
     setIsStyleVisible(false);
+  };
+
+  const handleSelectTypeClick = (item: any) => {
+    setGenerationType(item.id);
+    setIsTypeVisible(false);
   };
 
   const handlePromptTextChange = (
@@ -597,6 +603,41 @@ const ImageGeneration = () => {
                   </div>
                 </div>
               </div>
+
+              {/* Initial Style Selector */}
+              <div className="relative" ref={TypeMenuRef}>
+                <button
+                  className={`button-model min-w-40 py-2 ${
+                    isTypeVisible ? "border-[#9a5cf7]" : "border-[#101622]"
+                  }`}
+                  onClick={() => setIsTypeVisible(!isTypeVisible)}
+                >
+                  <div className="flex flex-row w-full items-center justify-between pl-1">
+                    <span className="">{generationType}</span>
+                    <Icon icon="bxs:down-arrow" className="w-3 h-3 ml-4" />
+                  </div>
+                </button>
+
+                {/* Style Selection Dropdown Menu */}
+                <div className="model-dropdownmenu">
+                  <div
+                    className={`style-menu-board transition-all duration-200 ease-in-out ${
+                      isTypeVisible ? "model-visible" : "model-invisible"
+                    }`}
+                  >
+                    {typeItems.map((item, index) => (
+                      <button
+                        className="style-item"
+                        key={index}
+                        onClick={() => handleSelectTypeClick(item)}
+                      >
+                        {item.id}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
               {/* Negative Prompt Switch */}
               <div className="flex flex-row gap-2 items-center">
                 <ToggleCheckBox

@@ -14,6 +14,7 @@ import SortSelectionButtonGroup, {
 import SortButton, { StyleOptions } from "../Others/SortButton";
 import { getFilterKey } from "../../utils/getFilterKey";
 import useDynamicSliderStretch from "../../hooks/useDynamicSliderStretch ";
+import { hashtag_buttons } from "../../utils/constants";
 
 const CommunityFeed = () => {
   const { user }: any = useUser();
@@ -30,6 +31,7 @@ const CommunityFeed = () => {
   const [selectedOption, setSelectedOption] = useState(sortOptions[1]);
   const [isOpen, setIsOpen] = useState(false);
   const maxStretch = useDynamicSliderStretch(windowSize);
+  const [hashTagSelected, setHashTagSelected] = useState("All");
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
@@ -148,7 +150,7 @@ const CommunityFeed = () => {
             </div>
             <div className="flex items-start gap-3 justify-start text-[18px] flex-col w-full relative">
               <div className="flex flex-row gap-4 items-center flex-wrap">
-                <div className="grid-explore block z-[1]">
+                <div className="grid-explore block z-[20]">
                   <SortSelectionButtonGroup
                     isOpen={isOpen}
                     setIsOpen={setIsOpen}
@@ -176,7 +178,6 @@ const CommunityFeed = () => {
                   </div>
                 </div>
               </div>
-
               <div className="flex flex-row px-[1px] relative w-full">
                 <button
                   onClick={() => scroll("left")}
@@ -190,39 +191,28 @@ const CommunityFeed = () => {
                   ref={scrollContainerRef}
                 >
                   <span className="inline-block">
-                    <button className="primary-button rounded-full flex items-center justify-center flex-row gap-2">
+                    <button
+                      className={`hashtag-button flex items-center justify-center flex-row gap-2 ${
+                        hashTagSelected === "All" ? "selected-color" : ""
+                      }`}
+                      onClick={() => setHashTagSelected("All")}
+                    >
                       <Icon icon="radix-icons:dashboard" width={20} />
                       <span className="font-semibold">All</span>
                     </button>
                   </span>
-                  <button className="hashtag-button gap-2 text-[16px]">
-                    <Icon icon="ion:camera-outline" />
-                    <span>Photography</span>
-                  </button>
-                  <button className="hashtag-button gap-2 text-[16px]">
-                    <Icon icon="emojione-monotone:pouting-cat-face" />
-                    <span>Animals</span>
-                  </button>
-                  <button className="hashtag-button gap-2 text-[16px]">
-                    <Icon icon="lucide:fan" />
-                    <span>Anime</span>
-                  </button>
-                  <button className="hashtag-button gap-2 text-[16px]">
-                    <Icon icon="bi:buildings" />
-                    <span>Architecture</span>
-                  </button>
-                  <button className="hashtag-button gap-2 text-[16px]">
-                    <Icon icon="icon-park-outline:avatar" />
-                    <span>Character</span>
-                  </button>
-                  <button className="hashtag-button gap-2 text-[16px]">
-                    <Icon icon="uil:food" />
-                    <span>Food</span>
-                  </button>
-                  <button className="hashtag-button gap-2 text-[16px]">
-                    <Icon icon="streamline:ecology-science-alien-extraterristerial-life-form-space-universe-head" />
-                    <span>Sci-Fi</span>
-                  </button>
+                  {hashtag_buttons.map((button, index) => (
+                    <button
+                      key={index}
+                      className={`hashtag-button gap-2 text-[16px] ${
+                        hashTagSelected === button.label ? "selected-color" : ""
+                      }`}
+                      onClick={() => setHashTagSelected(button.label)}
+                    >
+                      <Icon icon={button.icon} />
+                      <span>{button.label}</span>
+                    </button>
+                  ))}
                 </div>
                 <button
                   onClick={() => scroll("right")}
