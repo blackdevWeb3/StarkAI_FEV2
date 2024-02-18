@@ -6,7 +6,7 @@ import { Icon } from "@iconify/react";
 import { format, parseISO } from "date-fns";
 import axios from "axios";
 import io from "socket.io-client";
-import ModalContext from "../../utils/modalContext";
+import ModalContext from "../../context/modalContext";
 import Modal from ".";
 import useOutsideClick from "../../utils/useOutsideClick";
 import { TransitionProps } from "@mui/material/transitions";
@@ -448,14 +448,12 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
               {/*  */}
               <div className="flex flex-row justify-between gap-2 w-full pt-5 flex-wrap">
                 {srcType === "image" && (
-                  <button className="border-primary border rounded-lg h-[30px] px-4 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45]">
+                  <button className="border-primary border rounded-lg h-[30px] min-w-[165px] px-4 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45] w-full">
                     <Icon
                       icon="streamline:ai-science-spark"
                       className="w-[14px] h-[14px]"
                     />
-                    <span className="text-[14px] break-words">
-                      Alchemy Refiner
-                    </span>
+                    <p>Alchemy Refiner</p>
                   </button>
                 )}
                 <button
@@ -557,8 +555,8 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
             {/* right */}
             <div className="flex flex-col gap-2 font-Inter">
               <div className="flex flex-col gap-2">
-                <div className="flex flex-row gap-4">
-                  <Link to="/" className="flex flex-row items-center">
+                <div className="flex flex-row gap-1">
+                  <div className="flex flex-row items-center">
                     <div className="rounded-full">
                       {/* <img
                         src=""
@@ -570,10 +568,10 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                         className="w-8 h-8 text-white"
                       />
                     </div>
-                    <div className=" min-w-[auto] text-fontSecondary leading-[1] font-semibold px-1">
+                    <div className="min-w-[auto] text-fontSecondary leading-[1] font-semibold px-1 select-none">
                       {imageData.owner}
                     </div>
-                  </Link>
+                  </div>
                   <button className="flex flex-row items-center justify-center font-normal gap-1 border-primary rounded-[16px] border px-4 py-1 transition-all duration-200 ease-in-out hover:bg-[#393b45]">
                     <Icon
                       icon="ph:star"
@@ -794,7 +792,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
           </div>
 
           <button
-            className="absolute top-0 right-[-15px] rounded-full bg-[#0000005c] h-8 w-8 flex justify-center items-center"
+            className="absolute top-0 right-[-22px] rounded-full bg-[#0000005c] h-8 w-8 flex justify-center items-center"
             onClick={handleHideImgCard}
           >
             <Icon

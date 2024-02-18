@@ -127,6 +127,17 @@ const AlchemyStyle = [
   { id: "None" },
 ];
 
+export const typeItems = [
+  { id: "Character" },
+  { id: "Photography" },
+  { id: "Environment" },
+  { id: "Animals" },
+  { id: "Anime" },
+  { id: "Future World" },
+  { id: "Art" },
+  { id: "Cinematic" },
+];
+
 const chains: ChainConfig[] = [
   {
     name: "All Chains",
@@ -222,6 +233,20 @@ const const_hashtags: HashtagItem[] = [
   { name: "HowTo" },
   { name: "Releases" },
   { name: "Uncategorized" },
+];
+
+export const hashtag_buttons = [
+  { icon: "icon-park-outline:avatar", label: "Character" },
+  { icon: "ion:camera-outline", label: "Photography" },
+  { icon: "bi:buildings", label: "Environment" },
+  { icon: "emojione-monotone:pouting-cat-face", label: "Animals" },
+  { icon: "lucide:fan", label: "Anime" },
+  { icon: "icon-park-outline:future-build-one", label: "Future World" },
+  { icon: "map:art-gallery", label: "Art" },
+  {
+    icon: "material-symbols:cinematic-blur-outline",
+    label: "Cinematic",
+  },
 ];
 
 export {

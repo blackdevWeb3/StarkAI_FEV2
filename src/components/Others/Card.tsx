@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { ClipLoader } from "react-spinners";
 import { Icon } from "@iconify/react";
-import ModalContext from "../../utils/modalContext";
+import ModalContext from "../../context/modalContext";
 import { useUser } from "../../context/UserContext";
 import axios, { AxiosResponse } from "axios";
 
@@ -122,9 +122,10 @@ const Card = (props: any) => {
                 >
                   <span className="">{`${heartCount}`}</span>
 
-                  {
-                  (likeImages.find((val : any)=>{return val.generationID===props.data.generationID})) ? 
-                   ( <Icon
+                  {likeImages.find((val: any) => {
+                    return val.generationID === props.data.generationID;
+                  }) ? (
+                    <Icon
                       icon="tdesign:heart-filled"
                       className="w-6 h-6"
                       color="red"
