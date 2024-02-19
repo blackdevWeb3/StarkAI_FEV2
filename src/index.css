@@ -249,3 +249,27 @@ input[type="number"] {
   transform: translate(32px, 76px);
   width: 144px;
 }
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rotate-spinner {
+  animation: spin 1s linear infinite;
+}
+
+.aspect-ratio-box {
+  width: 100%; /* Use desired width, or 100% to fill container */
+  position: relative;
+}
+
+.aspect-ratio-box::before {
+  content: "";
+  display: block;
+  padding-top: 56.25%; /* (9 / 16) * 100% for 16:9 aspect ratio */
+}
