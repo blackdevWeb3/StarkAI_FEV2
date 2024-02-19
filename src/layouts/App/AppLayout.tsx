@@ -27,7 +27,7 @@ const AppLayout = () => {
           setSliderOpen={setSliderOpen}
           sliderHandler={sliderHandler}
         />
-        <div className="flex flex-col min-h-screen h-full bg-black w-full">
+        <div className="flex flex-col min-h-screen h-full bg-black w-0 flex-1">
           <AppHeader sliderOpen={sliderOpen} sliderHandler={sliderHandler} />
           <Routes>
             <Route path="/" element={<CommunityFeed />} />

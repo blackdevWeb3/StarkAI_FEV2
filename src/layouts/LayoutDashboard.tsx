@@ -3,9 +3,7 @@ import { Icon } from "@iconify/react";
 import { BGStyle } from "../assets";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
 import { Image } from "../utils/types";
-import Card from "../components/Others/Card";
 
 const LayoutDashboard = () => {
   const [image, setImage] = useState<Image>();
@@ -35,7 +33,7 @@ const LayoutDashboard = () => {
     <div className="h-screen w-full md:h-full sm:h-full bg-black p-8 pt-24 font-chakra relative overflow-hidden">
       <div className="w-full h-full rounded-lg">
         <div className="w-full flex flex-row h-full mx-auto min-w-[1000px] md:min-w-full sm:min-w-full relative items-center justify-evenly md:flex-col sm:flex-col gap-5 md:gap-10 sm:gap-12 overflow-hidden">
-          <div className="w-full flex items-center justify-center">
+          <div className="flex items-center justify-center">
             <div className="flex flex-col sm:w-full">
               <span className="text-white text-left font-semibold text-[30px] z-10 lg:text-[26px] md:text-[22px]">
                 Welcome to our exciting generative <br></br>
@@ -78,7 +76,7 @@ const LayoutDashboard = () => {
             </div>
           </div>
           <div className="max-w-[830px] max-h-[623px] w-auto flex items-center justify-center flex-col sm:w-auto sm:h-auto md:p-10">
-            {image && <Card data={image} hideDescription />}
+            {image && image.image.endsWith(".jpg") && <img src={image.image} />}
           </div>
         </div>
       </div>

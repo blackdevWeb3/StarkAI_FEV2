@@ -6,7 +6,7 @@ import Navbar from "./layouts/Navbar";
 import AppLayout from "./layouts/App/AppLayout";
 import Footer from "./layouts/Footer";
 import RecentWorks from "./components/Dashboard/RecentWorks";
-import { ModalContextProvider } from "./utils/modalContext";
+import { ModalContextProvider } from "./context/modalContext";
 import ContactUs from "./components/ContactUs";
 import Blog from "./components/Blog";
 import BlogPost from "./components/Blog/BlogPost";

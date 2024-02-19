@@ -4,17 +4,18 @@ import axios from "axios";
 import { ImageList, ImageListItem, Slider } from "@mui/material";
 
 import { useUser } from "../../context/UserContext";
-import ModalContext from "../../utils/modalContext";
+import ModalContext from "../../context/modalContext";
 import { Image } from "../../utils/types";
 import Card from "../Others/Card";
 import ModalImgCard from "../Modal/ModalImgCard";
 import useWindowSize from "../../hooks/useWindowSize";
 import SortSelectionButtonGroup from "../Others/SortSelectionButtonGroup";
 import { sortOptions } from "../Others/SortSelectionButtonGroup";
+import SortButton from "../Others/SortButton";
+import { StyleOptions } from "../Others/SortButton";
 
 const CommonFeed = () => {
   const windowSize = useWindowSize();
-  const [activeButton, setActiveButton] = useState(true);
   const [searchKey, setSearchKey] = useState("");
   const { user }: any = useUser();
   const modalCtx = useContext(ModalContext);
@@ -24,8 +25,20 @@ const CommonFeed = () => {
   const [maxStretch, setMaxStretch] = useState(5);
   const [curVal, setCurVal] = useState(5);
   const [sliderValue, setSliderValue] = useState(5);
-  const [selectedOption, setSelectedOption] = useState(sortOptions[0]);
+  const [selectedOption, setSelectedOption] = useState(sortOptions[1]);
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedStyle, setSelectedStyle] = useState<StyleOptions>("All");
+
+  const hashtagFilter = (param: StyleOptions) => {
+    setSelectedStyle(param);
+    const filterKey =
+      param === "All" ? "" : param === "Motion" ? ".mp4" : ".jpg";
+    const tmp = imageData.filter((item: Image) => {
+      return item.image.includes(filterKey);
+    });
+    setSearchedData(tmp);
+    setSearched(true);
+  };
 
   const handleSearch = () => {
     const lowerKey = searchKey.toLowerCase();
@@ -131,29 +144,22 @@ const CommonFeed = () => {
                 </div>
               </div>
               <div className="flex flex-row justify-between gap-4 flex-wrap">
-                <div className="flex bg-[#0c0f16] overflow-hidden rounded-lg">
-                  <button
-                    className={`button-item w-[116px] ${
-                      activeButton ? "active" : ""
-                    }`}
-                    onClick={() => setActiveButton(true)}
-                  >
-                    <span className="font-chakra relative z-10 button-font">
-                      All
-                    </span>
-                    <div className="button-cover"></div>
-                  </button>
-                  <button
-                    className={`button-item w-[116px] ${
-                      !activeButton ? "active" : ""
-                    }`}
-                    onClick={() => setActiveButton(false)}
-                  >
-                    <span className="font-chakra relative z-10 button-font">
-                      Upscaled
-                    </span>
-                    <div className="button-cover"></div>
-                  </button>
+                <div className="inline-flex overflow-hidden rounded-full bg-[#0c0f16] items-center font-chakra">
+                  <SortButton
+                    label="All"
+                    isSelected={selectedStyle === "All"}
+                    onClick={() => hashtagFilter("All")}
+                  />
+                  <SortButton
+                    label="Upscaled"
+                    isSelected={selectedStyle === "Upscaled"}
+                    onClick={() => hashtagFilter("Upscaled")}
+                  />
+                  <SortButton
+                    label="Motion"
+                    isSelected={selectedStyle === "Motion"}
+                    onClick={() => hashtagFilter("Motion")}
+                  />
                 </div>
                 <div className="w-[200px] h-[31px] sm:hidden flex">
                   <Slider

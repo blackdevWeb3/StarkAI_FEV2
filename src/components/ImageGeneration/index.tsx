@@ -25,15 +25,10 @@ import ImageGuidance from "./ImageGuidance";
 import { TextareaAutosize } from "@mui/material";
 
 import io from "socket.io-client";
-import { ToastContainer, toast } from "react-toastify";
-import ModalContext from "../../utils/modalContext";
+import { toast } from "react-toastify";
+import ModalContext from "../../context/modalContext";
 import ToggleCheckBox from "../Modal/ToggleCheckbox";
-import {
-  useAccount,
-  useSignTypedData,
-  useNetwork,
-  useContractRead,
-} from "wagmi";
+import { useAccount, useNetwork } from "wagmi";
 import { MarketPlace } from "../../config/const";
 import MarketPlaceABI from "../../config/marketplace.json";
 import ERC20ABI from "../../config/ERC20.json";
@@ -45,7 +40,7 @@ const socket = io(process.env.REACT_APP_SOCKET_API || "http://localhost:5001");
 const userSelectedModelItem: ModelItem = {
   id: "1e60896f-3c26-4296-8ecc-53e2afecc132",
   modelType: "Finetuned Model",
-  label: "StarkAI Diffusion XL",
+  label: "StarkAI Xl v1",
   subLabel: "Alchemy V2",
   imgURI:
     "https://cdn.leonardo.ai/users/384ab5c8-55d8-47a1-be22-6a274913c324/generations/9ea08719-5fd1-4df7-9adc-5218637cba17/Leonardo_Diffusion_XL_a_brain_suspended_in_midair_bathed_in_a_1.jpg",
@@ -74,8 +69,10 @@ const ImageGeneration = () => {
   const [generationStyle, setGenerationStyle] = useState<string>("None");
   const [isModelVisible, setIsModelVisible] = useState(false);
   const [isStyleVisible, setIsStyleVisible] = useState(false);
+
   const ModelMenuRef = useRef<HTMLDivElement>(null);
   const StyleMenuRef = useRef<HTMLDivElement>(null);
+
   const [promptText, setPromptText] = useState<string>("");
   const [negativePromptText, setNegativePromptText] = useState<
     string | undefined
@@ -86,7 +83,7 @@ const ImageGeneration = () => {
   const [densityValue, setDensityValue] = useState<number>(50);
   const uploadImgRef = useRef<HTMLInputElement>(null);
   const [imgData, setImgData] = useState<any>(null);
-  const { address, isConnected } = useAccount();
+  const { isConnected } = useAccount();
   const [sliderWidthDimension, setSliderWidthDimension] = useState<number>(512);
   const [sliderHeightDimension, setSliderHeightDimension] =
     useState<number>(512);
@@ -203,6 +200,7 @@ const ImageGeneration = () => {
     : alchemy
     ? AlchemyStyle
     : defaultStyle;
+
   const handleRealPhotoChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -597,6 +595,7 @@ const ImageGeneration = () => {
                   </div>
                 </div>
               </div>
+
               {/* Negative Prompt Switch */}
               <div className="flex flex-row gap-2 items-center">
                 <ToggleCheckBox
