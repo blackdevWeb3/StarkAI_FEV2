@@ -5,9 +5,19 @@ import { ImageList, ImageListItem } from "@mui/material";
 import { Image } from "../../utils/types";
 import { useUser } from "../../context/UserContext";
 import Card from "../Others/Card";
+import useResponsiveSlider from "../../utils/useResponsiveSlider";
+import useWindowSize from "../../hooks/useWindowSize";
+import React from "react";
 
 const RecentWorks = () => {
   const [imageData, setImageData] = useState<Image[]>([]);
+  const windowSize = useWindowSize();
+
+  const [curVal] = useResponsiveSlider({
+    sliderValue: 5,
+    windowWidth: windowSize,
+  });
+
   const { user }: any = useUser();
 
   const updateLibrary = () => {
@@ -32,39 +42,24 @@ const RecentWorks = () => {
   });
   return (
     <div className="w-full bg-black py-14">
-      <div className="w-full max-w-[1124px] mx-auto flex flex-col justify-center items-center gap-4 px-5">
+      <div className="w-full max-w-[1124px] mx-auto flex flex-col justify-center items-center gap-4 px-5 md:px-16 sm:px-8">
         <span className="text-[22px] font-semibold">Recent works</span>
-        {/* Recent Generated Images */}
-        {/* <ImageList
-          variant="masonry"
-          cols={4}
-          gap={8}
-          sx={{ padding: "12px" }}
-          style={{ overflow: "hidden" }}
-        >
-          {imageData.map((item, index) => (
-            <ImageListItem key={index}>
-              <Link to="/login">
-                <Card
-                  data={item}
-                  index={index}
-                  count={imageData.length}
-                  key={index}
-                />
-              </Link>
-            </ImageListItem>
-          ))}
-        </ImageList> */}
         {imageData.length > 0 && (
-          <div className="grid xl:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 lg:grid-cols-3 grid-cols-5 gap-4 py-6 px-4 md:px-8 sm:px-4 justify-start">
-            {imageData.map((item, index) => (
-              <ImageListItem key={index}>
-                <Card key={index} data={item} flag={false} />
-              </ImageListItem>
-            ))}
+          <div className="py-8">
+            <ImageList variant="masonry" cols={curVal} gap={10}>
+              {imageData.map((item, index) => (
+                <React.Fragment key={index}>
+                  {item.image.endsWith(".jpg") && (
+                    <ImageListItem>
+                      <img src={item.image} alt="recent" loading="lazy" />{" "}
+                      {/* Added alt attribute for accessibility */}
+                    </ImageListItem>
+                  )}
+                </React.Fragment>
+              ))}
+            </ImageList>
           </div>
         )}
-        <div className="w-full"></div>
       </div>
     </div>
   );
