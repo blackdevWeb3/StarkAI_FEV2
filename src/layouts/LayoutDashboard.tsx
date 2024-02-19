@@ -3,9 +3,7 @@ import { Icon } from "@iconify/react";
 import { BGStyle } from "../assets";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
 import { Image } from "../utils/types";
-import Card from "../components/Others/Card";
 
 const LayoutDashboard = () => {
   const [image, setImage] = useState<Image>();
@@ -78,7 +76,7 @@ const LayoutDashboard = () => {
             </div>
           </div>
           <div className="max-w-[830px] max-h-[623px] w-auto flex items-center justify-center flex-col sm:w-auto sm:h-auto md:p-10">
-            {image && <Card data={image} hideDescription />}
+            {image && image.image.endsWith(".jpg") && <img src={image.image} />}
           </div>
         </div>
       </div>
