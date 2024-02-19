@@ -43,14 +43,14 @@ const AppSlider = ({
         }`}
       >
         <div className="pt-[19px] flex flex-row justify-between w-full items-center px-10">
-          <div className="flex flex-row justify-center items-center">
+          <Link to="/" className="flex flex-row justify-center items-center">
             <h1 className="text-[24px] font-semibold font-chakra text-white">
               STARK.
             </h1>
             <h1 className="text-[24px] font-semibold font-chakra text-deepPink">
               AI
             </h1>
-          </div>
+          </Link>
           {sliderOpen && (
             <button className="hover:opacity-70" onClick={sliderHandler}>
               <Icon icon="lets-icons:close-round" width={24} />

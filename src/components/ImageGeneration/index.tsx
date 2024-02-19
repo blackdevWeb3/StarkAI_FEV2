@@ -13,7 +13,6 @@ import {
   defaultStyle,
   AlchemyStyle,
   photoRealStyle,
-  typeItems,
 } from "../../utils/constants";
 import { useUser } from "../../context/UserContext";
 import axios from "axios";
@@ -68,13 +67,12 @@ const ImageGeneration = () => {
     userSelectedModelItem
   );
   const [generationStyle, setGenerationStyle] = useState<string>("None");
-  const [generationType, setGenerationType] = useState<string>("None");
   const [isModelVisible, setIsModelVisible] = useState(false);
   const [isStyleVisible, setIsStyleVisible] = useState(false);
-  const [isTypeVisible, setIsTypeVisible] = useState(false);
+
   const ModelMenuRef = useRef<HTMLDivElement>(null);
   const StyleMenuRef = useRef<HTMLDivElement>(null);
-  const TypeMenuRef = useRef<HTMLDivElement>(null);
+
   const [promptText, setPromptText] = useState<string>("");
   const [negativePromptText, setNegativePromptText] = useState<
     string | undefined
@@ -194,7 +192,6 @@ const ImageGeneration = () => {
 
   useOutsideClick(ModelMenuRef, setIsModelVisible);
   useOutsideClick(StyleMenuRef, setIsStyleVisible);
-  useOutsideClick(TypeMenuRef, setIsTypeVisible);
 
   const dimensionsGroup = alchemy ? InputDimensionsGroup : ImageDimensionsGroup;
   const title = alchemy ? "Input Dimensions" : "Image Dimensions";
@@ -256,11 +253,6 @@ const ImageGeneration = () => {
   const handleSelectStyleClick = (item: any) => {
     setGenerationStyle(item.id);
     setIsStyleVisible(false);
-  };
-
-  const handleSelectTypeClick = (item: any) => {
-    setGenerationType(item.id);
-    setIsTypeVisible(false);
   };
 
   const handlePromptTextChange = (
@@ -596,40 +588,6 @@ const ImageGeneration = () => {
                         className="style-item"
                         key={index}
                         onClick={() => handleSelectStyleClick(item)}
-                      >
-                        {item.id}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Initial Style Selector */}
-              <div className="relative" ref={TypeMenuRef}>
-                <button
-                  className={`button-model min-w-40 py-2 ${
-                    isTypeVisible ? "border-[#9a5cf7]" : "border-[#101622]"
-                  }`}
-                  onClick={() => setIsTypeVisible(!isTypeVisible)}
-                >
-                  <div className="flex flex-row w-full items-center justify-between pl-1">
-                    <span className="">{generationType}</span>
-                    <Icon icon="bxs:down-arrow" className="w-3 h-3 ml-4" />
-                  </div>
-                </button>
-
-                {/* Style Selection Dropdown Menu */}
-                <div className="model-dropdownmenu">
-                  <div
-                    className={`style-menu-board transition-all duration-200 ease-in-out ${
-                      isTypeVisible ? "model-visible" : "model-invisible"
-                    }`}
-                  >
-                    {typeItems.map((item, index) => (
-                      <button
-                        className="style-item"
-                        key={index}
-                        onClick={() => handleSelectTypeClick(item)}
                       >
                         {item.id}
                       </button>
