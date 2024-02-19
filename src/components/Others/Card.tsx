@@ -1,6 +1,5 @@
 import { useState, useContext, useEffect } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import { ClipLoader } from "react-spinners";
 import { Icon } from "@iconify/react";
 import ModalContext from "../../context/modalContext";
 import { useUser } from "../../context/UserContext";
@@ -24,7 +23,7 @@ const Card = (props: any) => {
     modalCtx.setImgCount(props.count);
   };
 
-  const handleAddHearMark: React.MouseEventHandler<HTMLButtonElement> = (
+  const handleAddHeartMark: React.MouseEventHandler<HTMLButtonElement> = (
     event
   ) => {
     event.preventDefault();
@@ -35,7 +34,7 @@ const Card = (props: any) => {
         imageID: props.data.generationID,
       })
       .then((res: AxiosResponse<any, any>) => {
-        console.log(res.data);
+        console.log("Response Data:", res.data);
         updateLibrary();
       });
   };
@@ -63,85 +62,82 @@ const Card = (props: any) => {
     updateLibrary();
   });
 
+  useEffect(() => {
+    setLoading(true);
+  }, [props.data.image]);
   return (
     <>
-      {props.flag === true ? (
-        <div className="group relative cursor-pointer w-full h-[150px] block">
-          <div className="absolute flex w-7 h-7 top-[calc(50%-14px)] left-[calc(50%-14px)]">
-            <ClipLoader color="white" size={28} />
+      <div
+        className="group relative cursor-pointer w-full h-full block"
+        onClick={handleImgModalOpen}
+      >
+        {loading && (
+          <div className="absolute flex w-7 h-7 top-[calc(50%-14px)] left-[calc(50%-14px)] flex-col items-center">
+            <img src="/favicon.ico" alt="logo" />
+          </div>
+        )}
+
+        {props.data.image.endsWith(".mp4") ? (
+          <video
+            autoPlay
+            loop
+            disableRemotePlayback
+            muted
+            className="rounded-md"
+            onLoadedData={() => setLoading(false)}
+            onError={() => setLoading(false)}
+          >
+            <source type="video/mp4" src={props.data.image} />
+          </video>
+        ) : (
+          <LazyLoadImage
+            src={props.data.image}
+            beforeLoad={() => setLoading(true)}
+            onLoad={() => setLoading(false)}
+            onError={() => setLoading(false)}
+            alt="GeneratedImage"
+            effect="blur"
+            className="rounded-md"
+          />
+        )}
+
+        {/* Hovered Image Description */}
+
+        <div className="absolute w-full h-full top-0 left-0 hover-ground opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4 flex flex-col justify-between">
+          <div className="flex flex-row justify-between gap-2">
+            <div className="flex flex-row items-center gap-1 overflow-hidden">
+              <span className="w-8 h-8 p-3 rounded-full bg-[#1cb578] flex text-center justify-center items-center text-black font-semibold">
+                D
+              </span>
+              <span className="text-ellipsis overflow-hidden text-[12px] ">
+                {props.data.owner}
+              </span>
+            </div>
+            <button
+              className="flex flex-row items-center rounded-[24px] py-2 px-3 bg-[#63636355] gap-2"
+              onClick={handleAddHeartMark}
+              disabled={isOwner}
+            >
+              <span className="">{`${heartCount}`}</span>
+              {likeImages.find((val: any) => {
+                return val.generationID === props.data.generationID;
+              }) ? (
+                <Icon
+                  icon="tdesign:heart-filled"
+                  className="w-6 h-6"
+                  color="red"
+                />
+              ) : (
+                <Icon icon="tdesign:heart" className="w-6 h-6" />
+              )}
+            </button>
+          </div>
+          <div className="flex flex-col overflow-hidden text-ellipsis text-wrap break-words h-[34px] text-[12px]">
+            {props.data.data.prompt}
           </div>
         </div>
-      ) : (
-        <div
-          className="group relative cursor-pointer w-full h-full block"
-          onClick={handleImgModalOpen}
-        >
-          {loading && (
-            <div className="absolute flex w-7 h-7 top-[calc(50%-14px)] left-[calc(50%-14px)]">
-              <ClipLoader color="white" size={28} />
-            </div>
-          )}
-
-          {props.data.image.endsWith(".mp4") ? (
-            <video
-              autoPlay
-              loop
-              disableRemotePlayback
-              muted
-              className="rounded-md"
-            >
-              <source type="video/mp4" src={props.data.image} />
-            </video>
-          ) : (
-            <LazyLoadImage
-              src={props.data.image}
-              onLoad={() => setLoading(false)}
-              alt="GeneratedImage"
-              effect="blur"
-              className="rounded-md"
-            />
-          )}
-
-          {/* Hovered Image Description */}
-
-          {!props.hideDescription && (
-            <div className="absolute w-full h-full top-0 left-0 hover-ground opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4 flex flex-col justify-between">
-              <div className="flex flex-row justify-between gap-2">
-                <div className="flex flex-row items-center gap-1 overflow-hidden">
-                  <span className="w-8 h-8 p-3 rounded-full bg-[#1cb578] flex text-center justify-center items-center text-black font-semibold">
-                    D
-                  </span>
-                  <span className="text-ellipsis overflow-hidden text-[12px] ">
-                    {props.data.owner}
-                  </span>
-                </div>
-                <button
-                  className="flex flex-row items-center rounded-[24px] py-2 px-3 bg-[#63636355] gap-2"
-                  onClick={handleAddHearMark}
-                  disabled={isOwner}
-                >
-                  <span className="">{`${heartCount}`}</span>
-
-                  {likeImages.find((val: any) => {
-                    return val.generationID === props.data.generationID;
-                  }) ? (
-                    <Icon
-                      icon="tdesign:heart-filled"
-                      className="w-6 h-6"
-                      color="red"
-                    />
-                  ) : (
-                    <Icon icon="tdesign:heart" className="w-6 h-6" />
-                  )}
-                </button>
-              </div>
-              <div className="flex flex-col overflow-hidden text-ellipsis text-wrap break-words h-[34px] text-[12px]">
-                {props.data.data.prompt}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
+      </div>
+      {/* )} */}
     </>
   );
 };

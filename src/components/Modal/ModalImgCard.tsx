@@ -383,6 +383,14 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
       open={modalCtx.visible}
       onClose={modalCtx.visible ? handleHideImgCard : () => {}}
     >
+      {modalCtx.index > 0 && (
+        <div
+          className="absolute left-[5px] top-1/2 cursor-pointer"
+          onClick={onPrevImage}
+        >
+          <Icon icon="teenyicons:left-circle-solid" color="white" width="16" />
+        </div>
+      )}
       <ToastContainer containerId={"modal"} />
       <div
         className="flex-1 px-8 py-5 mt-0 bg-modalBackground border-primary md:min-w-[768px] font-Inter relative w-full max-w-[1000px]"
