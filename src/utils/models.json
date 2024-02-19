@@ -2,7 +2,7 @@
   "custom_models": [
     {
       "id": "5c232a9e-9061-4777-980a-ddc8e65647c6",
-      "name": "StarkAI XL v1",
+      "name": "StarkAI Vision XL",
       "description": "A versatile model that excels at realism and photography. Better results with longer prompts.",
       "nsfw": false,
       "featured": true,
@@ -13,7 +13,7 @@
     },
     {
       "id": "1e60896f-3c26-4296-8ecc-53e2afecc132",
-      "name": "StarkAI XL v2",
+      "name": "StarkAI Diffusion XL",
       "description": "The next phase of the core StarkAI model. Stunning outputs, even with short prompts.",
       "nsfw": false,
       "featured": true,
