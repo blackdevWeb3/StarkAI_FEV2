@@ -437,8 +437,6 @@ const ImageGeneration = () => {
     modalCtx.setIndex(ind - 1);
   };
 
-  console.log('---------dimensionRatio--------', dimensionRatio)
-
   return (
     <>
       <div className="relative w-full">

@@ -60,7 +60,7 @@ const Card = (props: any) => {
   useEffect(() => {
     if (likeImages.length > 0) return;
     updateLibrary();
-  });
+  }, [likeImages]);
 
   useEffect(() => {
     setLoading(true);
