@@ -273,3 +273,27 @@ input[type="number"] {
   display: block;
   padding-top: 56.25%; /* (9 / 16) * 100% for 16:9 aspect ratio */
 }
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#rotate-board {
+  animation: rotate 2s linear infinite; /* Adjust time as needed */
+  background: linear-gradient(45deg, #ee61e2, #5640b8);
+}
+
+#rotate-board img {
+  animation: rotate 2s linear infinite reverse; /* Reverse to counteract the rotation */
+}
+
+.white-blur-effect {
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.5); /* Semi-transparent white overlay */
+}
