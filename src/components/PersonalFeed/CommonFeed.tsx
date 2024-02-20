@@ -30,6 +30,7 @@ const CommonFeed = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedStyle, setSelectedStyle] = useState<StyleOptions>("All");
   const [showSplashScreen, setShowSplashScreen] = useState(true);
+  const [fetched, setFetched] = useState(false);
 
   const hashtagFilter = (param: StyleOptions) => {
     setSelectedStyle(param);
@@ -68,22 +69,19 @@ const CommonFeed = () => {
         `${process.env.REACT_APP_BACKEND_API}/getImages`,
         { email: JSON.parse(user).email }
       );
-      if (res.status === 200) {
-        setImageData(res.data.reverse());
-      } else {
-        console.log("Error occurred");
-      }
+      setImageData(res.data.reverse());
+      setFetched(true);
     } catch (error) {
       console.error("An error occurred while fetching images:", error);
+    } finally {
+      setShowSplashScreen(false);
     }
-
-    setShowSplashScreen(false); // Assuming you want to hide the splash screen regardless of the outcome.
   };
 
   useEffect(() => {
     if (imageData.length > 0) return;
     updateLibrary();
-  });
+  }, [fetched]);
 
   const onNextImage = () => {
     const ind = modalCtx.index;

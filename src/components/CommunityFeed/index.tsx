@@ -34,6 +34,7 @@ const CommunityFeed = () => {
   const [isOpen, setIsOpen] = useState(false);
   const maxStretch = useDynamicSliderStretch(windowSize);
   const [hashTagSelected, setHashTagSelected] = useState("All");
+  const [isFetching, setIsFetching] = useState(false);
 
   const handleOptionClick = (option) => {
     setSelectedOption(option);
@@ -49,24 +50,23 @@ const CommunityFeed = () => {
   };
 
   useEffect(() => {
-    if (imageData.length === 0) {
+    if (imageData.length === 0 && !isFetching) {
       fetchImage();
     }
-  }, [imageData]);
+  }, [imageData, isFetching]);
 
   const fetchImage = async () => {
     try {
-      const res = await axios.post(
+      setIsFetching(true);
+      const response = await axios.post(
         `${process.env.REACT_APP_BACKEND_API}/getAllImages`
       );
-      if (res.status === 200) {
-        setImageData(res.data.reverse());
-        setShowSplashScreen(false);
-      } else {
-        console.error("Error occurred");
-      }
+      setImageData(response.data.reverse());
+      setShowSplashScreen(false);
     } catch (error) {
       console.error("Error fetching images:", error);
+    } finally {
+      setIsFetching(false);
     }
   };
 
