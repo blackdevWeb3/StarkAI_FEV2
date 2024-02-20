@@ -28,6 +28,7 @@ const LikedFeed = () => {
   const [selectedOption, setSelectedOption] = useState(sortOptions[1]);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedStyle, setSelectedStyle] = useState<StyleOptions>("All");
+  const [showSplashScreen, setShowSplashScreen] = useState(true);
 
   const hashtagFilter = (param: StyleOptions) => {
     setSelectedStyle(param);
@@ -60,26 +61,24 @@ const LikedFeed = () => {
     setSearched(true);
   };
 
-  const updateLibrary = () => {
-    const func = async () => {
+  const updateLibrary = async () => {
+    try {
       const res = await axios.post(
         `${process.env.REACT_APP_BACKEND_API}/getLikeImages`,
         { email: JSON.parse(user).email }
       );
+
       if (res.status === 200) {
-        var tmp = res.data.images;
-        // tmp.sort((a: Image, b: Image) => {
-        //   const dateA = new Date(a.created).getTime();
-        //   const dateB = new Date(b.created).getTime();
-        //   return dateB - dateA;
-        // });
-        tmp.reverse();
+        const tmp = res.data.images.reverse();
         setImageData(tmp);
       } else {
         console.log("Error occurred");
       }
-    };
-    func();
+    } catch (error) {
+      console.error("An error occurred while fetching like images:", error);
+    } finally {
+      setShowSplashScreen(false);
+    }
   };
 
   useEffect(() => {
