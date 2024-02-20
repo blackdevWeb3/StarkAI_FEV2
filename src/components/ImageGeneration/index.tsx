@@ -97,22 +97,29 @@ const ImageGeneration = () => {
     setSliderHeightDimension(currentWidth);
   };
 
-  // const handleDRatioChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  //   const currentRatio = event.target.value;
-  //   console.log("Current Ratio:", currentRatio);
-  //   if (currentRatio.includes("/") || currentRatio.includes(":")) {
-  //     console.log("Ratio:", eval(currentRatio));
-  //   }
-  //   setDimensionRatio(event.target.value);
-  // };
+  useEffect(() => {
+    if (sliderWidthDimension === 0) return
+    const _ratio = sliderWidthDimension / sliderHeightDimension 
+    if (_ratio > 0.45 && _ratio < 0.5125) setDimensionRatio(String(1/2))
+    else if (_ratio < 0.6125 && _ratio >= 0.5125) setDimensionRatio(String(9/16))
+    else if (_ratio < 0.717 && _ratio >= 0.617) setDimensionRatio(String(2/3))
+    else if (_ratio >= 0.7 && _ratio < 0.8) setDimensionRatio(String(3/4))
+    else if (_ratio > 0.95 && _ratio < 1.05) setDimensionRatio('1')
+    else if (_ratio > 1.28 && _ratio < 1.38) setDimensionRatio(String(4/3))
+    else if (_ratio > 1.45 && _ratio < 1.55) setDimensionRatio(String(3/2))
+    else if (_ratio > 1.72 && _ratio < 1.82) setDimensionRatio(String(16/9))
+    else if (_ratio > 2.34 && _ratio < 2.44) setDimensionRatio('2.39')
+    else setDimensionRatio('0') 
+  }, [sliderWidthDimension, sliderHeightDimension])
 
   const handleDRatioChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value;
     // Check if the value contains ':' or '/' indicating it's a ratio and needs evaluation
-    if (selectedValue.includes("/") || selectedValue.includes(":")) {
-      setSliderHeightDimension(
-        Math.trunc(sliderWidthDimension / eval(selectedValue))
-      );
+    if (Number(selectedValue) !== 0) {
+      const _height =  Math.max(512, Math.min(1536, Math.trunc(sliderWidthDimension / Number(selectedValue))))
+      const _width = Math.trunc(_height * Number(selectedValue))
+      setSliderHeightDimension(_height);
+      setSliderWidthDimension(_width);
       setDimensionRatio(event.target.value);
     } else {
       setDimensionRatio(parseFloat(selectedValue).toString());
@@ -146,8 +153,9 @@ const ImageGeneration = () => {
     const inputValue = event.target.valueAsNumber;
     if (event.target.name === "width") {
       setSliderWidthDimension(inputValue);
-    } else if (event.target.name === "height")
+    } else if (event.target.name === "height") {
       setSliderHeightDimension(inputValue);
+    }
   };
 
   const handleSliderChange = (
@@ -432,6 +440,8 @@ const ImageGeneration = () => {
     modalCtx.setData(imageData[ind - 1]);
     modalCtx.setIndex(ind - 1);
   };
+
+  console.log('---------dimensionRatio--------', dimensionRatio)
 
   return (
     <>
