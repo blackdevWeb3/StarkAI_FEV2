@@ -289,11 +289,41 @@ input[type="number"] {
 }
 
 #rotate-board img {
-  animation: rotate 2s linear infinite reverse; /* Reverse to counteract the rotation */
+  animation: rotate 2s linear infinite reverse;
 }
 
 .white-blur-effect {
   -webkit-backdrop-filter: blur(10px); /* For Safari */
   backdrop-filter: blur(10px);
   background: rgba(255, 255, 255, 0.5); /* Semi-transparent white overlay */
+}
+
+@keyframes ping {
+  75%,
+  to {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+.animate-ping {
+  animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+.animate-pulse {
+  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.bg-custom-violet-20 {
+  background-color: rgba(255, 0, 96, 0.2);
+}
+.bg-custom-violet-30 {
+  background-color: rgba(251, 62, 137, 0.2);
+}
+.bg-custom-violet-40 {
+  background-color: rgba(255, 126, 170, 0.2);
 }
