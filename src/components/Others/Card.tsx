@@ -76,7 +76,6 @@ const Card = (props: any) => {
             <img src="/favicon.ico" alt="logo" />
           </div>
         )}
-
         {props.data.image.endsWith(".mp4") ? (
           <video
             autoPlay
@@ -102,7 +101,6 @@ const Card = (props: any) => {
         )}
 
         {/* Hovered Image Description */}
-
         <div className="absolute w-full h-full top-0 left-0 hover-ground opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4 flex flex-col justify-between">
           <div className="flex flex-row justify-between gap-2">
             <div className="flex flex-row items-center gap-1 overflow-hidden">
@@ -137,7 +135,6 @@ const Card = (props: any) => {
           </div>
         </div>
       </div>
-      {/* )} */}
     </>
   );
 };

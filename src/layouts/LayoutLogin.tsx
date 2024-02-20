@@ -17,8 +17,6 @@ const Login = () => {
       avatar: credentialResponse.picture,
     };
 
-    console.log("UserInfo Result:", await registerUserInfo(data));
-
     if ((await registerUserInfo(data)) === "Success")
       setUser(JSON.stringify(data));
     else return;

@@ -37,21 +37,23 @@ const RecentWorks = () => {
   });
   return (
     <div className="w-full bg-black py-14">
-      <div className="w-full max-w-[1124px] mx-auto flex flex-col justify-center items-center gap-4 px-5 md:px-16 sm:px-8">
+      <div className="w-full max-w-[1324px] mx-auto flex flex-col justify-center items-center gap-4 px-5 md:px-16 sm:px-8">
         <span className="text-[22px] font-semibold">Recent works</span>
         {imageData.length > 0 && (
           <div className="py-8">
             <ImageList variant="masonry" cols={curVal} gap={10}>
-              {imageData.map((item, index) => (
-                <React.Fragment key={index}>
-                  {item.image.endsWith(".jpg") && (
-                    <ImageListItem>
-                      <img src={item.image} alt="recent" loading="lazy" />{" "}
-                      {/* Added alt attribute for accessibility */}
-                    </ImageListItem>
-                  )}
-                </React.Fragment>
-              ))}
+              {imageData
+                .filter((item) => item.image.endsWith(".jpg"))
+                .map((item, index) => (
+                  <ImageListItem key={index}>
+                    <img
+                      src={item.image}
+                      alt="recent"
+                      loading="lazy"
+                      className="rounded-md"
+                    />
+                  </ImageListItem>
+                ))}
             </ImageList>
           </div>
         )}
