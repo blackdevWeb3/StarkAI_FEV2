@@ -365,7 +365,7 @@ const ImageGeneration = () => {
           alchemy: alchemy,
           presetStyle: generationStyle,
           numberOfImages: selectedNumber,
-          dimension: selectedOption,
+          dimension: lockOpened ? `${sliderWidthDimension} * ${sliderHeightDimension}` : selectedOption,
           negative_prompt: negativePromptText,
         };
         socket.emit("text-to-image", data);
@@ -377,7 +377,7 @@ const ImageGeneration = () => {
           alchemy: alchemy ? "true" : "false",
           presetStyle: generationStyle,
           numberOfImages: selectedNumber.toString(),
-          dimension: selectedOption,
+          dimension: lockOpened ? `${sliderWidthDimension} * ${sliderHeightDimension}` : selectedOption,
           density: densityValue.toString(),
           image: imgData,
           negative_prompt: negativePromptText,
