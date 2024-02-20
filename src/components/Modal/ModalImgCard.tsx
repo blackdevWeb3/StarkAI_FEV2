@@ -348,7 +348,6 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
       )
     );
 
-    console.log("ImageData:", modalCtx.imageData.data.negative_prompt);
     if (userObject?.email !== modalCtx.imageData.owner) {
       setMe(false);
     } else {

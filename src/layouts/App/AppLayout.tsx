@@ -9,7 +9,7 @@ import Marketplace from "../../components/Marketplace";
 import TextGeneration from "../../components/TextGeneration";
 import Settings from "../../components/Settings";
 import AppHeader from "./AppHeader";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const AppLayout = () => {
@@ -18,7 +18,6 @@ const AppLayout = () => {
 
   const sliderHandler = () => {
     setSliderOpen(!sliderOpen);
-    console.log("Slider State:", sliderOpen);
   };
 
   return (
