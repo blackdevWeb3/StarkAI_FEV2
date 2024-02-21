@@ -407,32 +407,23 @@ const ImageGeneration = () => {
     }
   };
 
-  const updateLibrary = () => {
-    const func = async () => {
+  const updateLibrary = async () => {
+    try {
       const res = await axios.post(
         `${process.env.REACT_APP_BACKEND_API}/getImages`,
         { email: JSON.parse(user).email }
       );
-      if (res.status === 200) {
-        var tmp = res.data;
-        // tmp.sort((a: Image, b: Image) => {
-        //   const dateA = new Date(a.created).getTime();
-        //   const dateB = new Date(b.created).getTime();
-        //   return dateB - dateA;
-        // });
-        tmp.reverse();
-        setImageData(tmp);
-      } else {
-        console.log("Error occurred");
-      }
-    };
-    func();
+      setImageData(res.data.reverse());
+    } catch (error) {
+      console.error("An error occurred while fetching images:", error);
+    }
   };
 
   useEffect(() => {
-    if (imageData.length > 0) return;
-    updateLibrary();
-  });
+    if (imageData.length === 0) {
+      updateLibrary();
+    }
+  }, []);
 
   const onNextImage = () => {
     const ind = modalCtx.index;
