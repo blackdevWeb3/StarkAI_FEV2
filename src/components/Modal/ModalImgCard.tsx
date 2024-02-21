@@ -386,7 +386,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
       <div ref={ImgModalRef}>
         {modalCtx.index > 0 && (
             <div
-              className="absolute left-[30px] top-1/2 cursor-pointer z-[1000]"
+              className="absolute left-[30px] top-1/2 cursor-pointer z-[1000] sm:hidden md:hidden"
               onClick={onPrevImage}
             >
               <Icon
@@ -398,7 +398,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
           )}
           {modalCtx.index < modalCtx.imgCount - 1 && (
             <div
-              className="absolute right-[30px] top-1/2 cursor-pointer z-[1000]"
+              className="absolute right-[30px] top-1/2 cursor-pointer z-[1000] sm:hidden md:hidden"
               onClick={onNextImage}
             >
               <Icon
@@ -410,12 +410,11 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
           )}
         {/* <ToastContainer containerId={"modal"} /> */}
         <div
-          className="flex-1 px-8 py-5 mt-0 bg-modalBackground shadow-[0 2px 8pxrgba(0,0,0,0.6)] border-primary md:min-w-[768px] font-Inter relative w-full max-w-[1000px]"
-          
+          className="flex-1 px-8 py-5 bg-modalBackground border-primary font-Inter relative w-full max-w-[1000px] rounded-md"
         >
           
           <div className="flex flex-col items-center relative">
-            <div className="flex flex-row gap-5 sm:flex-col">
+            <div className="flex flex-row space-x-5 space-y-0 sm:space-y-5 sm:space-x-0 sm:flex-col">
               {/* left */}
               <div>
                 <div
@@ -512,7 +511,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                 </div>
                 {isMe && (
                   <div className="flex flex-col space-y-2 p-2 border rounded-[7.2px] bg-[#202020] border-primary mt-2">
-                    <div className="flex space-x-2">
+                    <div className="flex flex-row sm:flex-col space-x-2 sm:space-x-0">
                       <div className="mb-3 w-full rounded-[5.4px]">
                         <input
                           className="font-light text-[13px] font-Inter focus-visible:outline-0 text-[#fefefe] bg-[#171717] p-2 rounded-[6px]"
@@ -570,7 +569,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                           className="w-8 h-8 text-white"
                         />
                       </div>
-                      <div className="min-w-[auto] text-fontSecondary leading-[1] font-semibold px-1 select-none">
+                      <div className="min-w-[auto] text-fontSecondary leading-[1] sm:text-[12px] font-semibold px-1 select-none">
                         {imageData.owner}
                       </div>
                     </div>
@@ -579,7 +578,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                         icon="ph:star"
                         className="w-[14px] h-[14px] text-white"
                       />
-                      <span className="text-white text-[12px]">Follow</span>
+                      <span className="text-white text-[12px] sm:hidden">Follow</span>
                     </button>
                   </div>
                   <span className="text-white font-semibold text-[18px] mt-2 text-ellipsis overflow-hidden">
@@ -599,7 +598,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                     </div>
                   </div>
                   {srcType === "image" && (
-                    <div className="flex flex-row items-center justify-between sm:justify-start sm:gap-1 mt-3">
+                    <div className="flex flex-row sm:flex-wrap items-center justify-between sm:justify-start gap-2 sm:gap-1 mt-3">
                       <div className="block">
                         <button className="inline-flex rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 px-3 button-detail">
                           <span className="self-center inline-flex flex-shrink-[0] me-[6px]">

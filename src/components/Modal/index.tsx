@@ -35,7 +35,7 @@ const Modal: FunctionComponent<ModalProps> = ({ children, open, onClose }) => {
   return createPortal(
     <dialog
       ref={dialog}
-      className="modal popup-container overflow-y-scroll hide-scrollbar relative px-24 bg-transparent"
+      className="modal popup-container overflow-y-scroll hide-scrollbar relative px-24 sm:px-0 md:px-0 bg-transparent"
       onClose={handleClose}
     >
       {children}
