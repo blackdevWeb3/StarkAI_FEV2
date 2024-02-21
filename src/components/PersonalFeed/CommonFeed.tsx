@@ -65,7 +65,6 @@ const CommonFeed = () => {
 
   const updateLibrary = async () => {
     try {
-      console.log("User Email Address; ++++++++++", JSON.parse(user).email);
       const res = await axios.post(
         `${process.env.REACT_APP_BACKEND_API}/getImages`,
         { email: JSON.parse(user).email }
