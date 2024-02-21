@@ -11,31 +11,20 @@ import {
 } from "@rainbow-me/rainbowkit";
 import { configureChains, createConfig, WagmiConfig } from "wagmi";
 import { mainnet, polygon, bsc, goerli, bscTestnet } from "wagmi/chains";
-import { alchemyProvider } from "wagmi/providers/alchemy";
-import { publicProvider } from "wagmi/providers/public";
 
 import "react-toastify/dist/ReactToastify.min.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import "./index.css";
 import { ToastContainer } from "react-toastify";
 import { PUBLIC_NODES } from "./config/const";
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
+import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 
-// get most configs chain nodes length
 const mostNodesConfig = Object.values(PUBLIC_NODES).reduce((prev, cur) => {
-  return cur.length > prev ? cur.length : prev
-}, 0)
+  return cur.length > prev ? cur.length : prev;
+}, 0);
 
 const { chains, publicClient } = configureChains(
   [mainnet, goerli, bsc, bscTestnet, polygon] as any,
-  // [
-  //   alchemyProvider({
-  //     apiKey:
-  //       process.env.REACT_APP_ALCHEMY_API_KEY ||
-  //       "ekZhZsGjfWuK39pYW_YXSEcRKDN8amSN",
-  //   }),
-  //   publicProvider(),
-  // ]
   Array.from({ length: mostNodesConfig })
     .map((_, i) => i)
     .map((i) => {
@@ -46,9 +35,9 @@ const { chains, publicClient } = configureChains(
             ? {
                 http: PUBLIC_NODES[chain.id][i],
               }
-            : null
+            : null;
         },
-      })
+      });
     }),
   {
     batch: {
@@ -56,7 +45,7 @@ const { chains, publicClient } = configureChains(
         batchSize: 1024 * 200,
       },
     },
-  },
+  }
 );
 
 const { connectors } = getDefaultWallets({

@@ -1,4 +1,6 @@
-const changeDateFormat = (dateString: string | null | undefined): string => {
+export const changeDateFormat = (
+  dateString: string | null | undefined
+): string => {
   if (dateString === undefined || dateString === null) {
     throw new Error("The date string cannot be null or undefined.");
   }
@@ -18,5 +20,3 @@ const changeDateFormat = (dateString: string | null | undefined): string => {
     day: "2-digit",
   }).format(date);
 };
-
-export default changeDateFormat;

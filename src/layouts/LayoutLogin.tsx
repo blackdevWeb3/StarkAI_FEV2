@@ -3,9 +3,10 @@ import { GoogleLogin } from "google-login-react";
 import { useUser } from "../context/UserContext";
 import { Navigate, Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import registerUserInfo from "../api/registerUserInfo";
+import { registerUserInfo } from "../actions/authActions";
 
 const Login = () => {
+  const { user, setUser }: any = useUser();
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const onLogin = async (credentialResponse: any) => {
@@ -21,8 +22,6 @@ const Login = () => {
       setUser(JSON.stringify(data));
     else return;
   };
-
-  const { user, setUser }: any = useUser();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

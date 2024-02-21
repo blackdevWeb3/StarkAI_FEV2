@@ -18,7 +18,6 @@ import { hashtag_buttons } from "../../utils/constants";
 import SplashScreen from "../Others/SplashScreen";
 
 const CommunityFeed = () => {
-  const { user }: any = useUser();
   const [showSplashScreen, setShowSplashScreen] = useState(true);
   const modalCtx = useContext(ModalContext);
   const [searchKey, setSearchKey] = useState("");

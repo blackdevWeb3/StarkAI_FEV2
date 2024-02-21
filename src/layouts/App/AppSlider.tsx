@@ -57,14 +57,14 @@ const AppSlider = ({
         </div>
         <div className="flex flex-col pt-10">
           <NavLink
-            to="/app/"
+            to="/app"
             handleSetActiveLink={handleSetActiveLink}
             activeLink={pathname}
             icon="heroicons:user-group-solid"
             text="Community Collections"
           />
           <NavLink
-            to="/app/personal-feed/"
+            to="/app/personal-feed"
             handleSetActiveLink={handleSetActiveLink}
             activeLink={pathname}
             icon="material-symbols:dashboard-outline"
@@ -84,7 +84,7 @@ const AppSlider = ({
             User Tools
           </span>
           <NavLink
-            to="/app/image-generator/"
+            to="/app/image-generator"
             handleSetActiveLink={handleSetActiveLink}
             activeLink={pathname}
             icon="prime:images"
@@ -93,7 +93,7 @@ const AppSlider = ({
         </div>
         <div className="flex flex-col pt-10">
           <NavLink
-            to="/app/settings/"
+            to="/app/settings"
             handleSetActiveLink={handleSetActiveLink}
             activeLink={pathname}
             icon="mingcute:user-setting-line"
@@ -110,7 +110,7 @@ const AppSlider = ({
           </button>
 
           <Link
-            to="/app/settings/"
+            to="/app/settings"
             className="text-white hover:bg-[#1b1c20]"
             onClick={() => handleSetActiveLink("/app/settings/")}
           >

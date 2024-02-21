@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react";
 import { useUser } from "../../context/UserContext";
 import { Link, Navigate } from "react-router-dom";
 import React, { useRef, useState } from "react";
-import updateUserInfo from "../../api/updateUserInfo";
+import { updateUserInfo } from "../../actions/authActions";
 
 const Profile: React.FC = () => {
   const { user, setUser }: any = useUser();
