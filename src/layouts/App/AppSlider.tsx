@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import { useState } from "react";
 import { useUser } from "../../context/UserContext";
 import NavLink from "../../components/Others/NavLink";
 import { Navigate } from "react-router-dom";
@@ -9,29 +8,28 @@ interface AppSliderProps {
   sliderOpen: boolean;
   setSliderOpen: (open: boolean) => void;
   sliderHandler: () => void;
+  pathname: string;
 }
 
 const AppSlider = ({
   sliderOpen,
   setSliderOpen,
   sliderHandler,
+  pathname,
 }: AppSliderProps) => {
-  const [activeLink, setActiveLink] = useState("/app/");
   const { user, setUser }: any = useUser();
-  const userObject = JSON.parse(user === "None" ? "{}" : user);
-
-  const handleSetActiveLink = (path: string) => {
-    setSliderOpen(false);
-    setActiveLink(path);
-  };
-
-  const handleLogout = () => {
-    setUser("None");
-  };
 
   if (user === undefined || user === "None") {
     return <Navigate to="/" />;
   }
+
+  const userObject = JSON.parse(user === "None" ? "{}" : user);
+
+  const handleSetActiveLink = (path: string) => {
+    setSliderOpen(false);
+  };
+
+  const handleLogout = () => setUser("None");
 
   return (
     <>
@@ -61,14 +59,14 @@ const AppSlider = ({
           <NavLink
             to="/app/"
             handleSetActiveLink={handleSetActiveLink}
-            activeLink={activeLink}
+            activeLink={pathname}
             icon="heroicons:user-group-solid"
             text="Community Collections"
           />
           <NavLink
             to="/app/personal-feed/"
             handleSetActiveLink={handleSetActiveLink}
-            activeLink={activeLink}
+            activeLink={pathname}
             icon="material-symbols:dashboard-outline"
             text="My Collections"
           />
@@ -88,7 +86,7 @@ const AppSlider = ({
           <NavLink
             to="/app/image-generator/"
             handleSetActiveLink={handleSetActiveLink}
-            activeLink={activeLink}
+            activeLink={pathname}
             icon="prime:images"
             text="Create Art"
           />
@@ -97,7 +95,7 @@ const AppSlider = ({
           <NavLink
             to="/app/settings/"
             handleSetActiveLink={handleSetActiveLink}
-            activeLink={activeLink}
+            activeLink={pathname}
             icon="mingcute:user-setting-line"
             text="Settings"
           />

@@ -10,13 +10,14 @@ import TextGeneration from "../../components/TextGeneration";
 import Settings from "../../components/Settings";
 import AppHeader from "./AppHeader";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const AppLayout = () => {
   const [sliderOpen, setSliderOpen] = useState<boolean>(false);
+  const location = useLocation();
 
   const sliderHandler = () => {
     setSliderOpen(!sliderOpen);
-    console.log("Slider State:", sliderOpen);
   };
 
   return (
@@ -26,6 +27,7 @@ const AppLayout = () => {
           sliderOpen={sliderOpen}
           setSliderOpen={setSliderOpen}
           sliderHandler={sliderHandler}
+          pathname={location.pathname}
         />
         <div className="flex flex-col min-h-screen h-full bg-black w-0 flex-1">
           <AppHeader sliderOpen={sliderOpen} sliderHandler={sliderHandler} />

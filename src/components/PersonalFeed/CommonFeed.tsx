@@ -13,6 +13,7 @@ import SortSelectionButtonGroup from "../Others/SortSelectionButtonGroup";
 import { sortOptions } from "../Others/SortSelectionButtonGroup";
 import SortButton from "../Others/SortButton";
 import { StyleOptions } from "../Others/SortButton";
+import SplashScreen from "../Others/SplashScreen";
 
 const CommonFeed = () => {
   const windowSize = useWindowSize();
@@ -28,6 +29,8 @@ const CommonFeed = () => {
   const [selectedOption, setSelectedOption] = useState(sortOptions[1]);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedStyle, setSelectedStyle] = useState<StyleOptions>("All");
+  const [showSplashScreen, setShowSplashScreen] = useState(true);
+  const [fetched, setFetched] = useState(false);
 
   const hashtagFilter = (param: StyleOptions) => {
     setSelectedStyle(param);
@@ -60,32 +63,25 @@ const CommonFeed = () => {
     setIsOpen(false);
   };
 
-  const updateLibrary = () => {
-    const func = async () => {
+  const updateLibrary = async () => {
+    try {
+      console.log("User Email Address; ++++++++++", JSON.parse(user).email);
       const res = await axios.post(
         `${process.env.REACT_APP_BACKEND_API}/getImages`,
         { email: JSON.parse(user).email }
       );
-      if (res.status === 200) {
-        var tmp = res.data;
-        // tmp.sort((a: Image, b: Image) => {
-        //   const dateA = new Date(a.created).getTime();
-        //   const dateB = new Date(b.created).getTime();
-        //   return dateB - dateA;
-        // });
-        tmp.reverse();
-        setImageData(tmp);
-      } else {
-        console.log("Error occurred");
-      }
-    };
-    func();
+      setImageData(res.data.reverse());
+    } catch (error) {
+      console.error("An error occurred while fetching images:", error);
+    } finally {
+      setShowSplashScreen(false);
+    }
   };
 
   useEffect(() => {
     if (imageData.length > 0) return;
     updateLibrary();
-  });
+  }, []);
 
   const onNextImage = () => {
     const ind = modalCtx.index;
@@ -114,96 +110,107 @@ const CommonFeed = () => {
 
   return (
     <>
-      <div className="relative">
-        {/* TabView Settings */}
-        <div className="sticky z-10 w-full bg-black pt-4 top-0">
-          <div className="px-8 sm:px-4">
-            <div className="flex flex-col w-full gap-5">
-              <div className="flex flex-wrap justify-between gap-4">
-                <div className="search-panel w-[376px]">
-                  <span className="search-icon">
-                    <Icon icon="ic:round-search" className="w-5 h-5" />
-                  </span>
-                  <input
-                    className="search-input font-chakra"
-                    placeholder="Search gallery"
-                    value={searchKey}
-                    onChange={(ev) => setSearchKey(ev.target.value)}
-                  ></input>
-                  <button onClick={handleSearch} className="search-button h-8">
-                    Search
-                  </button>
+      {showSplashScreen ? (
+        <>
+          <SplashScreen />
+        </>
+      ) : (
+        <>
+          <div className="relative">
+            {/* TabView Settings */}
+            <div className="sticky z-10 w-full bg-black pt-4 top-0">
+              <div className="px-8 sm:px-4">
+                <div className="flex flex-col w-full gap-5">
+                  <div className="flex flex-wrap justify-between gap-4">
+                    <div className="search-panel w-[376px]">
+                      <span className="search-icon">
+                        <Icon icon="ic:round-search" className="w-5 h-5" />
+                      </span>
+                      <input
+                        className="search-input font-chakra"
+                        placeholder="Search gallery"
+                        value={searchKey}
+                        onChange={(ev) => setSearchKey(ev.target.value)}
+                      ></input>
+                      <button
+                        onClick={handleSearch}
+                        className="search-button h-8"
+                      >
+                        Search
+                      </button>
+                    </div>
+                    <div className="flex flex-row z-50">
+                      <SortSelectionButtonGroup
+                        isOpen={isOpen}
+                        setIsOpen={setIsOpen}
+                        selectedOption={selectedOption}
+                        handleOptionClick={handleOptionClick}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-row justify-between gap-4 flex-wrap">
+                    <div className="inline-flex overflow-hidden rounded-full bg-[#0c0f16] items-center font-chakra">
+                      <SortButton
+                        label="All"
+                        isSelected={selectedStyle === "All"}
+                        onClick={() => hashtagFilter("All")}
+                      />
+                      <SortButton
+                        label="Upscaled"
+                        isSelected={selectedStyle === "Upscaled"}
+                        onClick={() => hashtagFilter("Upscaled")}
+                      />
+                      <SortButton
+                        label="Motion"
+                        isSelected={selectedStyle === "Motion"}
+                        onClick={() => hashtagFilter("Motion")}
+                      />
+                    </div>
+                    <div className="w-[200px] h-[31px] sm:hidden flex">
+                      <Slider
+                        aria-label="Volume"
+                        min={1}
+                        max={maxStretch}
+                        valueLabelDisplay="auto"
+                        value={sliderValue}
+                        onChange={handleStretch}
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div className="flex flex-row z-50">
-                  <SortSelectionButtonGroup
-                    isOpen={isOpen}
-                    setIsOpen={setIsOpen}
-                    selectedOption={selectedOption}
-                    handleOptionClick={handleOptionClick}
-                  />
-                </div>
+                <div className=""></div>
               </div>
-              <div className="flex flex-row justify-between gap-4 flex-wrap">
-                <div className="inline-flex overflow-hidden rounded-full bg-[#0c0f16] items-center font-chakra">
-                  <SortButton
-                    label="All"
-                    isSelected={selectedStyle === "All"}
-                    onClick={() => hashtagFilter("All")}
-                  />
-                  <SortButton
-                    label="Upscaled"
-                    isSelected={selectedStyle === "Upscaled"}
-                    onClick={() => hashtagFilter("Upscaled")}
-                  />
-                  <SortButton
-                    label="Motion"
-                    isSelected={selectedStyle === "Motion"}
-                    onClick={() => hashtagFilter("Motion")}
-                  />
-                </div>
-                <div className="w-[200px] h-[31px] sm:hidden flex">
-                  <Slider
-                    aria-label="Volume"
-                    min={1}
-                    max={maxStretch}
-                    valueLabelDisplay="auto"
-                    value={sliderValue}
-                    onChange={handleStretch}
-                  />
-                </div>
-              </div>
+              <hr className=" border-gray-800 mt-7" />
             </div>
-            <div className=""></div>
+
+            {/* TabView Content */}
+
+            <ImageList
+              variant="masonry"
+              cols={curVal}
+              gap={8}
+              sx={{ padding: "12px" }}
+            >
+              {(searched ? searchedData : imageData).map((item, index) => (
+                <ImageListItem key={index}>
+                  <Card
+                    data={item}
+                    index={index}
+                    count={imageData.length}
+                    key={index}
+                  />
+                </ImageListItem>
+              ))}
+            </ImageList>
+
+            <ModalImgCard
+              onUpdate={updateLibrary}
+              onNextImage={onNextImage}
+              onPrevImage={onPrevImage}
+            />
           </div>
-          <hr className=" border-gray-800 mt-7" />
-        </div>
-
-        {/* TabView Content */}
-
-        <ImageList
-          variant="masonry"
-          cols={curVal}
-          gap={8}
-          sx={{ padding: "12px" }}
-        >
-          {(searched ? searchedData : imageData).map((item, index) => (
-            <ImageListItem key={index}>
-              <Card
-                data={item}
-                index={index}
-                count={imageData.length}
-                key={index}
-              />
-            </ImageListItem>
-          ))}
-        </ImageList>
-
-        <ModalImgCard
-          onUpdate={updateLibrary}
-          onNextImage={onNextImage}
-          onPrevImage={onPrevImage}
-        />
-      </div>
+        </>
+      )}
     </>
   );
 };
