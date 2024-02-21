@@ -98,26 +98,31 @@ const ImageGeneration = () => {
   };
 
   useEffect(() => {
-    if (sliderWidthDimension === 0) return
-    const _ratio = sliderWidthDimension / sliderHeightDimension 
-    if (_ratio > 0.45 && _ratio < 0.5125) setDimensionRatio(String(1/2))
-    else if (_ratio < 0.6125 && _ratio >= 0.5125) setDimensionRatio(String(9/16))
-    else if (_ratio < 0.717 && _ratio >= 0.617) setDimensionRatio(String(2/3))
-    else if (_ratio >= 0.7 && _ratio < 0.8) setDimensionRatio(String(3/4))
-    else if (_ratio > 0.95 && _ratio < 1.05) setDimensionRatio('1')
-    else if (_ratio > 1.28 && _ratio < 1.38) setDimensionRatio(String(4/3))
-    else if (_ratio > 1.45 && _ratio < 1.55) setDimensionRatio(String(3/2))
-    else if (_ratio > 1.72 && _ratio < 1.82) setDimensionRatio(String(16/9))
-    else if (_ratio > 2.34 && _ratio < 2.44) setDimensionRatio('2.39')
-    else setDimensionRatio('0') 
-  }, [sliderWidthDimension, sliderHeightDimension])
+    if (sliderWidthDimension === 0) return;
+    const _ratio = sliderWidthDimension / sliderHeightDimension;
+    if (_ratio > 0.45 && _ratio < 0.5125) setDimensionRatio(String(1 / 2));
+    else if (_ratio < 0.6125 && _ratio >= 0.5125)
+      setDimensionRatio(String(9 / 16));
+    else if (_ratio < 0.717 && _ratio >= 0.617)
+      setDimensionRatio(String(2 / 3));
+    else if (_ratio >= 0.7 && _ratio < 0.8) setDimensionRatio(String(3 / 4));
+    else if (_ratio > 0.95 && _ratio < 1.05) setDimensionRatio("1");
+    else if (_ratio > 1.28 && _ratio < 1.38) setDimensionRatio(String(4 / 3));
+    else if (_ratio > 1.45 && _ratio < 1.55) setDimensionRatio(String(3 / 2));
+    else if (_ratio > 1.72 && _ratio < 1.82) setDimensionRatio(String(16 / 9));
+    else if (_ratio > 2.34 && _ratio < 2.44) setDimensionRatio("2.39");
+    else setDimensionRatio("0");
+  }, [sliderWidthDimension, sliderHeightDimension]);
 
   const handleDRatioChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value;
     // Check if the value contains ':' or '/' indicating it's a ratio and needs evaluation
     if (Number(selectedValue) !== 0) {
-      const _height =  Math.max(512, Math.min(1536, Math.trunc(sliderWidthDimension / Number(selectedValue))))
-      const _width = Math.trunc(_height * Number(selectedValue))
+      const _height = Math.max(
+        512,
+        Math.min(1536, Math.trunc(sliderWidthDimension / Number(selectedValue)))
+      );
+      const _width = Math.trunc(_height * Number(selectedValue));
       setSliderHeightDimension(_height);
       setSliderWidthDimension(_width);
       setDimensionRatio(event.target.value);
@@ -441,8 +446,6 @@ const ImageGeneration = () => {
     modalCtx.setIndex(ind - 1);
   };
 
-  console.log('---------dimensionRatio--------', dimensionRatio)
-
   return (
     <>
       <div className="relative w-full">
@@ -687,7 +690,7 @@ const ImageGeneration = () => {
                 AI
               </h1>
             </span>
-            <Link to="/app/">
+            <Link to="/app">
               <Icon
                 icon="ion:return-down-back-sharp"
                 className="w-6 h-6 text-fontSecondary"

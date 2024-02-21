@@ -4,7 +4,7 @@ import butter from "../../hooks/butter-client";
 import { NewBlur } from "../../assets";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import changeDateFormat from "../../utils/changeDateFormat";
+import { changeDateFormat } from "../../utils/changeDateFormat";
 
 const BlogPost = () => {
   const [post, setPost] = useState<any>({});
@@ -26,7 +26,6 @@ const BlogPost = () => {
     };
 
     fetchPost();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty dependencies array ensures this effect runs only once when the component mounts
 
   return (

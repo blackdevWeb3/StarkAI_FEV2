@@ -41,17 +41,15 @@ const Card = (props: any) => {
 
   const updateLibrary = () => {
     const func = async () => {
-      const res = await axios.post(
-        `${process.env.REACT_APP_BACKEND_API}/getLikeImages`,
-        { email: userObejct.email, imageID: props.data.generationID }
-      );
-      if (res.status === 200) {
-        var tmp = res.data.images;
-        tmp.reverse();
-        setLikeImages(tmp);
+      try {
+        const res = await axios.post(
+          `${process.env.REACT_APP_BACKEND_API}/getLikeImages`,
+          { email: userObejct.email, imageID: props.data.generationID }
+        );
+        setLikeImages(res.data.images.reverse());
         setHeartCount(res.data.heartCount);
-      } else {
-        console.log("Error occurred");
+      } catch (error) {
+        console.error("An error occurred:", error.message);
       }
     };
     func();
@@ -60,7 +58,7 @@ const Card = (props: any) => {
   useEffect(() => {
     if (likeImages.length > 0) return;
     updateLibrary();
-  });
+  }, [likeImages]);
 
   useEffect(() => {
     setLoading(true);
