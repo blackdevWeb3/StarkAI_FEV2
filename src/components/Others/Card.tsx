@@ -66,11 +66,11 @@ const Card = (props: any) => {
         className="group relative cursor-pointer w-full h-full block"
         onClick={handleImgModalOpen}
       >
-        {loading && (
+        {/* {loading && (
           <div className="absolute flex w-32 h-32 left-[calc(50%-64px)] flex-col items-center">
             <img src="/starkmeta_logo.png" alt="logo" />
           </div>
-        )}
+        )} */}
         {props.data.image.endsWith(".mp4") ? (
           <video
             loop
