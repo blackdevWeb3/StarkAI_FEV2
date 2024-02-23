@@ -17,10 +17,10 @@ const Navbar = () => {
           {/* <img src="./favicon.ico" alt="logo" className="w-[30px]" /> */}
           <Link className="flex flex-row" to="/">
             <h1 className="text-[26px] font-semibold font-chakra text-primaryColor">
-              STARK
+              STARK&nbsp;
             </h1>
             <h1 className="text-[26px] font-semibold font-chakra text-deepPink">
-              .AI
+              AI
             </h1>
           </Link>
         </div>

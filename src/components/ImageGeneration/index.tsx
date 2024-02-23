@@ -413,7 +413,7 @@ const ImageGeneration = () => {
         `${process.env.REACT_APP_BACKEND_API}/getImages`,
         { email: JSON.parse(user).email }
       );
-      setImageData(res.data.reverse());
+      setImageData(res.data.images);
     } catch (error) {
       console.error("An error occurred while fetching images:", error);
     }
@@ -675,7 +675,7 @@ const ImageGeneration = () => {
           <div className="pt-[19px] flex flex-row justify-between items-center">
             <span className="flex flex-row justify-center items-center">
               <h1 className="text-[24px] font-semibold font-chakra text-white">
-                STARK.
+                STARK&nbsp
               </h1>
               <h1 className="text-[24px] font-semibold font-chakra text-deepPink">
                 AI

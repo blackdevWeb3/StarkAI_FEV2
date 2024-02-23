@@ -43,7 +43,7 @@ const AppSlider = ({
         <div className="pt-[19px] flex flex-row justify-between w-full items-center px-10">
           <Link to="/" className="flex flex-row justify-center items-center">
             <h1 className="text-[24px] font-semibold font-chakra text-white">
-              STARK.
+              STARK&nbsp;
             </h1>
             <h1 className="text-[24px] font-semibold font-chakra text-deepPink">
               AI

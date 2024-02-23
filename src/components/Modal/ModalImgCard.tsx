@@ -113,7 +113,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
   };
 
   const handleHideImgCard = () => {
-    console.log('-------------close Handle hide img---------')
+    console.log("-------------close Handle hide img---------");
     modalCtx.setVisible(false);
   };
 
@@ -385,34 +385,31 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
     >
       <div ref={ImgModalRef}>
         {modalCtx.index > 0 && (
-            <div
-              className="absolute left-[30px] top-1/2 cursor-pointer z-[1000] sm:hidden md:hidden"
-              onClick={onPrevImage}
-            >
-              <Icon
-                icon="teenyicons:left-circle-solid"
-                color="white"
-                width="24"
-              />
-            </div>
-          )}
-          {modalCtx.index < modalCtx.imgCount - 1 && (
-            <div
-              className="absolute right-[30px] top-1/2 cursor-pointer z-[1000] sm:hidden md:hidden"
-              onClick={onNextImage}
-            >
-              <Icon
-                icon="teenyicons:right-circle-solid"
-                color="white"
-                width="24"
-              />
-            </div>
-          )}
+          <div
+            className="absolute left-[30px] top-1/2 cursor-pointer z-[1000] sm:hidden md:hidden"
+            onClick={onPrevImage}
+          >
+            <Icon
+              icon="teenyicons:left-circle-solid"
+              color="white"
+              width="24"
+            />
+          </div>
+        )}
+        {modalCtx.index < modalCtx.imgCount - 1 && (
+          <div
+            className="absolute right-[30px] top-1/2 cursor-pointer z-[1000] sm:hidden md:hidden"
+            onClick={onNextImage}
+          >
+            <Icon
+              icon="teenyicons:right-circle-solid"
+              color="white"
+              width="24"
+            />
+          </div>
+        )}
         {/* <ToastContainer containerId={"modal"} /> */}
-        <div
-          className="flex-1 px-8 py-5 bg-modalBackground border-primary font-Inter relative w-full max-w-[1000px] rounded-md"
-        >
-          
+        <div className="flex-1 px-8 py-5 bg-modalBackground border-primary font-Inter relative w-full max-w-[1000px] rounded-md">
           <div className="flex flex-col items-center relative">
             <div className="flex flex-row space-x-5 space-y-0 sm:space-y-5 sm:space-x-0 sm:flex-col">
               {/* left */}
@@ -578,7 +575,9 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                         icon="ph:star"
                         className="w-[14px] h-[14px] text-white"
                       />
-                      <span className="text-white text-[12px] sm:hidden">Follow</span>
+                      <span className="text-white text-[12px] sm:hidden">
+                        Follow
+                      </span>
                     </button>
                   </div>
                   <span className="text-white font-semibold text-[18px] mt-2 text-ellipsis overflow-hidden">
@@ -719,7 +718,9 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                         </div>
                       </div>
                       <div className="w-[48%] pr-2 mb-3">
-                        <span className="text-[#9094a6] text-[12px]">Preset</span>
+                        <span className="text-[#9094a6] text-[12px]">
+                          Preset
+                        </span>
                         <div className="w-full flex items-center text-white text-[14px]">
                           {imageData.data.presetStyle}
                         </div>
