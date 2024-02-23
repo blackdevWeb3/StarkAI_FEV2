@@ -16,7 +16,7 @@ const Footer = () => {
             <Link to="/">
               <span className="text-[20px] font-semibold">Stark</span>
               <span className="text-[20px] font-semibold text-deepPink pl-1">
-                .Ai
+                AI
               </span>
             </Link>
           </div>
@@ -142,7 +142,7 @@ const Footer = () => {
           </div>
           <div className="flex flex-row gap-2 sm:text-[12px] md:text-[14px]">
             <span>Copyright©</span>
-            <span className="text-deepPink">STARK.AI</span>
+            <span className="text-deepPink">STARK AI</span>
             <span>All Rights Reserved.</span>
           </div>
         </div>

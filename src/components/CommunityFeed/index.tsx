@@ -48,12 +48,6 @@ const CommunityFeed = () => {
     }
   };
 
-  useEffect(() => {
-    if (imageData.length === 0 && !isFetching) {
-      fetchImage();
-    }
-  }, [imageData, isFetching]);
-
   const fetchImage = async () => {
     try {
       setIsFetching(true);
@@ -81,10 +75,6 @@ const CommunityFeed = () => {
     modalCtx.setIndex(ind - 1);
   };
 
-  useEffect(() => {
-    handleMultipleSearch();
-  }, [selectedStyle, imageData]);
-
   const handleMultipleSearch = (): void => {
     const filterKey = getFilterKey(selectedStyle).toLowerCase();
     const searchKeyLower = searchKey.toLowerCase();
@@ -104,14 +94,24 @@ const CommunityFeed = () => {
     setSelectedStyle(param);
   };
 
-  useEffect(() => {
-    setCurVal(sliderValue < maxStretch ? sliderValue : maxStretch);
-  }, [maxStretch]);
-
   const handleStretch = (event: Event, newValue: number | number[]) => {
     setSliderValue(newValue as number);
     setCurVal(newValue as number);
   };
+
+  useEffect(() => {
+    setCurVal(sliderValue < maxStretch ? sliderValue : maxStretch);
+  }, [maxStretch]);
+
+  useEffect(() => {
+    handleMultipleSearch();
+  }, [selectedStyle, imageData]);
+
+  useEffect(() => {
+    if (imageData.length === 0 && !isFetching) {
+      fetchImage();
+    }
+  }, [imageData, isFetching]);
 
   return (
     <>

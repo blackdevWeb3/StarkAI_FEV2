@@ -33,7 +33,7 @@ const LayoutDashboard = () => {
               <span className="text-white text-left font-semibold text-[30px] z-10 lg:text-[26px] md:text-[22px]">
                 Welcome to our exciting generative <br></br>
                 AI Web3 social
-                <span className="text-[#9013ce] px-2">STARK.AI</span>!
+                <span className="text-[#9013ce] px-2">STARK AI</span>!
               </span>
               <span className="z-20 pl-0 p-10 flex flex-col gap-3 rounded-md w-48">
                 <Link to="/login" className="primary-button z-20">

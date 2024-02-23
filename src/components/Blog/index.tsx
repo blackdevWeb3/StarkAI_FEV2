@@ -73,7 +73,7 @@ const Blog = () => {
           <span className="text-[42px] font-semibold">Latest News</span>
           <div className="max-w-[800px] text-[#d1d4e2] text-center leading-[28px]">
             Explore the Latest in News, Trends, and Community Events with{" "}
-            <span className="text-[#9a5cf7]">Stark.Ai</span>
+            <span className="text-[#9a5cf7]">Stark AI</span>
             <br />
             Your Source for Creativity and Industry Insights
           </div>
