@@ -13,8 +13,8 @@ const Card = (props: any) => {
   const isOwner = props.data.owner === userObejct.email;
   const modalCtx = useContext(ModalContext);
   const [loading, setLoading] = useState(false);
-  const [likeImages, setLikeImages] = useState<String[]>([]);
-  const [heartCount, setHeartCount] = useState<Number>(0);
+  const [heartCount, setHeartCount] = useState<Number>(props.data.heartCount || 0);
+  const [likeImage, setLikeImage] = useState<Boolean>(props.likeImage);
 
   const handleImgModalOpen = () => {
     modalCtx.setVisible(true);
@@ -34,33 +34,12 @@ const Card = (props: any) => {
         imageID: props.data.generationID,
       })
       .then((res: AxiosResponse<any, any>) => {
-        console.log("Response Data:", res.data);
-        updateLibrary();
+        console.log("Response Data:", res.data.msg);
+        console.log(res.data.heartCount);
+        setHeartCount(res.data.heartCount);
+        setLikeImage(res.data.msg==="Added!");
       });
   };
-
-  const updateLibrary = () => {
-    const func = async () => {
-      const res = await axios.post(
-        `${process.env.REACT_APP_BACKEND_API}/getLikeImages`,
-        { email: userObejct.email, imageID: props.data.generationID }
-      );
-      if (res.status === 200) {
-        var tmp = res.data.images;
-        tmp.reverse();
-        setLikeImages(tmp);
-        setHeartCount(res.data.heartCount);
-      } else {
-        console.log("Error occurred");
-      }
-    };
-    func();
-  };
-
-  useEffect(() => {
-    if (likeImages.length > 0) return;
-    updateLibrary();
-  });
 
   useEffect(() => {
     setLoading(true);
@@ -117,9 +96,7 @@ const Card = (props: any) => {
               disabled={isOwner}
             >
               <span className="">{`${heartCount}`}</span>
-              {likeImages.find((val: any) => {
-                return val.generationID === props.data.generationID;
-              }) ? (
+              {likeImage ? (
                 <Icon
                   icon="tdesign:heart-filled"
                   className="w-6 h-6"

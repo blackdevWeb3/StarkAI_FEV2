@@ -31,6 +31,7 @@ const CommonFeed = () => {
   const [selectedStyle, setSelectedStyle] = useState<StyleOptions>("All");
   const [showSplashScreen, setShowSplashScreen] = useState(true);
   const [fetched, setFetched] = useState(false);
+  const [likeImages, setLikeImages] = useState<String[]>([]);
 
   const hashtagFilter = (param: StyleOptions) => {
     setSelectedStyle(param);
@@ -69,7 +70,8 @@ const CommonFeed = () => {
         `${process.env.REACT_APP_BACKEND_API}/getImages`,
         { email: JSON.parse(user).email }
       );
-      setImageData(res.data.reverse());
+      setImageData(res.data.images.reverse());
+      setLikeImages(res.data.likeImageIds);
       setFetched(true);
     } catch (error) {
       console.error("An error occurred while fetching images:", error);
@@ -198,6 +200,7 @@ const CommonFeed = () => {
                     index={index}
                     count={imageData.length}
                     key={index}
+                    likeImage={likeImages.indexOf(item.generationID)>=0}
                   />
                 </ImageListItem>
               ))}

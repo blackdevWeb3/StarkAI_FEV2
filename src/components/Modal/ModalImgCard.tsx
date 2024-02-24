@@ -288,13 +288,18 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
       { url: url }
     );
     console.log(tmpUrl.data);
-    const res = await fetch(tmpUrl.data);
+    try{
+      const res = await axios.get(tmpUrl.data, {
+        responseType: 'blob',
+      });
+      // console.log(p);
+    // const res = await fetch(tmpUrl.data);
     const pos = url.lastIndexOf("/");
     const name = url.substring(pos + 1);
     if (res.status === 200) {
-      const blob = await res.blob();
-      console.log("----------blob--------", blob);
-      const blobUrl = URL.createObjectURL(blob);
+      // const blob = await res.blob();
+      console.log("----------blob--------", res.data);
+      const blobUrl = URL.createObjectURL(res.data);
 
       // Create a temporary anchor element and trigger a download
       const anchor = document.createElement("a");
@@ -307,6 +312,10 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
       URL.revokeObjectURL(blobUrl);
       document.body.removeChild(anchor);
     }
+  }
+  catch(err){
+    console.log(err);
+  }
   };
 
   const handleShare = async () => {
