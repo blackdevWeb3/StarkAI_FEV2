@@ -346,95 +346,64 @@ const ImageGeneration = () => {
 
     console.log("trade---", tradeToken);
 
-    // let tx: any = await writeContract({
-    //   address: tradeToken,
-    //   abi: ERC20ABI,
-    //   functionName: 'approve',
-    //   args: [MarketPlace[chainId], generateImageFee],
-    // })
-    // console.log('----------tx--------', tx)
-    // try {
-    //   let tx = await writeContract({
-    //     address: tradeToken,
-    //     abi: ERC20ABI,
-    //     functionName: "approve",
-    //     args: [MarketPlace[chainId], generateImageFee],
-    //   });
-    //   console.log(tx);
-    //   let data = await waitForTransaction(tx);
-    //   console.log("-------data-------", data);
-    //   tx = await writeContract({
-    //     address: MarketPlace[chainId],
-    //     abi: MarketPlaceABI,
-    //     functionName: "generateImage",
-    //   });
-    //   data = await waitForTransaction(tx);
-    //   console.log("-------data-2------", data);
-    //   if (activeTab === "generationHistory") {
-    //     const data = {
-    //       user: JSON.parse(user).email,
-    //       text: promptText,
-    //       model: generationModel?.id,
-    //       alchemy: alchemy,
-    //       presetStyle: generationStyle,
-    //       numberOfImages: selectedNumber,
-    //       dimension: lockOpened
-    //         ? `${sliderWidthDimension} * ${sliderHeightDimension}`
-    //         : selectedOption,
-    //       negative_prompt: negativePromptText,
-    //     };
-    //     socket.emit("text-to-image", data);
-    //   } else {
-    //     const data = {
-    //       user: JSON.parse(user).email,
-    //       text: promptText,
-    //       model: generationModel?.id || "",
-    //       alchemy: alchemy ? "true" : "false",
-    //       presetStyle: generationStyle,
-    //       numberOfImages: selectedNumber.toString(),
-    //       dimension: lockOpened
-    //         ? `${sliderWidthDimension} * ${sliderHeightDimension}`
-    //         : selectedOption,
-    //       density: densityValue.toString(),
-    //       image: imgData,
-    //       negative_prompt: negativePromptText,
-    //     };
-    //     socket.emit("image-to-image", data);
-    //   }
-    // } catch (e) {
-    //   setGenerating(false);
-    //   return;
-    // }
-    if (activeTab === "generationHistory") {
-      const data = {
-        user: JSON.parse(user).email,
-        text: promptText,
-        model: generationModel?.id,
-        alchemy: alchemy,
-        presetStyle: generationStyle,
-        numberOfImages: selectedNumber,
-        dimension: lockOpened
-          ? `${sliderWidthDimension} * ${sliderHeightDimension}`
-          : selectedOption,
-        negative_prompt: negativePromptText,
-      };
-      socket.emit("text-to-image", data);
-    } else {
-      const data = {
-        user: JSON.parse(user).email,
-        text: promptText,
-        model: generationModel?.id || "",
-        alchemy: alchemy ? "true" : "false",
-        presetStyle: generationStyle,
-        numberOfImages: selectedNumber.toString(),
-        dimension: lockOpened
-          ? `${sliderWidthDimension} * ${sliderHeightDimension}`
-          : selectedOption,
-        density: densityValue.toString(),
-        image: imgData,
-        negative_prompt: negativePromptText,
-      };
-      socket.emit("image-to-image", data);
+    let tx: any = await writeContract({
+      address: tradeToken,
+      abi: ERC20ABI,
+      functionName: 'approve',
+      args: [MarketPlace[chainId], generateImageFee],
+    })
+    console.log('----------tx--------', tx)
+    try {
+      let tx = await writeContract({
+        address: tradeToken,
+        abi: ERC20ABI,
+        functionName: "approve",
+        args: [MarketPlace[chainId], generateImageFee],
+      });
+      console.log(tx);
+      let data = await waitForTransaction(tx);
+      console.log("-------data-------", data);
+      tx = await writeContract({
+        address: MarketPlace[chainId],
+        abi: MarketPlaceABI,
+        functionName: "generateImage",
+      });
+      data = await waitForTransaction(tx);
+      console.log("-------data-2------", data);
+      if (activeTab === "generationHistory") {
+        const data = {
+          user: JSON.parse(user).email,
+          text: promptText,
+          model: generationModel?.id,
+          alchemy: alchemy,
+          presetStyle: generationStyle,
+          numberOfImages: selectedNumber,
+          dimension: lockOpened
+            ? `${sliderWidthDimension} * ${sliderHeightDimension}`
+            : selectedOption,
+          negative_prompt: negativePromptText,
+        };
+        socket.emit("text-to-image", data);
+      } else {
+        const data = {
+          user: JSON.parse(user).email,
+          text: promptText,
+          model: generationModel?.id || "",
+          alchemy: alchemy ? "true" : "false",
+          presetStyle: generationStyle,
+          numberOfImages: selectedNumber.toString(),
+          dimension: lockOpened
+            ? `${sliderWidthDimension} * ${sliderHeightDimension}`
+            : selectedOption,
+          density: densityValue.toString(),
+          image: imgData,
+          negative_prompt: negativePromptText,
+        };
+        socket.emit("image-to-image", data);
+      }
+    } catch (e) {
+      setGenerating(false);
+      return;
     }
   };
 
