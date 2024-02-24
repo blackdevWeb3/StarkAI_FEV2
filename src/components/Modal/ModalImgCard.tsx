@@ -113,6 +113,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
   };
 
   const handleHideImgCard = () => {
+    console.log("-------------close Handle hide img---------");
     modalCtx.setVisible(false);
   };
 
@@ -356,7 +357,6 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
       )
     );
 
-    console.log("ImageData:", modalCtx.imageData.data.negative_prompt);
     if (userObject?.email !== modalCtx.imageData.owner) {
       setMe(false);
     } else {
@@ -392,433 +392,427 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
       open={modalCtx.visible}
       onClose={modalCtx.visible ? handleHideImgCard : () => {}}
     >
-      {modalCtx.index > 0 && (
-        <div
-          className="absolute left-[5px] top-1/2 cursor-pointer"
-          onClick={onPrevImage}
-        >
-          <Icon icon="teenyicons:left-circle-solid" color="white" width="16" />
-        </div>
-      )}
-      <ToastContainer containerId={"modal"} />
-      <div
-        className="flex-1 px-8 py-5 mt-0 bg-modalBackground border-primary md:min-w-[768px] font-Inter relative w-full max-w-[1000px]"
-        ref={ImgModalRef}
-      >
+      <div ref={ImgModalRef}>
         {modalCtx.index > 0 && (
           <div
-            className="absolute left-[5px] top-1/2 cursor-pointer"
+            className="absolute left-[30px] top-1/2 cursor-pointer z-[1000] sm:hidden md:hidden"
             onClick={onPrevImage}
           >
             <Icon
               icon="teenyicons:left-circle-solid"
               color="white"
-              width="16"
+              width="24"
             />
           </div>
         )}
         {modalCtx.index < modalCtx.imgCount - 1 && (
           <div
-            className="absolute right-[-5px] top-1/2 cursor-pointer"
+            className="absolute right-[30px] top-1/2 cursor-pointer z-[1000] sm:hidden md:hidden"
             onClick={onNextImage}
           >
             <Icon
               icon="teenyicons:right-circle-solid"
               color="white"
-              width="16"
+              width="24"
             />
           </div>
         )}
-        <div className="flex flex-col items-center relative">
-          <div className="flex flex-row gap-5 sm:flex-col">
-            {/* left */}
-            <div>
-              <div
-                className="flex relative flex-col min-w-0 rounded-lg p-0 cursor-pointer"
-                onClick={handleMagnifyImage}
-              >
-                <div className="rounded-lg">
-                  {srcType === "video" ? (
-                    <video
-                      id="videocontainer"
-                      autoPlay
-                      loop
-                      disableRemotePlayback
-                      muted
-                      className="rounded-lg"
-                    >
-                      <source
-                        id="videosource"
-                        type="video/mp4"
+        {/* <ToastContainer containerId={"modal"} /> */}
+        <div className="flex-1 px-8 py-5 bg-modalBackground border-primary font-Inter relative w-full max-w-[1000px] rounded-md">
+          <div className="flex flex-col items-center relative">
+            <div className="flex flex-row space-x-5 space-y-0 sm:space-y-5 sm:space-x-0 sm:flex-col">
+              {/* left */}
+              <div>
+                <div
+                  className="flex relative flex-col min-w-0 rounded-lg p-0 cursor-pointer"
+                  onClick={handleMagnifyImage}
+                >
+                  <div className="rounded-lg">
+                    {srcType === "video" ? (
+                      <video
+                        id="videocontainer"
+                        autoPlay
+                        loop
+                        disableRemotePlayback
+                        muted
+                        className="rounded-lg"
+                      >
+                        <source
+                          id="videosource"
+                          type="video/mp4"
+                          src={modalCtx.imageData.image}
+                        />
+                      </video>
+                    ) : (
+                      <img
+                        className="h-auto max-w-full rounded-lg"
                         src={modalCtx.imageData.image}
+                        alt="imgCard"
                       />
-                    </video>
-                  ) : (
-                    <img
-                      className="h-auto max-w-full rounded-lg"
-                      src={modalCtx.imageData.image}
-                      alt="imgCard"
-                    />
-                  )}
-                </div>
-              </div>
-              {/*  */}
-              <div className="flex flex-row justify-between gap-2 w-full pt-5 flex-wrap">
-                {srcType === "image" && (
-                  <button className="border-primary border rounded-lg h-[30px] min-w-[165px] px-4 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45] w-full">
-                    <Icon
-                      icon="streamline:ai-science-spark"
-                      className="w-[14px] h-[14px]"
-                    />
-                    <p>Alchemy Refiner</p>
-                  </button>
-                )}
-                <button
-                  className="border-primary border rounded-lg h-[30px] px-2 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45]"
-                  onClick={handleDownload}
-                >
-                  <Icon
-                    icon="bytesize:download"
-                    className="w-[14px] h-[14px]"
-                  />
-                  <span className="text-[14px]">Download</span>
-                </button>
-                {/* <a
-                  className="border-primary border rounded-lg h-[30px] px-2 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45]"
-                  href="/starkmeta_logo.png"
-                  download
-                >
-                  Download
-                </a> */}
-                <button
-                  className="border-primary border rounded-lg h-[30px] px-2 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45]"
-                  onClick={handleShare}
-                >
-                  <Icon
-                    icon="mdi:share-variant-outline"
-                    className="w-[14px] h-[14px]"
-                  />
-                  <span className="text-[14px]">Share</span>
-                </button>
-                {srcType === "image" && (
-                  <div
-                    ref={MoreFunctionRef}
-                    className="border-primary border hover:cursor-pointer rounded-lg h-[30px] px-2 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45] relative"
-                    onClick={() => setIsMoreVisible(!IsMoreVisible)}
-                  >
-                    <Icon icon="ri:more-fill" className="w-[14px] h-[14px]" />
-                    {IsMoreVisible && (
-                      <div className="model-dropdownmenu dropdown-more-param transition-all duration-200 ease-in-out model-visible">
-                        <div className="model-menu-board transition-all duration-200 ease-in-out">
-                          <button
-                            className="model-item item-bg"
-                            onClick={() => deleteImageHandler(1)}
-                          >
-                            <span className="">
-                              <Icon icon="fluent:delete-12-filled" />
-                            </span>
-                            <span className="">Delete Original Image</span>
-                          </button>
-                        </div>
-                      </div>
                     )}
                   </div>
-                )}
-              </div>
-              {isMe && (
-                <div className="flex flex-col space-y-2 p-2 border rounded-[7.2px] bg-[#202020] border-primary mt-2">
-                  <div className="flex space-x-2">
-                    <div className="mb-3 w-full rounded-[5.4px]">
-                      <input
-                        className="font-light text-[13px] font-Inter focus-visible:outline-0 text-[#fefefe] bg-[#171717] p-2 rounded-[6px]"
-                        placeholder="NFT name"
-                        value={nftName}
-                        onChange={(e) => setNftName(e.target.value)}
-                      />
-                    </div>
-                    <div className="mb-3 w-full rounded-[5.4px]">
-                      <input
-                        className="font-light text-[13px] font-Inter focus-visible:outline-0 text-[#fefefe] bg-[#171717] p-2 rounded-[6px]"
-                        placeholder="NFT type"
-                        value={nftType}
-                        onChange={(e) => setNftType(e.target.value)}
-                      />
-                    </div>
-                  </div>
-                  <div className="mb-3 w-full rounded-[5.4px]">
-                    <textarea
-                      className="resize-none h-20 w-full font-light text-[13px] font-Inter focus-visible:outline-0 text-[#fefefe] bg-[#171717] p-2 rounded-[6px]"
-                      placeholder="Description..."
-                      value={description}
-                      onChange={(e) => setDescription(e.target.value)}
-                    />
-                  </div>
                 </div>
-              )}
-
-              {isMe && (
-                <button
-                  className="button-color py-2 px-4 text-[14px] flex justify-center items-center rounded-md text-white font-[530] flex-row gap-1 mt-2"
-                  onClick={mintNFT}
-                >
-                  <span className="">
-                    <Icon icon="fluent:layer-20-filled" className="w-4 h-4" />
-                  </span>
-                  <span className=" select-none">Mint NFT</span>
-                </button>
-              )}
-            </div>
-
-            {/* right */}
-            <div className="flex flex-col gap-2 font-Inter">
-              <div className="flex flex-col gap-2">
-                <div className="flex flex-row gap-1">
-                  <div className="flex flex-row items-center">
-                    <div className="rounded-full">
-                      {/* <img
-                        src=""
-                        alt="Avatar"
-                        className="rounded-full w-full h-full object-cover"
-                      /> */}
+                {/*  */}
+                <div className="flex flex-row justify-between gap-2 w-full pt-5 flex-wrap">
+                  {srcType === "image" && (
+                    <button className="border-primary border rounded-lg h-[30px] min-w-[165px] px-4 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45] w-full">
                       <Icon
-                        icon="mingcute:user-4-fill"
-                        className="w-8 h-8 text-white"
+                        icon="streamline:ai-science-spark"
+                        className="w-[14px] h-[14px]"
                       />
-                    </div>
-                    <div className="min-w-[auto] text-fontSecondary leading-[1] font-semibold px-1 select-none">
-                      {imageData.owner}
-                    </div>
-                  </div>
-                  <button className="flex flex-row items-center justify-center font-normal gap-1 border-primary rounded-[16px] border px-4 py-1 transition-all duration-200 ease-in-out hover:bg-[#393b45]">
+                      <p>Alchemy Refiner</p>
+                    </button>
+                  )}
+                  <button
+                    className="border-primary border rounded-lg h-[30px] px-2 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45]"
+                    onClick={handleDownload}
+                  >
                     <Icon
-                      icon="ph:star"
-                      className="w-[14px] h-[14px] text-white"
+                      icon="bytesize:download"
+                      className="w-[14px] h-[14px]"
                     />
-                    <span className="text-white text-[12px]">Follow</span>
+                    <span className="text-[14px]">Download</span>
                   </button>
-                </div>
-                <span className="text-white font-semibold text-[18px] mt-2 text-ellipsis overflow-hidden">
-                  {title}
-                </span>
-                <hr className="border-primary border-t mb-2" />
-              </div>
-              <h2 className="text-white font-Inter text-[12.6px] leading-[1.2] font-medium">
-                Prompt details
-              </h2>
-              <div className="p-2 border rounded-[7.2px] bg-[#202020] block border-primary">
-                <div className="w-full rounded-[5.4px]">
-                  <div className="block">
-                    <p className="font-light text-[13px] font-Inter text-[#fefefe] bg-[#171717] p-2 rounded-[6px]">
-                      {imageData.data.prompt}
-                    </p>
-                  </div>
-                </div>
-                {srcType === "image" && (
-                  <div className="flex flex-row items-center justify-between sm:justify-start sm:gap-1 mt-3">
-                    <div className="block">
-                      <button className="inline-flex rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 px-3 button-detail">
-                        <span className="self-center inline-flex flex-shrink-[0] me-[6px]">
-                          <Icon
-                            icon="emojione-v1:film-frames"
-                            className="w-4 h-4"
-                          />
-                        </span>
-                        <span
-                          className="text-[12.6px]"
-                          onClick={handleMotionOpen}
-                        >
-                          Image2Movie
-                        </span>
-
-                        <Image2MotionDialog
-                          motionOpen={motionOpen}
-                          Transition={Transition}
-                          imageData={imageData}
-                          densityValue={densityValue}
-                          activeButton={activeButton}
-                          handleDensityChange={handleDensityChange}
-                          handleClose={handleClose}
-                          setActiveButton={setActiveButton}
-                          handleImage2Motion={handleImage2Motion}
-                        />
-
-                        <MotionConfirmDialog
-                          confirmOpen={confirmOpen}
-                          Transition={Transition}
-                          handleClose={handleClose}
-                        />
-                      </button>
-                    </div>
-                    <div className="block">
-                      <button className="inline-flex rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 px-3 button-detail">
-                        <span className="self-center inline-flex flex-shrink-[0] me-[6px]">
-                          <Icon
-                            icon="fluent:layer-20-filled"
-                            className="w-4 h-4"
-                          />
-                        </span>
-                        <span className="text-[12.6px]">Image Transform</span>
-                      </button>
-                    </div>
-                    <div className="block col-span-1">
-                      <button className="inline-flex w-full rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 px-3 button-detail">
-                        <span className="self-center inline-flex flex-shrink-[0] me-[6px]">
-                          <Icon icon="raphael:magic" className="w-4 h-4" />
-                        </span>
-                        <span className="text-[12.6px]">Remake</span>
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Negative Prompt */}
-              {imageData.data.negative_prompt !== undefined &&
-                imageData.data.negative_prompt !== null &&
-                imageData.data.negative_prompt !== "" && (
-                  <>
-                    <h2 className="text-white font-Inter text-[12.6px] leading-[1.2] font-medium pt-3">
-                      Negative Prompt Details
-                    </h2>
-
-                    <div className="p-2 border rounded-[7.2px] bg-[#202020] block border-primary">
-                      <div className="w-full rounded-[5.4px]">
-                        <div className="block">
-                          <p className="font-light text-[13px] font-Inter text-[#fefefe] bg-[#171717] p-2 rounded-[6px]">
-                            {imageData.data?.negative_prompt}
-                          </p>
+                  {/* <a
+                    className="border-primary border rounded-lg h-[30px] px-2 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45]"
+                    href="/starkmeta_logo.png"
+                    download
+                  >
+                    Download
+                  </a> */}
+                  <button
+                    className="border-primary border rounded-lg h-[30px] px-2 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45]"
+                    onClick={handleShare}
+                  >
+                    <Icon
+                      icon="mdi:share-variant-outline"
+                      className="w-[14px] h-[14px]"
+                    />
+                    <span className="text-[14px]">Share</span>
+                  </button>
+                  {srcType === "image" && (
+                    <div
+                      ref={MoreFunctionRef}
+                      className="border-primary border hover:cursor-pointer rounded-lg h-[30px] px-2 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45] relative"
+                      onClick={() => setIsMoreVisible(!IsMoreVisible)}
+                    >
+                      <Icon icon="ri:more-fill" className="w-[14px] h-[14px]" />
+                      {IsMoreVisible && (
+                        <div className="model-dropdownmenu dropdown-more-param transition-all duration-200 ease-in-out model-visible">
+                          <div className="model-menu-board transition-all duration-200 ease-in-out">
+                            <button
+                              className="model-item item-bg"
+                              onClick={() => deleteImageHandler(1)}
+                            >
+                              <span className="">
+                                <Icon icon="fluent:delete-12-filled" />
+                              </span>
+                              <span className="">Delete Original Image</span>
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                  </>
-                )}
-              {/* negative prompt */}
-              <hr className="border-primary border-t mt-2"></hr>
-              <div className="flex flex-wrap gap-2">
-                <div className="w-[48%] pr-2 mb-3">
-                  <span className="text-[#9094a6] text-[12px]">
-                    {srcType === "image" ? "Input Resolution" : "Resolution"}
-                  </span>
-                  <div className="w-full flex items-center text-white text-[14px] font-medium">
-                    {imageData.data.width} x {imageData.data.height}px
-                  </div>
-                </div>
-                <div className="w-[48%] pr-2 mb-3">
-                  <span className="text-[#9094a6] text-[12px]">Created</span>
-                  <div className="w-full flex items-center text-white text-[14px]">
-                    {createdDate}
-                  </div>
-                </div>
-                {srcType === "video" ? (
-                  <div className="w-[48%] pr-2 mb-3">
-                    <span className="text-[#9094a6] text-[12px]">
-                      Base Model
-                    </span>
-                    <div className="w-full flex items-center text-white text-[14px]">
-                      Stark Movie
-                    </div>
-                  </div>
-                ) : (
-                  <>
-                    <div className="w-[48%] pr-2 mb-3">
-                      <span className="text-[#9094a6] text-[12px]">
-                        Pipeline
-                      </span>
-                      <div className="w-full flex items-center text-white text-[14px]">
-                        Alchemy V2
-                      </div>
-                    </div>
-                    <div className="w-[48%] pr-2 mb-3">
-                      <span className="text-[#9094a6] text-[12px]">Seed</span>
-                      <div className="w-full flex items-center text-white text-[14px]">
-                        318540544
-                      </div>
-                    </div>
-                    <div className="w-[48%] pr-2 mb-3">
-                      <span className="text-[#9094a6] text-[12px]">Preset</span>
-                      <div className="w-full flex items-center text-white text-[14px]">
-                        {imageData.data.presetStyle}
-                      </div>
-                    </div>
-                    <div className="w-[48%] pr-2 mb-3">
-                      <span className="text-[#9094a6] text-[12px]">
-                        Prompt Magic
-                      </span>
-                      <div className="w-full flex items-center text-white text-[14px]">
-                        -
-                      </div>
-                    </div>
-                  </>
-                )}
-                {/* <div className="w-[48%] pr-2 mb-3">
-                  <span className="text-[#9094a6] text-[12px]">
-                    Init Strength
-                  </span>
-                  <div className="w-full flex items-center text-white text-[14px]">
-                    No init image
-                  </div>
-                </div>
-                <div className="w-[48%] pr-2 mb-3">
-                  <span className="text-[#9094a6] text-[12px]">
-                    High Contrast
-                  </span>
-                  <div className="w-full flex items-center text-white text-[14px]">
-                    -
-                  </div>
-                </div> */}
-              </div>
-              <div className="w-full h-auto">
-                <div className="flex flex-col p-2 gap-2 rounded-lg bg-[#202020]">
-                  {srcType === "video" && (
-                    <div className="text-center text-white pt-1">
-                      Original image created with
+                      )}
                     </div>
                   )}
-                  <div className="flex justify-between p-2 rounded-lg bg-[#171717]">
-                    <div className="flex items-stretch gap-[14px]">
-                      <div className="w-[42px] h-[42px] overflow-hidden rounded-md">
-                        <img
-                          className="object-cover w-full h-full"
-                          src={ModelItems[modelNum].imgURI}
-                          alt="ImageCard"
-                        ></img>
+                </div>
+                {isMe && (
+                  <div className="flex flex-col space-y-2 p-2 border rounded-[7.2px] bg-[#202020] border-primary mt-2">
+                    <div className="flex flex-row sm:flex-col space-x-2 sm:space-x-0">
+                      <div className="mb-3 w-full rounded-[5.4px]">
+                        <input
+                          className="font-light text-[13px] font-Inter focus-visible:outline-0 text-[#fefefe] bg-[#171717] p-2 rounded-[6px]"
+                          placeholder="NFT name"
+                          value={nftName}
+                          onChange={(e) => setNftName(e.target.value)}
+                        />
                       </div>
-                      <div className="flex flex-col justify-between">
-                        <span className="font-medium text-[14px] leading-[100%] text-[#dbdbdb80] pt-[2px]">
-                          {ModelItems[modelNum].modelType}
-                        </span>
-                        <div className="flex items-center">
-                          <span className="text-white text-[14px] pb-[2px]">
-                            {ModelItems[modelNum].label}
+                      <div className="mb-3 w-full rounded-[5.4px]">
+                        <input
+                          className="font-light text-[13px] font-Inter focus-visible:outline-0 text-[#fefefe] bg-[#171717] p-2 rounded-[6px]"
+                          placeholder="NFT type"
+                          value={nftType}
+                          onChange={(e) => setNftType(e.target.value)}
+                        />
+                      </div>
+                    </div>
+                    <div className="mb-3 w-full rounded-[5.4px]">
+                      <textarea
+                        className="resize-none h-20 w-full font-light text-[13px] font-Inter focus-visible:outline-0 text-[#fefefe] bg-[#171717] p-2 rounded-[6px]"
+                        placeholder="Description..."
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {isMe && (
+                  <button
+                    className="button-color py-2 px-4 text-[14px] flex justify-center items-center rounded-md text-white font-[530] flex-row gap-1 mt-2"
+                    onClick={mintNFT}
+                  >
+                    <span className="">
+                      <Icon icon="fluent:layer-20-filled" className="w-4 h-4" />
+                    </span>
+                    <span className=" select-none">Mint NFT</span>
+                  </button>
+                )}
+              </div>
+
+              {/* right */}
+              <div className="flex flex-col gap-2 font-Inter">
+                <div className="flex flex-col gap-2">
+                  <div className="flex flex-row gap-1">
+                    <div className="flex flex-row items-center">
+                      <div className="rounded-full">
+                        {/* <img
+                          src=""
+                          alt="Avatar"
+                          className="rounded-full w-full h-full object-cover"
+                        /> */}
+                        <Icon
+                          icon="mingcute:user-4-fill"
+                          className="w-8 h-8 text-white"
+                        />
+                      </div>
+                      <div className="min-w-[auto] text-fontSecondary leading-[1] sm:text-[12px] font-semibold px-1 select-none">
+                        {imageData.owner}
+                      </div>
+                    </div>
+                    <button className="flex flex-row items-center justify-center font-normal gap-1 border-primary rounded-[16px] border px-4 py-1 transition-all duration-200 ease-in-out hover:bg-[#393b45]">
+                      <Icon
+                        icon="ph:star"
+                        className="w-[14px] h-[14px] text-white"
+                      />
+                      <span className="text-white text-[12px] sm:hidden">
+                        Follow
+                      </span>
+                    </button>
+                  </div>
+                  <span className="text-white font-semibold text-[18px] mt-2 text-ellipsis overflow-hidden">
+                    {title}
+                  </span>
+                  <hr className="border-primary border-t mb-2" />
+                </div>
+                <h2 className="text-white font-Inter text-[12.6px] leading-[1.2] font-medium">
+                  Prompt details
+                </h2>
+                <div className="p-2 border rounded-[7.2px] bg-[#202020] block border-primary">
+                  <div className="w-full rounded-[5.4px]">
+                    <div className="block">
+                      <p className="font-light text-[13px] font-Inter text-[#fefefe] bg-[#171717] p-2 rounded-[6px]">
+                        {imageData.data.prompt}
+                      </p>
+                    </div>
+                  </div>
+                  {srcType === "image" && (
+                    <div className="flex flex-row sm:flex-wrap items-center justify-between sm:justify-start gap-2 sm:gap-1 mt-3">
+                      <div className="block">
+                        <button className="inline-flex rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 px-3 button-detail">
+                          <span className="self-center inline-flex flex-shrink-[0] me-[6px]">
+                            <Icon
+                              icon="emojione-v1:film-frames"
+                              className="w-4 h-4"
+                            />
                           </span>
+                          <span
+                            className="text-[12.6px]"
+                            onClick={handleMotionOpen}
+                          >
+                            Image2Movie
+                          </span>
+
+                          <Image2MotionDialog
+                            motionOpen={motionOpen}
+                            Transition={Transition}
+                            imageData={imageData}
+                            densityValue={densityValue}
+                            activeButton={activeButton}
+                            handleDensityChange={handleDensityChange}
+                            handleClose={handleClose}
+                            setActiveButton={setActiveButton}
+                            handleImage2Motion={handleImage2Motion}
+                          />
+
+                          <MotionConfirmDialog
+                            confirmOpen={confirmOpen}
+                            Transition={Transition}
+                            handleClose={handleClose}
+                          />
+                        </button>
+                      </div>
+                      <div className="block">
+                        <button className="inline-flex rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 px-3 button-detail">
+                          <span className="self-center inline-flex flex-shrink-[0] me-[6px]">
+                            <Icon
+                              icon="fluent:layer-20-filled"
+                              className="w-4 h-4"
+                            />
+                          </span>
+                          <span className="text-[12.6px]">Image Transform</span>
+                        </button>
+                      </div>
+                      <div className="block col-span-1">
+                        <button className="inline-flex w-full rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 px-3 button-detail">
+                          <span className="self-center inline-flex flex-shrink-[0] me-[6px]">
+                            <Icon icon="raphael:magic" className="w-4 h-4" />
+                          </span>
+                          <span className="text-[12.6px]">Remake</span>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Negative Prompt */}
+                {imageData.data.negative_prompt !== undefined &&
+                  imageData.data.negative_prompt !== null &&
+                  imageData.data.negative_prompt !== "" && (
+                    <>
+                      <h2 className="text-white font-Inter text-[12.6px] leading-[1.2] font-medium pt-3">
+                        Negative Prompt Details
+                      </h2>
+
+                      <div className="p-2 border rounded-[7.2px] bg-[#202020] block border-primary">
+                        <div className="w-full rounded-[5.4px]">
+                          <div className="block">
+                            <p className="font-light text-[13px] font-Inter text-[#fefefe] bg-[#171717] p-2 rounded-[6px]">
+                              {imageData.data?.negative_prompt}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </>
+                  )}
+                {/* negative prompt */}
+                <hr className="border-primary border-t mt-2"></hr>
+                <div className="flex flex-wrap gap-2">
+                  <div className="w-[48%] pr-2 mb-3">
+                    <span className="text-[#9094a6] text-[12px]">
+                      {srcType === "image" ? "Input Resolution" : "Resolution"}
+                    </span>
+                    <div className="w-full flex items-center text-white text-[14px] font-medium">
+                      {imageData.data.width} x {imageData.data.height}px
+                    </div>
+                  </div>
+                  <div className="w-[48%] pr-2 mb-3">
+                    <span className="text-[#9094a6] text-[12px]">Created</span>
+                    <div className="w-full flex items-center text-white text-[14px]">
+                      {createdDate}
+                    </div>
+                  </div>
+                  {srcType === "video" ? (
+                    <div className="w-[48%] pr-2 mb-3">
+                      <span className="text-[#9094a6] text-[12px]">
+                        Base Model
+                      </span>
+                      <div className="w-full flex items-center text-white text-[14px]">
+                        Stark Movie
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      <div className="w-[48%] pr-2 mb-3">
+                        <span className="text-[#9094a6] text-[12px]">
+                          Pipeline
+                        </span>
+                        <div className="w-full flex items-center text-white text-[14px]">
+                          Alchemy V2
+                        </div>
+                      </div>
+                      <div className="w-[48%] pr-2 mb-3">
+                        <span className="text-[#9094a6] text-[12px]">Seed</span>
+                        <div className="w-full flex items-center text-white text-[14px]">
+                          318540544
+                        </div>
+                      </div>
+                      <div className="w-[48%] pr-2 mb-3">
+                        <span className="text-[#9094a6] text-[12px]">
+                          Preset
+                        </span>
+                        <div className="w-full flex items-center text-white text-[14px]">
+                          {imageData.data.presetStyle}
+                        </div>
+                      </div>
+                      <div className="w-[48%] pr-2 mb-3">
+                        <span className="text-[#9094a6] text-[12px]">
+                          Prompt Magic
+                        </span>
+                        <div className="w-full flex items-center text-white text-[14px]">
+                          -
+                        </div>
+                      </div>
+                    </>
+                  )}
+                  {/* <div className="w-[48%] pr-2 mb-3">
+                    <span className="text-[#9094a6] text-[12px]">
+                      Init Strength
+                    </span>
+                    <div className="w-full flex items-center text-white text-[14px]">
+                      No init image
+                    </div>
+                  </div>
+                  <div className="w-[48%] pr-2 mb-3">
+                    <span className="text-[#9094a6] text-[12px]">
+                      High Contrast
+                    </span>
+                    <div className="w-full flex items-center text-white text-[14px]">
+                      -
+                    </div>
+                  </div> */}
+                </div>
+                <div className="w-full h-auto">
+                  <div className="flex flex-col p-2 gap-2 rounded-lg bg-[#202020]">
+                    {srcType === "video" && (
+                      <div className="text-center text-white pt-1">
+                        Original image created with
+                      </div>
+                    )}
+                    <div className="flex justify-between p-2 rounded-lg bg-[#171717]">
+                      <div className="flex items-stretch gap-[14px]">
+                        <div className="w-[42px] h-[42px] overflow-hidden rounded-md">
+                          <img
+                            className="object-cover w-full h-full"
+                            src={ModelItems[modelNum].imgURI}
+                            alt="ImageCard"
+                          ></img>
+                        </div>
+                        <div className="flex flex-col justify-between">
+                          <span className="font-medium text-[14px] leading-[100%] text-[#dbdbdb80] pt-[2px]">
+                            {ModelItems[modelNum].modelType}
+                          </span>
+                          <div className="flex items-center">
+                            <span className="text-white text-[14px] pb-[2px]">
+                              {ModelItems[modelNum].label}
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
+                    <button className="button-color py-2 text-[14px] h-8 flex justify-center items-center rounded-md text-white font-[530] flex-row gap-1">
+                      <span className="">
+                        <Icon icon="raphael:magic" className="w-4 h-4" />
+                      </span>
+                      <span className=" select-none">
+                        Generate with this model
+                      </span>
+                    </button>
                   </div>
-                  <button className="button-color py-2 text-[14px] h-8 flex justify-center items-center rounded-md text-white font-[530] flex-row gap-1">
-                    <span className="">
-                      <Icon icon="raphael:magic" className="w-4 h-4" />
-                    </span>
-                    <span className=" select-none">
-                      Generate with this model
-                    </span>
-                  </button>
                 </div>
               </div>
             </div>
-          </div>
 
-          <button
-            className="absolute top-0 right-[-22px] rounded-full bg-[#0000005c] h-8 w-8 flex justify-center items-center"
-            onClick={handleHideImgCard}
-          >
-            <Icon
-              icon="iconamoon:close-light"
-              className="w-6 h-6 text-[#CBD5E0] hover:text-white"
-            />
-          </button>
+            <button
+              className="absolute top-0 right-[-22px] rounded-full bg-[#0000005c] h-8 w-8 flex justify-center items-center"
+              onClick={handleHideImgCard}
+            >
+              <Icon
+                icon="iconamoon:close-light"
+                className="w-6 h-6 text-[#CBD5E0] hover:text-white"
+              />
+            </button>
+          </div>
         </div>
-        <div className="absolute top-0 left-0 z-20"></div>
       </div>
 
       {/* Magnify Dialog */}

@@ -8,20 +8,15 @@ import { Image } from "../utils/types";
 const LayoutDashboard = () => {
   const [image, setImage] = useState<Image>();
 
-  const updateLibrary = () => {
-    const func = async () => {
+  const updateLibrary = async () => {
+    try {
       const res = await axios.post(
         `${process.env.REACT_APP_BACKEND_API}/getRecentImages`
       );
-      if (res.status === 200) {
-        var tmp = res.data;
-        tmp.reverse();
-        setImage(tmp[Math.round(Math.random() * tmp.length)]);
-      } else {
-        console.log("Error occurred");
-      }
-    };
-    func();
+      setImage(res.data.reverse()[Math.floor(Math.random() * res.data.length)]);
+    } catch (error) {
+      console.error("Error occurred", error);
+    }
   };
 
   useEffect(() => {
@@ -38,7 +33,7 @@ const LayoutDashboard = () => {
               <span className="text-white text-left font-semibold text-[30px] z-10 lg:text-[26px] md:text-[22px]">
                 Welcome to our exciting generative <br></br>
                 AI Web3 social
-                <span className="text-[#9013ce] px-2">STARK.AI</span>!
+                <span className="text-[#9013ce] px-2">STARK AI</span>!
               </span>
               <span className="z-20 pl-0 p-10 flex flex-col gap-3 rounded-md w-48">
                 <Link to="/login" className="primary-button z-20">
@@ -76,7 +71,9 @@ const LayoutDashboard = () => {
             </div>
           </div>
           <div className="max-w-[830px] max-h-[623px] w-auto flex items-center justify-center flex-col sm:w-auto sm:h-auto md:p-10">
-            {image && image.image.endsWith(".jpg") && <img src={image.image} />}
+            {image && image.image.endsWith(".jpg") && (
+              <img src={image.image} alt={image.image} />
+            )}
           </div>
         </div>
       </div>

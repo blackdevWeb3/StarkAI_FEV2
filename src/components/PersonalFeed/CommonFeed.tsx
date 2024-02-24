@@ -70,9 +70,8 @@ const CommonFeed = () => {
         `${process.env.REACT_APP_BACKEND_API}/getImages`,
         { email: JSON.parse(user).email }
       );
-      setImageData(res.data.images.reverse());
-      setLikeImages(res.data.likeImageIds);
-      setFetched(true);
+      console.log("response data:", res.data);
+      setImageData(res.data.images);
     } catch (error) {
       console.error("An error occurred while fetching images:", error);
     } finally {
@@ -83,7 +82,7 @@ const CommonFeed = () => {
   useEffect(() => {
     if (imageData.length > 0) return;
     updateLibrary();
-  }, [fetched]);
+  }, []);
 
   const onNextImage = () => {
     const ind = modalCtx.index;

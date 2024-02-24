@@ -10,7 +10,6 @@ import { ModalContextProvider } from "./context/modalContext";
 import ContactUs from "./components/ContactUs";
 import Blog from "./components/Blog";
 import BlogPost from "./components/Blog/BlogPost";
-import SplashScreen from "./components/Others/SplashScreen";
 
 interface LayoutWithNavbarAndFooterProps {
   children: React.ReactNode;

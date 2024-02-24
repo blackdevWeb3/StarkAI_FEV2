@@ -41,6 +41,18 @@ const Card = (props: any) => {
       });
   };
 
+  const updateLibrary = async () => {
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_BACKEND_API}/getLikeImages`,
+        { email: userObejct.email, imageID: props.data.generationID }
+      );
+      setHeartCount(res.data.heartCount);
+    } catch (error) {
+      console.error("An error occurred:", error.message);
+    }
+  };
+
   useEffect(() => {
     setLoading(true);
   }, [props.data.image]);
@@ -50,14 +62,13 @@ const Card = (props: any) => {
         className="group relative cursor-pointer w-full h-full block"
         onClick={handleImgModalOpen}
       >
-        {loading && (
-          <div className="absolute flex w-7 h-7 top-[calc(50%-14px)] left-[calc(50%-14px)] flex-col items-center">
-            <img src="/favicon.ico" alt="logo" />
+        {/* {loading && (
+          <div className="absolute flex w-32 h-32 left-[calc(50%-64px)] flex-col items-center">
+            <img src="/starkmeta_logo.png" alt="logo" />
           </div>
-        )}
+        )} */}
         {props.data.image.endsWith(".mp4") ? (
           <video
-            autoPlay
             loop
             disableRemotePlayback
             muted
