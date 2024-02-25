@@ -509,7 +509,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                     </div>
                   )}
                 </div>
-                {isMe && (
+                {/* {isMe && (
                   <div className="flex flex-col space-y-2 p-2 border rounded-[7.2px] bg-[#202020] border-primary mt-2">
                     <div className="flex flex-row sm:flex-col space-x-2 sm:space-x-0">
                       <div className="mb-3 w-full rounded-[5.4px]">
@@ -538,9 +538,9 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                       />
                     </div>
                   </div>
-                )}
+                )} */}
 
-                {isMe && (
+                {/* {isMe && (
                   <button
                     className="button-color py-2 px-4 text-[14px] flex justify-center items-center rounded-md text-white font-[530] flex-row gap-1 mt-2"
                     onClick={mintNFT}
@@ -550,7 +550,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                     </span>
                     <span className=" select-none">Mint NFT</span>
                   </button>
-                )}
+                )} */}
               </div>
 
               {/* right */}
