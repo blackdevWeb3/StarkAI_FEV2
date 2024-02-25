@@ -324,27 +324,26 @@ const ImageGeneration = () => {
   const { chain } = useNetwork();
 
   const handleGenerate = async () => {
-    if (!isConnected) {
-      toast.warning("Connect wallet first!", {
-        autoClose: 2000,
-        containerId: "main",
-      });
-      return;
-    }
+    // if (!isConnected) {
+    //   toast.warning("Connect wallet first!", {
+    //     autoClose: 2000,
+    //     containerId: "main",
+    //   });
+    //   return;
+    // }
     setGenerating(true);
-    const chainId = chain ? chain.id : 97;
-    const tradeToken: any = await readContract({
-      address: MarketPlace[chainId],
-      abi: MarketPlaceABI,
-      functionName: "tradeToken",
-    });
+    // const chainId = chain ? chain.id : 97;
+    // const tradeToken: any = await readContract({
+    //   address: MarketPlace[chainId],
+    //   abi: MarketPlaceABI,
+    //   functionName: "tradeToken",
+    // });
     // const generateImageFee: any = await readContract({
     //   address: MarketPlace[chainId],
     //   abi: MarketPlaceABI,
     //   functionName: "generateImageFee",
     // });
 
-    console.log("trade---", tradeToken);
 
     try {
       // let tx = await writeContract({
