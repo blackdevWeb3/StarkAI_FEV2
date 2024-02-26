@@ -72,7 +72,7 @@ const LayoutDashboard = () => {
           </div>
           <div className="max-w-[830px] max-h-[623px] w-auto flex items-center justify-center flex-col sm:w-auto sm:h-auto md:p-10">
             {image && image.image.endsWith(".jpg") && (
-              <img src={image.image} alt={image.image} />
+              <img src={image.image} alt={image.image} className="rounded-lg" />
             )}
           </div>
         </div>
