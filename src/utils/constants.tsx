@@ -12,7 +12,7 @@ import {
   SolanaDefault,
 } from "../assets";
 
-const ImageNumberGroup = [1, 2, 3, 4, 5, 6, 7, 8];
+const ImageNumberGroup = [1];
 const ImageDimensionsGroup = [
   "512 * 512",
   "768 * 768",
