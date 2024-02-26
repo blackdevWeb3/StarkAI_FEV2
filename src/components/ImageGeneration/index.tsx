@@ -20,7 +20,6 @@ import { Image } from "../../utils/types";
 
 import useOutsideClick from "../../utils/useOutsideClick";
 import ModalImgCard from "../Modal/ModalImgCard";
-import GenerationHistory from "./GenerationHistory";
 import ImageGuidance from "./ImageGuidance";
 import { TextareaAutosize } from "@mui/material";
 
@@ -33,6 +32,7 @@ import { MarketPlace } from "../../config/const";
 import MarketPlaceABI from "../../config/marketplace.json";
 import ERC20ABI from "../../config/ERC20.json";
 import { writeContract, readContract, waitForTransaction } from "@wagmi/core";
+import CreatedImageItem from "./CreatedImageItem";
 
 // const socket = io("http://localhost:5001");
 const socket = io(process.env.REACT_APP_SOCKET_API || "http://localhost:5001");
@@ -89,6 +89,12 @@ const ImageGeneration = () => {
     useState<number>(512);
   const [lockOpened, setLockOpened] = useState<boolean>(false);
   const [dimensionRatio, setDimensionRatio] = useState<string>("");
+
+  const PromptHandler = (param1, param2) => {
+    setPromptText(param1);
+    setNegativePromptText(param2);
+    if (param2) setNegativePrompt(true);
+  };
 
   const convertWH = () => {
     const currentWidth = sliderWidthDimension;
@@ -653,9 +659,14 @@ const ImageGeneration = () => {
 
           {/* Tab Content */}
           <div className="border-primary sm:px-4 px-8 sm:mt-3 mt-5">
-            {activeTab === "generationHistory" && (
-              <GenerationHistory imageData={imageData} />
-            )}
+            {activeTab === "generationHistory" &&
+              imageData.map((item, index) => (
+                <CreatedImageItem
+                  imageData={item}
+                  PromptHandler={PromptHandler}
+                  key={index}
+                />
+              ))}
             {activeTab === "imgGuidance" && (
               <ImageGuidance
                 imageSrc={imageSrc}
@@ -675,7 +686,7 @@ const ImageGeneration = () => {
           <div className="pt-[19px] flex flex-row justify-between items-center">
             <span className="flex flex-row justify-center items-center">
               <h1 className="text-[24px] font-semibold font-chakra text-white">
-                STARK&nbsp
+                STARK&nbsp;
               </h1>
               <h1 className="text-[24px] font-semibold font-chakra text-deepPink">
                 AI

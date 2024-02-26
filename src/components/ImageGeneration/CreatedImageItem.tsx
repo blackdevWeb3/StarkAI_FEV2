@@ -1,21 +1,31 @@
 import { useState } from "react";
 import Tooltip from "@mui/material/Tooltip";
 import { Icon } from "@iconify/react";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import { changeDateFormat } from "../../utils/changeDateFormat";
-
 import { ModelItems } from "../../utils/constants";
 import { Alchemy } from "../../assets";
 
-const CreatedImageItem = (imageData) => {
-  const Image = imageData.imageData;
+interface CreatedImageItemProps {
+  imageData: any;
+  PromptHandler: (param1: string, param2: string) => void;
+}
+
+const CreatedImageItem: React.FC<CreatedImageItemProps> = ({
+  imageData,
+  PromptHandler,
+}) => {
+  const Image = imageData;
   const [isLoaded, setIsLoaded] = useState(false);
-  console.log("Image Data: ", Image);
+  const [isCopied, setIsCopied] = useState("");
+
+  const handleCopy = (target: string) => {
+    setIsCopied(target);
+  };
 
   const currentModel = ModelItems.find(
     (ModelItem) => ModelItem.id === Image.data.modelId
   );
-
-  console.log("Matching Model:", currentModel);
 
   return (
     <div className="pt-5 font-chakra">
@@ -32,30 +42,54 @@ const CreatedImageItem = (imageData) => {
                   <span className="text-[#797C86]">
                     Negative Prompt: {Image.data.negative_prompt}
                   </span>
-                  <span className="pl-2">
-                    <Tooltip title="Copy Negative Prompt" arrow>
-                      <Icon
-                        icon="ion:copy"
-                        color="#797C86"
-                        width={18}
-                        className="hover:cursor-pointer"
-                      />
-                    </Tooltip>
-                  </span>
+                  <CopyToClipboard
+                    text={Image.data.negative_prompt}
+                    onCopy={() => handleCopy("negative_prompt")}
+                  >
+                    <span className="pl-2">
+                      <Tooltip title="Copy Negative Prompt" arrow>
+                        <Icon
+                          icon={`${
+                            isCopied === "negative_prompt"
+                              ? "noto-v1:check-mark"
+                              : "ion:copy"
+                          }`}
+                          color="#797C86"
+                          width={18}
+                          className="hover:cursor-pointer"
+                        />
+                      </Tooltip>
+                    </span>
+                  </CopyToClipboard>
                 </div>
               )}
             </div>
             <div className="pl-5 flex flex-row items-center gap-2">
-              <Tooltip title="Copy Prompt" arrow>
-                <Icon
-                  icon="ion:copy"
-                  color="#797C86"
-                  width={18}
-                  className="hover:cursor-pointer"
-                />
-              </Tooltip>
+              <CopyToClipboard
+                text={Image.data.prompt}
+                onCopy={() => handleCopy("prompt")}
+              >
+                <Tooltip title="Copy Prompt" arrow>
+                  <Icon
+                    icon={`${
+                      isCopied === "prompt" ? "noto-v1:check-mark" : "ion:copy"
+                    }`}
+                    color="#797C86"
+                    width={18}
+                    className="hover:cursor-pointer"
+                  />
+                </Tooltip>
+              </CopyToClipboard>
               <Tooltip title="Reuse Prompts" arrow>
-                <button className="w-7 h-7 flex justify-center items-center rounded-md border border-[#242c3e] bg-[#ffffff14] hover:bg-[#ffffff29]">
+                <button
+                  className="w-7 h-7 flex justify-center items-center rounded-md border border-[#242c3e] bg-[#ffffff14] hover:bg-[#ffffff29]"
+                  onClick={() =>
+                    PromptHandler(
+                      Image.data.prompt,
+                      Image.data?.negative_prompt
+                    )
+                  }
+                >
                   <Icon icon="ci:arrow-up-sm" width={18} />
                 </button>
               </Tooltip>
