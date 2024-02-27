@@ -19,14 +19,21 @@ export const loginUserInfo = async (
       `${process.env.REACT_APP_BACKEND_API}/auth/login`,
       userData
     );
+    // Set the token in localStorage only if status is 200.
     if (response.status === 200) {
       localStorage.setItem("token", response.data.token);
-      return response.data;
     }
+
+    // Return response data irrespective of status code.
+    return response.data;
   } catch (error) {
+    // Send back the error response data if it exists.
     if (error.response) {
       return error.response.data;
     }
+
+    // Rethrow the error or handle it as needed.
+    throw error;
   }
 };
 
