@@ -6,25 +6,45 @@ type UserData = {
   avatar: string | ArrayBuffer | null;
 };
 
-export const registerUserInfo = async (userData: UserData): Promise<string> => {
+interface LoginResponse {
+  message: string;
+  token?: string;
+}
+
+export const loginUserInfo = async (
+  userData: UserData
+): Promise<LoginResponse> => {
   try {
-    const res = await axios.post(
-      `${process.env.REACT_APP_BACKEND_API}/login`,
+    const response = await axios.post(
+      `${process.env.REACT_APP_BACKEND_API}/auth/login`,
       userData
     );
-    return res.data.message;
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      // Handle Axios error. For example, data from an error response
-      console.error("Axios error:", error.response?.data);
-      throw new Error(
-        (error.response?.data as string) || "An unknown error occurred"
-      );
-    } else {
-      // Handle unexpected errors
-      console.error("Unexpected error:", error);
-      throw new Error("An unexpected error occurred");
+    if (response.status === 200) {
+      localStorage.setItem("token", response.data.token);
+      return response.data;
     }
+  } catch (error) {
+    if (error.response) {
+      return error.response.data;
+    }
+  }
+};
+
+export const registerUserInfo = async (
+  userData: UserData
+): Promise<LoginResponse> => {
+  try {
+    const response = await axios.post(
+      `${process.env.REACT_APP_BACKEND_API}/auth/register`,
+      userData
+    );
+
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      return error.response.data;
+    }
+    throw error;
   }
 };
 

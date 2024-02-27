@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./layouts/LayoutLogin";
 import LayoutDashboard from "./layouts/LayoutDashboard";
 import Navbar from "./layouts/Navbar";
@@ -26,6 +26,14 @@ function LayoutWithNavbarAndFooter({
     </>
   );
 }
+
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+};
 
 function App() {
   return (
@@ -66,7 +74,14 @@ function App() {
             }
           />
           <Route path="/login" element={<Login />} />
-          <Route path="/app/*" element={<AppLayout />} />
+          <Route
+            path="/app/*"
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          />
           {/* <Route path="/splash/" element={<SplashScreen />} /> */}
         </Routes>
       </BrowserRouter>

@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { GoogleLogin } from "google-login-react";
 import { useUser } from "../context/UserContext";
 import { Navigate, Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import { registerUserInfo } from "../actions/authActions";
+import { registerUserInfo, loginUserInfo } from "../actions/authActions";
 
 const Login = () => {
   const { user, setUser }: any = useUser();
+  const [actionState, setActionState] = useState<boolean>(true);
+  const [message, setMessage] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
   const onLogin = async (credentialResponse: any) => {
     if (!credentialResponse) return;
 
@@ -18,14 +21,38 @@ const Login = () => {
       avatar: credentialResponse.picture,
     };
 
-    if ((await registerUserInfo(data)) === "Success")
+    const result = await loginUserInfo(data);
+    if (result.message === "Success") {
       setUser(JSON.stringify(data));
-    else return;
+    }
+    console.log("Result Message:", result.message);
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
+    if (email && password) {
+      const data = {
+        email: email,
+        username: "User",
+        avatar: "avatar",
+        password: password,
+      };
+      if (actionState) {
+        const result = await loginUserInfo(data);
+        setMessage(result.message);
+        if (result.message === "Success") {
+          setUser(JSON.stringify(data));
+        }
+      } else {
+        const result = await registerUserInfo(data);
+        setMessage(result.message);
+      }
+    } else setMessage("Check Email and Password");
   };
+
+  useEffect(() => {
+    setMessage("");
+  }, [actionState]);
 
   if (user && user !== "None") {
     return <Navigate to="/app" />;
@@ -77,11 +104,9 @@ const Login = () => {
                 OR
               </div>
             </div>
-            <form
-              className="flex flex-col gap-3 w-full"
-              onSubmit={handleSubmit}
-            >
+            <form className="flex flex-col gap-3 w-full">
               <div className="flex flex-col gap-2 w-full">
+                <span className="text-red-500 text-[14px]">{message}</span>
                 <label
                   htmlFor="email"
                   className="text-[14px] font-medium text-white select-none"
@@ -126,18 +151,23 @@ const Login = () => {
                 </Link>
               </span>
               <div className="pt-[6px]">
-                <button className="button-color w-full h-12 text-[14px] rounded-[4px]">
-                  Sign in
+                <button
+                  className="button-color w-full h-12 text-[14px] rounded-[4px]"
+                  onClick={handleSubmit}
+                >
+                  {actionState ? "Sign In" : "Sign Up"}
                 </button>
               </div>
-              <span className="w-full flex flex-row gap-2 items-center justify-center pt-[6px]">
-                <span className="text-[14px]">Need an account?</span>
-                <Link to="/register" className="text-[14px] text-indigo-400">
-                  Sign up
-                </Link>
-              </span>
             </form>
-            <div className=""></div>
+            <span className="w-full flex flex-row gap-2 items-center justify-center pt-[6px]">
+              <span className="text-[14px]">Need an account?</span>
+              <button
+                className="text-[14px] text-indigo-400"
+                onClick={() => setActionState(!actionState)}
+              >
+                {actionState ? "Sign up" : "Sign In"}
+              </button>
+            </span>
           </div>
         </div>
         <div className="w-full background-board rounded-tr-lg rounded-br-lg sm:hidden"></div>
