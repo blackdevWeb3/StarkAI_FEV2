@@ -195,6 +195,7 @@ const LikedFeed = () => {
                     index={index}
                     count={imageData.length}
                     key={index}
+                    likeImage={true}
                   />
                 </ImageListItem>
               ))}
