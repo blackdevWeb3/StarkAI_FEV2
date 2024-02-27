@@ -31,6 +31,7 @@ const CommonFeed = () => {
   const [selectedStyle, setSelectedStyle] = useState<StyleOptions>("All");
   const [showSplashScreen, setShowSplashScreen] = useState(true);
   const [fetched, setFetched] = useState(false);
+  const [likeImages, setLikeImages] = useState<String[]>([]);
 
   const hashtagFilter = (param: StyleOptions) => {
     setSelectedStyle(param);
@@ -198,6 +199,7 @@ const CommonFeed = () => {
                     index={index}
                     count={imageData.length}
                     key={index}
+                    likeImage={likeImages.indexOf(item.generationID)>=0}
                   />
                 </ImageListItem>
               ))}
