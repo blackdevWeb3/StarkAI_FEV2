@@ -20,7 +20,6 @@ import { Image } from "../../utils/types";
 
 import useOutsideClick from "../../utils/useOutsideClick";
 import ModalImgCard from "../Modal/ModalImgCard";
-import GenerationHistory from "./GenerationHistory";
 import ImageGuidance from "./ImageGuidance";
 import { TextareaAutosize } from "@mui/material";
 
@@ -33,6 +32,7 @@ import { MarketPlace } from "../../config/const";
 import MarketPlaceABI from "../../config/marketplace.json";
 import ERC20ABI from "../../config/ERC20.json";
 import { writeContract, readContract, waitForTransaction } from "@wagmi/core";
+import CreatedImageItem from "./CreatedImageItem";
 
 // const socket = io("http://localhost:5001");
 const socket = io(process.env.REACT_APP_SOCKET_API || "http://localhost:5001");
@@ -40,7 +40,7 @@ const socket = io(process.env.REACT_APP_SOCKET_API || "http://localhost:5001");
 const userSelectedModelItem: ModelItem = {
   id: "1e60896f-3c26-4296-8ecc-53e2afecc132",
   modelType: "Finetuned Model",
-  label: "StarkAI Xl v1",
+  label: "StarkAI XL v1",
   subLabel: "Alchemy V2",
   imgURI:
     "https://cdn.leonardo.ai/users/384ab5c8-55d8-47a1-be22-6a274913c324/generations/9ea08719-5fd1-4df7-9adc-5218637cba17/Leonardo_Diffusion_XL_a_brain_suspended_in_midair_bathed_in_a_1.jpg",
@@ -89,6 +89,12 @@ const ImageGeneration = () => {
     useState<number>(512);
   const [lockOpened, setLockOpened] = useState<boolean>(false);
   const [dimensionRatio, setDimensionRatio] = useState<string>("");
+
+  const PromptHandler = (param1, param2) => {
+    setPromptText(param1);
+    setNegativePromptText(param2);
+    if (param2) setNegativePrompt(true);
+  };
 
   const convertWH = () => {
     const currentWidth = sliderWidthDimension;
@@ -344,32 +350,23 @@ const ImageGeneration = () => {
     //   functionName: "generateImageFee",
     // });
 
-    // console.log("trade---", tradeToken);
-
-    // let tx: any = await writeContract({
-    //   address: tradeToken,
-    //   abi: ERC20ABI,
-    //   functionName: 'approve',
-    //   args: [MarketPlace[chainId], generateImageFee],
-    // })
-    // console.log('----------tx--------', tx)
-    // try {
-    //   let tx = await writeContract({
-    //     address: tradeToken,
-    //     abi: ERC20ABI,
-    //     functionName: "approve",
-    //     args: [MarketPlace[chainId], generateImageFee],
-    //   });
-    //   console.log(tx);
-    //   let data = await waitForTransaction(tx);
-    //   console.log("-------data-------", data);
-    //   tx = await writeContract({
-    //     address: MarketPlace[chainId],
-    //     abi: MarketPlaceABI,
-    //     functionName: "generateImage",
-    //   });
-    //   data = await waitForTransaction(tx);
-    //   console.log("-------data-2------", data);
+    try {
+      // let tx = await writeContract({
+      //   address: tradeToken,
+      //   abi: ERC20ABI,
+      //   functionName: "approve",
+      //   args: [MarketPlace[chainId], generateImageFee],
+      // });
+      // console.log(tx);
+      // let data = await waitForTransaction(tx);
+      // console.log("-------data-------", data);
+      // tx = await writeContract({
+      //   address: MarketPlace[chainId],
+      //   abi: MarketPlaceABI,
+      //   functionName: "generateImage",
+      // });
+      // data = await waitForTransaction(tx);
+      // console.log("-------data-2------", data);
       if (activeTab === "generationHistory") {
         const data = {
           user: JSON.parse(user).email,
@@ -401,10 +398,10 @@ const ImageGeneration = () => {
         };
         socket.emit("image-to-image", data);
       }
-    // } catch (e) {
-    //   setGenerating(false);
-    //   return;
-    // }
+    } catch (e) {
+      setGenerating(false);
+      return;
+    }
   };
 
   const updateLibrary = async () => {
@@ -653,9 +650,14 @@ const ImageGeneration = () => {
 
           {/* Tab Content */}
           <div className="border-primary sm:px-4 px-8 sm:mt-3 mt-5">
-            {activeTab === "generationHistory" && (
-              <GenerationHistory imageData={imageData} />
-            )}
+            {activeTab === "generationHistory" &&
+              imageData.map((item, index) => (
+                <CreatedImageItem
+                  imageData={item}
+                  PromptHandler={PromptHandler}
+                  key={index}
+                />
+              ))}
             {activeTab === "imgGuidance" && (
               <ImageGuidance
                 imageSrc={imageSrc}
@@ -675,7 +677,7 @@ const ImageGeneration = () => {
           <div className="pt-[19px] flex flex-row justify-between items-center">
             <span className="flex flex-row justify-center items-center">
               <h1 className="text-[24px] font-semibold font-chakra text-white">
-                STARK&nbsp
+                STARK&nbsp;
               </h1>
               <h1 className="text-[24px] font-semibold font-chakra text-deepPink">
                 AI

@@ -4,14 +4,13 @@ import { ImageList, ImageListItem } from "@mui/material";
 import { Image } from "../../utils/types";
 import useResponsiveSlider from "../../utils/useResponsiveSlider";
 import useWindowSize from "../../hooks/useWindowSize";
-import React from "react";
 
 const RecentWorks = () => {
   const [imageData, setImageData] = useState<Image[]>([]);
   const windowSize = useWindowSize();
 
   const [curVal] = useResponsiveSlider({
-    sliderValue: 5,
+    sliderValue: 4,
     windowWidth: windowSize,
   });
 
@@ -40,7 +39,7 @@ const RecentWorks = () => {
       <div className="w-full max-w-[1324px] mx-auto flex flex-col justify-center items-center gap-4 px-5 md:px-16 sm:px-8">
         <span className="text-[22px] font-semibold">Recent works</span>
         {imageData.length > 0 && (
-          <div className="py-8">
+          <div className="py-8 mx-auto">
             <ImageList variant="masonry" cols={curVal} gap={10}>
               {imageData
                 .filter((item) => item.image.endsWith(".jpg"))
