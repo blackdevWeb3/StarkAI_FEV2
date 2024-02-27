@@ -283,7 +283,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
   }, [modalCtx.visible]);
 
   const handleDownload = async () => {
-    const url = imageData.image;
+    const url = `${imageData.image}_ORIGIN`;
     const tmpUrl = await axios.post(
       `${process.env.REACT_APP_BACKEND_API}/getSignedUrl`,
       { url: url }

@@ -40,7 +40,7 @@ const MagnifyDialog = ({
               ) : (
                 <img
                   className="z-10 relative object-contain w-auto h-full"
-                  src={imageData.image}
+                  src={`${imageData.image}_ORIGIN`}
                   alt="imagelogo"
                 />
               )}
