@@ -324,52 +324,52 @@ const ImageGeneration = () => {
   const { chain } = useNetwork();
 
   const handleGenerate = async () => {
-    if (!isConnected) {
-      toast.warning("Connect wallet first!", {
-        autoClose: 2000,
-        containerId: "main",
-      });
-      return;
-    }
+    // if (!isConnected) {
+    //   toast.warning("Connect wallet first!", {
+    //     autoClose: 2000,
+    //     containerId: "main",
+    //   });
+    //   return;
+    // }
     setGenerating(true);
-    const chainId = chain ? chain.id : 97;
-    const tradeToken: any = await readContract({
-      address: MarketPlace[chainId],
-      abi: MarketPlaceABI,
-      functionName: "tradeToken",
-    });
-    const generateImageFee: any = await readContract({
-      address: MarketPlace[chainId],
-      abi: MarketPlaceABI,
-      functionName: "generateImageFee",
-    });
+    // const chainId = chain ? chain.id : 97;
+    // const tradeToken: any = await readContract({
+    //   address: MarketPlace[chainId],
+    //   abi: MarketPlaceABI,
+    //   functionName: "tradeToken",
+    // });
+    // const generateImageFee: any = await readContract({
+    //   address: MarketPlace[chainId],
+    //   abi: MarketPlaceABI,
+    //   functionName: "generateImageFee",
+    // });
 
-    console.log("trade---", tradeToken);
+    // console.log("trade---", tradeToken);
 
-    let tx: any = await writeContract({
-      address: tradeToken,
-      abi: ERC20ABI,
-      functionName: 'approve',
-      args: [MarketPlace[chainId], generateImageFee],
-    })
-    console.log('----------tx--------', tx)
-    try {
-      let tx = await writeContract({
-        address: tradeToken,
-        abi: ERC20ABI,
-        functionName: "approve",
-        args: [MarketPlace[chainId], generateImageFee],
-      });
-      console.log(tx);
-      let data = await waitForTransaction(tx);
-      console.log("-------data-------", data);
-      tx = await writeContract({
-        address: MarketPlace[chainId],
-        abi: MarketPlaceABI,
-        functionName: "generateImage",
-      });
-      data = await waitForTransaction(tx);
-      console.log("-------data-2------", data);
+    // let tx: any = await writeContract({
+    //   address: tradeToken,
+    //   abi: ERC20ABI,
+    //   functionName: 'approve',
+    //   args: [MarketPlace[chainId], generateImageFee],
+    // })
+    // console.log('----------tx--------', tx)
+    // try {
+    //   let tx = await writeContract({
+    //     address: tradeToken,
+    //     abi: ERC20ABI,
+    //     functionName: "approve",
+    //     args: [MarketPlace[chainId], generateImageFee],
+    //   });
+    //   console.log(tx);
+    //   let data = await waitForTransaction(tx);
+    //   console.log("-------data-------", data);
+    //   tx = await writeContract({
+    //     address: MarketPlace[chainId],
+    //     abi: MarketPlaceABI,
+    //     functionName: "generateImage",
+    //   });
+    //   data = await waitForTransaction(tx);
+    //   console.log("-------data-2------", data);
       if (activeTab === "generationHistory") {
         const data = {
           user: JSON.parse(user).email,
@@ -401,10 +401,10 @@ const ImageGeneration = () => {
         };
         socket.emit("image-to-image", data);
       }
-    } catch (e) {
-      setGenerating(false);
-      return;
-    }
+    // } catch (e) {
+    //   setGenerating(false);
+    //   return;
+    // }
   };
 
   const updateLibrary = async () => {
