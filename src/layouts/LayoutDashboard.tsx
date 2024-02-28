@@ -6,11 +6,9 @@ import { useEffect, useState } from "react";
 const imagePaths = [
   "https://d2zitdfpdrkol8.cloudfront.net/ryanniit0x902/5ab5093a-35a8-4c95-a733-6e862b47a0d4/Default_Lexus_Car_0.jpg",
   "https://d2zitdfpdrkol8.cloudfront.net/ryanniit0x902/5ab5093a-35a8-4c95-a733-6e862b47a0d4/Default_Lexus_Car_1.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/2723f131-f882-4434-aef6-0ddffea1d1c8/Default_sun_shine_0.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/5a946f77-fea7-4786-a24f-603d032e9324/Default_sun_shine_0.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/5ccebc1b-698b-4a0d-a5a6-3a22308a8fcb/Default_sun_shine_0.jpg",
   "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/eeaa4d5f-84d4-43f9-8f17-535895ef4c36/Default_Vivid_colors_pick_color_a_beautiful_and_happy_woman_an_0.jpg",
   "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/1ae53528-22c1-43e0-b6ca-ded8f79fce16/Default_Imagine_a_mesmerizing_scene_where_a_golden_grizzly_bea_3.jpg",
+  "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/6a7cfb39-5a37-4212-877f-e46eb15f4ebc/Default_cute_0.jpg",
 ];
 
 const LayoutDashboard = () => {
