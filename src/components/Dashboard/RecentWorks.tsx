@@ -33,7 +33,7 @@ const RecentWorks = () => {
   useEffect(() => {
     if (imageData.length > 0) return;
     updateLibrary();
-  });
+  }, []);
   return (
     <div className="w-full bg-black py-14">
       <div className="w-full max-w-[1324px] mx-auto flex flex-col justify-center items-center gap-4 px-5 md:px-16 sm:px-8">
