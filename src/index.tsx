@@ -69,7 +69,9 @@ root.render(
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider coolMode theme={darkTheme()} chains={chains}>
         <UserProvider>
-          <GoogleOAuthProvider clientId="229159616238-4nkmtiq6ar6t44lgif12bve7vv1bmavm.apps.googleusercontent.com">
+          <GoogleOAuthProvider
+            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+          >
             <ToastContainer containerId={"main"} />
             <App />
           </GoogleOAuthProvider>

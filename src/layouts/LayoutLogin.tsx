@@ -2,8 +2,14 @@ import React, { useEffect, useState } from "react";
 import { GoogleLogin } from "google-login-react";
 import { useUser } from "../context/UserContext";
 import { Navigate, Link } from "react-router-dom";
+import axios from "axios";
 import { Icon } from "@iconify/react";
-import { registerUserInfo, loginUserInfo } from "../actions/authActions";
+import {
+  registerUserInfo,
+  loginUserInfo,
+  forgotPasswordAction,
+} from "../actions/authActions";
+import { validateEmail } from "../utils/validateEmailFormat";
 
 const Login = () => {
   const { user, setUser }: any = useUser();
@@ -11,6 +17,7 @@ const Login = () => {
   const [message, setMessage] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [forgotPassword, setForgotPassword] = useState<boolean>(false);
 
   const onLogin = async (credentialResponse: any) => {
     if (!credentialResponse) return;
@@ -28,31 +35,61 @@ const Login = () => {
     console.log("Result Message:", result.message);
   };
 
-  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (email && password) {
-      const data = {
-        email: email,
-        username: "User",
-        avatar: "avatar",
-        password: password,
-      };
-      if (actionState) {
-        const result = await loginUserInfo(data);
-        setMessage(result.message);
-        if (result.message === "Success") {
-          setUser(JSON.stringify(data));
-        }
-      } else {
-        const result = await registerUserInfo(data);
-        setMessage(result.message);
-      }
-    } else setMessage("Check Email and Password");
+
+    if (forgotPassword) {
+      resetPassword(email);
+    } else if (validateEmail(email) && password) {
+      const data = { email, username: "User", avatar: "avatar", password };
+      handleAuthentication(data);
+    } else {
+      setMessage("Check Email and Password");
+    }
+  };
+
+  const resetPassword = async (email) => {
+    if (!validateEmail(email)) {
+      setMessage("Invalid Email Address");
+      return;
+    }
+    const result = await forgotPasswordAction(email);
+  };
+
+  const handleAuthentication = async (data) => {
+    if (actionState) {
+      await loginUser(data);
+    } else {
+      await registerUser(data);
+    }
+  };
+
+  const loginUser = async (data) => {
+    console.log("Login");
+    const result = await loginUserInfo(data);
+    processResult(result);
+  };
+
+  const registerUser = async (data) => {
+    console.log("Register");
+    const result = await registerUserInfo(data);
+    setMessage(result.message);
+  };
+
+  const processResult = (result) => {
+    setMessage(result.message);
+    if (result.message === "Success") {
+      setUser(JSON.stringify(result));
+    }
   };
 
   useEffect(() => {
     setMessage("");
   }, [actionState]);
+
+  const changeEmailHandler = (e) => {
+    setEmail(e.target.value);
+  };
 
   if (user && user !== "None") {
     return <Navigate to="/app" />;
@@ -105,6 +142,15 @@ const Login = () => {
               </div>
             </div>
             <form className="flex flex-col gap-3 w-full">
+              <div className="border border-[#68D391] rounded-[4px] px-2 py-1">
+                <p className="text-[#68D391] text-[12px] text-center">
+                  {actionState
+                    ? forgotPassword
+                      ? "Enter your email below and we will send a message to reset your password"
+                      : "Sign in to your account"
+                    : "Sign up with a new account"}
+                </p>
+              </div>
               <div className="flex flex-col gap-2 w-full">
                 <span className="text-red-500 text-[14px]">{message}</span>
                 <label
@@ -117,57 +163,75 @@ const Login = () => {
                   id="email"
                   type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={changeEmailHandler}
                   placeholder="name@host.com"
                   autoComplete="username"
                   className="text-[14px] w-full rounded-[4px] h-10 px-3.5 py-2 bg-black/25 appearance-none outline-none invalid:focus:border-danger-primary placeholder:text-light-secondary text-white disabled:text-opacity-60 disabled:cursor-not-allowed"
                   required
                 />
               </div>
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="password"
-                  className="text-[14px] font-medium text-white select-none"
-                >
-                  Password
-                </label>
-                <input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter password"
-                  autoComplete="current-password"
-                  className="text-[14px] rounded-[4px] px-3.5 py-2 h-10 bg-black/25 appearance-none outline-none invalid:focus:border-danger-primary placeholder:text-light-secondary text-white disabled:text-opacity-60 disabled:cursor-not-allowed"
-                  required
-                />
-              </div>
-              <span>
-                <Link
-                  to="/reset-password"
-                  className="text-[14px] text-indigo-400"
-                >
-                  Forgot your password?
-                </Link>
-              </span>
+              {!forgotPassword && (
+                <div className="flex flex-col gap-2">
+                  <label
+                    htmlFor="password"
+                    className="text-[14px] font-medium text-white select-none"
+                  >
+                    Password
+                  </label>
+                  <input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter password"
+                    autoComplete="current-password"
+                    className="text-[14px] rounded-[4px] px-3.5 py-2 h-10 bg-black/25 appearance-none outline-none invalid:focus:border-danger-primary placeholder:text-light-secondary text-white disabled:text-opacity-60 disabled:cursor-not-allowed"
+                    required
+                  />
+                </div>
+              )}
+              {actionState && !forgotPassword && (
+                <span>
+                  <span
+                    className="text-[14px] text-indigo-400 hover:cursor-pointer"
+                    onClick={() => setForgotPassword(true)}
+                  >
+                    Forgot your password?
+                  </span>
+                </span>
+              )}
               <div className="pt-[6px]">
                 <button
                   className="button-color w-full h-12 text-[14px] rounded-[4px]"
                   onClick={handleSubmit}
                 >
-                  {actionState ? "Sign In" : "Sign Up"}
+                  {actionState
+                    ? forgotPassword
+                      ? "Reset Password"
+                      : "Sign In"
+                    : "Sign Up"}
                 </button>
               </div>
+              {forgotPassword && (
+                <span
+                  className="text-center text-[14px] hover:cursor-pointer"
+                  onClick={() => setForgotPassword(false)}
+                >
+                  Cancel
+                </span>
+              )}
             </form>
-            <span className="w-full flex flex-row gap-2 items-center justify-center pt-[6px]">
-              <span className="text-[14px]">Need an account?</span>
-              <button
-                className="text-[14px] text-indigo-400"
-                onClick={() => setActionState(!actionState)}
-              >
-                {actionState ? "Sign up" : "Sign In"}
-              </button>
-            </span>
+            {!forgotPassword && (
+              <span className="w-full flex flex-row gap-2 items-center justify-center pt-[6px]">
+                <span className="text-[14px]">Need an account?</span>
+                <button
+                  className="text-[14px] text-indigo-400"
+                  onClick={() => setActionState(!actionState)}
+                >
+                  {actionState ? "Sign up" : "Sign In"}
+                </button>
+              </span>
+            )}
           </div>
         </div>
         <div className="w-full background-board rounded-tr-lg rounded-br-lg sm:hidden"></div>
