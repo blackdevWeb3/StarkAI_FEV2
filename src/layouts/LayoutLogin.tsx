@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { GoogleLogin } from "google-login-react";
 import { useUser } from "../context/UserContext";
 import { Navigate, Link } from "react-router-dom";
-import axios from "axios";
 import { Icon } from "@iconify/react";
 import {
   registerUserInfo,
@@ -110,7 +109,7 @@ const Login = () => {
                 id="google_login"
               >
                 <GoogleLogin
-                  clientId={process.env.REACT_APP_CLIENT_ID!}
+                  clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID!}
                   onSuccess={(res: any) => onLogin(res)}
                   onError={(err: any) => console.log(err)}
                 >
