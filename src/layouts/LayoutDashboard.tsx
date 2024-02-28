@@ -12,6 +12,7 @@ const imagePaths = [
   "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/0c7d9083-14e5-4d8a-afe9-705a73b556b1/Default_Vivid_colors_pick_color_a_beautiful_and_happy_woman_an_3.jpg",
   "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/bc506d34-9763-49ef-8ec2-f88ef4477e09/Default_Vivid_colors_pick_color_a_beautiful_and_happy_woman_an_0.jpg",
   "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/f539aa23-b601-4d7b-9cfa-92fe4438bf33/Default_Vivid_colors_pick_color_a_beautiful_and_happy_woman_an_3.jpg",
+  "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/1a4890b7-9ac1-42f0-9bcd-217c1b09c497/Default_A_fiercely_proud_Nordic_girl_stands_her_presence_exudi_0.jpg",
 ];
 
 const LayoutDashboard = () => {
