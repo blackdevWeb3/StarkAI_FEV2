@@ -9,11 +9,13 @@ import { Alchemy } from "../../assets";
 interface CreatedImageItemProps {
   imageData: any;
   PromptHandler: (param1: string, param2: string) => void;
+  deleteImage: (image: string) => void;
 }
 
 const CreatedImageItem: React.FC<CreatedImageItemProps> = ({
   imageData,
   PromptHandler,
+  deleteImage,
 }) => {
   const Image = imageData;
   const [isLoaded, setIsLoaded] = useState(false);
@@ -123,6 +125,15 @@ const CreatedImageItem: React.FC<CreatedImageItemProps> = ({
               <span className="text-[14px]">
                 {Image.data.width} x {Image.data.height}
               </span>
+            </div>
+            <div
+              className="flex flex-row items-center gap-1 hover:cursor-pointer"
+              onClick={() => deleteImage(Image.image)}
+            >
+              <span>
+                <Icon icon="iconamoon:trash-fill" width={16} />
+              </span>
+              <span className="text-[14px]">Delete</span>
             </div>
           </div>
         </div>
