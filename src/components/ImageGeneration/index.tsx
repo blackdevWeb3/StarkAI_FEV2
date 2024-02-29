@@ -33,6 +33,7 @@ import MarketPlaceABI from "../../config/marketplace.json";
 import ERC20ABI from "../../config/ERC20.json";
 import { writeContract, readContract, waitForTransaction } from "@wagmi/core";
 import CreatedImageItem from "./CreatedImageItem";
+import { deleteImageAction } from "../../actions/imageAction";
 
 // const socket = io("http://localhost:5001");
 const socket = io(process.env.REACT_APP_SOCKET_API || "http://localhost:5001");
@@ -89,6 +90,14 @@ const ImageGeneration = () => {
     useState<number>(512);
   const [lockOpened, setLockOpened] = useState<boolean>(false);
   const [dimensionRatio, setDimensionRatio] = useState<string>("");
+
+  const deleteImage = async (image) => {
+    const result = await deleteImageAction(image);
+    if (result) {
+      updateLibrary();
+    }
+    console.log("result:", result);
+  };
 
   const PromptHandler = (param1, param2) => {
     setPromptText(param1);
@@ -655,6 +664,7 @@ const ImageGeneration = () => {
                 <CreatedImageItem
                   imageData={item}
                   PromptHandler={PromptHandler}
+                  deleteImage={deleteImage}
                   key={index}
                 />
               ))}
