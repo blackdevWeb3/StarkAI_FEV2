@@ -413,12 +413,12 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
           <div className="flex flex-col items-center relative">
             <div className="flex flex-row space-x-5 space-y-0 sm:space-y-5 sm:space-x-0 sm:flex-col">
               {/* left */}
-              <div>
+              <div className="sm:w-full w-1/2">
                 <div
                   className="flex relative flex-col min-w-0 rounded-lg p-0 cursor-pointer"
                   onClick={handleMagnifyImage}
                 >
-                  <div className="rounded-lg">
+                  <div className="rounded-lg flex justify-center items-center">
                     {srcType === "video" ? (
                       <video
                         id="videocontainer"
@@ -551,7 +551,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
               </div>
 
               {/* right */}
-              <div className="flex flex-col gap-2 font-Inter">
+              <div className="flex flex-col gap-2 font-Inter sm:w-full w-1/2 min-w-[390px]">
                 <div className="flex flex-col gap-2">
                   <div className="flex flex-row gap-1">
                     <div className="flex flex-row items-center">
@@ -597,7 +597,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                     </div>
                   </div>
                   {srcType === "image" && (
-                    <div className="flex flex-row sm:flex-wrap items-center justify-between sm:justify-start gap-2 sm:gap-1 mt-3">
+                    <div className="flex flex-row sm:flex-wrap items-center justify-start sm:justify-start gap-2 sm:gap-1 mt-3 flex-wrap">
                       <div className="block">
                         <button className="inline-flex rounded-[4px] items-center justify-center select-none relative whitespace-nowrap align-middle h-8 py-2 px-3 button-detail">
                           <span className="self-center inline-flex flex-shrink-[0] me-[6px]">
