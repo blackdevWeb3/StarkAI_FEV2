@@ -143,12 +143,27 @@ const CreatedImageItem: React.FC<CreatedImageItemProps> = ({
               Loading...
             </div>
           )}
-          <img
-            className={`rounded-lg ${!isLoaded ? "hidden" : ""}`}
-            src={Image.image}
-            alt={Image.image}
-            onLoad={() => setIsLoaded(true)}
-          />
+          {Image.image.endsWith(".mp4") ? (
+            <>
+              <video
+                loop
+                disableRemotePlayback
+                muted
+                className="rounded-md"
+                onLoadedData={() => setIsLoaded(false)}
+                onError={() => setIsLoaded(false)}
+              >
+                <source type="video/mp4" src={Image.image} />
+              </video>
+            </>
+          ) : (
+            <img
+              className={`rounded-lg ${!isLoaded ? "hidden" : ""}`}
+              src={Image.image}
+              alt={Image.image}
+              onLoad={() => setIsLoaded(true)}
+            />
+          )}
         </div>
       </div>
     </div>
