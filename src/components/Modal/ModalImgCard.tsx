@@ -446,7 +446,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                 {/*  */}
                 <div className="flex flex-row justify-between gap-2 w-full pt-5 flex-wrap">
                   {srcType === "image" && (
-                    <button className="border-primary border rounded-lg h-[30px] min-w-[165px] px-4 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45] w-full">
+                    <button className="border-primary border rounded-lg h-[30px] min-w-[165px] px-4 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45] w-1/3">
                       <Icon
                         icon="streamline:ai-science-spark"
                         className="w-[14px] h-[14px]"
