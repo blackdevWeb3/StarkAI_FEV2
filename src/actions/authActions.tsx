@@ -5,11 +5,25 @@ type UserData = {
   email: string;
   avatar: string | ArrayBuffer | null;
 };
+type forgotData = {
+  email: string;
+};
 
 interface LoginResponse {
   message: string;
   token?: string;
 }
+
+interface ForgotResponse {
+  message: string;
+  verificationCode?: string;
+  expiryTime?: string;
+}
+
+type ResetData = {
+  email: string;
+  password: string;
+};
 
 export const loginUserInfo = async (
   userData: UserData
@@ -78,28 +92,46 @@ export const updateUserInfo = async (userData: UserData): Promise<boolean> => {
   }
 };
 
-export const forgotPasswordAction = async (email: string): Promise<boolean> => {
+export const forgotPasswordAction = async (
+  email: forgotData
+): Promise<ForgotResponse> => {
+  console.log("email:", email);
   try {
     const res = await axios.post(
-      `${process.env.REACT_APP_BACKEND_API}/reset-password`,
+      `${process.env.REACT_APP_BACKEND_API}/auth/forgot-password`,
       email
     );
+    if (res.status === 200) {
+      console.log("sent verification code");
+      return res.data;
+    } else {
+      console.error("Failed to send");
+      return res.data;
+    }
+  } catch (error) {
+    console.error("Unexpected error:", error);
+    throw new Error(error.message);
+  }
+};
 
-    if (res.data.message === "Success") {
-      console.log("User info updated successfully");
+export const resetUserPassword = async (
+  userData: ResetData
+): Promise<boolean> => {
+  console.log("email:", userData);
+  try {
+    const res = await axios.post(
+      `${process.env.REACT_APP_BACKEND_API}/auth/reset-password`,
+      userData
+    );
+    if (res.status === 200) {
+      console.log("Success Reset Password!");
       return true;
     } else {
-      console.error("Failed to update user info");
+      console.error("Failed to set");
       return false;
     }
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      // Handle specific Axios error
-      console.error("Error updating user info:", error.response?.data);
-    } else {
-      // Handle unexpected errors
-      console.error("Unexpected error:", error);
-    }
-    return false;
+    console.error("Unexpected error:", error);
+    throw new Error(error.message);
   }
 };

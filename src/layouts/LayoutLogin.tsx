@@ -7,8 +7,10 @@ import {
   registerUserInfo,
   loginUserInfo,
   forgotPasswordAction,
+  resetUserPassword,
 } from "../actions/authActions";
 import { validateEmail } from "../utils/validateEmailFormat";
+import { off } from "process";
 
 const Login = () => {
   const { user, setUser }: any = useUser();
@@ -17,6 +19,13 @@ const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [forgotPassword, setForgotPassword] = useState<boolean>(false);
+  const [resetState, setResetState] = useState(false);
+  const [VerificationCode, setVerificationCode] = useState<string>("");
+  const [newPassword, setNewPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [fetchedVerificationCode, setFetchedVerificationCode] =
+    useState<string>("");
+  const [fetchedTime, setFetchedTime] = useState<string>("");
 
   const onLogin = async (credentialResponse: any) => {
     if (!credentialResponse) return;
@@ -38,7 +47,7 @@ const Login = () => {
     event.preventDefault();
 
     if (forgotPassword) {
-      resetPassword(email);
+      forgotPasswordFunc(email);
     } else if (validateEmail(email) && password) {
       const data = { email, username: "User", avatar: "avatar", password };
       handleAuthentication(data);
@@ -47,12 +56,17 @@ const Login = () => {
     }
   };
 
-  const resetPassword = async (email) => {
+  const forgotPasswordFunc = async (email) => {
     if (!validateEmail(email)) {
       setMessage("Invalid Email Address");
       return;
     }
-    const result = await forgotPasswordAction(email);
+    const result = await forgotPasswordAction({ email: email });
+    if (result.message === "Verification code sent") {
+      setResetState(true);
+      setFetchedVerificationCode(result.verificationCode);
+      setFetchedTime(result.expiryTime);
+    } else setResetState(false);
   };
 
   const handleAuthentication = async (data) => {
@@ -82,6 +96,36 @@ const Login = () => {
     }
   };
 
+  const resetAllState = () => {
+    setActionState(true);
+    setForgotPassword(false);
+    setResetState(false);
+  };
+
+  const handleResetPassword = async (event) => {
+    event.preventDefault();
+    if (!newPassword) {
+      setMessage("Password can't be empty");
+    } else if (newPassword !== confirmPassword) {
+      setMessage("Password doesn't match!");
+    } else if (VerificationCode !== fetchedVerificationCode) {
+      setMessage("Invalid verify code!");
+    } else if (Number(fetchedTime) < Date.now()) {
+      setMessage("Expiration verify code!");
+    } else {
+      const userData = {
+        email,
+        password: confirmPassword,
+      };
+      const response = await resetUserPassword(userData);
+      if (response) {
+        setMessage("Successfully Reset");
+      } else {
+        setMessage("Failed Reset Password!!!");
+      }
+    }
+  };
+
   useEffect(() => {
     setMessage("");
   }, [actionState]);
@@ -95,7 +139,7 @@ const Login = () => {
   }
 
   return (
-    <div className="w-full h-screen bg-black font-chakra overflow-hidden transition-all duration-300 ease-in-out">
+    <div className="w-full h-screen bg-black font-chakra transition-all duration-300 ease-in-out">
       <div className="w-full h-full flex flex-row justify-between items-center p-20 sm:p-10 z-10 relative">
         <div className="w-[380px] h-full px-12 md:px-8 lg:px-10 py-10 bg-[#171717] rounded-tl-lg rounded-bl-lg sm:w-full sm:rounded-tr-lg sm:rounded-br-lg sm:px-8">
           <div className="flex flex-col justify-between items-center gap-12 w-full">
@@ -142,33 +186,98 @@ const Login = () => {
             </div>
             <form className="flex flex-col gap-3 w-full">
               <div className="border border-[#68D391] rounded-[4px] px-2 py-1">
-                <p className="text-[#68D391] text-[12px] text-center">
-                  {actionState
-                    ? forgotPassword
-                      ? "Enter your email below and we will send a message to reset your password"
-                      : "Sign in to your account"
-                    : "Sign up with a new account"}
-                </p>
+                {resetState ? (
+                  <p className="text-[#68D391] text-[12px] text-center">
+                    Reset Password
+                  </p>
+                ) : (
+                  <p className="text-[#68D391] text-[12px] text-center">
+                    {actionState
+                      ? forgotPassword
+                        ? "Enter your email below and we will send a message to reset your password"
+                        : "Sign in to your account"
+                      : "Sign up with a new account"}
+                  </p>
+                )}
               </div>
-              <div className="flex flex-col gap-2 w-full">
-                <span className="text-red-500 text-[14px]">{message}</span>
-                <label
-                  htmlFor="email"
-                  className="text-[14px] font-medium text-white select-none"
-                >
-                  Email
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  value={email}
-                  onChange={changeEmailHandler}
-                  placeholder="name@host.com"
-                  autoComplete="username"
-                  className="text-[14px] w-full rounded-[4px] h-10 px-3.5 py-2 bg-black/25 appearance-none outline-none invalid:focus:border-danger-primary placeholder:text-light-secondary text-white disabled:text-opacity-60 disabled:cursor-not-allowed"
-                  required
-                />
-              </div>
+              <span className="text-red-500 text-[14px]">{message}</span>
+              {resetState ? (
+                <>
+                  <div className="flex flex-col gap-2 w-full">
+                    <label
+                      htmlFor="VerificationCode"
+                      className="text-[14px] font-medium text-white select-none"
+                    >
+                      Verification Code
+                    </label>
+                    <input
+                      id="VerificationCode"
+                      type="string"
+                      value={VerificationCode}
+                      onChange={(e) => setVerificationCode(e.target.value)}
+                      placeholder="6 letters"
+                      autoComplete="username"
+                      className="text-[14px] w-full rounded-[4px] h-10 px-3.5 py-2 bg-black/25 appearance-none outline-none invalid:focus:border-danger-primary placeholder:text-light-secondary text-white disabled:text-opacity-60 disabled:cursor-not-allowed"
+                      required
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2 w-full">
+                    <label
+                      htmlFor="NewPassword"
+                      className="text-[14px] font-medium text-white select-none"
+                    >
+                      New Password
+                    </label>
+                    <input
+                      id="NewPassword"
+                      type="password"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      placeholder="Enter Password"
+                      autoComplete="enter-password"
+                      className="text-[14px] w-full rounded-[4px] h-10 px-3.5 py-2 bg-black/25 appearance-none outline-none invalid:focus:border-danger-primary placeholder:text-light-secondary text-white disabled:text-opacity-60 disabled:cursor-not-allowed"
+                      required
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2 w-full">
+                    <label
+                      htmlFor="ConfirmPassword"
+                      className="text-[14px] font-medium text-white select-none"
+                    >
+                      Confirm Password
+                    </label>
+                    <input
+                      id="ConfirmPassword"
+                      type="password"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      placeholder="Confirm Password"
+                      autoComplete="confirm-password"
+                      className="text-[14px] w-full rounded-[4px] h-10 px-3.5 py-2 bg-black/25 appearance-none outline-none invalid:focus:border-danger-primary placeholder:text-light-secondary text-white disabled:text-opacity-60 disabled:cursor-not-allowed"
+                      required
+                    />
+                  </div>
+                </>
+              ) : (
+                <div className="flex flex-col gap-2 w-full">
+                  <label
+                    htmlFor="email"
+                    className="text-[14px] font-medium text-white select-none"
+                  >
+                    Email
+                  </label>
+                  <input
+                    id="email"
+                    type="email"
+                    value={email}
+                    onChange={changeEmailHandler}
+                    placeholder="name@host.com"
+                    autoComplete="username"
+                    className="text-[14px] w-full rounded-[4px] h-10 px-3.5 py-2 bg-black/25 appearance-none outline-none invalid:focus:border-danger-primary placeholder:text-light-secondary text-white disabled:text-opacity-60 disabled:cursor-not-allowed"
+                    required
+                  />
+                </div>
+              )}
               {!forgotPassword && (
                 <div className="flex flex-col gap-2">
                   <label
@@ -200,18 +309,35 @@ const Login = () => {
                 </span>
               )}
               <div className="pt-[6px]">
-                <button
-                  className="button-color w-full h-12 text-[14px] rounded-[4px]"
-                  onClick={handleSubmit}
-                >
-                  {actionState
-                    ? forgotPassword
-                      ? "Reset Password"
-                      : "Sign In"
-                    : "Sign Up"}
-                </button>
+                {resetState ? (
+                  <div className="flex flex-col justify-center">
+                    <button
+                      className="button-color w-full h-12 text-[14px] rounded-[4px]"
+                      onClick={handleResetPassword}
+                    >
+                      Change Password
+                    </button>
+                    <span
+                      className="text-center text-[14px] hover:cursor-pointer mt-2"
+                      onClick={resetAllState}
+                    >
+                      Cancel
+                    </span>
+                  </div>
+                ) : (
+                  <button
+                    className="button-color w-full h-12 text-[14px] rounded-[4px]"
+                    onClick={handleSubmit}
+                  >
+                    {actionState
+                      ? forgotPassword
+                        ? "Reset Password"
+                        : "Sign In"
+                      : "Sign Up"}
+                  </button>
+                )}
               </div>
-              {forgotPassword && (
+              {forgotPassword && !resetState && (
                 <span
                   className="text-center text-[14px] hover:cursor-pointer"
                   onClick={() => setForgotPassword(false)}
