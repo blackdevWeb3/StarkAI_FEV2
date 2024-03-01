@@ -27,6 +27,10 @@ import { zeroAddress, decodeEventLog, DecodeEventLogParameters } from "viem";
 import MagnifyDialog from "./MagnifyDialog";
 import Image2MotionDialog from "./Image2MotionDialog";
 import MotionConfirmDialog from "./MotionConfirmDialog";
+import {
+  handleFollowAction,
+  getFollowerAction,
+} from "../../actions/followAction";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -83,11 +87,22 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
   const [densityValue, setDensityValue] = useState(5);
   const [activeButton, setActiveButton] = useState(true);
   const [srcType, setSrcType] = useState("image");
+  const [followerState, setFollowerState] = useState<boolean>(false);
 
   const [IsMoreVisible, setIsMoreVisible] = useState<boolean>(false);
   const MoreFunctionRef = useRef<HTMLDivElement>(null);
   useOutsideClick(MoreFunctionRef, setIsMoreVisible);
   const { chain } = useNetwork();
+
+  const handleFollow = async () => {
+    const followObject = {
+      email: userObject.email,
+      creator: imageData.owner,
+    };
+    const result = await handleFollowAction(followObject);
+    setFollowerState(!followerState);
+    onUpdate();
+  };
 
   const handleMagnifyImage = () => {
     setMagnifyOpen(true);
@@ -353,7 +368,24 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
     } else {
       setMe(true);
     }
-  }, [modalCtx.imageData, user]);
+    getFollower();
+  }, [modalCtx.imageData, user, followerState]);
+
+  const getFollower = async () => {
+    const followData = {
+      email: userObject.email,
+    };
+    const result = await getFollowerAction(followData);
+    if (
+      result.followers &&
+      result.followers.length > 0 &&
+      result.followers.indexOf(modalCtx.imageData.owner) !== -1
+    ) {
+      setFollowerState(true);
+    } else {
+      setFollowerState(false);
+    }
+  };
 
   const handleDensityChange = (event: Event, newValue: number | number[]) => {
     setDensityValue(newValue as number);
@@ -570,13 +602,20 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                         {imageData.owner}
                       </div>
                     </div>
-                    <button className="flex flex-row items-center justify-center font-normal gap-1 border-primary rounded-[16px] border px-4 py-1 transition-all duration-200 ease-in-out hover:bg-[#393b45]">
+                    <button
+                      onClick={handleFollow}
+                      className="flex flex-row items-center justify-center font-normal gap-1 border-primary rounded-[16px] border px-4 py-1 transition-all duration-200 ease-in-out hover:bg-[#393b45]"
+                    >
                       <Icon
-                        icon="ph:star"
+                        icon={
+                          followerState
+                            ? "emojione:star"
+                            : "emojione-monotone:star"
+                        }
                         className="w-[14px] h-[14px] text-white"
                       />
                       <span className="text-white text-[12px] sm:hidden">
-                        Follow
+                        {followerState ? "Unfollow" : "Follow"}
                       </span>
                     </button>
                   </div>
