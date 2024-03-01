@@ -71,7 +71,7 @@ const AppHeader = ({ sliderOpen, sliderHandler }: AppHeaderProps) => {
             handleSelectChain={handleSelectChain}
           />
         </div> */}
-        <div className="items-center right-5 top-2 absolute flex flex-row gap-2 sm:right-3">
+        <div className="items-center right-5 top-2 absolute flex flex-row gap-2 sm:right-3 z-20">
           <button
             onClick={sliderHandler}
             className="border-[#242c3e] border bg-[#0b0f17] w-9 h-9 rounded-[6px] sm:flex hidden justify-center items-center hover:bg-[#131926] hover:border-[#242c3e]"
