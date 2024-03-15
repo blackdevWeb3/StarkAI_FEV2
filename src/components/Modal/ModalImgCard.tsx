@@ -304,34 +304,35 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
       { url: url }
     );
     console.log(tmpUrl.data);
-    try{
+    try {
       const res = await axios.get(tmpUrl.data, {
-        responseType: 'blob',
+        responseType: "blob",
       });
       // console.log(p);
-    // const res = await fetch(tmpUrl.data);
-    const pos = url.lastIndexOf("/");
-    const name = url.substring(pos + 1);
-    if (res.status === 200) {
-      // const blob = await res.blob();
-      console.log("----------blob--------", res.data);
-      const blobUrl = URL.createObjectURL(res.data);
+      // const res = await fetch(tmpUrl.data);
+      const pos = url.lastIndexOf("/");
+      let name = url.substring(pos + 1);
+      name = name.replace(".jpg_ORIGIN", ".jpg");
+      console.log(name);
+      if (res.status === 200) {
+        // const blob = await res.blob();
+        console.log("----------blob--------", res.data);
+        const blobUrl = URL.createObjectURL(res.data);
 
-      // Create a temporary anchor element and trigger a download
-      const anchor = document.createElement("a");
-      anchor.href = blobUrl;
-      anchor.download = name;
-      document.body.appendChild(anchor); // Attach to the document so it can be clicked
-      anchor.click();
+        // Create a temporary anchor element and trigger a download
+        const anchor = document.createElement("a");
+        anchor.href = blobUrl;
+        anchor.download = name;
+        document.body.appendChild(anchor); // Attach to the document so it can be clicked
+        anchor.click();
 
-      // Clean up: revoke the object URL and remove the anchor element
-      URL.revokeObjectURL(blobUrl);
-      document.body.removeChild(anchor);
+        // Clean up: revoke the object URL and remove the anchor element
+        URL.revokeObjectURL(blobUrl);
+        document.body.removeChild(anchor);
+      }
+    } catch (err) {
+      console.log(err);
     }
-  }
-  catch(err){
-    console.log(err);
-  }
   };
 
   const handleShare = async () => {
