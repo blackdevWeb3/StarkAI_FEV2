@@ -7,12 +7,12 @@ import { updateUserInfo } from "../../actions/authActions";
 const Profile: React.FC = () => {
   const { user, setUser }: any = useUser();
   const user_string = JSON.parse(user === "None" ? "{}" : user);
-  console.log(user_string);
   const [avatarSrc, setAvatarSrc] = useState<string | ArrayBuffer | null>(
     user_string?.avatar || ""
   );
   const [username, setUserName] = useState<string>(user_string?.username || "");
   const [email, setEmail] = useState<string>(user_string?.email || "");
+  const [password, setPassword] = useState<string>("");
   const avatarInputRef = useRef<HTMLInputElement>(null);
 
   const handleSelectAvatar = () => {
@@ -54,6 +54,10 @@ const Profile: React.FC = () => {
   const handleSaveChange = () => {
     updateUserInfo({ username: username, email: email, avatar: avatarSrc });
     // setUser({ username: username, email: email, avatar: avatarSrc });
+  };
+
+  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(event.target.value);
   };
 
   if (user === "None" || user === undefined) {
@@ -129,8 +133,9 @@ const Profile: React.FC = () => {
                 Password
               </label>
               <input
-                value={email}
-                onChange={handleEmailChange}
+                value={password}
+                type="password"
+                onChange={handlePasswordChange}
                 className="rounded-lg px-3.5 py-2.5 bg-dark-elements appearance-none outline-none invalid:focus:border-danger-primary placeholder:text-light-secondary text-white disabled:text-opacity-60 disabled:cursor-not-allowed"
               ></input>
             </div>
