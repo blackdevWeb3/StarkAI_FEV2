@@ -10,6 +10,8 @@ import { ModalContextProvider } from "./context/modalContext";
 import ContactUs from "./components/ContactUs";
 import Blog from "./components/Blog";
 import BlogPost from "./components/Blog/BlogPost";
+import UserLogin from "./components/Auth/UserLogin";
+import UserRegister from "./components/Auth/UserRegiser";
 
 interface LayoutWithNavbarAndFooterProps {
   children: React.ReactNode;
@@ -82,6 +84,8 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="/users/sign-up" element={<UserRegister />} />
+          <Route path="/users/sign-in" element={<UserLogin />} />
           {/* <Route path="/splash/" element={<SplashScreen />} /> */}
         </Routes>
       </BrowserRouter>

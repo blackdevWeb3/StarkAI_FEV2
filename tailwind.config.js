@@ -29,6 +29,11 @@ module.exports = {
         fontPrimary: "#a7b2c1",
         fontSecondary: "#9094a6",
         modalBackground: "#171717",
+        black_dark: "#1a1a1a",
+        black_light: "#363636",
+        black_medium: "#252525",
+        gray_default: "#a4a4a4",
+        discord_indigo: "#7289da",
       },
       borderColor: (theme) => ({
         ...theme("colors"),
