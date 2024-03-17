@@ -237,19 +237,25 @@ const CommunityFeed = () => {
             </div>
 
             {/* Images shared with community */}
-            <div className="border-primary p-3">
-              <ImageList variant="masonry" cols={curVal} gap={8}>
-                {(searched ? searchedData : imageData).map((item, index) => (
-                  <ImageListItem key={index}>
-                    <Card
-                      data={item}
-                      index={index}
-                      count={imageData.length}
-                      key={index}
-                    />
-                  </ImageListItem>
-                ))}
-              </ImageList>
+            <div className="h-[calc(100vh-276px)] overflow-auto">
+              <div className="overflow-y-scroll">
+                <div className="border-primary p-3">
+                  <ImageList variant="masonry" cols={curVal} gap={8}>
+                    {(searched ? searchedData : imageData).map(
+                      (item, index) => (
+                        <ImageListItem key={index}>
+                          <Card
+                            data={item}
+                            index={index}
+                            count={imageData.length}
+                            key={index}
+                          />
+                        </ImageListItem>
+                      )
+                    )}
+                  </ImageList>
+                </div>
+              </div>
             </div>
           </div>
           <ModalImgCard
