@@ -1,6 +1,5 @@
 import { Icon } from "@iconify/react";
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import { ImageList, ImageListItem, Slider } from "@mui/material";
 import { useUser } from "../../context/UserContext";
 import ModalContext from "../../context/modalContext";

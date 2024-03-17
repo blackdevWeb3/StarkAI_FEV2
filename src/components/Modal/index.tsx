@@ -1,4 +1,3 @@
-import { Icon } from "@iconify/react";
 import { useEffect, useRef, FunctionComponent, useState } from "react";
 import { createPortal } from "react-dom";
 
