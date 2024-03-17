@@ -85,11 +85,11 @@ const Navbar = () => {
           </div>
           <ul className="p-0 relative top-1/2 w-[80%] mx-auto my-0 transform translate-y-[-50%]">
             <li className="fadeInLeft text-center opacity-0 animate-delay-300">
-              <a href="#" className="p-0">
+              <Link to="/" className="p-0">
                 <span className="p-[10px] border-none inline-block">
                   <img src="/favicon.ico" alt="Logo"></img>
                 </span>
-              </a>
+              </Link>
             </li>
             {navbarMenuItems.map((item, index) => {
               return (

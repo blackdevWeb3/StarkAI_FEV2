@@ -17,7 +17,7 @@ const UserRegister = () => {
               ></img>
             </div>
             <img
-              src="https://candy.ai/assets/authentication_modal/realistic_male/image1-a0e0bf28acdad9bff4bf8c486800f0b86790bc7cdb700c441f3ad1d6bd92ccd3.webp"
+              src="/assets/characters/background.jpg"
               className="rounded-tl-[10px] rounded-bl-[10px] w-[412px] h-[591px] object-cover object-top"
               alt=""
             />
@@ -102,23 +102,29 @@ const UserRegister = () => {
                 </button>
                 <div className="flex flex-wrap gap-2.5">
                   <div className="flex-1">
-                    <button className="inline-flex items-center justify-center w-full font-normal rounded-[10px] px-4 py-2.5 bg-discord_indigo border-discord_indigo text-white">
+                    <Link
+                      to="https://discord.com/invite/starkmeta"
+                      className="inline-flex items-center justify-center w-full font-normal rounded-[10px] px-4 py-2.5 bg-discord_indigo border-discord_indigo text-white"
+                    >
                       <img
                         alt="discord"
                         className="h-6 w-6 mr-3"
                         src="https://candy.ai/assets/discord-e159d04d15be58e9fe9767c08b3338ee2735feb84f54b7301303c9c49ed543a2.svg"
                       />
                       <div className="text-white font-normal ">Discord</div>
-                    </button>
+                    </Link>
                   </div>
                   <div className="flex-1">
-                    <button className="inline-flex items-center justify-center w-full font-normal text-[#344054] rounded-[10px] px-4 py-2.5 bg-white">
+                    <Link
+                      to="https://twitter.com/Starkmetagame"
+                      className="inline-flex items-center justify-center w-full font-normal text-[#344054] rounded-[10px] px-4 py-2.5 bg-white"
+                    >
                       <img
                         src="https://candy.ai/assets/X-26904e26c6e97e747b58528737ef2a47ec6a26e01283df190498f526760cf325.svg"
                         alt="twitter"
                       />
                       <div className="font-normal text-[#344054]">X</div>
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
