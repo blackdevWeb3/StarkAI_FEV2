@@ -12,6 +12,8 @@ import Blog from "./components/Blog";
 import BlogPost from "./components/Blog/BlogPost";
 import UserLogin from "./components/Auth/UserLogin";
 import UserRegister from "./components/Auth/UserRegiser";
+import TestNavbar from "./layouts/TestNavbar";
+import TestLayoutDashboard from "./layouts/TestLayoutDashboard";
 
 interface LayoutWithNavbarAndFooterProps {
   children: React.ReactNode;
@@ -42,6 +44,16 @@ function App() {
     <ModalContextProvider>
       <BrowserRouter>
         <Routes>
+          <Route
+            path="/test"
+            element={
+              <>
+                <TestNavbar />
+                <TestLayoutDashboard />
+                <Footer />
+              </>
+            }
+          />
           <Route
             path="/"
             element={
