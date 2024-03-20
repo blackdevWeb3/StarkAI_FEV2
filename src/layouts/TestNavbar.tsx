@@ -11,7 +11,7 @@ const TestNavbar = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   return (
-    <div className="w-full bg-darkBackground fixed top-0 h-16 z-30 font-chakra">
+    <div className="max-w-[1250px] w-full bg-[#D0D0D0] rounded-[59px]">
       <div className="w-full mx-auto flex flex-row justify-between items-center h-full px-10 border-b-[1px] border-[#e0bf16]">
         <div className="flex flex-row items-center gap-2">
           {/* <img src="./favicon.ico" alt="logo" className="w-[30px]" /> */}

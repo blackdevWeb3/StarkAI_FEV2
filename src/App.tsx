@@ -25,7 +25,7 @@ function LayoutWithNavbarAndFooter({
 }: LayoutWithNavbarAndFooterProps) {
   return (
     <>
-      <Navbar />
+      <TestNavbar />
       {children}
       <Footer />
     </>
@@ -49,7 +49,7 @@ function App() {
             path="/test"
             element={
               <>
-                <TestNavbar />
+                <Navbar />
                 <RewardPathway />
                 <Footer />
               </>
