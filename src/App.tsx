@@ -14,6 +14,7 @@ import UserLogin from "./components/Auth/UserLogin";
 import UserRegister from "./components/Auth/UserRegiser";
 import TestNavbar from "./layouts/TestNavbar";
 import TestLayoutDashboard from "./layouts/TestLayoutDashboard";
+import RewardPathway from "./components/Dashboard/RewardPathway";
 
 interface LayoutWithNavbarAndFooterProps {
   children: React.ReactNode;
@@ -49,7 +50,7 @@ function App() {
             element={
               <>
                 <TestNavbar />
-                <TestLayoutDashboard />
+                <RewardPathway />
                 <Footer />
               </>
             }
