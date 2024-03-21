@@ -318,3 +318,17 @@ input[type="number"] {
 .bg-custom-violet-40 {
   background-color: rgba(255, 126, 170, 0.2);
 }
+
+.filter-button-color.active {
+  background: linear-gradient(96deg, #dd00ac -19.73%, #7064e9 103.7%);
+}
+
+.filter-button-color {
+  background: #242324;
+}
+.filter-button-color.active:hover {
+  background: #dd00ac;
+}
+.filter-button-color:hover {
+  background: #7064e9;
+}
