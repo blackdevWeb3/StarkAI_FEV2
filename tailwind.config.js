@@ -34,6 +34,7 @@ module.exports = {
         black_medium: "#252525",
         gray_default: "#a4a4a4",
         discord_indigo: "#7289da",
+        mainPink: "#DD00AC",
       },
       borderColor: (theme) => ({
         ...theme("colors"),

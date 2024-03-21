@@ -8,15 +8,15 @@ const FooterItem: React.FC<{ item: ItemProps }> = ({ item }) => {
         {item.title}
       </span>
       {item.link &&
-        (item.name === "Blog" || item.name === "Contact us" ? (
+        (item.name === "Home" ? (
           <Link to={item.link} className="pt-2 group">
-            <span className="text-[#9094a6] group-hover:text-white transition-all duration-300 ease-in-out md:text-[14px]">
+            <span className="text-[white] text-[19px] sm:text-[14px] font-normal leading-[29px] group-hover:text-[#cb8ae9] transition-all duration-300 ease-in-out">
               {item.name}
             </span>
           </Link>
         ) : (
           <span className="pt-2 group">
-            <span className="text-deepPink cursor-not-allowed transition-all duration-300 ease-in-out md:text-[14px]">
+            <span className="text-[#9013ce] text-[19px] font-normal leading-[29px] cursor-not-allowed transition-all duration-300 ease-in-out sm:text-[14px]">
               {item.name}
             </span>
           </span>

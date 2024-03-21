@@ -20,6 +20,7 @@ export { ReactComponent as PolygonColor } from "./polygonColor.svg";
 
 export { ReactComponent as BGStyle } from "./background_tile.svg";
 export { ReactComponent as LeftBGStyle } from "./leftback.svg";
+export { ReactComponent as RightBGStyle } from "./rightback.svg";
 
 export { ReactComponent as IconMotion } from "./image2motion.svg";
 
@@ -36,3 +37,13 @@ export { ReactComponent as CloseButton } from "./closeButton.svg";
 
 export { ReactComponent as Alchemy } from "./alchemy.svg";
 export { ReactComponent as Logo } from "./starkmeta_logo.svg";
+
+export { ReactComponent as SelectedMark } from "./SelectedMark.svg";
+
+export { ReactComponent as LeftRadiant } from "./LeftRadiant.svg";
+export { ReactComponent as RightRadiant } from "./RightRadiant.svg";
+
+export { ReactComponent as Star } from "./Star.svg";
+export { ReactComponent as IntroImage } from "./IntroImage.svg";
+
+export { ReactComponent as FooterGround } from "./group-42.svg";
