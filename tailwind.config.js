@@ -40,6 +40,7 @@ module.exports = {
         primary: "#2F3037",
       }),
       fontFamily: {
+        kanit: ["Kanit", "sans-serif"],
         chakra: ["Chakra Petch", "sans-serif"],
         Poppins: ["Poppins", "sans-serif"],
         Overpass: ["Overpass", "sans-serif"],

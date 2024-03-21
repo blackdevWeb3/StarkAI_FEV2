@@ -1,54 +1,17 @@
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import { BGStyle } from "../assets";
+import { LeftBGStyle } from "../assets";
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player/lazy";
-
-const imagePaths = [
-  "https://d2zitdfpdrkol8.cloudfront.net/ryanniit0x902/5ab5093a-35a8-4c95-a733-6e862b47a0d4/Default_Lexus_Car_0.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/ryanniit0x902/5ab5093a-35a8-4c95-a733-6e862b47a0d4/Default_Lexus_Car_1.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/eeaa4d5f-84d4-43f9-8f17-535895ef4c36/Default_Vivid_colors_pick_color_a_beautiful_and_happy_woman_an_0.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/1ae53528-22c1-43e0-b6ca-ded8f79fce16/Default_Imagine_a_mesmerizing_scene_where_a_golden_grizzly_bea_3.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/6a7cfb39-5a37-4212-877f-e46eb15f4ebc/Default_cute_0.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/0c7d9083-14e5-4d8a-afe9-705a73b556b1/Default_Vivid_colors_pick_color_a_beautiful_and_happy_woman_an_3.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/bc506d34-9763-49ef-8ec2-f88ef4477e09/Default_Vivid_colors_pick_color_a_beautiful_and_happy_woman_an_0.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/f539aa23-b601-4d7b-9cfa-92fe4438bf33/Default_Vivid_colors_pick_color_a_beautiful_and_happy_woman_an_3.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/1a4890b7-9ac1-42f0-9bcd-217c1b09c497/Default_A_fiercely_proud_Nordic_girl_stands_her_presence_exudi_0.jpg",
-];
 
 const TestLayoutDashboard = () => {
   const [randomImagePath, setRandomImagePath] = useState<string>("");
 
-  useEffect(() => {
-    const getRandomIndex = () => Math.floor(Math.random() * imagePaths.length);
-    setRandomImagePath(imagePaths[getRandomIndex()]);
-  }, []);
-
   return (
-    <div className="h-screen w-full md:h-full sm:h-full bg-black p-8 pt-24 font-chakra relative overflow-hidden">
+    <div className="h-screen w-full md:h-full sm:h-full bg-[#1C1B1B] p-8 pt-24 font-kanit relative overflow-hidden">
       <div className="w-full rounded-lg max-w-[1124px] mx-auto">
         <div className="w-full flex flex-row h-full mx-auto md:min-w-full sm:min-w-full relative items-center justify-center md:flex-col sm:flex-col gap-1 md:gap-10 sm:gap-12 overflow-hidden bg-[#1c1919]">
           <div className="flex w-1/2 sm:w-full md:w-full items-center justify-center z-20 flex-col">
-            <div className="w-full flex items-center justify-center p-2 flex-col">
-              <ReactPlayer
-                url="https://youtu.be/OsdsJ3GBcZo"
-                height={420}
-                width="100%"
-                controls
-              />
-              <div className="flex flex-row px-6 justify-between items-center w-full py-2">
-                <div className="flex flex-col">
-                  <span className="">Make a cinematic video</span>
-                  <span className="">Participate in reward contests</span>
-                </div>
-                <Link
-                  to="/login"
-                  className="bg-[#e0bf16] px-3 py-1 rounded-md hover:bg-[#d4a514] transition-colors"
-                >
-                  Join Now
-                </Link>
-              </div>
-            </div>
             {/* <div className="flex flex-col sm:w-full">
               <span className="text-white text-left font-semibold text-[30px] z-10 lg:text-[26px] md:text-[22px]">
                 Welcome to our exciting generative <br></br>
@@ -104,8 +67,8 @@ const TestLayoutDashboard = () => {
           </div>
         </div>
       </div>
-      <span className="absolute z-10 top-0 left-0">
-        <BGStyle />
+      <span className="absolute z-10 top-16 left-[-40px]">
+        <LeftBGStyle />
       </span>
       <div className="bg_blur"></div>
     </div>
