@@ -1,9 +1,34 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import MenuItem from "../components/Others/MenuItem";
 import { navbarMenuItems } from "../utils/constants";
-import { CloseButton } from "../assets";
+import { CloseButton, SelectedMark } from "../assets";
 import { Logo } from "../assets";
+
+type CustomNavLinkProps = {
+  to: string;
+  label: string;
+};
+
+const CustomNavLink: React.FC<CustomNavLinkProps> = ({ to, label }) => (
+  <NavLink
+    to={to}
+    className={({ isActive }) =>
+      isActive ? "gradient-menu-text active" : "gradient-menu-text"
+    }
+  >
+    {({ isActive }) => (
+      <>
+        {label}
+        <div className="flex justify-center w-full items-center">
+          <span className="top-[3px] relative">
+            {isActive && <SelectedMark />}
+          </span>
+        </div>
+      </>
+    )}
+  </NavLink>
+);
 
 const TestNavbar = () => {
   const DropDownMenu = () => {
@@ -12,7 +37,7 @@ const TestNavbar = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   return (
-    <div className="w-full top-10 fixed z-50 bg-transparent px-10 font-kanit">
+    <div className="w-full top-9 fixed z-50 bg-transparent px-10 font-kanit">
       <div className="max-w-[1250px] w-full bg-[#333535] rounded-[59px] h-[82px] mx-auto">
         <div className="w-full mx-auto flex flex-row justify-between items-center h-full px-10">
           <div className="flex flex-row items-center gap-2 justify-center">
@@ -23,47 +48,17 @@ const TestNavbar = () => {
               <Logo />
             </Link>
           </div>
-          <div className="flex flex-row gap-12 lg:gap-9 sm:hidden md:hidden">
-            <Link to="/" className="gradient-menu-text active">
-              Home
-              <div className="flex justify-center w-full items-center">
-                <span className="selected-polygon" />
-              </div>
-            </Link>
-            <Link to="/news" className="gradient-menu-text">
-              Blog
-              <div className="flex justify-center w-full items-center">
-                <span className="selected-polygon" />
-              </div>
-            </Link>
-            <Link to="/api" className="gradient-menu-text">
-              API
-              <div className="flex justify-center w-full items-center">
-                <span className="selected-polygon" />
-              </div>
-            </Link>
-            <Link to="/faq" className="gradient-menu-text">
-              Faq
-              <div className="flex justify-center w-full items-center">
-                <span className="selected-polygon" />
-              </div>
-            </Link>
-            <Link to="/contact-us" className="gradient-menu-text">
-              Stark News
-              <div className="flex justify-center w-full items-center">
-                <span className="selected-polygon" />
-              </div>
-            </Link>
-            <Link to="/" className="gradient-menu-text">
-              Contact Us
-              <div className="flex justify-center w-full items-center">
-                <span className="selected-polygon" />
-              </div>
-            </Link>
+          <div className="flex flex-row gap-[46px] lg:gap-8 sm:hidden md:hidden">
+            <CustomNavLink to="/" label="Home" />
+            <CustomNavLink to="/news" label="Blog" />
+            <CustomNavLink to="/api" label="API" />
+            <CustomNavLink to="/faq" label="Faq" />
+            <CustomNavLink to="/stark-news" label="Stark News" />
+            <CustomNavLink to="/contact-us" label="Contact Us" />
           </div>
           <div className="flex flex-row gap-3 items-center sm:hidden md:hidden">
             <div className="flex flex-row items-center gap-3"></div>
-            <Link to="/login">
+            <Link to="/login" className="">
               <span className="test-primary-button">Login Now</span>
             </Link>
           </div>

@@ -67,7 +67,7 @@ const Blog = () => {
   }
 
   return (
-    <div className="w-full bg-black font-chakra relative overflow-hidden">
+    <div className="w-full bg-[#1c1b1b] font-chakra relative overflow-hidden">
       <div className="pt-32 px-10 text-white flex flex-col w-full">
         <div className="flex flex-col max-w-[960px] mx-auto w-full items-center gap-3">
           <span className="text-[42px] font-semibold">Latest News</span>

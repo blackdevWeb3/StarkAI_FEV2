@@ -1,0 +1,8 @@
+.leftImgRectangle {
+  width: 150px;
+  height: 287px;
+  flex-shrink: 0;
+  border-radius: 101px;
+  background: url("/public/assets/img/leftDashboardRectangle_Image.png")
+    lightgray 50% / cover no-repeat;
+}

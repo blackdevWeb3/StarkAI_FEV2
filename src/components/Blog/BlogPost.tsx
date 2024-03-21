@@ -29,7 +29,7 @@ const BlogPost = () => {
   }, []); // Empty dependencies array ensures this effect runs only once when the component mounts
 
   return (
-    <div className="w-full bg-black font-chakra relative overflow-hidden min-h-screen">
+    <div className="w-full bg-[#1c1b1b] font-chakra relative overflow-hidden min-h-screen">
       <div className="pt-32 px-10 text-white flex flex-col w-full">
         <div className="max-w-[900px] mx-auto px-5 flex flex-col items-start w-full">
           <div className="w-full text-[15px] z-50 text-[#d1d2e4]">
