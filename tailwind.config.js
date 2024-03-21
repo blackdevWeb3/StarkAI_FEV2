@@ -5,21 +5,38 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        sm: { min: "0px", max: "767px" },
+        sm: {
+          min: "0px",
+          max: "767px"
+        },
         // => @media (min-width: 640px and max-width: 767px) { ... }
 
-        md: { min: "767px", max: "1023px" },
+        md: {
+          min: "767px",
+          max: "1023px"
+        },
         // => @media (min-width: 768px and max-width: 1023px) { ... }
 
-        lg: { min: "1024px", max: "1200px" },
+        lg: {
+          min: "1024px",
+          max: "1200px"
+        },
         // => @media (min-width: 1024px and max-width: 1279px) { ... }
 
-        xl: { min: "1201px", max: "1400px" },
+        xl: {
+          min: "1201px",
+          max: "1400px"
+        },
         // => @media (min-width: 1280px and max-width: 1535px) { ... }
 
-        "2xl": { min: "1401px", max: "1600px" },
+        "2xl": {
+          min: "1401px",
+          max: "1600px"
+        },
         // => @media (min-width: 1536px) { ... }
-        "3xl": { min: "1601px" },
+        "3xl": {
+          min: "1601px"
+        },
       },
       colors: {
         darkBackground: "#0D0D0D",
@@ -40,6 +57,7 @@ module.exports = {
         primary: "#2F3037",
       }),
       fontFamily: {
+        kanit: ["Kanit", "sans-serif"],
         chakra: ["Chakra Petch", "sans-serif"],
         Poppins: ["Poppins", "sans-serif"],
         Overpass: ["Overpass", "sans-serif"],
@@ -49,6 +67,7 @@ module.exports = {
         "custom-768-1152": "768/1152",
         "custom-16-10": "16/10",
       },
+
     },
   },
   plugins: [],
