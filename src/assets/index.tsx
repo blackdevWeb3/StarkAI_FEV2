@@ -34,3 +34,4 @@ export { ReactComponent as LockOpened } from "./lockOpened.svg";
 export { ReactComponent as CloseButton } from "./closeButton.svg";
 
 export { ReactComponent as Alchemy } from "./alchemy.svg";
+export { ReactComponent as PartialBackground } from "./partial_background.svg";
