@@ -19,6 +19,7 @@ export { ReactComponent as PolygonDefault } from "./polygonDefault.svg";
 export { ReactComponent as PolygonColor } from "./polygonColor.svg";
 
 export { ReactComponent as BGStyle } from "./background_tile.svg";
+export { ReactComponent as LeftBGStyle } from "./leftback.svg";
 
 export { ReactComponent as IconMotion } from "./image2motion.svg";
 
@@ -34,3 +35,4 @@ export { ReactComponent as LockOpened } from "./lockOpened.svg";
 export { ReactComponent as CloseButton } from "./closeButton.svg";
 
 export { ReactComponent as Alchemy } from "./alchemy.svg";
+export { ReactComponent as Logo } from "./starkmeta_logo.svg";
