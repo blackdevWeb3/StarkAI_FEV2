@@ -44,6 +44,5 @@ export { ReactComponent as LeftRadiant } from "./LeftRadiant.svg";
 export { ReactComponent as RightRadiant } from "./RightRadiant.svg";
 
 export { ReactComponent as Star } from "./Star.svg";
-export { ReactComponent as IntroImage } from "./IntroImage.svg";
 
 export { ReactComponent as FooterGround } from "./group-42.svg";

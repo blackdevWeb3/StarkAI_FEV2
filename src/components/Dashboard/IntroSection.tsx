@@ -4,7 +4,6 @@ import {
   RightBGStyle,
   LeftRadiant,
   RightRadiant,
-  IntroImage,
 } from "../../assets";
 
 const IntroSection = () => {
@@ -42,7 +41,7 @@ const IntroSection = () => {
             </div>
             <div className="w-1/2 flex flex-row relative pb-10">
               <div className="w-[490px] h-[405px] mx-auto">
-                <IntroImage />
+                <img src="/assets/img/background.svg" alt="back" />
               </div>
             </div>
           </div>
