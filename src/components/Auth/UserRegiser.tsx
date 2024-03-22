@@ -6,7 +6,7 @@ import "./auth_style.css";
 
 const UserRegister = () => {
   return (
-    <div className="w-full h-full min-h-screen bg-black flex justify-center items-center font-kanit">
+    <div className="w-full h-full min-h-screen py-10 bg-black flex justify-center items-center font-kanit">
       <div className="flex relative bg-black_dark rounded-[10px] sm:mx-5 md:mx-5 mx-0">
         <div className="flex sm:hidden md:hidden h-full relative">
           <div id="user-signup-image">
@@ -217,7 +217,7 @@ const UserRegister = () => {
           <div className="flex flex-row mt-5 font-[350] text-sm justify-center items-center text-[#939595] px-8 mb-5">
             Already have an account? &nbsp;
             <Link
-              to="/users/sign-in"
+              to="/login"
               className="text-[#DD00AC] text-sm font-semibold leading-[35px] cursor-pointer z-20"
             >
               Login
