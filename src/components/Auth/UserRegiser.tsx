@@ -11,7 +11,7 @@ const UserRegister = () => {
         <div className="flex sm:hidden md:hidden h-full relative">
           <div id="user-signup-image">
             <img
-              src="/assets/img/auth_background.svg"
+              src="assets/img/auth_background.svg"
               className="rounded-tl-[10px] rounded-bl-[10px] w-[412px] h-[700px] object-cover object-top"
               alt=""
             />
