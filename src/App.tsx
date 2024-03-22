@@ -2,7 +2,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./layouts/LayoutLogin";
 import LayoutDashboard from "./layouts/LayoutDashboard";
-import Navbar from "./layouts/Navbar";
+import TestNavbar from "./layouts/TestNavbar";
 import AppLayout from "./layouts/App/AppLayout";
 import Footer from "./layouts/Footer";
 import RecentWorks from "./components/Dashboard/RecentWorks";
@@ -12,7 +12,7 @@ import Blog from "./components/Blog";
 import BlogPost from "./components/Blog/BlogPost";
 import UserLogin from "./components/Auth/UserLogin";
 import UserRegister from "./components/Auth/UserRegiser";
-import TestNavbar from "./layouts/TestNavbar";
+import Navbar from "./layouts/Navbar";
 import TestLayoutDashboard from "./layouts/TestLayoutDashboard";
 import RewardPathway from "./components/Dashboard/RewardPathway";
 import TestFooter from "./layouts/TestFooter";
@@ -26,9 +26,9 @@ function LayoutWithNavbarAndFooter({
 }: LayoutWithNavbarAndFooterProps) {
   return (
     <>
-      <TestNavbar />
+      <Navbar />
       {children}
-      <TestFooter />
+      <Footer />
     </>
   );
 }
@@ -61,7 +61,6 @@ function App() {
             element={
               <LayoutWithNavbarAndFooter>
                 <TestLayoutDashboard />
-                <RecentWorks />
               </LayoutWithNavbarAndFooter>
             }
           />
@@ -89,7 +88,7 @@ function App() {
               </LayoutWithNavbarAndFooter>
             }
           />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<UserLogin />} />
           <Route
             path="/app/*"
             element={
@@ -98,8 +97,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/users/sign-up" element={<UserRegister />} />
-          <Route path="/users/sign-in" element={<UserLogin />} />
+          <Route path="/register" element={<UserRegister />} />
           {/* <Route path="/splash/" element={<SplashScreen />} /> */}
         </Routes>
       </BrowserRouter>
