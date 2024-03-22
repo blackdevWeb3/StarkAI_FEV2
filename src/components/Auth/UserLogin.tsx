@@ -167,7 +167,7 @@ const UserLogin = () => {
           <div className="flex flex-row mt-5 font-[350] text-sm justify-center items-center text-[#939595] px-8 mb-5">
             Don't have an account yet? &nbsp;
             <Link
-              to="/users/sign-in"
+              to="/users/sign-up"
               className="text-[#DD00AC] text-sm font-semibold leading-[35px] cursor-pointer z-20"
             >
               Sign up

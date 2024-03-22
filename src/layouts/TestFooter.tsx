@@ -8,7 +8,7 @@ import { FooterGround } from "../assets";
 const TestFooter = () => {
   return (
     <>
-      <div className="w-full flex flex-col items-center bg-[#1c1b1b] font-kanit py-10">
+      <div className="overflow-hidden w-full flex flex-col items-center bg-[#1c1b1b] font-kanit py-10 relative z-30">
         <div className="flex flex-row max-w-[1180px] mx-auto w-full justify-evenly sm:flex-col md:flex-col">
           <div className="flex flex-col items-left max-w-[461px] sm:w-full md:w-full sm:mx-auto md:mx-auto">
             <Link to="/" className="pr-1">
