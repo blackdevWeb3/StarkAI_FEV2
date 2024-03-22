@@ -10,7 +10,7 @@ const IntroSection = () => {
   return (
     <>
       <div className="w-full md:h-full sm:h-full bg-[#1C1B1B] p-8 pt-24 font-kanit relative overflow-hidden">
-        <div className="max-w-[1475px] mx-auto w-full pt-[175px]">
+        <div className="max-w-[1475px] mx-auto w-full pt-[75px]">
           <div className="flex flex-row gap-2">
             <div className="w-1/2 pt-[38px] pl-[32px] pb-[51px] flex flex-col">
               <div className="flex flex-col pl-2 w-full">
@@ -40,7 +40,7 @@ const IntroSection = () => {
               </div>
             </div>
             <div className="w-1/2 flex flex-row relative pb-10">
-              <div className="w-[490px] h-[405px] mx-auto">
+              <div className="w-[587px] h-[440px] mx-auto">
                 <img src="/assets/img/background.svg" alt="back" />
               </div>
             </div>
