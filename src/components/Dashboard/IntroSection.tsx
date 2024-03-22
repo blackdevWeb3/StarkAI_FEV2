@@ -9,7 +9,7 @@ import {
 const IntroSection = () => {
   return (
     <>
-      <div className="w-full md:h-full sm:h-full bg-[#1C1B1B] p-8 pt-24 font-kanit relative overflow-hidden">
+      <div className="z-20 w-full md:h-full sm:h-full bg-[#1C1B1B] p-8 pt-24 font-kanit relative overflow-hidden">
         <div className="max-w-[1475px] mx-auto w-full pt-[75px]">
           <div className="flex flex-row gap-2">
             <div className="w-1/2 pt-[38px] pl-[32px] pb-[51px] flex flex-col">
