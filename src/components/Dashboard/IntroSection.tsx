@@ -1,10 +1,7 @@
 import { Icon } from "@iconify/react";
-import {
-  LeftBGStyle,
-  RightBGStyle,
-  LeftRadiant,
-  RightRadiant,
-} from "../../assets";
+import { LeftBGStyle, RightBGStyle } from "../../assets";
+
+import BackgroundImage from "../../assets/Background.svg";
 
 const IntroSection = () => {
   return (
@@ -41,7 +38,7 @@ const IntroSection = () => {
             </div>
             <div className="w-1/2 flex flex-row relative pb-10">
               <div className="w-[587px] h-[440px] mx-auto">
-                <img src="/assets/img/background.svg" alt="back" />
+                <img src={BackgroundImage} alt="background" />
               </div>
             </div>
           </div>

@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import { LeftBGStyle, RightBGStyle } from "../../assets";
-
-import { ReactComponent as DashBackground } from "../../assets/auth_background.svg";
+import { LeftBGStyle } from "../../assets";
 
 import "./auth_style.css";
 
@@ -12,12 +10,11 @@ const UserRegister = () => {
       <div className="flex relative bg-black_dark rounded-[10px] sm:mx-5 md:mx-5 mx-0">
         <div className="flex sm:hidden md:hidden h-full relative">
           <div id="user-signup-image">
-            {/* <img
+            <img
               src="assets/img/auth_background.svg"
               className="rounded-tl-[10px] rounded-bl-[10px] w-[412px] h-[700px] object-cover object-top"
               alt=""
-            /> */}
-            <DashBackground />
+            />
           </div>
         </div>
         <div className="flex flex-col z-10 overflow-hidden relative bg-[#1c1b1b] rounded-tr-[10px] rounded-br-[10px] rounded-tl-0 rounded-bl-0 sm:rounded-tl-[10px] md:rounded-tl-[10px] sm:rounded-bl-[10px] md:rounded-bl-[10px] sm:w-[335px] md:w-[335px] w-[407px]">
