@@ -180,15 +180,10 @@ export interface ItemProps {
 }
 
 const Features = [
-  {
-    title: "Stay tuned!",
-  },
-  { name: "Blog", link: "/news/" },
-  { name: "FAQ", link: "/faq" },
-  { name: "API", link: "/api" },
-  { name: "Contact us", link: "/contact-us" },
-  { name: "Support", link: "/support" },
-  { name: "Careers", link: "/careers" },
+  { name: "Home", link: "/" },
+  { name: "Protocol", link: "/protocol" },
+  { name: "Security", link: "/security" },
+  { name: "Stark News", link: "/stark-news" },
 ];
 
 const constants_SocialLink = [
@@ -204,14 +199,14 @@ const constants_SocialLink = [
     src: "youtube.svg",
     link: "https://www.youtube.com/@GameStarkMeta",
   },
-  {
-    src: "instagram.svg",
-    link: "https://www.instagram.com/starkmetagame",
-  },
-  {
-    src: "tiktok.svg",
-    link: "https://www.tiktok.com/@starkmeta",
-  },
+  // {
+  //   src: "instagram.svg",
+  //   link: "https://www.instagram.com/starkmetagame",
+  // },
+  // {
+  //   src: "tiktok.svg",
+  //   link: "https://www.tiktok.com/@starkmeta",
+  // },
 ];
 
 const navbarMenuItems = [
