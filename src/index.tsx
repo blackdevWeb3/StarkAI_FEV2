@@ -54,7 +54,7 @@ const { connectors } = getDefaultWallets({
     process.env.REACT_APP_PROJECT_ID || "fe62b424c4ab666f47d64744e0b3dca0",
   chains,
 });
-
+//
 const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
