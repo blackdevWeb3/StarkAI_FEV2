@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import FooterItem from "../components/Others/FooterItem";
 import { Features } from "../utils/constants";
 import { constants_SocialLink } from "../utils/constants";
-import { Icon } from "@iconify/react";
 import { FooterGround } from "../assets";
 
 const Footer = () => {
@@ -22,15 +21,15 @@ const Footer = () => {
             <div className="mt-[39px] flex flex-row gap-3">
               <Link to="/" className="hover:opacity-80">
                 <img
-                  src="/assets/img/playstore.png"
+                  src="/assets/img/playStore.png"
                   className="w-[214px] h-[60px]"
-                  alt="playstore"
+                  alt="playStore"
                 />
               </Link>
               <Link to="/" className="hover:opacity-80">
                 <img
-                  src="/assets/img/appstore.png"
-                  alt="appstore"
+                  src="/assets/img/appStore.png"
+                  alt="appStore"
                   className="w-[214px] h-[60px]"
                 />
               </Link>
@@ -49,7 +48,7 @@ const Footer = () => {
             </div>
             <div className="flex flex-col md:pl-3">
               <span className="text-[#7064E9] text-[21px] font-semibold sm:text-[18px] select-none leading-[24px]">
-                Newz
+                News
               </span>
               <div className="mt-[17px] flex flex-col gap-3">
                 <Link

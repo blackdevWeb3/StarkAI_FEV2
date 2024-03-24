@@ -1,10 +1,41 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { LeftBGStyle } from "../../assets";
 
 import "./auth_style.css";
+import { registerUserInfo } from "../../actions/authActions";
 
 const UserRegister = () => {
+  const [message, setMessage] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [visiblePasswordState, togglePasswordState] = useState<boolean>(false);
+  const [visibleConfirmPasswordState, toggleConfirmPasswordState] =
+    useState<boolean>(false);
+  const [agreement, setAgreement] = useState<boolean>(false);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (agreement) {
+      console.log("credential:", email, password);
+      const data = {
+        email,
+        username: firstName + " " + lastName,
+        avatar: "avatar",
+        password,
+      };
+      console.log("DATA:", data);
+      // const result = await registerUserInfo(data);
+      // setMessage(result.message);
+      // if (result.message === "Success") {
+      // }
+    } else setMessage("You should agree terms & conditions");
+  };
+
   return (
     <div className="w-full h-full min-h-screen py-10 bg-black flex justify-center items-center font-kanit">
       <div className="flex relative bg-black_dark rounded-[10px] sm:mx-5 md:mx-5 mx-0">
@@ -30,7 +61,7 @@ const UserRegister = () => {
             className="flex-1 sm:mx-6 md:mx-6 mx-8 sm:mt-6 md:mt-6 mt-10 z-20"
           >
             <div className="relative">
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="">
                   <h2 className="text-[24px] text-white sm:leading-7 md:leading-7 font-medium sm:mb-4 md:mb-4 text-center">
                     Create Account
@@ -41,6 +72,7 @@ const UserRegister = () => {
                     with our innovative solutions
                   </span>
                   <div className="w-full flex-col justify-start items-start gap-1.5 inline-flex mt-[16px]">
+                    <span className="text-red-500 text-[12px]">{message}</span>
                     <div className="self-stretch flex-row justify-start items-start gap-1.5 flex relative mb-[4px] z-20">
                       <div className="w-1/2">
                         <div className="w-5 h-5 absolute top-[13px] left-[16px] text-[#E0E0E0]">
@@ -54,9 +86,13 @@ const UserRegister = () => {
                           <input
                             className="string email required font-[275] w-full pl-12 pr-6 py-3 rounded-[39px] border border-black_light bg-[#333535] text-sm text-[#fff] placeholder-[#fff] border-textarea"
                             placeholder="First name"
-                            type="email"
-                            name="user[email]"
-                            id="user_email"
+                            type="string"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                            name="firstName"
+                            id="first_name"
+                            autoComplete="first_name"
+                            required
                           />
                         </div>
                       </div>
@@ -70,11 +106,15 @@ const UserRegister = () => {
                         </div>
                         <div className="input email required user_email w-full">
                           <input
-                            className="string email required font-[275] w-full pl-6 pr-6 py-3 rounded-[39px] border border-black_light bg-[#333535] text-sm text-[#fff] placeholder-[#fff] border-textarea"
+                            className="string email required font-[275] w-full pl-5 pr-6 py-3 rounded-[39px] border border-black_light bg-[#333535] text-sm text-[#fff] placeholder-[#fff] border-textarea"
                             placeholder="Last name"
-                            type="name"
+                            type="string"
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                            autoComplete="last_name"
                             name="lastName"
-                            id="last_name"
+                            id="lastName"
+                            required
                           />
                         </div>
                       </div>
@@ -93,6 +133,10 @@ const UserRegister = () => {
                           type="email"
                           name="user[email]"
                           id="user_email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          autoComplete="current-email"
+                          required
                         />
                       </div>
                     </div>
@@ -104,17 +148,33 @@ const UserRegister = () => {
                             alt="key"
                           />
                         </div>
-                        <div className="w-5 h-5 absolute top-[13px] right-[10px]">
-                          <img
-                            src="https://candy.ai/assets/eye-6954483cd116fa391d5bf9d9252431d2ab19ac69e74f9b05d761ec5a6e51697b.svg"
-                            className="password-toggle-icon cursor-pointer"
-                            alt="eye"
+                        <button
+                          className="w-5 h-5 absolute top-[13px] right-[10px]"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            togglePasswordState(!visiblePasswordState);
+                          }}
+                        >
+                          <Icon
+                            icon={`${
+                              !visiblePasswordState ? "ion:eye" : "mdi:eye-off"
+                            }`}
+                            width={20}
+                            color="#E0E0E0"
                           />
-                        </div>
+                        </button>
                         <div className="input password required user_password w-full">
                           <input
-                            className="password required w-full pl-12 pr-4 py-3 rounded-[39px] border border-black_light bg-[#333535] text-sm font-[275] text-[#fff] placeholder-[#fff]"
+                            type={`${
+                              !visiblePasswordState ? "password" : "string"
+                            }`}
+                            id="password"
+                            autoComplete="on"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="password required h-12 w-full pl-12 pr-4 py-3 rounded-[39px] border border-black_light bg-[#333535] text-sm font-[275] text-[#fff] placeholder-[#fff]"
                             placeholder="Password"
+                            required
                           ></input>
                         </div>
                       </div>
@@ -127,17 +187,39 @@ const UserRegister = () => {
                             alt="key"
                           />
                         </div>
-                        <div className="w-5 h-5 absolute top-[13px] right-[10px]">
-                          <img
-                            src="https://candy.ai/assets/eye-6954483cd116fa391d5bf9d9252431d2ab19ac69e74f9b05d761ec5a6e51697b.svg"
-                            className="password-toggle-icon cursor-pointer"
-                            alt="eye"
+                        <button
+                          className="w-5 h-5 absolute top-[13px] right-[10px]"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            toggleConfirmPasswordState(
+                              !visibleConfirmPasswordState
+                            );
+                          }}
+                        >
+                          <Icon
+                            icon={`${
+                              !visibleConfirmPasswordState
+                                ? "ion:eye"
+                                : "mdi:eye-off"
+                            }`}
+                            width={20}
+                            color="#E0E0E0"
                           />
-                        </div>
+                        </button>
                         <div className="input password required user_password w-full">
                           <input
-                            className="password required w-full pl-12 pr-4 py-3 rounded-[39px] border border-black_light bg-[#333535] text-sm font-[275] text-[#fff] placeholder-[#fff]"
+                            type={`${
+                              !visibleConfirmPasswordState
+                                ? "password"
+                                : "string"
+                            }`}
+                            id="confirm_password"
+                            autoComplete="on"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            className="password required h-12 w-full pl-12 pr-4 py-3 rounded-[39px] border border-black_light bg-[#333535] text-sm font-[275] text-[#fff] placeholder-[#fff]"
                             placeholder="Confirm Password"
+                            required
                           ></input>
                         </div>
                       </div>
@@ -149,7 +231,8 @@ const UserRegister = () => {
                     <input
                       id="default-checkbox"
                       type="checkbox"
-                      value=""
+                      checked={agreement}
+                      onChange={(e) => setAgreement(e.target.checked)}
                       className="w-4 h-4 text-[#333535] bg-[#333535] border-[#6E6969] rounded focus:ring-[#333535] focus:ring-2 checked:bg-[#333535] active:bg-[#333535]"
                     />
                     <label
@@ -163,12 +246,14 @@ const UserRegister = () => {
                 <button
                   type="submit"
                   style={{
-                    background:
-                      "linear-gradient(90deg, #DD00AC 0%, #3F3883 100%)",
+                    background: !agreement
+                      ? "#333535"
+                      : "linear-gradient(90deg, #DD00AC 0%, #3F3883 100%)",
                   }}
-                  className="flex gradient-bg w-full h-[42px] px-4 py-3 rounded-[35px] justify-center items-center text-white text-sm font-medium leading-normal"
+                  disabled={!agreement}
+                  className="flex w-full h-[42px] px-4 py-3 rounded-[35px] justify-center items-center text-white text-sm font-medium leading-normal transition-all duration-300 ease-in-out"
                 >
-                  Login Now
+                  Create Account
                 </button>
               </form>
               <div className="flex flex-row items-center pt-5 pb-5">

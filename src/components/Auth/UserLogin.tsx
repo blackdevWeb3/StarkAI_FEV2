@@ -1,13 +1,69 @@
-import { Link } from "react-router-dom";
-import { FormGroup } from "@mui/material";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+import { useState, useEffect } from "react";
+import { Navigate, Link } from "react-router-dom";
+import { GoogleLogin } from "google-login-react";
 import { Icon } from "@iconify/react";
-import { LeftBGStyle, RightBGStyle } from "../../assets";
+import { loginUserInfo } from "../../actions/authActions";
+import Cookies from "js-cookie";
+import { LeftBGStyle } from "../../assets";
+import { useUser } from "../../context/UserContext";
 
 import "./auth_style.css";
 
 const UserLogin = () => {
+  const { user, setUser }: any = useUser();
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [rememberMe, setRememberMe] = useState<boolean>(false);
+  const [visibleState, setVisibleState] = useState<boolean>(false);
+  const [message, setMessage] = useState("");
+  const onLogin = async (credentialResponse: any) => {
+    if (!credentialResponse) return;
+
+    const data = {
+      username: credentialResponse.name,
+      email: credentialResponse.email,
+      avatar: credentialResponse.picture,
+    };
+
+    const result = await loginUserInfo(data);
+    if (result.message === "Success") {
+      Cookies.set("userSession", JSON.stringify(data), {
+        expires: 1,
+        secure: true,
+        httpOnly: true,
+        sameSite: "Strict",
+      });
+      setUser(JSON.stringify(data));
+    }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = { email, username: "User", avatar: "avatar", password };
+    const result = await loginUserInfo(data);
+    setMessage(result.message);
+    if (result.message === "Success") {
+      Cookies.set("userSession", JSON.stringify(data), {
+        expires: 1,
+        secure: true,
+        httpOnly: true,
+        sameSite: "Strict",
+      });
+      setUser(JSON.stringify(data));
+    }
+  };
+
+  useEffect(() => {
+    const userSession = Cookies.get("userSession");
+    if (userSession) {
+      setUser(userSession);
+    }
+  });
+
+  if (user && user !== "None") {
+    return <Navigate to="/app" />;
+  }
+
   return (
     <div className="w-full h-full min-h-screen py-10 bg-black flex justify-center items-center font-kanit">
       <div className="flex relative bg-black_dark rounded-[10px] sm:mx-5 md:mx-5 mx-0">
@@ -33,7 +89,7 @@ const UserLogin = () => {
             className="flex flex-1 items-center justify-center sm:mx-6 md:mx-6 mx-8 my-auto z-20"
           >
             <div className="relative">
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="">
                   <h2 className="text-[24px] text-white sm:leading-7 md:leading-7 font-medium sm:mb-4 md:mb-4 text-center">
                     Login Account
@@ -43,7 +99,9 @@ const UserLogin = () => {
                     Unlock personalized AI tools and insights, and stay ahead
                     with our innovative solutions
                   </span>
+
                   <div className="w-full flex-col justify-start items-start gap-1.5 inline-flex mt-[16px]">
+                    <span className="text-red-500 text-[12px]">{message}</span>
                     <div className="self-stretch flex-col justify-start items-start gap-1.5 flex relative z-20">
                       <div className="w-5 h-5 absolute top-[13px] left-[16px] text-[#E0E0E0]">
                         <img
@@ -56,8 +114,12 @@ const UserLogin = () => {
                           className="string email required font-[275] w-full pl-12 pr-6 py-3 rounded-[39px] border border-black_light bg-[#333535] text-sm text-[#fff] placeholder-[#fff] border-textarea"
                           placeholder="Email Address"
                           type="email"
-                          name="user[email]"
-                          id="user_email"
+                          name="email"
+                          id="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          autoComplete="current-email"
+                          required
                         />
                       </div>
                     </div>
@@ -69,18 +131,31 @@ const UserLogin = () => {
                             alt="key"
                           />
                         </div>
-                        <div className="w-5 h-5 absolute top-[13px] right-[10px]">
-                          <img
-                            src="https://candy.ai/assets/eye-6954483cd116fa391d5bf9d9252431d2ab19ac69e74f9b05d761ec5a6e51697b.svg"
-                            className="password-toggle-icon cursor-pointer"
-                            alt="eye"
+                        <button
+                          className="w-5 h-5 absolute top-[13px] right-[10px]"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setVisibleState(!visibleState);
+                          }}
+                        >
+                          <Icon
+                            icon={`${
+                              !visibleState ? "ion:eye" : "mdi:eye-off"
+                            }`}
+                            width={20}
+                            color="#E0E0E0"
                           />
-                        </div>
+                        </button>
                         <div className="input password required user_password w-full">
                           <input
-                            type="password"
+                            type={`${!visibleState ? "password" : "string"}`}
+                            id="password"
+                            autoComplete="on"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                             className="password required h-12 w-full pl-12 pr-4 py-3 rounded-[39px] border border-black_light bg-[#333535] text-sm font-[275] text-[#fff] placeholder-[#fff]"
                             placeholder="Password"
+                            required
                           ></input>
                         </div>
                       </div>
@@ -92,7 +167,8 @@ const UserLogin = () => {
                     <input
                       id="default-checkbox"
                       type="checkbox"
-                      value=""
+                      checked={rememberMe}
+                      onChange={(e) => setRememberMe(e.target.checked)}
                       className="w-4 h-4 text-[#333535] bg-[#333535] border-[#6E6969] rounded focus:ring-[#333535] focus:ring-2 checked:bg-[#333535] active:bg-[#333535]"
                     />
                     <label
@@ -103,7 +179,7 @@ const UserLogin = () => {
                     </label>
                   </div>
                   <Link
-                    to=""
+                    to="/forgot-password"
                     className="text-white mb-4 font-[275] text-sm underline"
                   >
                     Forgot password?
@@ -140,7 +216,13 @@ const UserLogin = () => {
                         />
                       </div>
                       <div className="font-[400] text-[#fff] text-[12px] group-hover:text-[#DD00AC] text-center w-[calc(100%-36px)]">
-                        Login with Google
+                        <GoogleLogin
+                          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID!}
+                          onSuccess={(res: any) => onLogin(res)}
+                          onError={(err: any) => console.log(err)}
+                        >
+                          <span> Login with Google</span>
+                        </GoogleLogin>
                       </div>
                     </button>
                   </div>
