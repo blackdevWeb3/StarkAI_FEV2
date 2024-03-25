@@ -21,14 +21,14 @@ const Footer = () => {
             <div className="mt-[39px] flex flex-row gap-3">
               <Link to="/" className="hover:opacity-80">
                 <img
-                  src="/assets/img/playStore.png"
+                  src="/assets/img/playstore.png"
                   className="w-[214px] h-[60px]"
                   alt="playStore"
                 />
               </Link>
               <Link to="/" className="hover:opacity-80">
                 <img
-                  src="/assets/img/appStore.png"
+                  src="/assets/img/appstore.png"
                   alt="appStore"
                   className="w-[214px] h-[60px]"
                 />
