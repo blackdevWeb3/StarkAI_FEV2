@@ -68,7 +68,7 @@ const UserRegister = () => {
         <div className="flex flex-col z-10 overflow-hidden relative bg-[#1c1b1b] rounded-tr-[10px] rounded-br-[10px] rounded-tl-0 rounded-bl-0 sm:rounded-tl-[10px] md:rounded-tl-[10px] sm:rounded-bl-[10px] md:rounded-bl-[10px] sm:w-[335px] md:w-[335px] w-[407px]">
           <div className="w-full pt-[10px] flex justify-end pr-8">
             <img
-              src="/starkmeta_logo.svg"
+              src="/starkMeta_logo.svg"
               alt="logo"
               className="w-[140px]"
             ></img>

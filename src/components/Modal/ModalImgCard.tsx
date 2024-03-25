@@ -508,7 +508,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
                   </button>
                   {/* <a
                     className="border-primary border rounded-lg h-[30px] px-2 py-2 flex flex-row text-white text-[14px] bg-[#171717] gap-2 items-center justify-center transition-all duration-200 ease-in-out hover:bg-[#393b45]"
-                    href="/starkmeta_logo.png"
+                    href="/starkMeta_logo.png"
                     download
                   >
                     Download

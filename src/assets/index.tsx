@@ -36,7 +36,7 @@ export { ReactComponent as LockOpened } from "./lockOpened.svg";
 export { ReactComponent as CloseButton } from "./closeButton.svg";
 
 export { ReactComponent as Alchemy } from "./alchemy.svg";
-export { ReactComponent as Logo } from "./starkmeta_logo.svg";
+export { ReactComponent as Logo } from "./starkMeta_logo.svg";
 
 export { ReactComponent as SelectedMark } from "./SelectedMark.svg";
 
@@ -46,3 +46,10 @@ export { ReactComponent as RightRadiant } from "./RightRadiant.svg";
 export { ReactComponent as Star } from "./Star.svg";
 
 export { ReactComponent as FooterGround } from "./group-42.svg";
+
+export { ReactComponent as CommunityCollections } from "./NavbarSVG/usersGroup.svg";
+export { ReactComponent as MyCollections } from "./NavbarSVG/myCollection.svg";
+export { ReactComponent as MarketPlace } from "./NavbarSVG/marketplace.svg";
+export { ReactComponent as CreateArt } from "./NavbarSVG/createArt.svg";
+export { ReactComponent as Settings } from "./NavbarSVG/settings.svg";
+export { ReactComponent as Logout } from "./NavbarSVG/logout.svg";

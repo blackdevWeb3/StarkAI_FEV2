@@ -121,12 +121,12 @@ const CommunityFeed = () => {
         </>
       ) : (
         <>
-          <div className="w-full bg-black pt-[29px] flex flex-col font-chakra sm:pt-4">
+          <div className="w-full bg-[#1C1B1B] pt-[29px] flex flex-col font-chakra sm:pt-4">
             <div className="pl-8 sm:pl-4">
               <span className="text-[26px]">Community Feed</span>
             </div>
             <div className="top-0 sticky z-10 border-b-[1px] border-primary w-full">
-              <div className="px-8 py-8 flex flex-col gap-5 bg-black sm:px-4 sm:py-4">
+              <div className="px-8 py-8 flex flex-col gap-5 bg-[#1C1B1B] sm:px-4 sm:py-4">
                 <div className="flex flex-row justify-between flex-wrap gap-4">
                   <div className="search-panel w-[376px]">
                     <span className="search-icon">
