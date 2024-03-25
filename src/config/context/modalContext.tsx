@@ -1,5 +1,5 @@
 import { createContext, useState, FC } from "react";
-import { Image } from "../utils/types";
+import { Image } from "../../utils/types";
 
 interface ModalContextType {
   imageData: Image;

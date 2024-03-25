@@ -1,8 +1,8 @@
 import { Icon } from "@iconify/react";
 import { useContext, useEffect, useState } from "react";
 import { ImageList, ImageListItem, Slider } from "@mui/material";
-import { useUser } from "../../context/UserContext";
-import ModalContext from "../../context/modalContext";
+import { useUser } from "../../config/context/UserContext";
+import ModalContext from "../../config/context/modalContext";
 import { Image } from "../../utils/types";
 import Card from "../Others/Card";
 import ModalImgCard from "../Modal/ModalImgCard";

@@ -1,8 +1,8 @@
 import { useState, useContext, useEffect } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Icon } from "@iconify/react";
-import ModalContext from "../../context/modalContext";
-import { useUser } from "../../context/UserContext";
+import ModalContext from "../../config/context/modalContext";
+import { useUser } from "../../config/context/UserContext";
 import axios, { AxiosResponse } from "axios";
 
 import "react-lazy-load-image-component/src/effects/blur.css";
@@ -13,7 +13,9 @@ const Card = (props: any) => {
   const isOwner = props.data.owner === userObejct.email;
   const modalCtx = useContext(ModalContext);
   const [loading, setLoading] = useState(false);
-  const [heartCount, setHeartCount] = useState<Number>(props.data.heartCount || 0);
+  const [heartCount, setHeartCount] = useState<Number>(
+    props.data.heartCount || 0
+  );
   const [likeImage, setLikeImage] = useState<Boolean>(props.likeImage);
 
   const handleImgModalOpen = () => {
@@ -37,7 +39,7 @@ const Card = (props: any) => {
         console.log("Response Data:", res.data.msg);
         console.log(res.data.heartCount);
         setHeartCount(res.data.heartCount);
-        setLikeImage(res.data.msg==="Added!");
+        setLikeImage(res.data.msg === "Added!");
       });
   };
 

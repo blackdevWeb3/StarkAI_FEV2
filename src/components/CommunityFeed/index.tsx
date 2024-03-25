@@ -1,8 +1,8 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { Icon } from "@iconify/react";
-import ModalContext from "../../context/modalContext";
-import { useUser } from "../../context/UserContext";
+import ModalContext from "../../config/context/modalContext";
+import { useUser } from "../../config/context/UserContext";
 import { Image } from "../../utils/types";
 import Card from "../Others/Card";
 import ModalImgCard from "../Modal/ModalImgCard";

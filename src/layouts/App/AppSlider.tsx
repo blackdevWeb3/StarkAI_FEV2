@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import { useUser } from "../../context/UserContext";
+import { useUser } from "../../config/context/UserContext";
 import NavLink from "../../components/Others/NavLink";
 import { Navigate } from "react-router-dom";
 
