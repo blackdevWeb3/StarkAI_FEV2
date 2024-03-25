@@ -1,4 +1,5 @@
 import { Icon } from "@iconify/react";
+import { CreateArt, GradientCreateArt } from "../../assets";
 
 const RecentCreated = () => {
   return (
@@ -10,7 +11,7 @@ const RecentCreated = () => {
           className="bg-auto rounded-[8px]"
         />
       </div>
-      <div className="flex justify-between py-[11px] border-b-[0.5px] border-b-gray-200">
+      <div className="flex justify-between py-[11px] border-b-[0.5px] border-b-[#606060]">
         <div className="flex flex-wrap gap-[8px]">
           <div className="w-[41px] h-[41px] rounded-full bg-transparent">
             <img
@@ -25,34 +26,42 @@ const RecentCreated = () => {
           </div>
         </div>
         <div className="flex items-center">
-          <div className="rounded-full bg-[#211B20] hover:bg-[#211B20]/40 hover:cursor-pointer py-[11px] px-[26px]">
-            <div className="flex flex-wrap gap-[4px]">
-              <Icon icon="uil:user-plus" fontSize={"12px"} />
-              <span className=" text-[8px]">Follow</span>
-            </div>
+          <div className="rounded-[30px] bg-[#211B20] hover:bg-[#211B20]/40 hover:cursor-pointer pt-2 pb-[9px] px-[26px] gap-1 flex flex-row items-center">
+            <Icon icon="uil:user-plus" width={12} />
+            <span className="text-[8px]">Follow</span>
           </div>
         </div>
       </div>
-      <div className="py-[10px] border-b-[0.5px] border-b-gray-200">
+      <div className="py-[10px] border-b-[0.5px] border-b-[#606060]">
         <div className="flex justify-between">
-          <div className="rounded-full bg-[#211B20] hover:bg-[#211B20]/40 hover:cursor-pointer py-[11px] px-[26px]">
-            <div className="flex flex-wrap gap-[4px]">
-              <Icon icon="humbleicons:prompt" fontSize={"12px"} />
-              <span className="text-[8px] font-normal leading-normal">
-                Prompt
-              </span>
-            </div>
+          <div className="rounded-[30px] bg-[#211B20] hover:bg-[#211B20]/40 hover:cursor-pointer py-2 px-6 flex flex-row gap-1 items-center">
+            <Icon icon="humbleicons:prompt" className="w-3 h-[10.8px]" />
+            <span className="text-[8px] font-normal leading-normal">
+              Prompt
+            </span>
           </div>
-          <div className="flex justify-between items-center gap-[10px]">
-            <div>
-              <Icon icon="uiw:share" fontSize={"24px"} />
-            </div>
-            <div>
-              <Icon icon="bi:cloud-download" fontSize={"24px"} />
-            </div>
-            <div>
-              <Icon icon="solar:heart-linear" fontSize={"24px"} />
-            </div>
+          <div className="flex flex-row justify-between items-center gap-[10px]">
+            <button className="group">
+              <Icon
+                icon="uiw:share"
+                width={24}
+                className="text-[#C1B6B6] group-hover:text-white"
+              />
+            </button>
+            <button className="group">
+              <Icon
+                icon="bi:cloud-download"
+                width={24}
+                className="text-[#C1B6B6] group-hover:text-white"
+              />
+            </button>
+            <button className="group">
+              <Icon
+                icon="solar:heart-linear"
+                width={24}
+                className="text-[#C1B6B6] group-hover:text-white"
+              />
+            </button>
           </div>
         </div>
         <div className="pt-[7px]">
@@ -63,7 +72,7 @@ const RecentCreated = () => {
           </div>
         </div>
       </div>
-      <div className="py-[11px] border-b-[0.5px] border-b-gray-200">
+      <div className="py-[11px] border-b-[0.5px] border-[#606060]">
         <div className="flex justify-between flex-row">
           <div className="w-1/3">
             <div className="font-[275] text-[8px] text-[#BEBCBC]">
@@ -97,10 +106,12 @@ const RecentCreated = () => {
           </div>
         </div>
       </div>
-      <div className="py-[11px]"></div>
-      <div className="rounded-full border-gray-200 border-solid border-[2px] hover:bg-[#FFFFFF]/10 hover:cursor-pointer px-[86px] py-[18px]">
-        <img src="/assets/img/createmodal.svg" alt="imageButton" />
-      </div>
+      <button className="rounded-full border-[#DD00AC] border px-[80px] py-[18px] mt-[11px] flex flex-row gap-[11px] items-center">
+        <span className="w-[22px] h-[22px]">
+          <GradientCreateArt />
+        </span>
+        <span className="gradient-text">Create with this Model</span>
+      </button>
     </div>
   );
 };

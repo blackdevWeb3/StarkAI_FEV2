@@ -51,5 +51,6 @@ export { ReactComponent as CommunityCollections } from "./NavbarSVG/usersGroup.s
 export { ReactComponent as MyCollections } from "./NavbarSVG/myCollection.svg";
 export { ReactComponent as MarketPlace } from "./NavbarSVG/marketplace.svg";
 export { ReactComponent as CreateArt } from "./NavbarSVG/createArt.svg";
+export { ReactComponent as GradientCreateArt } from "./NavbarSVG/gradientCreateArt.svg";
 export { ReactComponent as Settings } from "./NavbarSVG/settings.svg";
 export { ReactComponent as Logout } from "./NavbarSVG/logout.svg";
