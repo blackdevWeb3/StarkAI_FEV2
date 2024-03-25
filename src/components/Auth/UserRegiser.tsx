@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
+import { GoogleLogin } from "google-login-react";
 import { Icon } from "@iconify/react";
 import { LeftBGStyle } from "../../assets";
 
@@ -18,6 +19,21 @@ const UserRegister = () => {
     useState<boolean>(false);
   const [agreement, setAgreement] = useState<boolean>(false);
 
+  const onRegister = async (credentialResponse: any) => {
+    if (!credentialResponse) return;
+
+    const data = {
+      username: credentialResponse.name,
+      email: credentialResponse.email,
+      avatar: credentialResponse.picture,
+    };
+
+    const result = await registerUserInfo(data);
+    setMessage(result.message);
+    if (result.message === "User registered successfully")
+      window.location.href = "/login";
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -29,10 +45,9 @@ const UserRegister = () => {
         avatar: "avatar",
         password,
       };
-      console.log("DATA:", data);
+
       const result = await registerUserInfo(data);
       setMessage(result.message);
-      console.log("result: ", result);
       if (result.message === "User registered successfully")
         window.location.href = "/login";
     } else setMessage("Passwords are not match!");
@@ -277,7 +292,13 @@ const UserRegister = () => {
                         />
                       </div>
                       <div className="font-[400] text-[#fff] text-[12px] group-hover:text-[#DD00AC] text-center w-[calc(100%-36px)]">
-                        Sign Up with Google
+                        <GoogleLogin
+                          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID!}
+                          onSuccess={(res: any) => onRegister(res)}
+                          onError={(err: any) => console.log(err)}
+                        >
+                          <span> Sign Up with Google</span>
+                        </GoogleLogin>
                       </div>
                     </button>
                   </div>
