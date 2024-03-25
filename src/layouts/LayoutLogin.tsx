@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { GoogleLogin } from "google-login-react";
-import { useUser } from "../context/UserContext";
+import { useUser } from "../config/context/UserContext";
 import { Navigate, Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import {

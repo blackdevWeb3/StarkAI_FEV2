@@ -2,21 +2,21 @@ import Marquee from "react-fast-marquee";
 import { LeftBGStyle } from "../../assets";
 
 const primary_images = [
-  "https://d2zitdfpdrkol8.cloudfront.net/ryanniit0x902/5ab5093a-35a8-4c95-a733-6e862b47a0d4/Default_Lexus_Car_0.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/ryanniit0x902/5ab5093a-35a8-4c95-a733-6e862b47a0d4/Default_Lexus_Car_1.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/eeaa4d5f-84d4-43f9-8f17-535895ef4c36/Default_Vivid_colors_pick_color_a_beautiful_and_happy_woman_an_0.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/1ae53528-22c1-43e0-b6ca-ded8f79fce16/Default_Imagine_a_mesmerizing_scene_where_a_golden_grizzly_bea_3.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/lindascherer02/8df97c21-2dce-4723-b2e2-eb53286a1a56/Default_create_an_image_of_a_grandmother_walking_with_her_grow_0.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/lindascherer02/86d7cee5-c697-4ee9-b2b3-b411dc551272/Default_create_an_image_of_a_mother_walking_with_her_grown_dau_0.jpg",
+  "https://pub-3626123a908346a7a8be8d9295f44e26.r2.dev/generations/200a139c-e682-41e2-a2e5-2e612e5f9949-0.png",
+  "https://pub-3626123a908346a7a8be8d9295f44e26.r2.dev/generations/14b2337d-2b94-43b4-bbb5-a3bc8ff7b152-0.png",
+  "https://pub-3626123a908346a7a8be8d9295f44e26.r2.dev/generations/1d543fb4-5fa6-4176-96c8-67b4a16a86c0-0.png",
+  "https://pub-3626123a908346a7a8be8d9295f44e26.r2.dev/generations/c19771fe-cb24-47bf-9399-978374bcd8cc-0.png",
+  "https://pub-3626123a908346a7a8be8d9295f44e26.r2.dev/generations/97f6d458-313f-4222-99bb-a79134cfe966-0.png",
+  "https://pub-3626123a908346a7a8be8d9295f44e26.r2.dev/generations/119a62cb-e2b4-46f8-a297-61ddbcd9879d-0.png",
 ];
 const secondary_images = [
-  "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/6a7cfb39-5a37-4212-877f-e46eb15f4ebc/Default_cute_0.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/dev2024/1a8aa3ad-5953-426d-bd93-c4f63bce3f8c/Default_monkey_0.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/0c7d9083-14e5-4d8a-afe9-705a73b556b1/Default_Vivid_colors_pick_color_a_beautiful_and_happy_woman_an_3.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/bc506d34-9763-49ef-8ec2-f88ef4477e09/Default_Vivid_colors_pick_color_a_beautiful_and_happy_woman_an_0.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/f539aa23-b601-4d7b-9cfa-92fe4438bf33/Default_Vivid_colors_pick_color_a_beautiful_and_happy_woman_an_3.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/1ae53528-22c1-43e0-b6ca-ded8f79fce16/Default_Imagine_a_mesmerizing_scene_where_a_golden_grizzly_bea_3.jpg",
-  "https://d2zitdfpdrkol8.cloudfront.net/candyman201700/1a4890b7-9ac1-42f0-9bcd-217c1b09c497/Default_A_fiercely_proud_Nordic_girl_stands_her_presence_exudi_0.jpg",
+  "https://pub-3626123a908346a7a8be8d9295f44e26.r2.dev/generations/c9d96ade-ff46-4075-aa7b-43b7ffd6ca68-0.png",
+  "https://pub-3626123a908346a7a8be8d9295f44e26.r2.dev/generations/142e7171-5c07-4166-8877-8895c339a926-0.png",
+  "https://pub-3626123a908346a7a8be8d9295f44e26.r2.dev/generations/ee4125ab-461b-493e-86f3-19f8035014d4-0.png",
+  "https://pub-3626123a908346a7a8be8d9295f44e26.r2.dev/generations/e39b79a4-e145-4067-85ee-2752c486ed15-0.png",
+  "https://pub-3626123a908346a7a8be8d9295f44e26.r2.dev/generations/61a116ba-8a9f-46f6-a7e2-14326e6c9534-0.png",
+  "https://pub-3626123a908346a7a8be8d9295f44e26.r2.dev/generations/09984349-0b5a-4db8-a932-dbb8b7f3675f-0.png",
+  "https://pub-3626123a908346a7a8be8d9295f44e26.r2.dev/generations/de7c4f7b-8c16-4a14-89cf-293afafadff1-0.png",
 ];
 
 const LatestInnovation = () => {

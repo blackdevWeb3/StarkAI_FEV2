@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { useUser } from "../../context/UserContext";
+import { useUser } from "../../config/context/UserContext";
 import { Link, Navigate } from "react-router-dom";
 import React, { useRef, useState } from "react";
 import { updateUserInfo } from "../../actions/authActions";

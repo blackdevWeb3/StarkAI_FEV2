@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { GoogleOAuthProvider } from "@react-oauth/google";
-import { UserProvider } from "./context/UserContext";
+import { UserProvider } from "./config/context/UserContext";
 import {
   RainbowKitProvider,
   getDefaultWallets,

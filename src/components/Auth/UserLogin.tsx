@@ -5,7 +5,7 @@ import { Icon } from "@iconify/react";
 import { loginUserInfo } from "../../actions/authActions";
 import Cookies from "js-cookie";
 import { LeftBGStyle } from "../../assets";
-import { useUser } from "../../context/UserContext";
+import { useUser } from "../../config/context/UserContext";
 
 import "./auth_style.css";
 

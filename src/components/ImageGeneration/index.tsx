@@ -14,7 +14,7 @@ import {
   AlchemyStyle,
   photoRealStyle,
 } from "../../utils/constants";
-import { useUser } from "../../context/UserContext";
+import { useUser } from "../../config/context/UserContext";
 import axios from "axios";
 import { Image } from "../../utils/types";
 
@@ -25,7 +25,7 @@ import { TextareaAutosize } from "@mui/material";
 
 import io from "socket.io-client";
 import { toast } from "react-toastify";
-import ModalContext from "../../context/modalContext";
+import ModalContext from "../../config/context/modalContext";
 import ToggleCheckBox from "../Modal/ToggleCheckbox";
 import { useAccount, useNetwork } from "wagmi";
 import { MarketPlace } from "../../config/const";
