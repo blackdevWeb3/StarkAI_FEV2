@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { GoogleLogin } from "google-login-react";
 import { Icon } from "@iconify/react";
 import { LeftBGStyle } from "../../assets";
 
@@ -18,9 +19,25 @@ const UserRegister = () => {
     useState<boolean>(false);
   const [agreement, setAgreement] = useState<boolean>(false);
 
+  const onRegister = async (credentialResponse: any) => {
+    if (!credentialResponse) return;
+
+    const data = {
+      username: credentialResponse.name,
+      email: credentialResponse.email,
+      avatar: credentialResponse.picture,
+    };
+
+    const result = await registerUserInfo(data);
+    setMessage(result.message);
+    if (result.message === "User registered successfully")
+      window.location.href = "/login";
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (agreement) {
+
+    if (password === confirmPassword) {
       console.log("credential:", email, password);
       const data = {
         email,
@@ -28,19 +45,19 @@ const UserRegister = () => {
         avatar: "avatar",
         password,
       };
-      console.log("DATA:", data);
-      // const result = await registerUserInfo(data);
-      // setMessage(result.message);
-      // if (result.message === "Success") {
-      // }
-    } else setMessage("You should agree terms & conditions");
+
+      const result = await registerUserInfo(data);
+      setMessage(result.message);
+      if (result.message === "User registered successfully")
+        window.location.href = "/login";
+    } else setMessage("Passwords are not match!");
   };
 
   return (
     <div className="w-full h-full min-h-screen py-10 bg-black flex justify-center items-center font-kanit">
       <div className="flex relative bg-black_dark rounded-[10px] sm:mx-5 md:mx-5 mx-0">
         <div className="flex sm:hidden md:hidden h-full relative">
-          <div id="user-signup-image">
+          <div id="user-signUp-image">
             <img
               src="assets/img/auth_background.svg"
               className="rounded-tl-[10px] rounded-bl-[10px] w-[412px] h-[700px] object-cover object-top"
@@ -57,7 +74,7 @@ const UserRegister = () => {
             ></img>
           </div>
           <div
-            id="user-signup-container"
+            id="user-signUp-container"
             className="flex-1 sm:mx-6 md:mx-6 mx-8 sm:mt-6 md:mt-6 mt-10 z-20"
           >
             <div className="relative">
@@ -275,7 +292,13 @@ const UserRegister = () => {
                         />
                       </div>
                       <div className="font-[400] text-[#fff] text-[12px] group-hover:text-[#DD00AC] text-center w-[calc(100%-36px)]">
-                        Sign Up with Google
+                        <GoogleLogin
+                          clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID!}
+                          onSuccess={(res: any) => onRegister(res)}
+                          onError={(err: any) => console.log(err)}
+                        >
+                          <span> Sign Up with Google</span>
+                        </GoogleLogin>
                       </div>
                     </button>
                   </div>
