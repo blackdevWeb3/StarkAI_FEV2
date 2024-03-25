@@ -1,3 +1,5 @@
+import { Icon } from "@iconify/react";
+
 const RecentCreated = () => {
   return (
     <div className="rounded-[6px] bg-[#333535] pl-[14px] pr-[12px] py-[15px] max-w-[371px] font-kanit w-full h-full">
@@ -25,7 +27,7 @@ const RecentCreated = () => {
         <div className="flex items-center">
           <div className="rounded-full bg-[#211B20] hover:bg-[#211B20]/40 hover:cursor-pointer py-[11px] px-[26px]">
             <div className="flex flex-wrap gap-[4px]">
-              <img src="/assets/img/user.png" alt="imageFollow" />
+              <Icon icon="uil:user-plus" fontSize={"12px"} />
               <span className=" text-[8px]">Follow</span>
             </div>
           </div>
@@ -35,7 +37,7 @@ const RecentCreated = () => {
         <div className="flex justify-between">
           <div className="rounded-full bg-[#211B20] hover:bg-[#211B20]/40 hover:cursor-pointer py-[11px] px-[26px]">
             <div className="flex flex-wrap gap-[4px]">
-              <img src="/assets/img/prompt.png" alt="imagePrompt"></img>
+              <Icon icon="humbleicons:prompt" fontSize={"12px"} />
               <span className="text-[8px] font-normal leading-normal">
                 Prompt
               </span>
@@ -43,13 +45,13 @@ const RecentCreated = () => {
           </div>
           <div className="flex justify-between items-center gap-[10px]">
             <div>
-              <img src="/assets/img/vector2.png" alt="vector" />
+              <Icon icon="uiw:share" fontSize={"24px"} />
             </div>
             <div>
-              <img src="/assets/img/cloud.png" alt="cloud" />
+              <Icon icon="bi:cloud-download" fontSize={"24px"} />
             </div>
             <div>
-              <img src="/assets/img/heart.png" alt="heart" />
+              <Icon icon="solar:heart-linear" fontSize={"24px"} />
             </div>
           </div>
         </div>
@@ -97,7 +99,7 @@ const RecentCreated = () => {
       </div>
       <div className="py-[11px]"></div>
       <div className="rounded-full border-gray-200 border-solid border-[2px] hover:bg-[#FFFFFF]/10 hover:cursor-pointer px-[86px] py-[18px]">
-        <img src="/assets/img/createmodel.png" alt="imageButton" />
+        <img src="/assets/img/createmodal.svg" alt="imageButton" />
       </div>
     </div>
   );

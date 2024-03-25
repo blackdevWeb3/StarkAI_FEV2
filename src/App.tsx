@@ -17,6 +17,7 @@ import TestLayoutDashboard from "./layouts/TestLayoutDashboard";
 import RewardPathway from "./components/Dashboard/RewardPathway";
 import TestFooter from "./layouts/TestFooter";
 import RecentCreated from "./components/CommunityFeed/RecentCreated";
+//import CarouselText from "./components/CommunityFeed/CarouselText";
 
 interface LayoutWithNavbarAndFooterProps {
   children: React.ReactNode;
