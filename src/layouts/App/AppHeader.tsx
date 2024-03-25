@@ -52,7 +52,7 @@ const AppHeader = ({ sliderOpen, sliderHandler }: AppHeaderProps) => {
 
   return (
     <>
-      <div className="bg-black flex-col relative w-full">
+      <div className="flex-col relative w-full">
         {/* <div className="items-center right-5 top-2 absolute flex flex-row gap-2 sm:right-3">
           <div id="walletConnect">
             <ConnectButton />

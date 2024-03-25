@@ -93,6 +93,23 @@
   justify-content: center;
 }
 
+.primary-link {
+  background-size: 200% auto !important;
+  background: radial-gradient(
+    circle,
+    rgba(92, 83, 179, 1) 0%,
+    rgba(236, 21, 188, 1) 100%
+  );
+  transition: all 0.3s ease-in-out !important;
+  transition: all 1s ease-in-out;
+  height: 61px;
+}
+
+.primary-link:hover {
+  background-position: 90% center !important;
+  cursor: pointer;
+}
+
 .button-color {
   background-size: 200% auto !important;
   background-image: linear-gradient(
@@ -1478,4 +1495,17 @@
     rgba(221, 0, 172, 1) 0%,
     rgba(63, 56, 131, 1) 100%
   );
+}
+
+.gradient-text {
+  background: linear-gradient(99deg, #dd00ac -10.83%, #7064e9 132.7%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: right;
+  font-family: Kanit;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
