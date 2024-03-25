@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { LeftBGStyle } from "../../assets";
 
@@ -20,7 +20,8 @@ const UserRegister = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (agreement) {
+
+    if (password === confirmPassword) {
       console.log("credential:", email, password);
       const data = {
         email,
@@ -29,18 +30,19 @@ const UserRegister = () => {
         password,
       };
       console.log("DATA:", data);
-      // const result = await registerUserInfo(data);
-      // setMessage(result.message);
-      // if (result.message === "Success") {
-      // }
-    } else setMessage("You should agree terms & conditions");
+      const result = await registerUserInfo(data);
+      setMessage(result.message);
+      console.log("result: ", result);
+      if (result.message === "User registered successfully")
+        window.location.href = "/login";
+    } else setMessage("Passwords are not match!");
   };
 
   return (
     <div className="w-full h-full min-h-screen py-10 bg-black flex justify-center items-center font-kanit">
       <div className="flex relative bg-black_dark rounded-[10px] sm:mx-5 md:mx-5 mx-0">
         <div className="flex sm:hidden md:hidden h-full relative">
-          <div id="user-signup-image">
+          <div id="user-signUp-image">
             <img
               src="assets/img/auth_background.svg"
               className="rounded-tl-[10px] rounded-bl-[10px] w-[412px] h-[700px] object-cover object-top"
@@ -57,7 +59,7 @@ const UserRegister = () => {
             ></img>
           </div>
           <div
-            id="user-signup-container"
+            id="user-signUp-container"
             className="flex-1 sm:mx-6 md:mx-6 mx-8 sm:mt-6 md:mt-6 mt-10 z-20"
           >
             <div className="relative">

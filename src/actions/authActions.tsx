@@ -56,7 +56,6 @@ export const registerUserInfo = async (
       `${process.env.REACT_APP_BACKEND_API}/auth/register`,
       userData
     );
-
     return response.data;
   } catch (error) {
     if (error.response) {
