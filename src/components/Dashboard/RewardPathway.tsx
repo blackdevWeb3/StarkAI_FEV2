@@ -3,7 +3,7 @@ import HeartBg from "../../assets/Vector.png";
 
 const RewardPathway = () => {
   return (
-    <div className="w-full h-full min-h-[calc(100vh-414px)] pt-16">
+    <div className="w-full h-full min-h-[calc(100vh-414px)]">
       <div
         className="w-full h-full bg-black bg-no-repeat bg-cover bg-center"
         style={{ backgroundImage: `url(${PartialBg})` }}
