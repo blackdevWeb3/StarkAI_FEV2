@@ -22,7 +22,7 @@ const AppLayout = () => {
 
   return (
     <div className="flex flex-col w-full">
-      <div className="flex flex-row w-full bg-black">
+      <div className="flex flex-row w-full bg-[#1C1B1B]">
         <AppSlider
           sliderOpen={sliderOpen}
           setSliderOpen={setSliderOpen}
