@@ -1497,6 +1497,17 @@
   );
 }
 
+.control-dots {
+  text-align: left !important;
+}
+
+.carousel .control-dots .dot {
+  box-shadow: none !important;
+  background: #000000 !important;
+  width: 15px !important;
+  height: 15px !important;
+
+
 .gradient-text {
   background: linear-gradient(99deg, #dd00ac -10.83%, #7064e9 132.7%);
   background-clip: text;
@@ -1508,4 +1519,5 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+
 }
