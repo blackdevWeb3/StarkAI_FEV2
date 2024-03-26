@@ -7,38 +7,39 @@ module.exports = {
       screens: {
         sm: {
           min: "0px",
-          max: "767px"
+          max: "767px",
         },
         // => @media (min-width: 640px and max-width: 767px) { ... }
 
         md: {
           min: "767px",
-          max: "1023px"
+          max: "1023px",
         },
         // => @media (min-width: 768px and max-width: 1023px) { ... }
 
         lg: {
           min: "1024px",
-          max: "1200px"
+          max: "1200px",
         },
         // => @media (min-width: 1024px and max-width: 1279px) { ... }
 
         xl: {
           min: "1201px",
-          max: "1400px"
+          max: "1400px",
         },
         // => @media (min-width: 1280px and max-width: 1535px) { ... }
 
         "2xl": {
           min: "1401px",
-          max: "1600px"
+          max: "1600px",
         },
         // => @media (min-width: 1536px) { ... }
         "3xl": {
-          min: "1601px"
+          min: "1601px",
         },
       },
       colors: {
+        primaryBackground: "#1C1B1B",
         darkBackground: "#0D0D0D",
         darkPrimary: "#202125",
         primaryColor: "#f2f3f5",
@@ -68,7 +69,6 @@ module.exports = {
         "custom-768-1152": "768/1152",
         "custom-16-10": "16/10",
       },
-
     },
   },
   plugins: [],

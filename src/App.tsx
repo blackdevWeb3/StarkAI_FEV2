@@ -14,7 +14,7 @@ import UserLogin from "./components/Auth/UserLogin";
 import UserRegister from "./components/Auth/UserRegiser";
 import Navbar from "./layouts/Navbar";
 import TestLayoutDashboard from "./layouts/TestLayoutDashboard";
-import RecentCreated from "./components/CommunityFeed/RecentCreated";
+import RecentImgItem from "./components/CommunityFeed/RecentImgItem";
 import CarouselContent from "./components/CommunityFeed/CarouselContent";
 
 interface LayoutWithNavbarAndFooterProps {
