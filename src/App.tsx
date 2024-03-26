@@ -16,6 +16,7 @@ import Navbar from "./layouts/Navbar";
 import TestLayoutDashboard from "./layouts/TestLayoutDashboard";
 import RecentImgItem from "./components/CommunityFeed/RecentImgItem";
 import CarouselContent from "./components/CommunityFeed/CarouselContent";
+import CollectionItemOne from "./components/CommunityFeed/Collection/CollectionItemOne";
 
 interface LayoutWithNavbarAndFooterProps {
   children: React.ReactNode;
@@ -50,7 +51,7 @@ function App() {
             path="/test"
             element={
               <>
-                <CarouselContent />
+                <CollectionItemOne />
               </>
             }
           />
