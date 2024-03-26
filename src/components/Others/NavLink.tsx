@@ -54,7 +54,7 @@ const NavLink: React.FC<NavLinkProps> = ({
       onClick={() => handleSetActiveLink(to)}
       className={`hover:text-white hover:bg-[#1b1c20] h-[61px] rounded-[45px] flex ${
         activeLink === to
-          ? "text-white gradient-bg"
+          ? "text-white primary-link"
           : "text-fontPrimary bg-[#1C1B1B]"
       }`}
     >

@@ -29,7 +29,7 @@ const AppLayout = () => {
           sliderHandler={sliderHandler}
           pathname={location.pathname}
         />
-        <div className="flex flex-col min-h-screen h-full bg-black w-0 flex-1">
+        <div className="flex flex-col min-h-screen h-full bg-[#1C1B1B] w-0 flex-1">
           <AppHeader sliderOpen={sliderOpen} sliderHandler={sliderHandler} />
           <Routes>
             <Route path="/" element={<CommunityFeed />} />
