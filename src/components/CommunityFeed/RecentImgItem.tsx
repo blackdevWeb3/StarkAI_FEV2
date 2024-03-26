@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react";
 import { CreateArt, GradientCreateArt } from "../../assets";
 
-const RecentCreated = () => {
+const RecentImgItem = () => {
   return (
     <div className="rounded-[6px] bg-[#333535] pl-[14px] pr-[12px] py-[15px] max-w-[371px] font-kanit w-full h-full">
       <div className="rounded-[8px] max-w-[343px] max-h-[258px]">
@@ -115,4 +115,4 @@ const RecentCreated = () => {
     </div>
   );
 };
-export default RecentCreated;
+export default RecentImgItem;
