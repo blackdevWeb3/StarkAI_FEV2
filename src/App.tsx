@@ -14,10 +14,8 @@ import UserLogin from "./components/Auth/UserLogin";
 import UserRegister from "./components/Auth/UserRegiser";
 import Navbar from "./layouts/Navbar";
 import TestLayoutDashboard from "./layouts/TestLayoutDashboard";
-import RewardPathway from "./components/Dashboard/RewardPathway";
-import TestFooter from "./layouts/TestFooter";
 import RecentCreated from "./components/CommunityFeed/RecentCreated";
-//import CarouselText from "./components/CommunityFeed/CarouselText";
+import CarouselContent from "./components/CommunityFeed/CarouselContent";
 
 interface LayoutWithNavbarAndFooterProps {
   children: React.ReactNode;
@@ -52,7 +50,7 @@ function App() {
             path="/test"
             element={
               <>
-                <RecentCreated />
+                <CarouselContent />
               </>
             }
           />
