@@ -1479,3 +1479,13 @@
     rgba(63, 56, 131, 1) 100%
   );
 }
+.control-dots {
+  text-align: left !important;
+}
+
+.carousel .control-dots .dot {
+  box-shadow: none !important;
+  background: #000000 !important;
+  width: 15px !important;
+  height: 15px !important;
+}
