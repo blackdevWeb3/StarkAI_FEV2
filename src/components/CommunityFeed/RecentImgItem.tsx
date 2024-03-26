@@ -3,7 +3,7 @@ import { CreateArt, GradientCreateArt } from "../../assets";
 
 const RecentImgItem = () => {
   return (
-    <div className="rounded-[6px] bg-[#333535] pl-[14px] pr-[12px] py-[15px] max-w-[371px] font-kanit w-full h-full">
+    <div className="rounded-[6px] bg-[#333535] pl-[14px] pr-[12px] py-[15px] max-w-[371px] min-w-[371px] font-kanit w-full h-full">
       <div className="rounded-[8px] max-w-[343px] max-h-[258px]">
         <img
           src="https://pub-3626123a908346a7a8be8d9295f44e26.r2.dev/generations/14b2337d-2b94-43b4-bbb5-a3bc8ff7b152-0.png"
