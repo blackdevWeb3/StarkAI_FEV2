@@ -17,10 +17,12 @@ const PersonalFeed = () => {
   return (
     <>
       <div className="w-full bg-primaryBackground pt-[29px] flex flex-col font-kanit">
-        <div className="w-full rounded-md border border-[#333535] px-2 py-5">
-          <MyCollectionItem />
+        <MyCollectionItem />
+        <div className="mt-[37px]">
           <MyCollectionBoard />
-          {/* <div className="pl-8 sm:pl-4">
+        </div>
+
+        {/* <div className="pl-8 sm:pl-4">
           <span className="font-chakra text-[26px]">Personal Feed</span>
         </div>
         <div className="border-b border-gray-800 pl-8 pt-3 sm:pl-4">
@@ -44,7 +46,6 @@ const PersonalFeed = () => {
           {activeTab === "followerTab" && <FollowerFeed />}
           {activeTab === "likedTab" && <LikedFeed />}
         </div> */}
-        </div>
       </div>
     </>
   );
