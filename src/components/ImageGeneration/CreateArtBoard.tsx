@@ -1,13 +1,12 @@
 import { Icon } from "@iconify/react";
-import { FilterIcon, ScrollDown } from "../../assets";
-import LikedFeed from "./LikedFeed";
+import { ScrollDown } from "../../assets";
 
-const MyCollectionBoard = () => {
+const CreateArtBoard = () => {
   return (
     <>
       <div className="flex flex-col gap-[21px] font-kanit">
         <span className="text-white text-[24px] font-medium leading-normal">
-          Personal Feed
+          Previous Feed
         </span>
         <div className="flex flex-row justify-between">
           <div className="flex flex-row gap-[13px] lg:gap-[4px]">
@@ -15,16 +14,10 @@ const MyCollectionBoard = () => {
               All
             </button>
             <button className="px-[30px] rounded-[42px] h-[42px] min-w-[98px] border border-[#505050] text-[#CBC3C3] leading-normal font-light text-[12px]">
+              Images
+            </button>
+            <button className="px-[30px] rounded-[42px] h-[42px] min-w-[98px] border border-[#505050] text-[#CBC3C3] leading-normal font-light text-[12px]">
               Videos
-            </button>
-            <button className="px-[30px] rounded-[42px] h-[42px] min-w-[98px] border border-[#505050] text-[#CBC3C3] leading-normal font-light text-[12px]">
-              Your Generation
-            </button>
-            <button className="px-[30px] rounded-[42px] h-[42px] min-w-[98px] border border-[#505050] text-[#CBC3C3] leading-normal font-light text-[12px]">
-              Follower Feed
-            </button>
-            <button className="px-[30px] rounded-[42px] h-[42px] min-w-[98px] border border-[#505050] text-[#CBC3C3] leading-normal font-light text-[12px]">
-              LikedFeed
             </button>
           </div>
           <div className="relative inline-flex flex-row items-center">
@@ -53,4 +46,4 @@ const MyCollectionBoard = () => {
   );
 };
 
-export default MyCollectionBoard;
+export default CreateArtBoard;

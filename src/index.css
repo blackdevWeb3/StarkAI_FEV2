@@ -332,3 +332,11 @@ input[type="number"] {
 .filter-button-color:hover {
   background: #7064e9;
 }
+
+.gradient-create-art-button {
+  background: linear-gradient(90deg, #d804ae 0%, #7a5ae3 100%);
+}
+
+.gradient-create-art-button:hover {
+  background: linear-gradient(90deg, #d804ae 0%, #6d54c2 100%);
+}
