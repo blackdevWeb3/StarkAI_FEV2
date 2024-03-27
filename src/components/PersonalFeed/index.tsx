@@ -4,6 +4,7 @@ import LikedFeed from "./LikedFeed";
 import FollowerFeed from "./FollowerFeed";
 import TabButton from "../Others/TabButton";
 import MyCollectionItem from "./myCollectionItem";
+import MyCollectionBoard from "./myCollectionBoard";
 
 const tabs = [
   { id: "CommonFeed", text: "Your Generations" },
@@ -16,9 +17,10 @@ const PersonalFeed = () => {
   return (
     <>
       <div className="w-full bg-primaryBackground pt-[29px] flex flex-col font-kanit">
-        <MyCollectionItem />
-
-        {/* <div className="pl-8 sm:pl-4">
+        <div className="w-full rounded-md border border-[#333535] px-2 py-5">
+          <MyCollectionItem />
+          <MyCollectionBoard />
+          {/* <div className="pl-8 sm:pl-4">
           <span className="font-chakra text-[26px]">Personal Feed</span>
         </div>
         <div className="border-b border-gray-800 pl-8 pt-3 sm:pl-4">
@@ -42,6 +44,7 @@ const PersonalFeed = () => {
           {activeTab === "followerTab" && <FollowerFeed />}
           {activeTab === "likedTab" && <LikedFeed />}
         </div> */}
+        </div>
       </div>
     </>
   );

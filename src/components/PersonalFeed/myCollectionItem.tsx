@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react";
 import { GradientCreateArt } from "../../assets";
 const MyCollectionItem = () => {
   return (
-    <div className="flex justify-between rounded-[15px] border-solid border-[0.5px] border-[#333535] overflow-hidden font-kanit bg-[#1C1B1B]">
+    <div className="flex justify-between rounded-[15px] border-solid border-[0.5px] border-[#333535] overflow-hidden font-kanit bg-[#1C1B1B] max-w-[1057px] mx-auto">
       <div className="w-1/2 pt-[30px] pr-[28px] pl-[18px] pb-[19px] flex flex-col">
         <span className="text-[24px] leading-[36px] text-center font-[500] max-w-[400px] text-ellipsis overflow-hidden whitespace-nowrap">
           A huge blue dragon that splash screen alt tab okay enter citizen hello
@@ -111,11 +111,11 @@ const MyCollectionItem = () => {
           </button>
         </div>
       </div>
-      <div className="w-1/2">
+      <div className="w-1/2 flex justify-center items-center">
         <img
           src="/assets/img/hdragon.svg"
           alt="MyItem"
-          className="bg-cover"
+          className="ml-[6px]"
         ></img>
       </div>
     </div>
