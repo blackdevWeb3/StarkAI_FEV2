@@ -1,16 +1,15 @@
 import { Icon } from "@iconify/react";
-import { GradientCreateArt } from "../../../assets";
-const CollectionItemOne = () => {
+import { GradientCreateArt } from "../../assets";
+const MyCollectionItem = () => {
   return (
     <div className="flex justify-between rounded-[15px] border-solid border-[0.5px] border-[#333535] overflow-hidden font-kanit bg-[#1C1B1B]">
-      <div className="w-1/2 pt-[30px] pr-[28px] pl-[18px] pb-[19px]">
-        <div className="mb-[8px]">
-          <span className="text-[24px] leading-[36px] text-center font-[500]">
-            A huge blue dragon that splash..
-          </span>
-        </div>
+      <div className="w-1/2 pt-[30px] pr-[28px] pl-[18px] pb-[19px] flex flex-col">
+        <span className="text-[24px] leading-[36px] text-center font-[500] max-w-[400px] text-ellipsis overflow-hidden whitespace-nowrap">
+          A huge blue dragon that splash screen alt tab okay enter citizen hello
+          world
+        </span>
 
-        <div className="bg-[#333535] px-[10px] py-[10px] rounded-[8px] mb-[17px]">
+        <div className="bg-[#333535] px-[10px] py-[10px] rounded-[8px] mb-[17px] mt-2">
           <div className="flex justify-between">
             <div className="rounded-[30px] bg-[#211B20] hover:bg-[#211B20]/40 hover:cursor-pointer py-2 px-6 flex flex-row gap-1 items-center">
               <Icon icon="humbleicons:prompt" className="w-[16px] h-[15px]" />
@@ -42,12 +41,12 @@ const CollectionItemOne = () => {
               </button>
             </div>
           </div>
-          <span className="leading-[15px] text-[10px] font-[275] mt-[8px]">
+          <p className="leading-normal text-[10px] font-[275] mt-[8px]">
             A huge blue dragon that splashes the water as it rises from the
             lake, has Bitcoin engraved on its chest, and emits red lasers from
             its eyes. A scene shot instantly with a 4K, high-performance Nikon
             camera.
-          </span>
+          </p>
         </div>
         <div className="py-[17px] border-t-[1px] border-t-[#606060] border-b-[1px] border-b-[#606060]">
           <div className="flex justify-between flex-row">
@@ -104,7 +103,7 @@ const CollectionItemOne = () => {
           </div>
         </div>
         <div>
-          <button className="rounded-full border-[#DD00AC] border px-[140px] py-[23px] mt-[17px] flex flex-row gap-[11px] items-center">
+          <button className="rounded-full border-[#DD00AC] border py-[23px] mt-[17px] flex flex-row gap-[11px] items-center w-full justify-center">
             <span className="w-[26px] h-[24px]">
               <GradientCreateArt />
             </span>
@@ -115,11 +114,11 @@ const CollectionItemOne = () => {
       <div className="w-1/2">
         <img
           src="/assets/img/hdragon.svg"
-          alt="image"
+          alt="MyItem"
           className="bg-cover"
         ></img>
       </div>
     </div>
   );
 };
-export default CollectionItemOne;
+export default MyCollectionItem;
