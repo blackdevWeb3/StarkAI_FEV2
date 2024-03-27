@@ -11,7 +11,7 @@ import useWindowSize from "../../hooks/useWindowSize";
 import SortSelectionButtonGroup, {
   sortOptions,
 } from "../Others/SortSelectionButtonGroup";
-import SortButton, { StyleOptions } from "../Others/SortButton";
+import SortButton from "../Others/SortButton";
 import { getFilterKey } from "../../utils/getFilterKey";
 import useDynamicSliderStretch from "../../hooks/useDynamicSliderStretch ";
 import { hashtag_buttons } from "../../utils/constants";
@@ -21,124 +21,119 @@ import RecentImgItem from "./RecentImgItem";
 import TopCollectibles from "./TopCollectibles";
 
 const CommunityFeed = () => {
-  const [showSplashScreen, setShowSplashScreen] = useState(true);
-  const modalCtx = useContext(ModalContext);
-  const [searchKey, setSearchKey] = useState("");
-  const [imageData, setImageData] = useState<Image[]>([]);
-  const [searchedData, setSearchedData] = useState<Image[]>([]);
-  const [searched, setSearched] = useState(false);
-  const [curVal, setCurVal] = useState(5);
-  const [sliderValue, setSliderValue] = useState(5);
-  const windowSize = useWindowSize();
-  const [selectedStyle, setSelectedStyle] = useState<StyleOptions>("All");
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [selectedOption, setSelectedOption] = useState(sortOptions[1]);
-  const [isOpen, setIsOpen] = useState(false);
-  const maxStretch = useDynamicSliderStretch(windowSize);
-  const [hashTagSelected, setHashTagSelected] = useState("All");
-  const [isFetching, setIsFetching] = useState(false);
+  // const [showSplashScreen, setShowSplashScreen] = useState(true);
+  // const modalCtx = useContext(ModalContext);
+  // const [searchKey, setSearchKey] = useState("");
+  // const [imageData, setImageData] = useState<Image[]>([]);
+  // const [searchedData, setSearchedData] = useState<Image[]>([]);
+  // const [searched, setSearched] = useState(false);
+  // const [curVal, setCurVal] = useState(5);
+  // const [sliderValue, setSliderValue] = useState(5);
+  // const windowSize = useWindowSize();
+  // const [selectedStyle, setSelectedStyle] = useState<StyleOptions>("All");
+  // const scrollContainerRef = useRef<HTMLDivElement>(null);
+  // const [selectedOption, setSelectedOption] = useState(sortOptions[1]);
+  // const [isOpen, setIsOpen] = useState(false);
+  // const maxStretch = useDynamicSliderStretch(windowSize);
+  // const [hashTagSelected, setHashTagSelected] = useState("All");
+  // const [isFetching, setIsFetching] = useState(false);
 
-  const handleOptionClick = (option) => {
-    setSelectedOption(option);
-    setIsOpen(false);
-  };
+  // const handleOptionClick = (option) => {
+  //   setSelectedOption(option);
+  //   setIsOpen(false);
+  // };
 
-  const scroll = (direction: "left" | "right") => {
-    if (scrollContainerRef.current) {
-      const container = scrollContainerRef.current;
-      const scrollAmount = direction === "left" ? -200 : 200; // adjust the value as needed
-      container.scrollBy({ left: scrollAmount, behavior: "smooth" });
-    }
-  };
+  // const scroll = (direction: "left" | "right") => {
+  //   if (scrollContainerRef.current) {
+  //     const container = scrollContainerRef.current;
+  //     const scrollAmount = direction === "left" ? -200 : 200; // adjust the value as needed
+  //     container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+  //   }
+  // };
 
-  const fetchImage = async () => {
-    try {
-      setIsFetching(true);
-      const response = await axios.post(
-        `${process.env.REACT_APP_BACKEND_API}/getAllImages`
-      );
-      setImageData(response.data.reverse());
-      setShowSplashScreen(false);
-    } catch (error) {
-      console.error("Error fetching images:", error);
-    } finally {
-      setIsFetching(false);
-    }
-  };
+  // const fetchImage = async () => {
+  //   try {
+  //     setIsFetching(true);
+  //     const response = await axios.post(
+  //       `${process.env.REACT_APP_BACKEND_API}/getAllImages`
+  //     );
+  //     setImageData(response.data.reverse());
+  //     setShowSplashScreen(false);
+  //   } catch (error) {
+  //     console.error("Error fetching images:", error);
+  //   } finally {
+  //     setIsFetching(false);
+  //   }
+  // };
 
-  const onNextImage = () => {
-    const ind = modalCtx.index;
-    modalCtx.setData(imageData[ind + 1]);
-    modalCtx.setIndex(ind + 1);
-  };
+  // const onNextImage = () => {
+  //   const ind = modalCtx.index;
+  //   modalCtx.setData(imageData[ind + 1]);
+  //   modalCtx.setIndex(ind + 1);
+  // };
 
-  const onPrevImage = () => {
-    const ind = modalCtx.index;
-    modalCtx.setData(imageData[ind - 1]);
-    modalCtx.setIndex(ind - 1);
-  };
+  // const onPrevImage = () => {
+  //   const ind = modalCtx.index;
+  //   modalCtx.setData(imageData[ind - 1]);
+  //   modalCtx.setIndex(ind - 1);
+  // };
 
-  const handleMultipleSearch = (): void => {
-    const filterKey = getFilterKey(selectedStyle).toLowerCase();
-    const searchKeyLower = searchKey.toLowerCase();
+  // const handleMultipleSearch = (): void => {
+  //   const filterKey = getFilterKey(selectedStyle).toLowerCase();
+  //   const searchKeyLower = searchKey.toLowerCase();
 
-    const filteredData = imageData.filter((item: Image) => {
-      return (
-        item.image.includes(filterKey) &&
-        item.data.prompt.toLowerCase().includes(searchKeyLower)
-      );
-    });
+  //   const filteredData = imageData.filter((item: Image) => {
+  //     return (
+  //       item.image.includes(filterKey) &&
+  //       item.data.prompt.toLowerCase().includes(searchKeyLower)
+  //     );
+  //   });
 
-    setSearchedData(filteredData);
-    setSearched(true);
-  };
+  //   setSearchedData(filteredData);
+  //   setSearched(true);
+  // };
 
-  const ImageTypeFilter = (param: StyleOptions) => {
-    setSelectedStyle(param);
-  };
+  // const ImageTypeFilter = (param: StyleOptions) => {
+  //   setSelectedStyle(param);
+  // };
 
-  const handleStretch = (event: Event, newValue: number | number[]) => {
-    setSliderValue(newValue as number);
-    setCurVal(newValue as number);
-  };
+  // const handleStretch = (event: Event, newValue: number | number[]) => {
+  //   setSliderValue(newValue as number);
+  //   setCurVal(newValue as number);
+  // };
 
-  useEffect(() => {
-    setCurVal(sliderValue < maxStretch ? sliderValue : maxStretch);
-  }, [maxStretch]);
+  // useEffect(() => {
+  //   setCurVal(sliderValue < maxStretch ? sliderValue : maxStretch);
+  // }, [maxStretch]);
 
-  useEffect(() => {
-    handleMultipleSearch();
-  }, [selectedStyle, imageData]);
+  // useEffect(() => {
+  //   handleMultipleSearch();
+  // }, [selectedStyle, imageData]);
 
-  useEffect(() => {
-    if (imageData.length === 0 && !isFetching) {
-      fetchImage();
-    }
-  }, [imageData, isFetching]);
+  // useEffect(() => {
+  //   if (imageData.length === 0 && !isFetching) {
+  //     fetchImage();
+  //   }
+  // }, [imageData, isFetching]);
 
   return (
     <>
-      {showSplashScreen ? (
-        <>
-          <SplashScreen />
-        </>
-      ) : (
-        <>
-          <div className="w-full bg-[#1C1B1B] pt-[29px] flex flex-col font-kanit sm:pt-4 pb-[37px]">
-            <CarouselContent />
-            <div className="flex flex-row justify-between gap-[26px] mt-[27px]">
-              <div className="w-full">
-                <TopCollectibles />
-              </div>
-              <div className="flex flex-col gap-[22px]">
-                <span className="text-white text-[23px] font-medium leading-normal">
-                  Recent Created
-                </span>
-                <RecentImgItem />
-                <RecentImgItem />
-              </div>
+      <>
+        <div className="w-full bg-[#1C1B1B] pt-[29px] flex flex-col font-kanit sm:pt-4 pb-[37px]">
+          <CarouselContent />
+          <div className="flex flex-row justify-between gap-[26px] mt-[27px]">
+            <div className="w-full">
+              <TopCollectibles />
             </div>
-            {/* <div className="top-0 sticky z-10 border-b-[1px] border-primary w-full">
+            <div className="flex flex-col gap-[22px]">
+              <span className="text-white text-[23px] font-medium leading-normal">
+                Recent Created
+              </span>
+              <RecentImgItem />
+              <RecentImgItem />
+            </div>
+          </div>
+          {/* <div className="top-0 sticky z-10 border-b-[1px] border-primary w-full">
               <div className="px-8 py-8 flex flex-col gap-5 bg-[#1C1B1B] sm:px-4 sm:py-4">
                 <div className="flex flex-row justify-between flex-wrap gap-4">
                   <div className="search-panel w-[376px]">
@@ -249,8 +244,8 @@ const CommunityFeed = () => {
               </div>
             </div> */}
 
-            {/* Images shared with community */}
-            {/* <div className="h-[calc(100vh-276px)] overflow-auto">
+          {/* Images shared with community */}
+          {/* <div className="h-[calc(100vh-276px)] overflow-auto">
               <div className="overflow-y-scroll">
                 <div className="border-primary p-3">
                   <ImageList variant="masonry" cols={curVal} gap={8}>
@@ -270,14 +265,13 @@ const CommunityFeed = () => {
                 </div>
               </div>
             </div> */}
-          </div>
-          <ModalImgCard
+        </div>
+        {/* <ModalImgCard
             onUpdate={fetchImage}
             onNextImage={onNextImage}
             onPrevImage={onPrevImage}
-          />
-        </>
-      )}
+          /> */}
+      </>
     </>
   );
 };
