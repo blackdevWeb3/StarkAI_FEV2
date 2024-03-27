@@ -1,8 +1,26 @@
+import { useState } from "react";
 import { Icon } from "@iconify/react";
 import { FilterIcon, ScrollDown } from "../../assets";
-import LikedFeed from "./LikedFeed";
+import SortButton from "../Others/SortButton";
+
+type ButtonProps = {
+  label: string;
+};
+
+const buttons: ButtonProps[] = [
+  { label: "All" },
+  { label: "Videos" },
+  { label: "Your Generation" },
+  { label: "Followers Feed" },
+  { label: "Liked Feed" },
+];
 
 const MyCollectionBoard = () => {
+  const [selected, setSelected] = useState<string>("All");
+
+  const handleButtonClick = (label: string) => {
+    setSelected(label);
+  };
   return (
     <>
       <div className="flex flex-col gap-[21px] font-kanit">
@@ -11,21 +29,14 @@ const MyCollectionBoard = () => {
         </span>
         <div className="flex flex-row justify-between">
           <div className="flex flex-row gap-[13px] lg:gap-[4px]">
-            <button className="px-[30px] rounded-[42px] h-[42px] min-w-[98px] border border-[#505050] text-[#CBC3C3] leading-normal font-light text-[12px]">
-              All
-            </button>
-            <button className="px-[30px] rounded-[42px] h-[42px] min-w-[98px] border border-[#505050] text-[#CBC3C3] leading-normal font-light text-[12px]">
-              Videos
-            </button>
-            <button className="px-[30px] rounded-[42px] h-[42px] min-w-[98px] border border-[#505050] text-[#CBC3C3] leading-normal font-light text-[12px]">
-              Your Generation
-            </button>
-            <button className="px-[30px] rounded-[42px] h-[42px] min-w-[98px] border border-[#505050] text-[#CBC3C3] leading-normal font-light text-[12px]">
-              Follower Feed
-            </button>
-            <button className="px-[30px] rounded-[42px] h-[42px] min-w-[98px] border border-[#505050] text-[#CBC3C3] leading-normal font-light text-[12px]">
-              LikedFeed
-            </button>
+            {buttons.map((each, index) => (
+              <SortButton
+                key={index}
+                label={each.label}
+                isSelected={selected === each.label}
+                onClick={() => handleButtonClick(each.label)}
+              />
+            ))}
           </div>
           <div className="relative inline-flex flex-row items-center">
             <input
