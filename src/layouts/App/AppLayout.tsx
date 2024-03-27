@@ -3,7 +3,6 @@ import AppSlider from "./AppSlider";
 import CommunityFeed from "../../components/CommunityFeed";
 import PersonalFeed from "../../components/PersonalFeed";
 import AppHome from "../../components/AppHome";
-import ImageGeneration from "../../components/ImageGeneration";
 import Explore from "../../components/Explore";
 import Marketplace from "../../components/Marketplace";
 import TextGeneration from "../../components/TextGeneration";
@@ -12,6 +11,7 @@ import AppHeader from "./AppHeader";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import AppNavbar from "./AppNavbar";
+import ImageGeneration from "../../components/ImageGeneration";
 
 const AppLayout = () => {
   const [sliderOpen, setSliderOpen] = useState<boolean>(false);

@@ -1,5 +1,8 @@
 import { Icon } from "@iconify/react";
-const CollectionItemTwo = () => {
+import { useState } from "react";
+const CreateArtItem = () => {
+  const [artType, setArtType] = useState<boolean>(false);
+
   return (
     <div className="rounded-[15px] border-[1px] border-[#333535] flex flex-row bg-[#1C1B1B] font-kanit max-w-[1057px]">
       <div className="w-1/2 pt-[18px] pl-[20px] pb-[20px] border-r-[1px] pr-[26px] border-[#333535]">
@@ -30,35 +33,35 @@ const CollectionItemTwo = () => {
             <div className="border-[1px] border-[#7064E9] rounded-[3px]">
               <img
                 src="/assets/img/robot1.svg"
-                alt="image"
+                alt="ModelImage1"
                 className="w-[82px] h-[79px] "
               ></img>
             </div>
             <div className="border-[1px] rounded-[3px]">
               <img
                 src="/assets/img/robot2.svg"
-                alt="image"
+                alt="ModelImage2"
                 className="w-[82px] h-[79px] "
               ></img>
             </div>
             <div className="border-[1px] rounded-[3px]">
               <img
                 src="/assets/img/robot3.svg"
-                alt="image"
+                alt="ModelImage3"
                 className="w-[82px] h-[79px] "
               ></img>
             </div>
             <div className="border-[1px] rounded-[3px]">
               <img
                 src="/assets/img/robot4.svg"
-                alt="image"
+                alt="ModelImage4"
                 className="w-[82px] h-[79px] "
               ></img>
             </div>
             <div className="border-[1px] rounded-[3px]">
               <img
                 src="/assets/img/robot5.svg"
-                alt="image"
+                alt="ModelImage5"
                 className="w-[82px] h-[79px] "
               ></img>
             </div>
@@ -110,11 +113,11 @@ const CollectionItemTwo = () => {
             />
           </div>
         </div>
-        <button className="rounded-full py-[17px] px-[180px] flex items-center gap-[7px] gradient-bg mt-[11px]">
+        <button className="w-full rounded-full py-[17px] px-[180px] flex items-center justify-center gap-[9px] gradient-create-art-button mt-[11px]">
           <div>
             <img
               src="/assets/img/createIcon.svg"
-              alt="image"
+              alt="CreateImage"
               className="w-[19px] h-[18px]"
             />
           </div>
@@ -149,11 +152,11 @@ const CollectionItemTwo = () => {
         </div>
         <img
           src="/assets/img/brobot.svg"
-          alt="image"
-          className="w-[527px] h-[590px]"
+          alt="ImageArt"
+          className="w-full h-full"
         />
       </div>
     </div>
   );
 };
-export default CollectionItemTwo;
+export default CreateArtItem;
