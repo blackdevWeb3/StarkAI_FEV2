@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 
 import { useUser } from "../../config/context/UserContext";
 import { HandIcon } from "../../assets";
+import { useEffect } from "react";
 
 const AppNavbar = () => {
   const { user, setUser }: any = useUser();
