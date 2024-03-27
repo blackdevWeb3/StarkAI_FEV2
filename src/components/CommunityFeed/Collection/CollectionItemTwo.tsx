@@ -64,36 +64,40 @@ const CollectionItemTwo = () => {
             </div>
           </div>
         </div>
-        <div className="rounded-[8px] border-[1px] border-[#333535] relative pt-[17px] pl-[20px] pb-[13px] mt-[12px]">
+        <div className="relative mt-[17px] inline-flex justify-center items-center w-full">
+          <textarea
+            placeholder="A huge blue dragon that splashes the water as it rises from the lake, has Bitcoin engraved on its chest, and emits red lasers from its eyes. A scene shot instantly with a 4K, high-performance Nikon camera."
+            className="w-full bg-[#1c1b1b] rounded-[8px] focus:outline-none focus:border-gray-500 border border-[#333535] resize-none text-[10px] min-height-[58px] px-[15px] py-[15px] text-[#B9A5A5] font-[275] leading-[14px]"
+          />
           <span className="text-[11px] font-[400] leading-[16px] absolute top-[-9px] left-[20px] bg-[#1C1B1B] px-[10px]">
             Your Prompt
           </span>
-          <span className="font-[275] text-[9px] leading-[14px] text-[#B9A5A5]">
-            A huge blue dragon that splashes the water as it rises from the
-            lake, has Bitcoin engraved on its chest, and emits red lasers from
-            its eyes. A scene shot instantly with a 4K, high-performance Nikon
-            camera.
-          </span>
         </div>
-        <div className="rounded-[8px] border-[1px] border-[#333535] relative pt-[17px] pl-[20px] pb-[13px] mt-[12px]">
+        <div className="relative mt-[17px] inline-flex justify-center items-center w-full">
+          <textarea
+            placeholder="#Blue Dragon , #Blue Dragon , #Blue Dragon , #Blue Dragon ."
+            className="w-full bg-[#1c1b1b] rounded-[8px] focus:outline-none focus:border-gray-500 border border-[#333535] resize-none text-[10px] min-height-[49px] px-[15px] pt-[10px] pb-[10px] text-[#B9A5A5] font-[275] leading-[14px]"
+          />
           <span className="text-[11px] font-[400] leading-[16px] absolute top-[-9px] left-[20px] bg-[#1C1B1B] px-[10px]">
             Add Negative Prompt
           </span>
-          <span className="font-[300] text-[9px] leading-[14px] text-[#A69D9D]">
-            #Blue Dragon , #Blue Dragon , #Blue Dragon , #Blue Dragon ,
-          </span>
         </div>
-        <div className="rounded-[8px] border-[1px] border-[#333535] relative px-[160px] pb-[18px] mt-[12px] pt-[18px] flex flex-col items-center">
+
+        <div className="rounded-[8px] border-[1px] border-[#333535] relative w-[full] pb-[18px] mt-[12px] pt-[18px] flex justify-center flex-col items-center">
           <span className="text-[11px] font-[400] leading-[16px] absolute top-[-9px] left-[20px] bg-[#1C1B1B] px-[10px]">
             Add Images
           </span>
-          <button className="mb-[6px]">
-            <Icon
-              icon="tdesign:file-add"
-              className="text-[#FF37DF] w-[37px] h-[37px]"
-            />
-          </button>
-          <span className="font-[300] text-[9px] leading-[14px] text-[#A69D9D]">
+
+          <div className="relative">
+            <label
+              htmlFor="file-input"
+              className="cursor-pointer flex items-center justify-center mb-[6px]"
+            >
+              <Icon icon="vaadin:file-add" className="text-[#FF37DF]" />
+            </label>
+            <input id="file-input" type="file" className="hidden" />
+          </div>
+          <span className="font-[300] text-[10px] leading-[14px] text-[#A69D9D]">
             Select reference image from gallery
           </span>
         </div>
@@ -110,7 +114,7 @@ const CollectionItemTwo = () => {
             />
           </div>
         </div>
-        <button className="rounded-full py-[17px] px-[180px] flex items-center gap-[7px] gradient-bg mt-[11px]">
+        <button className="rounded-full py-[17px] justify-center flex items-center gap-[7px] gradient-bg mt-[11px] w-full">
           <div>
             <img
               src="/assets/img/createIcon.svg"
@@ -118,7 +122,7 @@ const CollectionItemTwo = () => {
               className="w-[19px] h-[18px]"
             />
           </div>
-          <span className="text-[16px] text-white text-right font-[500]">
+          <span className="text-[16px] text-white text-right font-[500] ">
             Create Art
           </span>
         </button>
@@ -150,7 +154,7 @@ const CollectionItemTwo = () => {
         <img
           src="/assets/img/brobot.svg"
           alt="image"
-          className="w-[527px] h-[590px]"
+          className="w- full h-full"
         />
       </div>
     </div>

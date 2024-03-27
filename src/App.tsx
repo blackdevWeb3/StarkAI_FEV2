@@ -18,6 +18,7 @@ import RecentCreated from "./components/CommunityFeed/RecentCreated";
 import CarouselContent from "./components/CommunityFeed/CarouselContent";
 import CollectionItemOne from "./components/CommunityFeed/Collection/CollectionItemOne";
 import CollectionItemTwo from "./components/CommunityFeed/Collection/CollectionItemTwo";
+import SettingForm from "./components/Settings/SettingForm";
 
 interface LayoutWithNavbarAndFooterProps {
   children: React.ReactNode;
@@ -52,7 +53,7 @@ function App() {
             path="/test"
             element={
               <>
-                <CollectionItemTwo />
+                <SettingForm />
               </>
             }
           />
