@@ -19,64 +19,66 @@ import SplashScreen from "../Others/SplashScreen";
 import CarouselContent from "./CarouselContent";
 import RecentImgItem from "./RecentImgItem";
 import TopCollectibles from "./TopCollectibles";
+import { ScrollDown } from "../../assets";
+import { StyledOptions } from "@emotion/styled";
 
 const CommunityFeed = () => {
-  // const [showSplashScreen, setShowSplashScreen] = useState(true);
-  // const modalCtx = useContext(ModalContext);
-  // const [searchKey, setSearchKey] = useState("");
-  // const [imageData, setImageData] = useState<Image[]>([]);
-  // const [searchedData, setSearchedData] = useState<Image[]>([]);
-  // const [searched, setSearched] = useState(false);
-  // const [curVal, setCurVal] = useState(5);
-  // const [sliderValue, setSliderValue] = useState(5);
-  // const windowSize = useWindowSize();
-  // const [selectedStyle, setSelectedStyle] = useState<StyleOptions>("All");
-  // const scrollContainerRef = useRef<HTMLDivElement>(null);
-  // const [selectedOption, setSelectedOption] = useState(sortOptions[1]);
-  // const [isOpen, setIsOpen] = useState(false);
-  // const maxStretch = useDynamicSliderStretch(windowSize);
-  // const [hashTagSelected, setHashTagSelected] = useState("All");
-  // const [isFetching, setIsFetching] = useState(false);
+  const [showSplashScreen, setShowSplashScreen] = useState(true);
+  const modalCtx = useContext(ModalContext);
+  const [searchKey, setSearchKey] = useState("");
+  const [imageData, setImageData] = useState<Image[]>([]);
+  const [searchedData, setSearchedData] = useState<Image[]>([]);
+  const [searched, setSearched] = useState(false);
+  const [curVal, setCurVal] = useState(5);
+  const [sliderValue, setSliderValue] = useState(5);
+  const windowSize = useWindowSize();
+  // const [selectedStyle, setSelectedStyle] = useState<StyledOptions>('All');
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [selectedOption, setSelectedOption] = useState(sortOptions[1]);
+  const [isOpen, setIsOpen] = useState(false);
+  const maxStretch = useDynamicSliderStretch(windowSize);
+  const [hashTagSelected, setHashTagSelected] = useState("All");
+  const [isFetching, setIsFetching] = useState(false);
 
-  // const handleOptionClick = (option) => {
-  //   setSelectedOption(option);
-  //   setIsOpen(false);
-  // };
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+    setIsOpen(false);
+  };
 
-  // const scroll = (direction: "left" | "right") => {
-  //   if (scrollContainerRef.current) {
-  //     const container = scrollContainerRef.current;
-  //     const scrollAmount = direction === "left" ? -200 : 200; // adjust the value as needed
-  //     container.scrollBy({ left: scrollAmount, behavior: "smooth" });
-  //   }
-  // };
+  const scroll = (direction: "left" | "right") => {
+    if (scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
+      const scrollAmount = direction === "left" ? -200 : 200; // adjust the value as needed
+      container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+  };
 
-  // const fetchImage = async () => {
-  //   try {
-  //     setIsFetching(true);
-  //     const response = await axios.post(
-  //       `${process.env.REACT_APP_BACKEND_API}/getAllImages`
-  //     );
-  //     setImageData(response.data.reverse());
-  //     setShowSplashScreen(false);
-  //   } catch (error) {
-  //     console.error("Error fetching images:", error);
-  //   } finally {
-  //     setIsFetching(false);
-  //   }
-  // };
+  const fetchImage = async () => {
+    try {
+      setIsFetching(true);
+      const response = await axios.post(
+        `${process.env.REACT_APP_BACKEND_API}/getAllImages`
+      );
+      setImageData(response.data.reverse());
+      setShowSplashScreen(false);
+    } catch (error) {
+      console.error("Error fetching images:", error);
+    } finally {
+      setIsFetching(false);
+    }
+  };
 
-  // const onNextImage = () => {
-  //   const ind = modalCtx.index;
-  //   modalCtx.setData(imageData[ind + 1]);
-  //   modalCtx.setIndex(ind + 1);
-  // };
+  const onNextImage = () => {
+    const ind = modalCtx.index;
+    modalCtx.setData(imageData[ind + 1]);
+    modalCtx.setIndex(ind + 1);
+  };
 
-  // const onPrevImage = () => {
-  //   const ind = modalCtx.index;
-  //   modalCtx.setData(imageData[ind - 1]);
-  //   modalCtx.setIndex(ind - 1);
-  // };
+  const onPrevImage = () => {
+    const ind = modalCtx.index;
+    modalCtx.setData(imageData[ind - 1]);
+    modalCtx.setIndex(ind - 1);
+  };
 
   // const handleMultipleSearch = (): void => {
   //   const filterKey = getFilterKey(selectedStyle).toLowerCase();
@@ -97,24 +99,24 @@ const CommunityFeed = () => {
   //   setSelectedStyle(param);
   // };
 
-  // const handleStretch = (event: Event, newValue: number | number[]) => {
-  //   setSliderValue(newValue as number);
-  //   setCurVal(newValue as number);
-  // };
+  const handleStretch = (event: Event, newValue: number | number[]) => {
+    setSliderValue(newValue as number);
+    setCurVal(newValue as number);
+  };
 
-  // useEffect(() => {
-  //   setCurVal(sliderValue < maxStretch ? sliderValue : maxStretch);
-  // }, [maxStretch]);
+  useEffect(() => {
+    setCurVal(sliderValue < maxStretch ? sliderValue : maxStretch);
+  }, [maxStretch]);
 
   // useEffect(() => {
   //   handleMultipleSearch();
   // }, [selectedStyle, imageData]);
 
-  // useEffect(() => {
-  //   if (imageData.length === 0 && !isFetching) {
-  //     fetchImage();
-  //   }
-  // }, [imageData, isFetching]);
+  useEffect(() => {
+    if (imageData.length === 0 && !isFetching) {
+      fetchImage();
+    }
+  }, [imageData, isFetching]);
 
   return (
     <>
@@ -124,6 +126,39 @@ const CommunityFeed = () => {
           <div className="flex flex-row justify-between gap-[26px] mt-[27px]">
             <div className="w-full">
               <TopCollectibles />
+
+              <div className="w-full rounded-[6px] bg-[#333535] px-[13px] py-[14px] flex flex-col gap-[14px]">
+                <div className="">
+                  <div className="h-[calc(100vh-276px)] overflow-auto">
+                    <div className="overflow-y-scroll">
+                      <div className="border-primary p-3">
+                        <ImageList variant="masonry" cols={curVal} gap={8}>
+                          {(searched ? searchedData : imageData).map(
+                            (item, index) => (
+                              <ImageListItem key={index}>
+                                <Card
+                                  data={item}
+                                  index={index}
+                                  count={imageData.length}
+                                  key={index}
+                                />
+                              </ImageListItem>
+                            )
+                          )}
+                        </ImageList>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center">
+                  <button className="h-[57px] w-[194px] gap-2 border border-[#DD00AC] rounded-[40px] flex flex-row items-center justify-center">
+                    <ScrollDown />
+                    <span className="leading-normal font-medium text-[14px] gradient-text">
+                      Scroll More
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
             <div className="flex flex-col gap-[22px]">
               <span className="text-white text-[23px] font-medium leading-normal">
@@ -245,32 +280,12 @@ const CommunityFeed = () => {
             </div> */}
 
           {/* Images shared with community */}
-          {/* <div className="h-[calc(100vh-276px)] overflow-auto">
-              <div className="overflow-y-scroll">
-                <div className="border-primary p-3">
-                  <ImageList variant="masonry" cols={curVal} gap={8}>
-                    {(searched ? searchedData : imageData).map(
-                      (item, index) => (
-                        <ImageListItem key={index}>
-                          <Card
-                            data={item}
-                            index={index}
-                            count={imageData.length}
-                            key={index}
-                          />
-                        </ImageListItem>
-                      )
-                    )}
-                  </ImageList>
-                </div>
-              </div>
-            </div> */}
         </div>
-        {/* <ModalImgCard
-            onUpdate={fetchImage}
-            onNextImage={onNextImage}
-            onPrevImage={onPrevImage}
-          /> */}
+        <ModalImgCard
+          onUpdate={fetchImage}
+          onNextImage={onNextImage}
+          onPrevImage={onPrevImage}
+        />
       </>
     </>
   );

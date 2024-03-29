@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Icon } from "@iconify/react";
-import { FilterIcon, ScrollDown } from "../../assets";
+import { FilterIcon } from "../../assets";
 import SortButton from "../Others/SortButton";
 
 type ButtonProps = {
@@ -52,17 +52,6 @@ const TopCollectibles = () => {
           <span className="absolute right-4">
             <Icon icon="iconamoon:search-thin" color="#B3B3B3" />
           </span>
-        </div>
-      </div>
-      <div className="w-full rounded-[6px] bg-[#333535] px-[13px] py-[14px] flex flex-col gap-[14px]">
-        <div className=""></div>
-        <div className="flex items-center justify-center">
-          <button className="h-[57px] w-[194px] gap-2 border border-[#DD00AC] rounded-[40px] flex flex-row items-center justify-center">
-            <ScrollDown />
-            <span className="leading-normal font-medium text-[14px] gradient-text">
-              Scroll More
-            </span>
-          </button>
         </div>
       </div>
     </div>
