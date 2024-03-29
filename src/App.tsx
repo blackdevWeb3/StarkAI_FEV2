@@ -16,6 +16,9 @@ import Navbar from "./layouts/Navbar";
 import TestLayoutDashboard from "./layouts/TestLayoutDashboard";
 import RecentImgItem from "./components/CommunityFeed/RecentImgItem";
 import CarouselContent from "./components/CommunityFeed/CarouselContent";
+import SettingForm from "./components/Settings/SettingForm";
+import PackageCard from "./components/Settings/PackageCard";
+import SettingPackage from "./components/Settings/SettingPackage";
 import CreateArtItem from "./components/ImageGeneration/CreateArtItem";
 
 interface LayoutWithNavbarAndFooterProps {
@@ -51,6 +54,7 @@ function App() {
             path="/test"
             element={
               <>
+                <SettingPackage />
                 <CreateArtItem />
               </>
             }
