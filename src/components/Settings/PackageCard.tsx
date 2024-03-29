@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-const PackageCard = ({ value, title, stitle, flag, pressedBtn, onClick }) => {
+import React from "react";
+const PackageCard = ({ value, title, subTitle, flag, pressedBtn, onClick }) => {
   const checkedItems = [1, 2, 3, 4, 5, 6];
   const checkContents = [
     "Unlimited AI-generated art creation",
@@ -11,7 +11,7 @@ const PackageCard = ({ value, title, stitle, flag, pressedBtn, onClick }) => {
   ];
 
   return (
-    <div className="rounded-[10px] w-full bg-[#333535] px-[24px] py-[24px] font-kanit max-w-[496px]">
+    <div className="rounded-[10px] bg-[#333535] px-6 py-6 font-kanit w-full">
       <span className="font-[500] text-[20px] leading-[30px] text-white">
         {title}
       </span>
@@ -21,7 +21,7 @@ const PackageCard = ({ value, title, stitle, flag, pressedBtn, onClick }) => {
         </span>
         <div className="flex items-end pb-[10px]">
           <span className="font-[300] text-[20px] leading-[30px] text-white ">
-            {stitle}
+            {subTitle}
           </span>
         </div>
       </div>
@@ -35,13 +35,13 @@ const PackageCard = ({ value, title, stitle, flag, pressedBtn, onClick }) => {
             {key > 3 && flag !== true ? (
               <img
                 src="/assets/img/uncheck.svg"
-                alt="image"
+                alt="UncheckImage"
                 className="w-[20px] h-[20px]"
               />
             ) : (
               <img
                 src="/assets/img/check.svg"
-                alt="image"
+                alt="CheckImage"
                 className="w-[20px] h-[20px]"
               />
             )}

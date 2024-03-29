@@ -28,11 +28,12 @@ const SettingForm = () => {
               },
               width: "100%",
               border: "1px solid #333535",
-              borderRadius: "4px",
+              borderRadius: "8px",
+              color: "#B9A5A5",
             }}
             label="Your Name"
             InputLabelProps={{
-              style: { color: "white" },
+              style: { color: "#B9A5A5" },
             }}
             InputProps={{
               style: {
@@ -57,11 +58,11 @@ const SettingForm = () => {
               },
               width: "100%",
               border: "1px solid #333535",
-              borderRadius: "4px",
+              borderRadius: "8px",
             }}
             label="User ID"
             InputLabelProps={{
-              style: { color: "white" },
+              style: { color: "#B9A5A5" },
             }}
             InputProps={{
               style: {
@@ -78,11 +79,11 @@ const SettingForm = () => {
               },
               width: "100%",
               border: "1px solid #333535",
-              borderRadius: "4px",
+              borderRadius: "8px",
             }}
             label="Phone No"
             InputLabelProps={{
-              style: { color: "white" },
+              style: { color: "#B9A5A5" },
             }}
             InputProps={{
               style: {
@@ -107,11 +108,11 @@ const SettingForm = () => {
               },
               width: "100%",
               border: "1px solid #333535",
-              borderRadius: "4px",
+              borderRadius: "8px",
             }}
             label="Email Address"
             InputLabelProps={{
-              style: { color: "white" },
+              style: { color: "#B9A5A5" },
             }}
             InputProps={{
               style: {
@@ -130,7 +131,7 @@ const SettingForm = () => {
             onBlur={handleFormBlur}
           />
         </div>
-        <button className="w-full rounded-full py-[17px] font-[500] text-[16px] leading-[24px] gradient-bg text-white mt-[17px]">
+        <button className="w-full rounded-full py-[17px] font-[500] text-[16px] leading-[24px] gradient-bg text-#B9A5A5 mt-[17px]">
           Save Info
         </button>
       </div>
@@ -146,11 +147,11 @@ const SettingForm = () => {
               },
               width: "100%",
               border: "1px solid #333535",
-              borderRadius: "4px",
+              borderRadius: "8px",
             }}
             label="Current Password"
             InputLabelProps={{
-              style: { color: "white" },
+              style: { color: "#B9A5A5" },
             }}
             InputProps={{
               style: {
@@ -175,11 +176,11 @@ const SettingForm = () => {
               },
               width: "100%",
               border: "1px solid #333535",
-              borderRadius: "4px",
+              borderRadius: "8px",
             }}
             label="New Password"
             InputLabelProps={{
-              style: { color: "white" },
+              style: { color: "#B9A5A5" },
             }}
             InputProps={{
               style: {
@@ -204,11 +205,11 @@ const SettingForm = () => {
               },
               width: "100%",
               border: "1px solid #333535",
-              borderRadius: "4px",
+              borderRadius: "8px",
             }}
             label="Again Password"
             InputLabelProps={{
-              style: { color: "white" },
+              style: { color: "#B9A5A5" },
             }}
             InputProps={{
               style: {
@@ -227,10 +228,10 @@ const SettingForm = () => {
             onBlur={handleFormBlur}
           />
         </div>
-        <button className="w-full rounded-full py-[17px] font-[500] text-[16px] leading-[24px] gradient-bg text-white mt-[17px]">
+        <button className="w-full rounded-full py-[17px] font-[500] text-[16px] leading-[24px] gradient-bg text-#B9A5A5 mt-[17px]">
           Save Info
         </button>
-        <button className="w-full rounded-full py-[17px] font-[500] text-[16px] leading-[24px] bg-[#FF2D2D] text-white mt-[17px]">
+        <button className="w-full rounded-full py-[17px] font-[500] text-[16px] leading-[24px] bg-[#FF2D2D] text-#B9A5A5 mt-[17px]">
           Delete Account
         </button>
       </div>

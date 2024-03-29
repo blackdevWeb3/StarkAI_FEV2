@@ -24,8 +24,6 @@ const AppSlider = ({
     return <Navigate to="/" />;
   }
 
-  const userObject = JSON.parse(user === "None" ? "{}" : user);
-
   const handleSetActiveLink = (path: string) => {
     setSliderOpen(false);
   };
@@ -35,7 +33,7 @@ const AppSlider = ({
   return (
     <>
       <div
-        className={`flex flex-col z-50 bg-[#333535] font-kanit rounded-[25px] mt-[23px] mx-[31px] mb-[37px] w-[267px] min-w-[267px] px-[10px] pt-[17px] pb-[10px] transition-all duration-300 ease-in-out ${
+        className={`flex flex-col z-50 bg-[#333535] font-kanit rounded-[25px] mt-[23px] mx-[31px] w-[267px] min-w-[267px] px-[10px] pt-[17px] pb-[10px] transition-all duration-300 ease-in-out ${
           sliderOpen
             ? "sm:w-full sm:max-w-full fixed min-h-screen h-full"
             : "sm:hidden"
