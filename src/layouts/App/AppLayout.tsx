@@ -3,7 +3,6 @@ import AppSlider from "./AppSlider";
 import CommunityFeed from "../../components/CommunityFeed";
 import PersonalFeed from "../../components/PersonalFeed";
 import AppHome from "../../components/AppHome";
-import ImageGeneration from "../../components/ImageGeneration";
 import Explore from "../../components/Explore";
 import Marketplace from "../../components/Marketplace";
 import TextGeneration from "../../components/TextGeneration";
@@ -11,6 +10,8 @@ import Settings from "../../components/Settings";
 import AppHeader from "./AppHeader";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import AppNavbar from "./AppNavbar";
+import ImageGeneration from "../../components/ImageGeneration";
 
 const AppLayout = () => {
   const [sliderOpen, setSliderOpen] = useState<boolean>(false);
@@ -29,8 +30,9 @@ const AppLayout = () => {
           sliderHandler={sliderHandler}
           pathname={location.pathname}
         />
-        <div className="flex flex-col min-h-screen h-full bg-[#1C1B1B] w-0 flex-1">
-          <AppHeader sliderOpen={sliderOpen} sliderHandler={sliderHandler} />
+        <div className="flex flex-col min-h-screen h-full bg-primaryBackground w-[calc(100vw-334px)] pr-[54px] pt-7">
+          {/* <AppHeader sliderOpen={sliderOpen} sliderHandler={sliderHandler} /> */}
+          <AppNavbar />
           <Routes>
             <Route path="/" element={<CommunityFeed />} />
             <Route path="personal-feed" element={<PersonalFeed />} />

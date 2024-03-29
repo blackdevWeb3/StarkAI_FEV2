@@ -14,13 +14,12 @@ import UserLogin from "./components/Auth/UserLogin";
 import UserRegister from "./components/Auth/UserRegiser";
 import Navbar from "./layouts/Navbar";
 import TestLayoutDashboard from "./layouts/TestLayoutDashboard";
-import RecentCreated from "./components/CommunityFeed/RecentCreated";
+import RecentImgItem from "./components/CommunityFeed/RecentImgItem";
 import CarouselContent from "./components/CommunityFeed/CarouselContent";
-import CollectionItemOne from "./components/CommunityFeed/Collection/CollectionItemOne";
-import CollectionItemTwo from "./components/CommunityFeed/Collection/CollectionItemTwo";
 import SettingForm from "./components/Settings/SettingForm";
 import PackageCard from "./components/Settings/PackageCard";
 import SettingPackage from "./components/Settings/SettingPackage";
+import CreateArtItem from "./components/ImageGeneration/CreateArtItem";
 
 interface LayoutWithNavbarAndFooterProps {
   children: React.ReactNode;
@@ -56,6 +55,7 @@ function App() {
             element={
               <>
                 <SettingPackage />
+                <CreateArtItem />
               </>
             }
           />

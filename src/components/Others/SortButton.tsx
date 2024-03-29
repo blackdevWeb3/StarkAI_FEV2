@@ -1,29 +1,26 @@
-export type StyleOptions = "All" | "Upscaled" | "Motion";
+import React from "react";
 
-type SortButtonProps = {
+// Define the Props type for the Button component
+interface ButtonProps {
   label: string;
-  isSelected: boolean;
+  isSelected?: boolean;
   onClick: () => void;
-};
+}
 
-const SortButton: React.FC<SortButtonProps> = ({
-  label,
-  isSelected,
-  onClick,
-}) => (
-  <button
-    className={`sort-button px-5 ${
-      isSelected ? "text-white" : ""
-    } hover:text-white`}
-    onClick={onClick}
-  >
-    <span className="z-[2] relative">{label}</span>
-    <div
-      className={`sort-button-cover ${
-        isSelected ? "selected opacity-100" : "opacity-0"
-      }`}
-    />
-  </button>
-);
+// Define the Button component
+const SortButton: React.FC<ButtonProps> = ({ label, isSelected, onClick }) => {
+  return (
+    <button
+      className={`px-[30px] rounded-[42px] h-[42px] min-w-[98px]
+                  border text-[12px] leading-normal font-light
+                  hover:bg-[#2d2f2b] ${
+                    isSelected ? "border-[#DD00AC]" : "border-[#505050]"
+                  }`}
+      onClick={onClick}
+    >
+      {label}
+    </button>
+  );
+};
 
 export default SortButton;

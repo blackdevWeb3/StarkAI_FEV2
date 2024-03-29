@@ -11,11 +11,16 @@ import useWindowSize from "../../hooks/useWindowSize";
 import SortSelectionButtonGroup, {
   sortOptions,
 } from "../Others/SortSelectionButtonGroup";
-import SortButton, { StyleOptions } from "../Others/SortButton";
+import SortButton from "../Others/SortButton";
 import { getFilterKey } from "../../utils/getFilterKey";
 import useDynamicSliderStretch from "../../hooks/useDynamicSliderStretch ";
 import { hashtag_buttons } from "../../utils/constants";
 import SplashScreen from "../Others/SplashScreen";
+import CarouselContent from "./CarouselContent";
+import RecentImgItem from "./RecentImgItem";
+import TopCollectibles from "./TopCollectibles";
+import { ScrollDown } from "../../assets";
+import { StyledOptions } from "@emotion/styled";
 
 const CommunityFeed = () => {
   const [showSplashScreen, setShowSplashScreen] = useState(true);
@@ -27,7 +32,7 @@ const CommunityFeed = () => {
   const [curVal, setCurVal] = useState(5);
   const [sliderValue, setSliderValue] = useState(5);
   const windowSize = useWindowSize();
-  const [selectedStyle, setSelectedStyle] = useState<StyleOptions>("All");
+  // const [selectedStyle, setSelectedStyle] = useState<StyledOptions>('All');
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [selectedOption, setSelectedOption] = useState(sortOptions[1]);
   const [isOpen, setIsOpen] = useState(false);
@@ -75,24 +80,24 @@ const CommunityFeed = () => {
     modalCtx.setIndex(ind - 1);
   };
 
-  const handleMultipleSearch = (): void => {
-    const filterKey = getFilterKey(selectedStyle).toLowerCase();
-    const searchKeyLower = searchKey.toLowerCase();
+  // const handleMultipleSearch = (): void => {
+  //   const filterKey = getFilterKey(selectedStyle).toLowerCase();
+  //   const searchKeyLower = searchKey.toLowerCase();
 
-    const filteredData = imageData.filter((item: Image) => {
-      return (
-        item.image.includes(filterKey) &&
-        item.data.prompt.toLowerCase().includes(searchKeyLower)
-      );
-    });
+  //   const filteredData = imageData.filter((item: Image) => {
+  //     return (
+  //       item.image.includes(filterKey) &&
+  //       item.data.prompt.toLowerCase().includes(searchKeyLower)
+  //     );
+  //   });
 
-    setSearchedData(filteredData);
-    setSearched(true);
-  };
+  //   setSearchedData(filteredData);
+  //   setSearched(true);
+  // };
 
-  const ImageTypeFilter = (param: StyleOptions) => {
-    setSelectedStyle(param);
-  };
+  // const ImageTypeFilter = (param: StyleOptions) => {
+  //   setSelectedStyle(param);
+  // };
 
   const handleStretch = (event: Event, newValue: number | number[]) => {
     setSliderValue(newValue as number);
@@ -103,9 +108,9 @@ const CommunityFeed = () => {
     setCurVal(sliderValue < maxStretch ? sliderValue : maxStretch);
   }, [maxStretch]);
 
-  useEffect(() => {
-    handleMultipleSearch();
-  }, [selectedStyle, imageData]);
+  // useEffect(() => {
+  //   handleMultipleSearch();
+  // }, [selectedStyle, imageData]);
 
   useEffect(() => {
     if (imageData.length === 0 && !isFetching) {
@@ -115,17 +120,55 @@ const CommunityFeed = () => {
 
   return (
     <>
-      {showSplashScreen ? (
-        <>
-          <SplashScreen />
-        </>
-      ) : (
-        <>
-          <div className="w-full bg-[#1C1B1B] pt-[29px] flex flex-col font-chakra sm:pt-4">
-            <div className="pl-8 sm:pl-4">
-              <span className="text-[26px]">Community Feed</span>
+      <>
+        <div className="w-full bg-[#1C1B1B] pt-[29px] flex flex-col font-kanit sm:pt-4 pb-[37px]">
+          <CarouselContent />
+          <div className="flex flex-row justify-between gap-[26px] mt-[27px]">
+            <div className="w-full">
+              <TopCollectibles />
+
+              <div className="w-full rounded-[6px] bg-[#333535] px-[13px] py-[14px] flex flex-col gap-[14px]">
+                <div className="">
+                  <div className="h-[calc(100vh-276px)] overflow-auto">
+                    <div className="overflow-y-scroll">
+                      <div className="border-primary p-3">
+                        <ImageList variant="masonry" cols={curVal} gap={8}>
+                          {(searched ? searchedData : imageData).map(
+                            (item, index) => (
+                              <ImageListItem key={index}>
+                                <Card
+                                  data={item}
+                                  index={index}
+                                  count={imageData.length}
+                                  key={index}
+                                />
+                              </ImageListItem>
+                            )
+                          )}
+                        </ImageList>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-center justify-center">
+                  <button className="h-[57px] w-[194px] gap-2 border border-[#DD00AC] rounded-[40px] flex flex-row items-center justify-center">
+                    <ScrollDown />
+                    <span className="leading-normal font-medium text-[14px] gradient-text">
+                      Scroll More
+                    </span>
+                  </button>
+                </div>
+              </div>
             </div>
-            <div className="top-0 sticky z-10 border-b-[1px] border-primary w-full">
+            <div className="flex flex-col gap-[22px]">
+              <span className="text-white text-[23px] font-medium leading-normal">
+                Recent Created
+              </span>
+              <RecentImgItem />
+              <RecentImgItem />
+            </div>
+          </div>
+          {/* <div className="top-0 sticky z-10 border-b-[1px] border-primary w-full">
               <div className="px-8 py-8 flex flex-col gap-5 bg-[#1C1B1B] sm:px-4 sm:py-4">
                 <div className="flex flex-row justify-between flex-wrap gap-4">
                   <div className="search-panel w-[376px]">
@@ -234,37 +277,16 @@ const CommunityFeed = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
-            {/* Images shared with community */}
-            <div className="h-[calc(100vh-276px)] overflow-auto">
-              <div className="overflow-y-scroll">
-                <div className="border-primary p-3">
-                  <ImageList variant="masonry" cols={curVal} gap={8}>
-                    {(searched ? searchedData : imageData).map(
-                      (item, index) => (
-                        <ImageListItem key={index}>
-                          <Card
-                            data={item}
-                            index={index}
-                            count={imageData.length}
-                            key={index}
-                          />
-                        </ImageListItem>
-                      )
-                    )}
-                  </ImageList>
-                </div>
-              </div>
-            </div>
-          </div>
-          <ModalImgCard
-            onUpdate={fetchImage}
-            onNextImage={onNextImage}
-            onPrevImage={onPrevImage}
-          />
-        </>
-      )}
+          {/* Images shared with community */}
+        </div>
+        <ModalImgCard
+          onUpdate={fetchImage}
+          onNextImage={onNextImage}
+          onPrevImage={onPrevImage}
+        />
+      </>
     </>
   );
 };

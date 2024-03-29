@@ -54,3 +54,8 @@ export { ReactComponent as CreateArt } from "./NavbarSVG/createArt.svg";
 export { ReactComponent as GradientCreateArt } from "./NavbarSVG/gradientCreateArt.svg";
 export { ReactComponent as Settings } from "./NavbarSVG/settings.svg";
 export { ReactComponent as Logout } from "./NavbarSVG/logout.svg";
+
+export { ReactComponent as HandIcon } from "./NavbarSVG/handIcon.svg";
+export { ReactComponent as FilterIcon } from "./NavbarSVG/filterIcon.svg";
+
+export { ReactComponent as ScrollDown } from "./NavbarSVG/scrollDown.svg";

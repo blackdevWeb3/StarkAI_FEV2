@@ -420,6 +420,7 @@ const ModalImgCard = ({ onPrevImage, onNextImage, onUpdate }: any) => {
       console.log(data);
     });
   }, [socket]);
+  console.log("-----");
   return (
     <Modal
       open={modalCtx.visible}
